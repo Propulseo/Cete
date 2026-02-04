@@ -1,0 +1,22 @@
+{
+  "company": "CETé - Conseil Expertise Technique Électricité",
+  "address": "SERCE - 9 rue de Berri",
+  "city": "75008 Paris",
+  "country": "France",
+  "phone": "+33 (0)1 XX XX XX XX",
+  "email": "contact@cete-notation.fr",
+  "website": "www.cete-notation.fr",
+  "businessHours": {
+    "monday": "09:00-18:00",
+    "tuesday": "09:00-18:00",
+    "wednesday": "09:00-18:00",
+    "thursday": "09:00-18:00",
+    "friday": "09:00-18:00",
+    "saturday": "Fermé",
+    "sunday": "Fermé"
+  },
+  "maps": {
+    "latitude": 48.8706,
+    "longitude": 2.3062
+  }
+}

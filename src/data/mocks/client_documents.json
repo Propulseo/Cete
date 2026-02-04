@@ -1,0 +1,65 @@
+{
+  "clientName": "Jean Dupont - Electricité Pro SA",
+  "clientId": "cli-12345",
+  "documents": [
+    {
+      "id": "doc-nl-001",
+      "title": "Newsletter CETé #15 - Janvier 2026",
+      "category": "newsletters",
+      "type": "PDF",
+      "description": "Actualités réglementaires et tendances sécurité",
+      "fileSize": "1.2 MB",
+      "uploadDate": "2026-02-01",
+      "url": "/documents/newsletter-15.pdf"
+    },
+    {
+      "id": "doc-cap-012",
+      "title": "Capsule #12 - Harnais de sécurité TST",
+      "category": "capsules",
+      "type": "video",
+      "description": "Utilisation et certification du matériel de protection",
+      "duration": "8:42",
+      "uploadDate": "2026-01-28",
+      "youtubeId": "dQw4w9WgXcQ"
+    },
+    {
+      "id": "doc-guide-001",
+      "title": "Guide Opératoire - Procédure Habilitation électrique",
+      "category": "guides",
+      "type": "PDF",
+      "description": "Étapes et vérifications pour l'habilitation du personnel",
+      "fileSize": "3.1 MB",
+      "uploadDate": "2026-01-20",
+      "url": "/documents/guide-habilitation.pdf"
+    },
+    {
+      "id": "doc-carnet-001",
+      "title": "Carnet d'Appui - Risques électriques courants",
+      "category": "carnets",
+      "type": "PDF",
+      "description": "Aide-mémoire terrain pour opérateurs et techniciens",
+      "fileSize": "2.8 MB",
+      "uploadDate": "2026-01-15",
+      "url": "/documents/carnet-appui.pdf"
+    },
+    {
+      "id": "doc-guide-002",
+      "title": "Guide TST 2026 - Travaux Sous Tension",
+      "category": "guides",
+      "type": "PDF",
+      "description": "Réglementation et bonnes pratiques pour les TST accrédités",
+      "fileSize": "4.2 MB",
+      "uploadDate": "2026-01-10",
+      "url": "/documents/guide-tst-2026.pdf"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1",
+      "type": "veille",
+      "message": "Nouvelle réglementation décret électrique du 01/02/2026",
+      "date": "2026-02-04",
+      "read": false
+    }
+  ]
+}

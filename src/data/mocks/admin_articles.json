@@ -1,0 +1,37 @@
+{
+  "articles": [
+    {
+      "id": "art-1",
+      "title": "Tendances de la sécurité électrique 2026",
+      "excerpt": "L'année 2026 apporte des évolutions réglementaires majeures...",
+      "author": "Michel LIGIER",
+      "category": "Expertise",
+      "status": "published",
+      "publishedDate": "2026-02-01",
+      "views": 342,
+      "featured": true
+    },
+    {
+      "id": "art-2",
+      "title": "TST et neurosciences : une pédagogie innovante",
+      "excerpt": "Comment les apports des neurosciences transforment la formation...",
+      "author": "Pierre VIRELY",
+      "category": "Formation",
+      "status": "published",
+      "publishedDate": "2026-01-25",
+      "views": 187,
+      "featured": false
+    },
+    {
+      "id": "art-3",
+      "title": "Audit de conformité : nouvelle approche 2026",
+      "excerpt": "CETé lance une nouvelle méthodologie d'audit...",
+      "author": "Bruno CLAUDEL",
+      "category": "Expertise",
+      "status": "draft",
+      "publishedDate": null,
+      "views": 0,
+      "featured": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "pillar-1",
+    "title": "Expertise",
+    "icon": "zap",
+    "description": "20+ ans d'expérience, 200+ entreprises accompagnées. Expertise terrain reconnue en sécurité électrique et risques opérationnels.",
+    "color": "blue"
+  },
+  {
+    "id": "pillar-2",
+    "title": "Agence de Notation",
+    "icon": "star",
+    "description": "Rating indépendant et transparent du risque électrique. Notation de AAA (maîtrise optimale) à DDD (risque critique).",
+    "color": "yellow"
+  },
+  {
+    "id": "pillar-3",
+    "title": "Conseils & Formation",
+    "icon": "users",
+    "description": "Coaching pédagogique bienveillant. Approche neurosciences et formation sur mesure pour tous les niveaux organisationnels.",
+    "color": "green"
+  }
+]

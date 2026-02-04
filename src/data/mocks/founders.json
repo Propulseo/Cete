@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Michel LIGIER",
+    "role": "Co-fondateur / Expert Senior",
+    "bio": "Expert reconnu en sécurité électrique et risques. 20+ années d'expérience terrain.",
+    "imageUrl": "/images/founders/michel.jpg",
+    "specialties": ["TST", "Diagnostic", "Formation"]
+  },
+  {
+    "id": "2",
+    "name": "Bruno CLAUDEL",
+    "role": "Co-fondateur / Expert",
+    "bio": "Spécialiste en prévention et réglementation électrique.",
+    "imageUrl": "/images/founders/bruno.jpg",
+    "specialties": ["Conformité", "Audit", "Veille réglementaire"]
+  },
+  {
+    "id": "3",
+    "name": "Pierre VIRELY",
+    "role": "Co-fondateur / Expert",
+    "bio": "Accompagnateur pédagogique en santé-sécurité.",
+    "imageUrl": "/images/founders/pierre.jpg",
+    "specialties": ["Formation", "Coaching", "Neurosciences appliquées"]
+  },
+  {
+    "id": "4",
+    "name": "Denis VUILLOZ",
+    "role": "Co-fondateur / Expert",
+    "bio": "Expert en gestion de risques et notation indépendante.",
+    "imageUrl": "/images/founders/denis.jpg",
+    "specialties": ["Rating", "Notation", "Analyse risques"]
+  }
+]

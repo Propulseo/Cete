@@ -1,0 +1,26 @@
+[
+  {
+    "id": "val-1",
+    "title": "Indépendance Totale",
+    "description": "Aucun conflit d'intérêt. Notation objective et impartiale sans lien avec prestataires ou fournisseurs.",
+    "icon": "shield"
+  },
+  {
+    "id": "val-2",
+    "title": "Confidentialité Garantie",
+    "description": "Vos données et vos notes restent strictement confidentielles. Notation anonyme possible sur demande.",
+    "icon": "lock"
+  },
+  {
+    "id": "val-3",
+    "title": "Sérénité Préventive",
+    "description": "Transformer l'inquiétude en vigilance collective et maîtrise opérationnelle. Approche positive et constructive.",
+    "icon": "heart"
+  },
+  {
+    "id": "val-4",
+    "title": "Notation AAA",
+    "description": "Objectif : accompagner vers la maîtrise optimale (AAA) du risque électrique. Excellence opérationnelle.",
+    "icon": "target"
+  }
+]

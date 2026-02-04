@@ -1,0 +1,130 @@
+[
+  {
+    "id": "exp-dps",
+    "category": "Expertise",
+    "type": "expertise",
+    "title": "DPS - Diagnostic de Prévention Sécurité",
+    "description": "Audit complet de votre système de sécurité électrique",
+    "shortDescription": "Diagnostic initial de conformité et risques",
+    "features": [
+      "Analyse terrain exhaustive",
+      "Rapport détaillé",
+      "Plan d'action priorisé",
+      "Recommandations opérationnelles"
+    ],
+    "icon": "clipboard-check",
+    "imageUrl": "/images/services/dps.jpg"
+  },
+  {
+    "id": "exp-vigi",
+    "category": "Expertise",
+    "type": "expertise",
+    "title": "Vigi-Score - Agence de Notation",
+    "description": "Rating indépendant du risque électrique de votre organisation",
+    "shortDescription": "Notation du risque (AAA à DDD)",
+    "features": [
+      "Évaluation indépendante",
+      "Notation transparente",
+      "Benchmark secteur",
+      "Suivi trimestriel possible"
+    ],
+    "icon": "star",
+    "imageUrl": "/images/services/vigi-score.jpg"
+  },
+  {
+    "id": "exp-cert",
+    "category": "Expertise",
+    "type": "expertise",
+    "title": "Certificat CETé - Maîtrise certifiée",
+    "description": "Attestation de maîtrise opérationnelle du risque électrique",
+    "shortDescription": "Certification de conformité",
+    "features": [
+      "Validation des compétences",
+      "Certificat nominatif",
+      "Validité 2 ans",
+      "Renouvellement assisté"
+    ],
+    "icon": "award",
+    "imageUrl": "/images/services/certificate.jpg"
+  },
+  {
+    "id": "exp-veille",
+    "category": "Expertise",
+    "type": "expertise",
+    "title": "Veille - Suivi Réglementaire",
+    "description": "Surveillance continue de l'évolution réglementaire et juridique",
+    "shortDescription": "Alertes réglementaires et juridiques",
+    "features": [
+      "Bulletin mensuel",
+      "Alertes immédiates",
+      "Analyse juridique",
+      "Impact métier"
+    ],
+    "icon": "bell",
+    "imageUrl": "/images/services/veille.jpg"
+  },
+  {
+    "id": "srv-coach-mgr",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Coaching Managers & QSE",
+    "description": "Accompagnement des décideurs et responsables qualité-sécurité",
+    "shortDescription": "Formation leadership sécurité",
+    "features": [
+      "Séminaires sur mesure",
+      "Coaching terrain",
+      "Outils de pilotage",
+      "Tableaux de bord KPIs"
+    ],
+    "icon": "users",
+    "imageUrl": "/images/services/coaching-mgr.jpg"
+  },
+  {
+    "id": "srv-coach-tst",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Coaching Animateurs TST",
+    "description": "Formation spécialisée pour Travaux Sous Tension (accrédités)",
+    "shortDescription": "TST Expertise & Certification",
+    "features": [
+      "Modules TST avancés",
+      "Certification reconnue",
+      "Simulateurs terrain",
+      "Suivi post-formation"
+    ],
+    "icon": "zap",
+    "imageUrl": "/images/services/coaching-tst.jpg"
+  },
+  {
+    "id": "srv-coach-encad",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Coaching Encadrement Chantier",
+    "description": "Formation et coaching des chefs de chantier en sécurité électrique",
+    "shortDescription": "Gestion sécurité opérationnelle",
+    "features": [
+      "Formation terrain",
+      "Audit chantier",
+      "Mentoring personnalisé",
+      "Certification opérationnelle"
+    ],
+    "icon": "hard-hat",
+    "imageUrl": "/images/services/coaching-encad.jpg"
+  },
+  {
+    "id": "srv-form-orgs",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Accompagnement Organismes de Formation",
+    "description": "Support pédagogique et contenu pour prestataires formation",
+    "shortDescription": "Partner Formation",
+    "features": [
+      "Contenus pédagogiques",
+      "Certification cursus",
+      "Partenariat long terme",
+      "Support formateurs"
+    ],
+    "icon": "book-open",
+    "imageUrl": "/images/services/coaching-orgs.jpg"
+  }
+]
