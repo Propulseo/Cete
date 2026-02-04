@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Brain,
@@ -17,44 +17,43 @@ import {
   Rocket,
   TrendingUp,
   CheckCircle,
-  ChevronRight,
   GraduationCap,
+  Quote,
+  Phone,
+  Mail,
+  ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { getConseilServices } from "@/lib/data-loader";
 
 const iconMap: Record<string, React.ReactNode> = {
-  users: <Users className="h-7 w-7" />,
-  zap: <Zap className="h-7 w-7" />,
-  "hard-hat": <HardHat className="h-7 w-7" />,
-  "book-open": <BookOpen className="h-7 w-7" />,
+  users: <Users className="h-8 w-8" />,
+  zap: <Zap className="h-8 w-8" />,
+  "hard-hat": <HardHat className="h-8 w-8" />,
+  "book-open": <BookOpen className="h-8 w-8" />,
 };
 
 const approaches = [
   {
-    icon: <Brain className="h-8 w-8" />,
-    title: "Neurosciences appliquées",
-    description:
-      "Nos méthodes pédagogiques s'appuient sur les dernières avancées en neurosciences pour une meilleure rétention.",
-    color: "from-purple-500 to-indigo-600",
-    bgLight: "bg-purple-50",
+    icon: <Brain className="h-10 w-10" />,
+    title: "Neurosciences",
+    subtitle: "appliquées",
+    description: "Méthodes pédagogiques basées sur les dernières avancées pour une rétention optimale.",
+    number: "01",
   },
   {
-    icon: <Heart className="h-8 w-8" />,
+    icon: <Heart className="h-10 w-10" />,
     title: "Bienveillance",
-    description:
-      "Un accompagnement positif et constructif, centré sur la progression plutôt que la sanction.",
-    color: "from-rose-500 to-pink-600",
-    bgLight: "bg-rose-50",
+    subtitle: "& progression",
+    description: "Accompagnement positif centré sur la progression plutôt que la sanction.",
+    number: "02",
   },
   {
-    icon: <Target className="h-8 w-8" />,
+    icon: <Target className="h-10 w-10" />,
     title: "Sur mesure",
-    description:
-      "Chaque entreprise est unique. Nos formations s'adaptent à votre contexte et vos enjeux spécifiques.",
-    color: "from-[#ffc107] to-amber-600",
-    bgLight: "bg-amber-50",
+    subtitle: "& adapté",
+    description: "Formations adaptées à votre contexte et vos enjeux spécifiques.",
+    number: "03",
   },
 ];
 
@@ -88,6 +87,7 @@ const processSteps = [
 export default function ServicesPage() {
   const conseilServices = getConseilServices();
   const [activeStep, setActiveStep] = useState(0);
+  const [activeService, setActiveService] = useState(0);
 
   // Auto-advance process steps
   useEffect(() => {
@@ -99,249 +99,284 @@ export default function ServicesPage() {
 
   return (
     <>
-      {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[70vh] overflow-hidden bg-gradient-to-b from-[#001a33] via-[#002244] to-[#001a33]">
-        {/* Animated background elements */}
+      {/* ===== HERO - SPLIT ASYMMETRIC ===== */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Background split */}
         <div className="absolute inset-0">
-          {/* Grid pattern */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+          <div className="absolute inset-0 bg-[#001a33]" />
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#ffc107] hidden lg:block"
+               style={{ clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" }} />
+        </div>
 
-          {/* Floating orbs */}
-          <div className="absolute top-20 left-[10%] h-64 w-64 rounded-full bg-[#ffc107]/10 blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-[15%] h-48 w-48 rounded-full bg-[#0066cc]/20 blur-3xl animate-float animation-delay-300" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#ffc107]/5 blur-3xl animate-pulse-glow" />
-
-          {/* Lightning accents */}
-          <div className="absolute top-10 right-[20%] text-[#ffc107]/20 animate-electric-flicker">
-            <Zap className="h-16 w-16" />
-          </div>
-          <div className="absolute bottom-20 left-[25%] text-[#ffc107]/15 animate-electric-flicker animation-delay-500">
-            <Zap className="h-12 w-12 rotate-12" />
+        {/* Floating elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-[5%] w-72 h-72 rounded-full bg-[#0066cc]/20 blur-3xl animate-float" />
+          <div className="absolute bottom-20 left-[20%] w-48 h-48 rounded-full bg-[#ffc107]/20 blur-3xl animate-float animation-delay-500" />
+          <div className="absolute top-1/3 right-[10%] text-[#001a33]/10 animate-electric-flicker hidden lg:block">
+            <Zap className="h-40 w-40" />
           </div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#ffc107]/30 bg-[#ffc107]/10 px-4 py-2 mb-8 animate-slide-up">
-              <GraduationCap className="h-4 w-4 text-[#ffc107]" />
-              <span className="text-sm font-medium text-[#ffc107]">Formation & Accompagnement</span>
+        <div className="relative z-10 container mx-auto px-4 min-h-screen flex items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-20">
+            {/* Left - Text */}
+            <div className="text-white">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#ffc107]/30 bg-[#ffc107]/10 px-4 py-2 mb-8 animate-slide-up">
+                <GraduationCap className="h-4 w-4 text-[#ffc107]" />
+                <span className="text-sm font-medium text-[#ffc107]">Formation & Coaching</span>
+              </div>
+
+              <h1 className="animate-slide-up animation-delay-100">
+                <span className="block font-display text-6xl md:text-7xl lg:text-8xl tracking-wide text-white/90">
+                  SERVICES
+                </span>
+                <span className="block font-display text-6xl md:text-7xl lg:text-8xl tracking-wide text-[#ffc107] -mt-2">
+                  & CONSEILS
+                </span>
+              </h1>
+
+              <p className="text-xl md:text-2xl text-white/60 mt-8 max-w-lg leading-relaxed animate-slide-up animation-delay-200">
+                Accompagnement <span className="text-[#ffc107] font-semibold">sur mesure</span> pour
+                transformer vos équipes en acteurs de la prévention.
+              </p>
+
+              <div className="flex flex-wrap gap-4 mt-10 animate-slide-up animation-delay-300">
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="bg-[#ffc107] text-[#001a33] hover:bg-[#ffcd38] font-bold px-8 py-6 text-lg rounded-full group"
+                  >
+                    Demander un devis
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Stats inline */}
+              <div className="flex gap-12 mt-16 animate-slide-up animation-delay-400">
+                <div>
+                  <div className="font-display text-5xl text-[#ffc107]">150+</div>
+                  <div className="text-white/50 text-sm mt-1">Entreprises formées</div>
+                </div>
+                <div>
+                  <div className="font-display text-5xl text-[#ffc107]">98%</div>
+                  <div className="text-white/50 text-sm mt-1">Satisfaction</div>
+                </div>
+              </div>
             </div>
 
-            {/* Title */}
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-white tracking-wide mb-6 animate-slide-up animation-delay-100">
-              SERVICES &{" "}
-              <span className="text-[#ffc107] relative">
-                CONSEILS
-                <span className="absolute -bottom-2 left-0 right-0 h-1 bg-[#ffc107]/50 rounded-full" />
-              </span>
-            </h1>
+            {/* Right - Visual */}
+            <div className="relative hidden lg:block">
+              {/* Large decorative number */}
+              <div className="absolute -top-20 -right-10 font-display text-[20rem] text-[#001a33]/20 leading-none select-none">
+                &
+              </div>
 
-            {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-white/80 font-light mb-6 animate-slide-up animation-delay-200">
-              Accompagnement{" "}
-              <span className="text-[#ffc107] font-semibold">sur mesure</span> et{" "}
-              <span className="text-[#ffc107] font-semibold">sur étagère</span>
-            </p>
-
-            {/* Description */}
-            <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed mb-10 animate-slide-up animation-delay-300">
-              Coaching managers, formation TST, accompagnement pédagogique.
-              Une approche bienveillante basée sur les neurosciences.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-400">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-[#ffc107] text-[#001a33] hover:bg-[#ffcd38] font-semibold px-8 py-6 text-lg rounded-full group shadow-lg shadow-[#ffc107]/25 hover:shadow-[#ffc107]/40 transition-all"
-                >
-                  Demander un devis
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/expertise">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg rounded-full"
-                >
-                  Notre expertise
-                </Button>
-              </Link>
-            </div>
-
-            {/* Scroll indicator */}
-            <div className="mt-16 animate-bounce">
-              <div className="w-6 h-10 rounded-full border-2 border-white/30 mx-auto flex justify-center pt-2">
-                <div className="w-1.5 h-3 bg-[#ffc107] rounded-full animate-pulse" />
+              {/* Floating testimonial card */}
+              <div className="absolute top-10 right-0 bg-white rounded-2xl p-6 shadow-2xl max-w-xs animate-float z-10">
+                <Quote className="h-8 w-8 text-[#ffc107] mb-3" />
+                <p className="text-[#001a33] text-sm leading-relaxed">
+                  "Une approche pédagogique qui a transformé notre culture sécurité."
+                </p>
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#001a33] flex items-center justify-center text-white font-bold text-sm">
+                    JD
+                  </div>
+                  <div>
+                    <div className="font-bold text-[#001a33] text-sm">Jean Dupont</div>
+                    <div className="text-gray-500 text-xs">Directeur QSE, Enedis</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" className="w-full">
-            <path
-              d="M0 120L48 110C96 100 192 80 288 70C384 60 480 60 576 65C672 70 768 80 864 85C960 90 1056 90 1152 85C1248 80 1344 70 1392 65L1440 60V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0Z"
-              fill="white"
-            />
-          </svg>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10">
+          <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
+            <div className="w-1.5 h-3 bg-[#ffc107] rounded-full animate-pulse" />
+          </div>
         </div>
       </section>
 
-      {/* ===== APPROACH SECTION ===== */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffc107]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#0066cc]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      {/* ===== APPROACH - EDITORIAL HORIZONTAL ===== */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        {/* Large background text */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 font-display text-[15rem] text-gray-100 leading-none select-none whitespace-nowrap">
+          PÉDAGOGIE
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Section header */}
-          <div className="text-center mb-16">
-            <Badge className="bg-[#001a33]/10 text-[#001a33] hover:bg-[#001a33]/20 mb-4">
-              Notre Philosophie
-            </Badge>
-            <h2 className="font-display text-4xl md:text-5xl text-[#001a33] tracking-wide mb-4">
-              APPROCHE PÉDAGOGIQUE
+          {/* Header - Left aligned */}
+          <div className="max-w-2xl mb-20">
+            <span className="text-[#ffc107] font-bold text-sm tracking-widest uppercase">Notre philosophie</span>
+            <h2 className="font-display text-5xl md:text-6xl text-[#001a33] tracking-wide mt-4">
+              UNE APPROCHE<br />
+              <span className="text-[#0066cc]">DIFFÉRENTE</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Chez CETé, nous croyons que la sécurité s'apprend dans la bienveillance.
-              Rigueur technique et pédagogie innovante pour des formations qui marquent.
-            </p>
-            <div className="w-24 h-1 bg-[#ffc107] mx-auto rounded-full mt-6" />
+            <div className="w-24 h-1.5 bg-[#ffc107] mt-6" />
           </div>
 
-          {/* Approaches grid */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Horizontal scroll cards on mobile, staggered on desktop */}
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {approaches.map((approach, index) => (
               <div
                 key={index}
-                className="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
+                className={`group relative ${index === 1 ? 'md:mt-16' : index === 2 ? 'md:mt-32' : ''}`}
               >
-                {/* Background gradient on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${approach.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-
-                {/* Icon */}
-                <div className="relative mb-6">
-                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${approach.color} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-                    {approach.icon}
-                  </div>
-                  {/* Glow effect */}
-                  <div className={`absolute inset-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${approach.color} blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
+                {/* Number */}
+                <div className="font-display text-8xl text-gray-100 group-hover:text-[#ffc107]/20 transition-colors duration-500 absolute -top-10 -left-4">
+                  {approach.number}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-[#001a33] mb-3 group-hover:text-[#0066cc] transition-colors">
-                  {approach.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {approach.description}
-                </p>
+                <div className="relative bg-white border-2 border-gray-100 group-hover:border-[#ffc107] rounded-3xl p-8 transition-all duration-500 group-hover:shadow-2xl">
+                  {/* Icon */}
+                  <div className="w-20 h-20 rounded-2xl bg-[#001a33] flex items-center justify-center text-[#ffc107] mb-6 group-hover:scale-110 transition-transform duration-500">
+                    {approach.icon}
+                  </div>
 
-                {/* Bottom accent */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${approach.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-[#001a33]">
+                    {approach.title}
+                    <span className="block text-[#0066cc] font-normal text-lg">{approach.subtitle}</span>
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 mt-4 leading-relaxed">
+                    {approach.description}
+                  </p>
+
+                  {/* Arrow */}
+                  <div className="mt-6 flex items-center gap-2 text-[#001a33] group-hover:text-[#ffc107] transition-colors">
+                    <span className="text-sm font-semibold">En savoir plus</span>
+                    <ArrowUpRight className="h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SERVICES SECTION ===== */}
-      <section className="py-24 bg-gray-50 relative overflow-hidden">
-        {/* Decorative background */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[#ffc107]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-0 w-72 h-72 bg-[#0066cc]/5 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Section header */}
-          <div className="text-center mb-16">
-            <Badge className="bg-[#001a33] text-white hover:bg-[#002244] mb-4">
-              Nos Offres
-            </Badge>
-            <h2 className="font-display text-4xl md:text-5xl text-[#001a33] tracking-wide mb-4">
-              NOS SERVICES
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      {/* ===== SERVICES - MAGAZINE LAYOUT ===== */}
+      <section className="py-32 bg-gray-50 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16">
+            <div>
+              <span className="text-[#ffc107] font-bold text-sm tracking-widest uppercase">Nos offres</span>
+              <h2 className="font-display text-5xl md:text-6xl text-[#001a33] tracking-wide mt-4">
+                SERVICES
+              </h2>
+            </div>
+            <p className="text-gray-600 max-w-md mt-6 lg:mt-0 lg:text-right">
               Coaching et formation pour tous les niveaux de votre organisation
             </p>
-            <div className="w-24 h-1 bg-[#ffc107] mx-auto rounded-full mt-6" />
           </div>
 
-          {/* Services grid - 2x2 layout */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {conseilServices.map((service, index) => (
-              <div
-                key={service.id}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-              >
-                {/* Top gradient bar */}
-                <div className="h-2 bg-gradient-to-r from-[#ffc107] via-[#0066cc] to-[#001a33]" />
+          {/* Bento grid layout */}
+          <div className="grid lg:grid-cols-12 gap-6">
+            {/* Featured service - Large */}
+            <div className="lg:col-span-7 group">
+              <div className="relative h-full bg-[#001a33] rounded-3xl overflow-hidden min-h-[500px]">
+                {/* Background pattern */}
+                <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffc107]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
-                <div className="p-8">
-                  {/* Header */}
-                  <div className="flex items-start gap-5 mb-6">
-                    {/* Icon */}
-                    <div className="relative flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#001a33] to-[#002244] flex items-center justify-center text-[#ffc107] group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                        {iconMap[service.icon] || <Zap className="h-7 w-7" />}
-                      </div>
-                      {/* Glow effect */}
-                      <div className="absolute inset-0 w-16 h-16 rounded-2xl bg-[#ffc107]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
-
-                    {/* Title & subtitle */}
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-[#001a33] mb-1 group-hover:text-[#0066cc] transition-colors">
-                        {service.title}
-                      </h3>
-                      <p className="text-sm font-medium text-[#ffc107]">
-                        {service.shortDescription}
-                      </p>
-                    </div>
+                {/* Content */}
+                <div className="relative z-10 p-10 h-full flex flex-col">
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 bg-[#ffc107] text-[#001a33] px-4 py-2 rounded-full text-sm font-bold w-fit">
+                    <Sparkles className="h-4 w-4" />
+                    Populaire
                   </div>
 
+                  {/* Icon */}
+                  <div className="w-24 h-24 rounded-3xl bg-white/10 backdrop-blur flex items-center justify-center text-[#ffc107] mt-8">
+                    {iconMap[conseilServices[0]?.icon] || <Users className="h-10 w-10" />}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-display text-4xl md:text-5xl text-white mt-8 tracking-wide">
+                    {conseilServices[0]?.title.split(' ').slice(0, 2).join(' ')}
+                    <span className="block text-[#ffc107]">{conseilServices[0]?.title.split(' ').slice(2).join(' ')}</span>
+                  </h3>
+
                   {/* Description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {service.description}
+                  <p className="text-white/70 mt-6 text-lg leading-relaxed max-w-md">
+                    {conseilServices[0]?.description}
                   </p>
 
                   {/* Features */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {service.features.map((feature, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2 text-sm text-gray-600"
-                      >
-                        <CheckCircle className="h-4 w-4 text-[#ffc107] flex-shrink-0" />
-                        <span>{feature}</span>
-                      </div>
+                  <div className="flex flex-wrap gap-3 mt-8">
+                    {conseilServices[0]?.features.map((feature, i) => (
+                      <span key={i} className="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-white/80 text-sm">
+                        {feature}
+                      </span>
                     ))}
                   </div>
 
                   {/* CTA */}
-                  <Link href="/contact">
-                    <Button
-                      className="w-full bg-[#001a33] hover:bg-[#002244] text-white group/btn"
-                    >
-                      En savoir plus
-                      <ChevronRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
+                  <div className="mt-auto pt-8">
+                    <Link href="/contact">
+                      <Button className="bg-[#ffc107] text-[#001a33] hover:bg-[#ffcd38] font-bold px-8 py-6 rounded-full group/btn">
+                        Demander un devis
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-
-                {/* Bottom accent on hover */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffc107] to-[#0066cc] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
-            ))}
+            </div>
+
+            {/* Other services - Stacked */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              {conseilServices.slice(1).map((service, index) => (
+                <div
+                  key={service.id}
+                  className="group relative bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-[#ffc107]"
+                  onClick={() => setActiveService(index + 1)}
+                >
+                  <div className="flex items-start gap-6">
+                    {/* Icon */}
+                    <div className="w-16 h-16 rounded-2xl bg-[#001a33] flex items-center justify-center text-[#ffc107] flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+                      {iconMap[service.icon] || <Zap className="h-7 w-7" />}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-[#001a33] group-hover:text-[#0066cc] transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm mt-1">
+                        {service.shortDescription}
+                      </p>
+
+                      {/* Features preview */}
+                      <div className="flex items-center gap-4 mt-4 text-sm text-gray-400">
+                        {service.features.slice(0, 2).map((f, i) => (
+                          <span key={i} className="flex items-center gap-1">
+                            <CheckCircle className="h-3 w-3 text-[#ffc107]" />
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Arrow */}
+                    <ArrowUpRight className="h-6 w-6 text-gray-300 group-hover:text-[#ffc107] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PROCESS SECTION ===== */}
+      {/* ===== PROCESS SECTION - KEEP AS IS ===== */}
       <section className="py-24 bg-gradient-to-br from-[#001a33] via-[#002244] to-[#001a33] relative overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0">
@@ -453,65 +488,95 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ===== CTA SECTION ===== */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Decorative circles */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[#001a33]/5" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-[#ffc107]/10" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#0066cc]/10" />
+      {/* ===== CTA - SPLIT DRAMATIC ===== */}
+      <section className="relative min-h-[80vh] overflow-hidden">
+        {/* Split background */}
+        <div className="absolute inset-0 grid lg:grid-cols-2">
+          <div className="bg-white" />
+          <div className="bg-[#001a33] hidden lg:block" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <Badge className="bg-[#ffc107]/10 text-[#001a33] hover:bg-[#ffc107]/20 mb-6">
-              Passez à l'action
-            </Badge>
+        <div className="container mx-auto px-4 relative z-10 min-h-[80vh] flex items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center w-full py-20">
+            {/* Left - Content */}
+            <div>
+              <span className="text-[#ffc107] font-bold text-sm tracking-widest uppercase">Passez à l'action</span>
 
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#001a33] tracking-wide mb-6">
-              PRÊT À FORMER VOS{" "}
-              <span className="text-[#ffc107]">ÉQUIPES</span> ?
-            </h2>
+              <h2 className="font-display text-5xl md:text-6xl lg:text-7xl text-[#001a33] tracking-wide mt-6">
+                PRÊT À<br />
+                <span className="text-[#ffc107]">TRANSFORMER</span><br />
+                VOS ÉQUIPES ?
+              </h2>
 
-            <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-              Contactez-nous pour construire ensemble le programme de formation
-              adapté à vos besoins et vos enjeux.
-            </p>
+              <p className="text-gray-600 text-xl mt-8 max-w-md leading-relaxed">
+                Contactez-nous pour construire ensemble le programme de formation
+                adapté à vos besoins.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-[#001a33] hover:bg-[#002244] text-white font-semibold px-8 py-6 text-lg rounded-full group shadow-lg hover:shadow-xl transition-all"
-                >
-                  Demander un devis gratuit
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-[#001a33]/20 text-[#001a33] hover:bg-[#001a33]/5 font-semibold px-8 py-6 text-lg rounded-full"
-                >
-                  Nous appeler
-                </Button>
-              </Link>
+              <div className="flex flex-wrap gap-4 mt-10">
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="bg-[#001a33] hover:bg-[#002244] text-white font-bold px-8 py-6 text-lg rounded-full group"
+                  >
+                    Demander un devis gratuit
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Trust badges */}
+              <div className="flex flex-wrap gap-6 mt-12">
+                <div className="flex items-center gap-2 text-gray-500">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-sm">Formation sur site</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-sm">Certification reconnue</span>
+                </div>
+              </div>
             </div>
 
-            {/* Trust badges */}
-            <div className="mt-16 flex flex-wrap justify-center gap-8">
-              <div className="flex items-center gap-2 text-gray-500">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-sm">Formation sur site</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-500">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-sm">Certification reconnue</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-500">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-sm">Suivi personnalisé</span>
+            {/* Right - Contact card */}
+            <div className="relative">
+              {/* Large decorative element */}
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full border-[3px] border-[#ffc107]/20 hidden lg:block" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full border-[3px] border-[#0066cc]/20 hidden lg:block" />
+
+              {/* Contact card */}
+              <div className="relative bg-white lg:bg-[#ffc107] rounded-3xl p-10 shadow-2xl">
+                <h3 className="font-display text-3xl text-[#001a33] mb-8">
+                  CONTACTEZ-NOUS
+                </h3>
+
+                <div className="space-y-6">
+                  <a href="tel:+33123456789" className="flex items-center gap-4 group">
+                    <div className="w-14 h-14 rounded-2xl bg-[#001a33] flex items-center justify-center text-[#ffc107] group-hover:scale-110 transition-transform">
+                      <Phone className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-[#001a33]/60">Téléphone</div>
+                      <div className="text-xl font-bold text-[#001a33]">01 23 45 67 89</div>
+                    </div>
+                  </a>
+
+                  <a href="mailto:contact@cete.fr" className="flex items-center gap-4 group">
+                    <div className="w-14 h-14 rounded-2xl bg-[#001a33] flex items-center justify-center text-[#ffc107] group-hover:scale-110 transition-transform">
+                      <Mail className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-[#001a33]/60">Email</div>
+                      <div className="text-xl font-bold text-[#001a33]">contact@cete.fr</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div className="mt-10 pt-8 border-t-2 border-[#001a33]/10">
+                  <p className="text-[#001a33]/70 text-sm">
+                    Réponse sous 24h ouvrées
+                  </p>
+                </div>
               </div>
             </div>
           </div>
