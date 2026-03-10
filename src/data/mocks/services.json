@@ -3,14 +3,14 @@
     "id": "exp-dps",
     "category": "Expertise",
     "type": "expertise",
-    "title": "DPS - Diagnostic de Prévention Sécurité",
-    "description": "Audit complet de votre système de sécurité électrique",
-    "shortDescription": "Diagnostic initial de conformité et risques",
+    "title": "DPS - Diagnostic Prévention Sécurité",
+    "description": "Évaluation terrain de votre système de maîtrise du risque électrique. Base factuelle de votre notation.",
+    "shortDescription": "Audit terrain structuré — base de votre notation",
     "features": [
-      "Analyse terrain exhaustive",
-      "Rapport détaillé",
-      "Plan d'action priorisé",
-      "Recommandations opérationnelles"
+      "Audit sur site de 2 à 5 jours selon périmètre",
+      "Rapport structuré avec scoring par axe",
+      "Plan d'action priorisé et chiffré",
+      "Restitution direction + équipes opérationnelles"
     ],
     "icon": "clipboard-check",
     "imageUrl": "/images/services/dps.jpg"
@@ -19,14 +19,14 @@
     "id": "exp-vigi",
     "category": "Expertise",
     "type": "expertise",
-    "title": "Vigi-Score - Agence de Notation",
-    "description": "Rating indépendant du risque électrique de votre organisation",
-    "shortDescription": "Notation du risque (AAA à DDD)",
+    "title": "Vigi-Score - Notation Indépendante",
+    "description": "Rating indépendant de votre maîtrise du risque électrique sur l'échelle AAA-DDD. Le produit central de CETé.",
+    "shortDescription": "Votre notation officielle de AAA à DDD",
     "features": [
-      "Évaluation indépendante",
-      "Notation transparente",
-      "Benchmark secteur",
-      "Suivi trimestriel possible"
+      "Notation sur échelle AAA à DDD",
+      "Rapport de notation détaillé par axe",
+      "Benchmark sectoriel anonymisé",
+      "Réévaluation annuelle ou trimestrielle"
     ],
     "icon": "star",
     "imageUrl": "/images/services/vigi-score.jpg"
@@ -35,14 +35,14 @@
     "id": "exp-cert",
     "category": "Expertise",
     "type": "expertise",
-    "title": "Certificat CETé - Maîtrise certifiée",
-    "description": "Attestation de maîtrise opérationnelle du risque électrique",
-    "shortDescription": "Certification de conformité",
+    "title": "Certificat CETé",
+    "description": "Attestation officielle de votre niveau de maîtrise. Valorisable auprès de vos donneurs d'ordre et partenaires.",
+    "shortDescription": "Attestation officielle de votre notation",
     "features": [
-      "Validation des compétences",
-      "Certificat nominatif",
-      "Validité 2 ans",
-      "Renouvellement assisté"
+      "Certificat nominatif par périmètre évalué",
+      "Validité 2 ans renouvelable",
+      "Utilisable dans vos appels d'offres",
+      "Registre CETé consultable sur demande"
     ],
     "icon": "award",
     "imageUrl": "/images/services/certificate.jpg"
@@ -51,14 +51,14 @@
     "id": "exp-veille",
     "category": "Expertise",
     "type": "expertise",
-    "title": "Veille - Suivi Réglementaire",
-    "description": "Surveillance continue de l'évolution réglementaire et juridique",
-    "shortDescription": "Alertes réglementaires et juridiques",
+    "title": "Veille Réglementaire",
+    "description": "Surveillance continue des évolutions normatives et réglementaires impactant votre notation et votre conformité.",
+    "shortDescription": "Alertes normatives et impact sur votre notation",
     "features": [
-      "Bulletin mensuel",
-      "Alertes immédiates",
-      "Analyse juridique",
-      "Impact métier"
+      "Bulletin mensuel ciblé par secteur",
+      "Alertes immédiates sur évolutions critiques",
+      "Analyse d'impact sur votre notation",
+      "Recommandations de mise en conformité"
     ],
     "icon": "bell",
     "imageUrl": "/images/services/veille.jpg"
@@ -67,14 +67,14 @@
     "id": "srv-coach-mgr",
     "category": "Conseil",
     "type": "service",
-    "title": "Coaching Managers & QSE",
-    "description": "Accompagnement des décideurs et responsables qualité-sécurité",
-    "shortDescription": "Formation leadership sécurité",
+    "title": "Coaching Dirigeants & QSE",
+    "description": "Accompagnement des décideurs pour intégrer la maîtrise du risque électrique dans leur stratégie opérationnelle.",
+    "shortDescription": "Pilotage stratégique du risque électrique",
     "features": [
-      "Séminaires sur mesure",
-      "Coaching terrain",
-      "Outils de pilotage",
-      "Tableaux de bord KPIs"
+      "Séminaire de direction : 1 à 2 jours",
+      "Tableaux de bord KPI risque électrique",
+      "Coaching individuel du responsable QSE",
+      "Livrable : feuille de route vers le AAA"
     ],
     "icon": "users",
     "imageUrl": "/images/services/coaching-mgr.jpg"
@@ -84,13 +84,13 @@
     "category": "Conseil",
     "type": "service",
     "title": "Coaching Animateurs TST",
-    "description": "Formation spécialisée pour Travaux Sous Tension (accrédités)",
-    "shortDescription": "TST Expertise & Certification",
+    "description": "Formation avancée des animateurs Travaux Sous Tension pour renforcer la maîtrise opérationnelle terrain.",
+    "shortDescription": "Renforcement des compétences TST terrain",
     "features": [
-      "Modules TST avancés",
-      "Certification reconnue",
-      "Simulateurs terrain",
-      "Suivi post-formation"
+      "Modules avancés : 3 à 5 jours",
+      "Mises en situation terrain supervisées",
+      "Évaluation individuelle des compétences",
+      "Livrable : plan de montée en compétence"
     ],
     "icon": "zap",
     "imageUrl": "/images/services/coaching-tst.jpg"
@@ -100,13 +100,13 @@
     "category": "Conseil",
     "type": "service",
     "title": "Coaching Encadrement Chantier",
-    "description": "Formation et coaching des chefs de chantier en sécurité électrique",
-    "shortDescription": "Gestion sécurité opérationnelle",
+    "description": "Formation des chefs de chantier et encadrants de proximité à la gestion quotidienne du risque électrique.",
+    "shortDescription": "Maîtrise du risque au niveau opérationnel",
     "features": [
-      "Formation terrain",
-      "Audit chantier",
-      "Mentoring personnalisé",
-      "Certification opérationnelle"
+      "Formation terrain : 2 à 3 jours par groupe",
+      "Audit chantier avec restitution immédiate",
+      "Mentoring individuel sur 3 mois",
+      "Livrable : grille d'autocontrôle chantier"
     ],
     "icon": "hard-hat",
     "imageUrl": "/images/services/coaching-encad.jpg"
@@ -116,13 +116,13 @@
     "category": "Conseil",
     "type": "service",
     "title": "Accompagnement Organismes de Formation",
-    "description": "Support pédagogique et contenu pour prestataires formation",
-    "shortDescription": "Partner Formation",
+    "description": "Support méthodologique et contenus pour les organismes souhaitant intégrer le référentiel CETé dans leurs cursus.",
+    "shortDescription": "Intégration du référentiel CETé dans vos formations",
     "features": [
-      "Contenus pédagogiques",
-      "Certification cursus",
-      "Partenariat long terme",
-      "Support formateurs"
+      "Audit pédagogique de vos contenus existants",
+      "Contenus certifiés conformes au référentiel CETé",
+      "Partenariat formalisé sur 12 mois",
+      "Livrable : kit formateur et supports de cours"
     ],
     "icon": "book-open",
     "imageUrl": "/images/services/coaching-orgs.jpg"

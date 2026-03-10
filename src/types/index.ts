@@ -9,3 +9,6 @@ export * from "./document";
 export * from "./article";
 export * from "./stats";
 export * from "./auth";
+export * from "./resource";
+export * from "./repo-error";
+export * from "./blog";

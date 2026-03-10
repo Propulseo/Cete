@@ -5,43 +5,57 @@ import {
   useContext,
   useEffect,
   useState,
-  ReactNode,
+  useCallback,
+  type ReactNode,
 } from "react";
-import { AuthUser } from "@/types";
+import type { Profile } from "@/types";
 import { getUser, login as authLogin, logout as authLogout } from "./auth";
 
 interface AuthContextType {
-  user: AuthUser | null;
+  user: Profile | null;
   isLoading: boolean;
-  login: (email: string, password: string) => AuthUser | null;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  refresh: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const storedUser = getUser();
-    setUser(storedUser);
-    setIsLoading(false);
+  const refresh = useCallback(async () => {
+    try {
+      const u = await getUser();
+      setUser(u);
+    } catch {
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  const login = (email: string, password: string) => {
-    const loggedInUser = authLogin(email, password);
-    setUser(loggedInUser);
-    return loggedInUser;
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  const login = async (email: string, password: string): Promise<boolean> => {
+    const u = await authLogin(email, password);
+    if (u) {
+      setUser(u);
+      return true;
+    }
+    return false;
   };
 
-  const logout = () => {
-    authLogout();
+  const logout = async () => {
+    await authLogout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );

@@ -4,9 +4,6 @@ import { Pillar } from "@/types/pillar";
 import { Value } from "@/types/value";
 import { Navigation } from "@/types/navigation";
 import { ContactInfo } from "@/types/contact";
-import { ClientData } from "@/types/document";
-import { ArticlesData } from "@/types/article";
-import { AdminStats } from "@/types/stats";
 
 import foundersData from "@/data/mocks/founders.json";
 import servicesData from "@/data/mocks/services.json";
@@ -14,9 +11,6 @@ import pillarsData from "@/data/mocks/pillars.json";
 import valuesData from "@/data/mocks/values.json";
 import navigationData from "@/data/mocks/navigation.json";
 import contactData from "@/data/mocks/contact_info.json";
-import clientDocumentsData from "@/data/mocks/client_documents.json";
-import adminArticlesData from "@/data/mocks/admin_articles.json";
-import adminStatsData from "@/data/mocks/admin_stats.json";
 
 export function getFounders(): Founder[] {
   return foundersData as Founder[];
@@ -48,16 +42,4 @@ export function getNavigation(): Navigation {
 
 export function getContactInfo(): ContactInfo {
   return contactData as ContactInfo;
-}
-
-export function getClientDocuments(): ClientData {
-  return clientDocumentsData as ClientData;
-}
-
-export function getAdminArticles(): ArticlesData {
-  return adminArticlesData as ArticlesData;
-}
-
-export function getAdminStats(): AdminStats {
-  return adminStatsData as AdminStats;
 }

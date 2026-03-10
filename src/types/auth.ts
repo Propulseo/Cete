@@ -1,21 +1,17 @@
-export interface AuthUser {
+/** Supabase table: profiles (extension de auth.users) */
+export interface Profile {
+  id: string;
   email: string;
   name: string;
-  role: "client" | "admin";
+  role: "admin" | "client";
   company?: string;
+  phone?: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AuthCredentials {
   email: string;
   password: string;
 }
-
-export const DEMO_CREDENTIALS: AuthCredentials = {
-  email: "demo@cete.fr",
-  password: "Cete2026",
-};
-
-export const ADMIN_CREDENTIALS: AuthCredentials = {
-  email: "admin@cete.fr",
-  password: "Admin2026",
-};

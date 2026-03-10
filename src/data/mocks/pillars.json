@@ -1,23 +1,23 @@
 [
   {
     "id": "pillar-1",
-    "title": "Expertise",
+    "title": "Évaluer",
     "icon": "zap",
-    "description": "20+ ans d'expérience, 200+ entreprises accompagnées. Expertise terrain reconnue en sécurité électrique et risques opérationnels.",
+    "description": "Diagnostic terrain structuré. Nous mesurons objectivement votre niveau de maîtrise du risque électrique selon un référentiel propriétaire éprouvé sur 200+ organisations.",
     "color": "blue"
   },
   {
     "id": "pillar-2",
-    "title": "Agence de Notation",
+    "title": "Noter",
     "icon": "star",
-    "description": "Rating indépendant et transparent du risque électrique. Notation de AAA (maîtrise optimale) à DDD (risque critique).",
+    "description": "Notation indépendante de AAA à DDD. Un rating transparent, comparable et reconnu qui positionne votre organisation sur une échelle de référence sectorielle.",
     "color": "yellow"
   },
   {
     "id": "pillar-3",
-    "title": "Conseils & Formation",
+    "title": "Accompagner",
     "icon": "users",
-    "description": "Coaching pédagogique bienveillant. Approche neurosciences et formation sur mesure pour tous les niveaux organisationnels.",
+    "description": "Plan de progression ciblé vers le AAA. Coaching opérationnel, formation terrain et suivi trimestriel pour améliorer durablement votre notation.",
     "color": "green"
   }
 ]

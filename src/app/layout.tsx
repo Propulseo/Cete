@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${merriweather.variable} font-sans antialiased`}>
         <div className="flex min-h-screen flex-col">{children}</div>
         <Toaster />
       </body>

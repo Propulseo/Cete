@@ -11,14 +11,16 @@ import {
   Settings,
   LogOut,
   Zap,
+  Library,
 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 
 const sidebarItems = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "Documents", href: "/admin/documents", icon: FolderOpen },
+  { label: "Ressources", href: "/admin/ressources", icon: Library },
   { label: "Utilisateurs", href: "/admin/users", icon: Users },
   { label: "Paramètres", href: "/admin/settings", icon: Settings },
 ];
@@ -29,18 +31,14 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!user && pathname !== "/admin/login") {
-        router.push("/admin/login");
-      } else if (user && user.role !== "admin" && pathname !== "/admin/login") {
-        router.push("/admin/login");
-      }
+    if (!isLoading && (!user || user.role !== "admin")) {
+      router.push("/connexion");
     }
-  }, [user, isLoading, pathname, router]);
+  }, [user, isLoading, router]);
 
-  const handleLogout = () => {
-    logout();
-    router.push("/");
+  const handleLogout = async () => {
+    await logout();
+    router.push("/connexion");
   };
 
   if (isLoading) {
@@ -51,22 +49,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Show only children for login page
-  if (pathname === "/admin/login") {
-    return <>{children}</>;
-  }
-
-  // Require admin role for other pages
-  if (!user || user.role !== "admin") {
-    return null;
-  }
+  if (!user || user.role !== "admin") return null;
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-primary text-primary-foreground">
         <div className="flex h-full flex-col">
-          {/* Logo */}
           <div className="flex h-16 items-center gap-2 border-b border-white/10 px-6">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
               <Zap className="h-5 w-5 text-accent" />
@@ -74,7 +62,6 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             <span className="text-lg font-bold">CETé Admin</span>
           </div>
 
-          {/* Nav */}
           <nav className="flex-1 space-y-1 px-4 py-4">
             {sidebarItems.map((item) => {
               const isActive = pathname === item.href;
@@ -95,7 +82,6 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          {/* User */}
           <div className="border-t border-white/10 p-4">
             <div className="mb-3 text-sm">
               <p className="font-medium">{user.name}</p>
@@ -114,17 +100,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="ml-64 flex-1 bg-secondary">{children}</main>
     </div>
   );
 }
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <AdminLayoutContent>{children}</AdminLayoutContent>

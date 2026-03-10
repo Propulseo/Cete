@@ -1,14 +1,28 @@
-import { AuthUser, DEMO_CREDENTIALS, ADMIN_CREDENTIALS } from "@/types";
+import type { Profile, AuthCredentials } from "@/types";
 
 const AUTH_KEY = "cete_auth_user";
 
-export function login(email: string, password: string): AuthUser | null {
+const DEMO_CREDENTIALS: AuthCredentials = {
+  email: "demo@cete.fr",
+  password: "Cete2026",
+};
+
+const ADMIN_CREDENTIALS: AuthCredentials = {
+  email: "admin@cete.fr",
+  password: "Admin2026",
+};
+
+// TODO Supabase: supabase.auth.signInWithPassword({ email, password })
+// puis supabase.from('profiles').select('*').eq('id', user.id).single()
+export async function login(email: string, password: string): Promise<Profile | null> {
   if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
-    const user: AuthUser = {
+    const user: Profile = {
+      id: "cli-12345",
       email: DEMO_CREDENTIALS.email,
       name: "Jean Dupont",
       role: "client",
       company: "Electricité Pro SA",
+      is_active: true,
     };
     if (typeof window !== "undefined") {
       localStorage.setItem(AUTH_KEY, JSON.stringify(user));
@@ -17,10 +31,12 @@ export function login(email: string, password: string): AuthUser | null {
   }
 
   if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
-    const user: AuthUser = {
+    const user: Profile = {
+      id: "adm-001",
       email: ADMIN_CREDENTIALS.email,
       name: "Administrateur CETé",
       role: "admin",
+      is_active: true,
     };
     if (typeof window !== "undefined") {
       localStorage.setItem(AUTH_KEY, JSON.stringify(user));
@@ -31,33 +47,38 @@ export function login(email: string, password: string): AuthUser | null {
   return null;
 }
 
-export function logout(): void {
+// TODO Supabase: supabase.auth.signOut()
+export async function logout(): Promise<void> {
   if (typeof window !== "undefined") {
     localStorage.removeItem(AUTH_KEY);
   }
 }
 
-export function getUser(): AuthUser | null {
+// TODO Supabase: supabase.auth.getUser() + supabase.from('profiles').select('*').eq('id', user.id).single()
+export async function getUser(): Promise<Profile | null> {
   if (typeof window === "undefined") return null;
   const stored = localStorage.getItem(AUTH_KEY);
   if (!stored) return null;
   try {
-    return JSON.parse(stored) as AuthUser;
+    return JSON.parse(stored) as Profile;
   } catch {
     return null;
   }
 }
 
-export function isAuthenticated(): boolean {
-  return getUser() !== null;
+// TODO Supabase: basé sur supabase.auth.getUser()
+export async function isAuthenticated(): Promise<boolean> {
+  return (await getUser()) !== null;
 }
 
-export function isAdmin(): boolean {
-  const user = getUser();
+// TODO Supabase: basé sur le rôle du profil
+export async function isAdmin(): Promise<boolean> {
+  const user = await getUser();
   return user?.role === "admin";
 }
 
-export function isClient(): boolean {
-  const user = getUser();
+// TODO Supabase: basé sur le rôle du profil
+export async function isClient(): Promise<boolean> {
+  const user = await getUser();
   return user?.role === "client";
 }

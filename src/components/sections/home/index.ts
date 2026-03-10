@@ -1,0 +1,8 @@
+export { HomeHero } from "./HomeHero";
+export { HomeStats } from "./HomeStats";
+export { HomePillars } from "./HomePillars";
+export { HomeADN } from "./HomeADN";
+export { HomeServices } from "./HomeServices";
+export { HomeTestimonials } from "./HomeTestimonials";
+export { HomeFounders } from "./HomeFounders";
+export { HomeCTA } from "./HomeCTA";

@@ -2,8 +2,9 @@
   "mainNav": [
     { "label": "Accueil", "href": "/" },
     { "label": "Qui sommes-nous ?", "href": "/a-propos" },
-    { "label": "Expertise", "href": "/expertise" },
-    { "label": "Services", "href": "/services" },
+    { "label": "Notation", "href": "/expertise" },
+    { "label": "Accompagnement", "href": "/services" },
+    { "label": "Blog", "href": "/blog" },
     { "label": "Contact", "href": "/contact" }
   ],
   "footerNav": [
@@ -14,6 +15,6 @@
   ],
   "ctaButtons": [
     { "label": "Espace Client", "href": "/client" },
-    { "label": "Demander un audit", "href": "/contact" }
+    { "label": "Demander une évaluation", "href": "/contact" }
   ]
 }

@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
@@ -60,10 +60,13 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-xl bg-white p-8 shadow-lg">
-      <h3 className="mb-6 text-xl font-bold text-foreground">
-        Envoyez-nous un message
+    <div className="rounded-2xl border border-[#E2E4E0] bg-white p-6 shadow-sm md:p-8">
+      <h3 className="mb-1 font-display text-xl tracking-wide text-[#001a33]">
+        ENVOYEZ-NOUS UN MESSAGE
       </h3>
+      <p className="mb-6 text-sm text-[#6A6D6A]">
+        Tous les champs marqués * sont obligatoires
+      </p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -176,13 +179,20 @@ export function ContactForm() {
             )}
           />
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Envoi en cours..." : "Envoyer"}
+          <Button
+            type="submit"
+            className="w-full bg-[#EC8D19] text-white hover:bg-[#D07D15] font-semibold py-6 text-base rounded-xl group"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              "Envoi en cours..."
+            ) : (
+              <>
+                Envoyer le message
+                <Send className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </>
+            )}
           </Button>
-
-          <p className="text-center text-sm text-muted-foreground">
-            Réponse garantie sous 24h
-          </p>
         </form>
       </Form>
     </div>
