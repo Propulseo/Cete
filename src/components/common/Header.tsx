@@ -18,14 +18,14 @@ export function Header() {
       <div className="container mx-auto flex h-[72px] items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#001a33] transition-shadow group-hover:shadow-md group-hover:shadow-[#001a33]/20">
-            <Zap className="h-5 w-5 text-[#EC8D19]" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4DA6D9] transition-shadow group-hover:shadow-md group-hover:shadow-[#4DA6D9]/20">
+            <Zap className="h-5 w-5 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="font-display text-xl tracking-wide text-[#001a33]">
+            <span className="font-display text-xl tracking-wide text-[#1A2940]">
               CETé
             </span>
-            <span className="hidden text-[10px] font-medium uppercase tracking-[0.15em] text-[#6A6D6A] sm:block">
+            <span className="hidden text-[10px] font-medium uppercase tracking-[0.15em] text-[#4A6580] sm:block">
               Agence de Notation
             </span>
           </div>
@@ -39,10 +39,10 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative py-1 text-sm font-medium transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:rounded-full after:bg-[#EC8D19] after:transition-all after:duration-300 ${
+                className={`relative py-1 text-sm font-medium transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:rounded-full after:bg-[#E8630A] after:transition-all after:duration-300 ${
                   isActive
-                    ? "text-[#001a33] after:w-full"
-                    : "text-[#2A2D2A]/65 after:w-0 hover:text-[#001a33] hover:after:w-full"
+                    ? "text-[#1A2940] after:w-full"
+                    : "text-[#4A6580] after:w-0 hover:text-[#1A2940] hover:after:w-full"
                 }`}
               >
                 {item.label}
@@ -57,14 +57,14 @@ export function Header() {
             asChild
             variant="outline"
             size="sm"
-            className="border-[#001a33]/15 text-[#001a33] hover:border-[#001a33]/30 hover:bg-[#001a33]/5"
+            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8]"
           >
             <Link href="/connexion">Espace Client</Link>
           </Button>
           <Button
             asChild
             size="sm"
-            className="bg-[#EC8D19] text-white shadow-sm hover:bg-[#D07D15] hover:shadow-md hover:shadow-[#EC8D19]/20 transition-all"
+            className="bg-[#E8630A] text-white shadow-sm hover:bg-[#B84D08] hover:shadow-md hover:shadow-[#E8630A]/20 transition-all"
           >
             <Link href="/contact">Demander une évaluation</Link>
           </Button>
@@ -73,7 +73,7 @@ export function Header() {
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" className="text-[#001a33]">
+            <Button variant="ghost" size="icon" className="text-[#1A2940]">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Menu</span>
             </Button>
@@ -89,12 +89,12 @@ export function Header() {
                     onClick={() => setIsOpen(false)}
                     className={`text-lg font-medium transition-colors ${
                       isActive
-                        ? "text-[#001a33]"
-                        : "text-[#2A2D2A]/70 hover:text-[#001a33]"
+                        ? "text-[#1A2940]"
+                        : "text-[#4A6580] hover:text-[#1A2940]"
                     }`}
                   >
                     {isActive && (
-                      <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#EC8D19]" />
+                      <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#4DA6D9]" />
                     )}
                     {item.label}
                   </Link>
@@ -104,7 +104,7 @@ export function Header() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-[#001a33]/15 text-[#001a33]"
+                  className="border-[#4DA6D9]/30 text-[#4DA6D9]"
                 >
                   <Link href="/connexion" onClick={() => setIsOpen(false)}>
                     Espace Client
@@ -112,7 +112,7 @@ export function Header() {
                 </Button>
                 <Button
                   asChild
-                  className="bg-[#EC8D19] text-white hover:bg-[#D07D15]"
+                  className="bg-[#E8630A] text-white hover:bg-[#B84D08]"
                 >
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
                     Demander une évaluation
@@ -125,7 +125,7 @@ export function Header() {
       </div>
 
       {/* Branded bottom line */}
-      <div className="h-[2px] bg-gradient-to-r from-[#001a33] via-[#EC8D19] to-[#001a33]/20" />
+      <div className="h-[2px] bg-gradient-to-r from-[#4DA6D9] via-[#1A7AB5] to-[#4DA6D9]/20" />
     </header>
   );
 }

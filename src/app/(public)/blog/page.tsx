@@ -21,7 +21,7 @@ const blogPosts: BlogPost[] = [
       "L'évolution majeure de la norme NF C 18-510 redéfinit les exigences en matière d'habilitation électrique. Décryptage des nouvelles obligations pour les employeurs et les opérateurs, et impact direct sur votre notation CETé.",
     author: "Marc Dubois",
     category: "Réglementation",
-    categoryColor: "bg-[#001a33]",
+    categoryColor: "bg-[#1A2940]",
     publishedDate: "2026-02-15",
     readTime: "8 min",
     imageUrl:
@@ -36,7 +36,7 @@ const blogPosts: BlogPost[] = [
       "De BB à A+ en 12 mois : retour d'expérience sur les leviers concrets qui ont permis à un groupe industriel d'améliorer significativement sa notation CETé.",
     author: "Sophie Laurent",
     category: "Expertise",
-    categoryColor: "bg-[#EC8D19]",
+    categoryColor: "bg-[#4DA6D9]",
     publishedDate: "2026-01-28",
     readTime: "6 min",
     imageUrl:
@@ -51,7 +51,7 @@ const blogPosts: BlogPost[] = [
       "Analyse des non-conformités les plus observées lors de nos audits terrain. Des erreurs évitables qui impactent directement votre notation.",
     author: "Philippe Martin",
     category: "Sécurité",
-    categoryColor: "bg-[#66955A]",
+    categoryColor: "bg-[#1A7AB5]",
     publishedDate: "2026-01-10",
     readTime: "5 min",
     imageUrl:

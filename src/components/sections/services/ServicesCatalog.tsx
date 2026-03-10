@@ -16,38 +16,38 @@ export function ServicesCatalog() {
   const conseilServices = getConseilServices();
 
   return (
-    <section className="py-32 bg-gray-50 relative overflow-hidden">
+    <section className="py-32 bg-[#F4F9FD] relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16">
           <div>
-            <span className="text-[#EC8D19] font-bold text-sm tracking-widest uppercase">Nos offres</span>
-            <h2 className="font-display text-5xl md:text-6xl text-[#001a33] tracking-wide mt-4">
+            <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">Nos offres</span>
+            <h2 className="font-display text-5xl md:text-6xl text-[#1A2940] tracking-wide mt-4">
               SERVICES
             </h2>
           </div>
-          <p className="text-gray-600 max-w-md mt-6 lg:mt-0 lg:text-right">
+          <p className="text-[#4A6580] max-w-md mt-6 lg:mt-0 lg:text-right">
             Coaching et formation pour tous les niveaux de votre organisation
           </p>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 group">
-            <div className="relative h-full bg-[#001a33] rounded-3xl overflow-hidden min-h-[500px]">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#EC8D19]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="relative h-full bg-[#1A2940] rounded-3xl overflow-hidden min-h-[500px]">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#4DA6D9]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
               <div className="relative z-10 p-10 h-full flex flex-col">
-                <div className="inline-flex items-center gap-2 bg-[#EC8D19] text-white px-4 py-2 rounded-full text-sm font-bold w-fit">
+                <div className="inline-flex items-center gap-2 bg-[#E8630A] text-white px-4 py-2 rounded-full text-sm font-bold w-fit">
                   <Sparkles className="h-4 w-4" />
                   Populaire
                 </div>
 
-                <div className="w-24 h-24 rounded-3xl bg-white/10 backdrop-blur flex items-center justify-center text-[#EC8D19] mt-8">
+                <div className="w-24 h-24 rounded-3xl bg-white/10 backdrop-blur flex items-center justify-center text-[#4DA6D9] mt-8">
                   {iconMap[conseilServices[0]?.icon] || <Users className="h-10 w-10" />}
                 </div>
 
                 <h3 className="font-display text-4xl md:text-5xl text-white mt-8 tracking-wide">
                   {conseilServices[0]?.title.split(' ').slice(0, 2).join(' ')}
-                  <span className="block text-[#EC8D19]">{conseilServices[0]?.title.split(' ').slice(2).join(' ')}</span>
+                  <span className="block text-[#4DA6D9]">{conseilServices[0]?.title.split(' ').slice(2).join(' ')}</span>
                 </h3>
 
                 <p className="text-white/70 mt-6 text-lg leading-relaxed max-w-md">
@@ -65,7 +65,7 @@ export function ServicesCatalog() {
                 <div className="mt-auto pt-8">
                   <Button
                     asChild
-                    className="bg-[#EC8D19] text-white hover:bg-[#D07D15] font-bold px-8 py-6 rounded-full group/btn"
+                    className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-bold px-8 py-6 rounded-full group/btn"
                   >
                     <Link href="/contact">
                       Demander un devis
@@ -81,32 +81,32 @@ export function ServicesCatalog() {
             {conseilServices.slice(1).map((service) => (
               <div
                 key={service.id}
-                className="group relative bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-[#EC8D19]"
+                className="group relative bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-[#E8630A]"
               >
                 <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-2xl bg-[#001a33] flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-[#4DA6D9] flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
                     {iconMap[service.icon] || <Zap className="h-7 w-7" />}
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-[#001a33] group-hover:text-[#001a33] transition-colors">
+                    <h3 className="text-xl font-bold text-[#1A2940] group-hover:text-[#1A2940] transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-[#4A6580] text-sm mt-1">
                       {service.shortDescription}
                     </p>
 
-                    <div className="flex items-center gap-4 mt-4 text-sm text-gray-400">
+                    <div className="flex items-center gap-4 mt-4 text-sm text-[#8AA5BE]">
                       {service.features.slice(0, 2).map((f, i) => (
                         <span key={i} className="flex items-center gap-1">
-                          <CheckCircle className="h-3 w-3 text-[#EC8D19]" />
+                          <CheckCircle className="h-3 w-3 text-[#E8630A]" />
                           {f}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <ArrowUpRight className="h-6 w-6 text-gray-300 group-hover:text-[#EC8D19] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
+                  <ArrowUpRight className="h-6 w-6 text-[#8AA5BE] group-hover:text-[#E8630A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
                 </div>
               </div>
             ))}

@@ -43,12 +43,12 @@ function PortailContent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#001a33] to-[#0f3a5c] px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 backdrop-blur">
-            <Zap className="h-8 w-8 text-[#EC8D19]" />
+            <Zap className="h-8 w-8 text-[#E8630A]" />
           </div>
           <h1 className="text-2xl font-bold text-white">Espace CETé</h1>
           <p className="mt-1 text-sm text-white/60">
@@ -59,7 +59,7 @@ function PortailContent() {
         <Card className="border-0 shadow-2xl">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <LogIn className="h-5 w-5 text-[#001a33]" />
+              <LogIn className="h-5 w-5 text-[#1A2940]" />
               Connexion
             </CardTitle>
           </CardHeader>
@@ -88,7 +88,7 @@ function PortailContent() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full bg-[#001a33] hover:bg-[#185080]" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-[#4DA6D9] hover:bg-[#1A7AB5]" disabled={isLoading}>
                 {isLoading ? "Connexion..." : "Se connecter"}
               </Button>
             </form>
@@ -102,7 +102,7 @@ function PortailContent() {
                 <button
                   type="button"
                   onClick={() => { setEmail("demo@cete.fr"); setPassword("Cete2026"); }}
-                  className="rounded-lg border p-3 text-left transition-colors hover:border-[#001a33]/30 hover:bg-[#001a33]/5"
+                  className="rounded-lg border p-3 text-left transition-colors hover:border-[#4DA6D9]/30 hover:bg-[#4DA6D9]/5"
                 >
                   <p className="text-sm font-medium">Client</p>
                   <p className="text-xs text-muted-foreground">demo@cete.fr / Cete2026</p>
@@ -110,7 +110,7 @@ function PortailContent() {
                 <button
                   type="button"
                   onClick={() => { setEmail("admin@cete.fr"); setPassword("Admin2026"); }}
-                  className="rounded-lg border p-3 text-left transition-colors hover:border-[#EC8D19]/30 hover:bg-[#EC8D19]/5"
+                  className="rounded-lg border p-3 text-left transition-colors hover:border-[#E8630A]/30 hover:bg-[#E8630A]/5"
                 >
                   <p className="text-sm font-medium">Administrateur</p>
                   <p className="text-xs text-muted-foreground">admin@cete.fr / Admin2026</p>

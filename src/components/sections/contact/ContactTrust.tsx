@@ -20,17 +20,17 @@ const trustItems = [
 
 export function ContactTrust() {
   return (
-    <section className="border-y border-[#E2E4E0] bg-[#F5F6F4] py-16">
+    <section className="border-y border-[#DAEEF8] bg-[#F4F9FD] py-16">
       <div className="container mx-auto px-4">
         <div className="grid gap-8 md:grid-cols-3">
           {trustItems.map((item) => (
             <div key={item.title} className="flex items-start gap-4 text-center md:flex-col md:items-center">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#001a33]/5">
-                <item.icon className="h-5 w-5 text-[#001a33]" />
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#4DA6D9]/10">
+                <item.icon className="h-5 w-5 text-[#4DA6D9]" />
               </div>
               <div>
-                <h3 className="font-semibold text-[#001a33]">{item.title}</h3>
-                <p className="mt-1 text-sm text-[#6A6D6A]">
+                <h3 className="font-semibold text-[#1A2940]">{item.title}</h3>
+                <p className="mt-1 text-sm text-[#4A6580]">
                   {item.description}
                 </p>
               </div>

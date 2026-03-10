@@ -60,8 +60,14 @@ All interfaces live in `src/types/` with a barrel export in `index.ts`. Key type
 - **File size limits**: Page files and section components must stay under 250 lines (warning at 150). Extract sections into `src/components/sections/<page>/` subdirectories.
 - **Client components**: Only mark `"use client"` when required (hooks, event handlers, browser APIs). Default to server components.
 - **Styling**: Tailwind utilities only — no CSS modules or styled-components. Custom animations and brand CSS variables are defined in `src/app/globals.css`.
-- **Fonts**: Source Sans 3 (body, weights 300-700) and Bebas Neue (display) via next/font Google.
-- **Brand colors (CSS vars)**: Primary `#001a33` (dark navy), Accent `#ffc107` (safety yellow), Secondary `#f8f9fc` (light gray).
+- **Fonts**: Inter (body) and Merriweather (display) via next/font Google.
+- **Brand colors (CSS vars)**:
+  - Primary: `#4DA6D9` (sky blue), `#1A7AB5` (deep), `#0D5A8A` (ultra)
+  - Accent: `#E8630A` (orange TST), `#F59542` (light), `#B84D08` (dark)
+  - Text: `#1A2940` (primary), `#4A6580` (secondary), `#8AA5BE` (muted)
+  - Backgrounds: `#FFFFFF` (main), `#F4F9FD` (soft), `#DAEEF8` (gradient start)
+  - Footer: `#1A2940` (dark blue night)
+- **Design motif**: Translucent blue bubbles (`rgba(77,166,217,0.08–0.15)`) as decorative background elements on heroes and key sections. No orange bubbles, no text inside bubbles.
 - **Icons**: Lucide React exclusively. Icon names in JSON data match Lucide icon identifiers.
 - **Imports**: Use `@/` path alias for all src imports.
 - **No `any` types**: Strict TypeScript — all data is typed through interfaces.

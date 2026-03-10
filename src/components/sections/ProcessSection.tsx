@@ -11,7 +11,7 @@ const steps = [
     icon: <Pencil className="h-6 w-6" />,
     title: "Conception",
     description: "Élaboration d'un plan d'action sur mesure",
-    color: "bg-[#001a33]",
+    color: "bg-[#1A2940]",
   },
   {
     icon: <Rocket className="h-6 w-6" />,

@@ -7,7 +7,7 @@ export function Footer() {
   const contact = getContactInfo();
 
   return (
-    <footer className="relative border-t border-[#E2E4E0] bg-[#001a33] text-white overflow-hidden">
+    <footer className="relative border-t border-[#DAEEF8] bg-[#1A2940] text-white overflow-hidden">
       {/* Bubbles pattern overlay */}
       <div className="absolute inset-0 bg-bubbles-pattern opacity-40 pointer-events-none" />
 
@@ -29,7 +29,7 @@ export function Footer() {
             <p className="text-sm text-white/60 leading-relaxed">
               Agence de Notation indépendante du risque électrique.
             </p>
-            <p className="text-sm font-medium text-[#EC8D19]/80 italic">
+            <p className="text-sm font-medium text-[#E8630A]/80 italic">
               Indépendance. Objectivité. Transparence.
             </p>
           </div>
@@ -58,18 +58,18 @@ export function Footer() {
                 href={`mailto:${contact.email}`}
                 className="flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-white"
               >
-                <Mail className="h-4 w-4 text-[#EC8D19]/60" />
+                <Mail className="h-4 w-4 text-[#E8630A]/60" />
                 {contact.email}
               </a>
               <a
                 href={`tel:${contact.phone}`}
                 className="flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-white"
               >
-                <Phone className="h-4 w-4 text-[#EC8D19]/60" />
+                <Phone className="h-4 w-4 text-[#E8630A]/60" />
                 {contact.phone}
               </a>
               <div className="flex items-start gap-2 text-sm text-white/55">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#EC8D19]/60" />
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#E8630A]/60" />
                 <span>
                   {contact.address}
                   <br />

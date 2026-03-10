@@ -60,11 +60,11 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-[#E2E4E0] bg-white p-6 shadow-sm md:p-8">
-      <h3 className="mb-1 font-display text-xl tracking-wide text-[#001a33]">
+    <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm md:p-8">
+      <h3 className="mb-1 font-display text-xl tracking-wide text-[#1A2940]">
         ENVOYEZ-NOUS UN MESSAGE
       </h3>
-      <p className="mb-6 text-sm text-[#6A6D6A]">
+      <p className="mb-6 text-sm text-[#4A6580]">
         Tous les champs marqués * sont obligatoires
       </p>
 
@@ -162,7 +162,7 @@ export function ContactForm() {
                     type="checkbox"
                     checked={field.value}
                     onChange={field.onChange}
-                    className="mt-1 h-4 w-4 rounded border-gray-300"
+                    className="mt-1 h-4 w-4 rounded border-[#DAEEF8]"
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
@@ -181,7 +181,7 @@ export function ContactForm() {
 
           <Button
             type="submit"
-            className="w-full bg-[#EC8D19] text-white hover:bg-[#D07D15] font-semibold py-6 text-base rounded-xl group"
+            className="w-full bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold py-6 text-base rounded-xl group"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
