@@ -3,7 +3,6 @@ import {
   ContactHero,
   ContactMain,
   ContactTrust,
-  ContactMap,
 } from "@/components/sections/contact";
 
 export const metadata: Metadata = {
@@ -18,7 +17,6 @@ export default function ContactPage() {
       <ContactHero />
       <ContactMain />
       <ContactTrust />
-      <ContactMap />
     </>
   );
 }

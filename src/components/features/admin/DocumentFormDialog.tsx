@@ -208,6 +208,32 @@ export function DocumentFormDialog({
             )}
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Droits d&apos;accès</Label>
+              <select
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
+                value={(form as Record<string, unknown>).accessRights as string ?? "all-clients"}
+                onChange={(e) => set("accessRights", e.target.value)}
+              >
+                <option value="all-clients">Tous les clients</option>
+                <option value="admin-only">Administrateurs uniquement</option>
+                <option value="specific-clients">Clients spécifiques</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <Label>Type d&apos;accès</Label>
+              <select
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
+                value={(form as Record<string, unknown>).accessType as string ?? "view-only"}
+                onChange={(e) => set("accessType", e.target.value)}
+              >
+                <option value="view-only">Visualisation uniquement</option>
+                <option value="download">Téléchargement autorisé</option>
+              </select>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <Label>Date</Label>
             <Input

@@ -30,36 +30,43 @@ export function ExpertiseADN() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="relative order-2 lg:order-1">
             <div className="relative mx-auto aspect-square max-w-md">
+              {/* Outer ring — DDD zone */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="h-full w-full rounded-full border-2 border-primary/10" />
+                <div className="h-full w-full rounded-full border-2 border-red-300/30 bg-red-50/20" />
               </div>
+              {/* CCC zone */}
               <div className="absolute inset-8 flex items-center justify-center">
-                <div className="h-full w-full rounded-full border-2 border-primary/20" />
+                <div className="h-full w-full rounded-full border-2 border-orange-300/30 bg-orange-50/20" />
               </div>
+              {/* BBB zone */}
               <div className="absolute inset-16 flex items-center justify-center">
-                <div className="h-full w-full rounded-full border-2 border-primary/30" />
+                <div className="h-full w-full rounded-full border-2 border-yellow-300/30 bg-yellow-50/20" />
               </div>
+              {/* AAA zone — center */}
               <div className="absolute inset-24 flex items-center justify-center">
-                <div className="h-full w-full rounded-full border-2 border-accent/50" />
+                <div className="h-full w-full rounded-full border-2 border-green-400/50 bg-green-50/30" />
               </div>
 
+              {/* Center — Triple A (AAA) */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-accent shadow-lg">
-                  <Target className="h-16 w-16 text-accent-foreground" />
+                <div className="flex h-32 w-32 flex-col items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 shadow-lg shadow-green-500/30">
+                  <span className="text-xs text-white/80 font-medium">Triple A</span>
+                  <span className="font-display text-3xl text-white font-bold">AAA</span>
                 </div>
               </div>
 
-              <div className="absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
-                AAA - Maîtrise optimale
+              {/* Exterior — Triple DDD */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-700 border border-red-200">
+                Triple DDD — Risque critique
               </div>
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-700">
-                DDD - Risque critique
+              <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700 border border-green-200">
+                Triple A — Maîtrise optimale
               </div>
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700">
-                BB
+              <div className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700 border border-yellow-200">
+                BBB
               </div>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
-                AA
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-700 border border-orange-200">
+                CCC
               </div>
             </div>
           </div>

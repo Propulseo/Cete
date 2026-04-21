@@ -11,9 +11,19 @@ import pillarsData from "@/data/mocks/pillars.json";
 import valuesData from "@/data/mocks/values.json";
 import navigationData from "@/data/mocks/navigation.json";
 import contactData from "@/data/mocks/contact_info.json";
+import organizationsData from "@/data/mocks/organizations.json";
 
 export function getFounders(): Founder[] {
-  return foundersData as Founder[];
+  // Read from localStorage if available (allows admin edits without redeploy)
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("cete_founders");
+    if (stored) {
+      return (JSON.parse(stored) as Founder[]).filter(
+        (f) => f.visible !== false
+      );
+    }
+  }
+  return (foundersData as Founder[]).filter((f) => f.visible !== false);
 }
 
 export function getServices(): Service[] {
@@ -42,4 +52,8 @@ export function getNavigation(): Navigation {
 
 export function getContactInfo(): ContactInfo {
   return contactData as ContactInfo;
+}
+
+export function getOrganizations(): string[] {
+  return organizationsData as string[];
 }

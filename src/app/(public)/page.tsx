@@ -4,6 +4,7 @@ import {
   HomePillars,
   HomeADN,
   HomeServices,
+  HomeOrganizations,
   HomeTestimonials,
   HomeFounders,
   HomeCTA,
@@ -14,9 +15,10 @@ export default function HomePage() {
     <>
       <HomeHero />
       <HomeStats />
+      <HomeServices />
       <HomePillars />
       <HomeADN />
-      <HomeServices />
+      <HomeOrganizations />
       <HomeTestimonials />
       <HomeFounders />
       <HomeCTA />

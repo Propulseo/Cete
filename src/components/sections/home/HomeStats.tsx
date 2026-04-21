@@ -6,7 +6,7 @@ const stats = [
   { value: 200, suffix: "+", label: "Organisations évaluées" },
   { value: 20, suffix: "+", label: "Années d'expertise" },
   { value: 4, suffix: "", label: "Experts fondateurs" },
-  { value: 98, suffix: "%", label: "Satisfaction client" },
+  { value: 100, suffix: "%", label: "Satisfaction client" },
 ];
 
 export function HomeStats() {
@@ -14,7 +14,7 @@ export function HomeStats() {
     useCountUp(200, 2000),
     useCountUp(20, 2000),
     useCountUp(4, 1500),
-    useCountUp(98, 2000),
+    useCountUp(100, 2000),
   ];
 
   return (

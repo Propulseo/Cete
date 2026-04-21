@@ -3,6 +3,7 @@ export { HomeStats } from "./HomeStats";
 export { HomePillars } from "./HomePillars";
 export { HomeADN } from "./HomeADN";
 export { HomeServices } from "./HomeServices";
+export { HomeOrganizations } from "./HomeOrganizations";
 export { HomeTestimonials } from "./HomeTestimonials";
 export { HomeFounders } from "./HomeFounders";
 export { HomeCTA } from "./HomeCTA";

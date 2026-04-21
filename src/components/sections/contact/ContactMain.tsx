@@ -1,7 +1,5 @@
 import {
-  MapPin,
   Mail,
-  Phone,
   Clock,
   MessageCircle,
   FileSearch,
@@ -54,21 +52,10 @@ export function ContactMain() {
               </h3>
               <div className="space-y-4">
                 <InfoRow
-                  icon={MapPin}
-                  label="Adresse"
-                  value={`${contact.address}\n${contact.city}`}
-                />
-                <InfoRow
                   icon={Mail}
                   label="Email"
                   value={contact.email}
                   href={`mailto:${contact.email}`}
-                />
-                <InfoRow
-                  icon={Phone}
-                  label="Téléphone"
-                  value={contact.phone}
-                  href={`tel:${contact.phone}`}
                 />
                 <InfoRow
                   icon={Clock}

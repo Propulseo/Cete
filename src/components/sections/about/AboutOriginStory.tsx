@@ -73,19 +73,34 @@ export function AboutOriginStory() {
             </div>
 
             <div className="relative">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] p-8 relative overflow-hidden group">
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center">
-                  <div className="text-8xl font-display text-[#4DA6D9] mb-4 group-hover:scale-110 transition-transform duration-500">
+              {/* Photo patchwork grid */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] p-6 flex flex-col justify-center items-center text-center group overflow-hidden">
+                  <div className="text-6xl font-display text-[#4DA6D9] mb-2 group-hover:scale-110 transition-transform duration-500">
                     20+
                   </div>
-                  <p className="text-white/80 text-xl">Années d&apos;expertise</p>
-                  <p className="text-white/60 text-sm mt-2">en sécurité électrique</p>
+                  <p className="text-white/80 text-sm">Années d&apos;expertise</p>
+                </div>
+                <div className="aspect-square rounded-2xl bg-[#4DA6D9]/10 border border-[#DAEEF8] flex items-center justify-center overflow-hidden">
+                  <div className="text-center p-4">
+                    <Zap className="h-12 w-12 text-[#E8630A] mx-auto mb-2" />
+                    <p className="text-sm font-semibold text-[#1A2940]">Terrain</p>
+                  </div>
+                </div>
+                <div className="aspect-square rounded-2xl bg-[#F4F9FD] border border-[#DAEEF8] flex items-center justify-center overflow-hidden">
+                  <div className="text-center p-4">
+                    <Award className="h-12 w-12 text-[#4DA6D9] mx-auto mb-2" />
+                    <p className="text-sm font-semibold text-[#1A2940]">Notation</p>
+                  </div>
+                </div>
+                <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#E8630A] to-[#B84D08] flex items-center justify-center overflow-hidden group">
+                  <div className="text-center">
+                    <div className="text-4xl font-display text-white mb-1 group-hover:scale-110 transition-transform duration-500">200+</div>
+                    <p className="text-white/80 text-sm">Organisations</p>
+                  </div>
                 </div>
               </div>
-              <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-lg p-3 animate-float">
-                <Award className="h-8 w-8 text-[#E8630A]" />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-3 animate-float animation-delay-300">
+              <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-lg p-3 animate-float z-10">
                 <Shield className="h-8 w-8 text-[#1A2940]" />
               </div>
             </div>

@@ -1,5 +1,6 @@
 import {
   ExpertiseHero,
+  ExpertiseVigiScore,
   ExpertiseADN,
   ExpertiseServices,
   ExpertiseCTA,
@@ -9,6 +10,7 @@ export default function ExpertisePage() {
   return (
     <>
       <ExpertiseHero />
+      <ExpertiseVigiScore />
       <ExpertiseADN />
       <ExpertiseServices />
       <ExpertiseCTA />

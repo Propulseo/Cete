@@ -2,6 +2,9 @@ export type DocumentCategory = "newsletters" | "capsules" | "guides" | "carnets"
 export type DocumentType = "pdf" | "video";
 export type NotificationType = "veille" | "document" | "info";
 
+export type AccessRights = "all-clients" | "admin-only" | "specific-clients";
+export type AccessType = "view-only" | "download";
+
 export interface ClientDocument {
   id: string;
   title: string;
@@ -15,6 +18,8 @@ export interface ClientDocument {
   youtubeId?: string;
   visibility: "global" | "client";
   clientId?: string;
+  accessRights?: AccessRights;
+  accessType?: AccessType;
   created_at?: string;
   updated_at?: string;
 }

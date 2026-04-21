@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Zap, Mail, Phone, MapPin } from "lucide-react";
+import { Zap, Mail } from "lucide-react";
 import { getNavigation, getContactInfo } from "@/lib/data-loader";
 
 export function Footer() {
@@ -20,7 +20,7 @@ export function Footer() {
                 <Zap className="h-6 w-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold">CETé</span>
+                <span className="text-xl font-bold">CET<span className="text-[0.75em] align-super">É</span></span>
                 <span className="text-xs text-white/60">
                   Agence de Notation
                 </span>
@@ -61,21 +61,6 @@ export function Footer() {
                 <Mail className="h-4 w-4 text-[#E8630A]/60" />
                 {contact.email}
               </a>
-              <a
-                href={`tel:${contact.phone}`}
-                className="flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-white"
-              >
-                <Phone className="h-4 w-4 text-[#E8630A]/60" />
-                {contact.phone}
-              </a>
-              <div className="flex items-start gap-2 text-sm text-white/55">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#E8630A]/60" />
-                <span>
-                  {contact.address}
-                  <br />
-                  {contact.city}
-                </span>
-              </div>
             </div>
           </div>
 

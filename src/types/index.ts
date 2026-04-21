@@ -12,3 +12,4 @@ export * from "./auth";
 export * from "./resource";
 export * from "./repo-error";
 export * from "./blog";
+export * from "./certificate";

@@ -12,6 +12,8 @@ import {
   LogOut,
   Zap,
   Library,
+  Building2,
+  UserCircle,
 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
@@ -21,6 +23,8 @@ const sidebarItems = [
   { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "Documents", href: "/admin/documents", icon: FolderOpen },
   { label: "Ressources", href: "/admin/ressources", icon: Library },
+  { label: "Organisations", href: "/admin/organizations", icon: Building2 },
+  { label: "Équipe", href: "/admin/team", icon: UserCircle },
   { label: "Utilisateurs", href: "/admin/users", icon: Users },
   { label: "Paramètres", href: "/admin/settings", icon: Settings },
 ];

@@ -31,7 +31,7 @@ export function HomeFounders() {
 
           <div className="space-y-8">
             <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider">
-              Les fondateurs
+              Les co-fondateurs
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] leading-tight">
               80 ANS D&apos;EXPERTISE CUMULÉE

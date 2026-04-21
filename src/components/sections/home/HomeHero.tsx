@@ -65,10 +65,21 @@ export function HomeHero() {
               </span>
             </h1>
 
+            {/* Triple A highlight */}
+            <div className="opacity-0 animate-slide-up animation-delay-150 flex items-center gap-4">
+              <div className="px-6 py-3 rounded-2xl bg-gradient-to-r from-green-500/20 to-green-400/10 border border-green-400/40">
+                <span className="font-display text-2xl md:text-3xl text-green-600">
+                  Visez le Triple A{" "}
+                  <span className="text-green-500 font-bold">AAA</span>
+                </span>
+              </div>
+            </div>
+
             {/* Subheadline */}
             <p className="text-xl md:text-2xl text-[#4A6580] max-w-xl leading-relaxed opacity-0 animate-slide-up animation-delay-200">
-              CETé évalue, note et accompagne les organisations
-              sur l&apos;échelle <span className="text-green-400 font-semibold">AAA</span> à <span className="text-red-400 font-semibold">DDD</span>.
+              CETé évalue, note et accompagne les organisations grâce au{" "}
+              <span className="text-[#4DA6D9] font-semibold">Vigi-Score</span>,
+              sur l&apos;échelle <span className="text-green-500 font-semibold">Triple A (AAA)</span> à <span className="text-red-400 font-semibold">DDD</span>.
               Un rating indépendant pour objectiver votre maîtrise du risque.
             </p>
 
@@ -122,7 +133,7 @@ export function HomeHero() {
             {/* Rating badges floating around */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2">
               <div className="px-5 py-2.5 rounded-xl bg-green-500/25 border border-green-400/50 text-green-600 font-bold text-lg animate-float shadow-lg shadow-green-500/10">
-                AAA
+                Triple A
               </div>
             </div>
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -132,19 +143,20 @@ export function HomeHero() {
             </div>
             <div className="absolute left-0 top-1/2 -translate-y-1/2">
               <div className="px-5 py-2.5 rounded-xl bg-yellow-500/25 border border-yellow-400/50 text-yellow-600 font-bold text-lg animate-float animation-delay-500 shadow-lg shadow-yellow-500/10">
-                BB+
+                BBB
               </div>
             </div>
             <div className="absolute right-0 top-1/2 -translate-y-1/2">
-              <div className="px-5 py-2.5 rounded-xl bg-blue-500/25 border border-blue-400/50 text-blue-600 font-bold text-lg animate-float animation-delay-700 shadow-lg shadow-blue-500/10">
-                AA
+              <div className="px-5 py-2.5 rounded-xl bg-orange-500/25 border border-orange-400/50 text-orange-600 font-bold text-lg animate-float animation-delay-700 shadow-lg shadow-orange-500/10">
+                CCC
               </div>
             </div>
 
-            {/* Center element */}
+            {/* Center element — Vigi-Score */}
             <div className="relative z-10 flex flex-col items-center justify-center w-64 h-64 rounded-full bg-gradient-to-br from-[#4DA6D9] to-[#1A7AB5] shadow-2xl shadow-[#4DA6D9]/30 animate-pulse-glow">
-              <span className="font-display text-5xl text-white mb-1">CETé</span>
-              <span className="text-sm text-white/80 font-medium">Notation AAA-DDD</span>
+              <span className="text-sm text-white/80 font-medium uppercase tracking-wider mb-1">Vigi-Score</span>
+              <span className="font-display text-5xl text-white mb-1">AAA</span>
+              <span className="text-xs text-white/60 font-medium">Triple A — Excellence</span>
             </div>
           </div>
         </div>

@@ -5,4 +5,7 @@ export interface Founder {
   bio: string;
   imageUrl: string;
   specialties: string[];
+  visible?: boolean;
+  formerOrg?: string;
+  currentEntity?: string;
 }

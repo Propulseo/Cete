@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth-context";
 import { listDocumentsForClient } from "@/lib/repo/documents.repo";
 import { listNotifications } from "@/lib/repo/notifications.repo";
 import { DashboardSummary } from "@/components/features/client/DashboardSummary";
+import { CertificateCard } from "@/components/features/client/CertificateCard";
 import { NotificationsTicker } from "@/components/features/client/NotificationsTicker";
 import type { ClientDocument, Notification } from "@/types/document";
 
@@ -70,6 +71,7 @@ export default function ClientDashboardPage() {
       </div>
 
       <div className="space-y-8">
+        <CertificateCard userName={user.name} companyName={user.company} />
         <DashboardSummary documents={documents} />
         <NotificationsTicker
           notifications={notifications}

@@ -23,7 +23,7 @@ export function Header() {
           </div>
           <div className="flex flex-col">
             <span className="font-display text-xl tracking-wide text-[#1A2940]">
-              CETé
+              CET<span className="text-[0.75em] align-super">É</span>
             </span>
             <span className="hidden text-[10px] font-medium uppercase tracking-[0.15em] text-[#4A6580] sm:block">
               Agence de Notation

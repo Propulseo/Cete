@@ -22,7 +22,8 @@
       "Bash(npx next lint:*)",
       "Bash(npx eslint:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(test -d \"/c/Users/etien/Desktop/CETé/src/app/\\\\\\(public\\\\\\)/verifier/\" && echo \"EXISTS\" || echo \"NOT_FOUND\")"
     ]
   }
 }
