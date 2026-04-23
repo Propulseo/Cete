@@ -27,7 +27,8 @@
       "Bash(find \"/c/Users/etien/Desktop/CETé/src/app/\\(public\\)\" -name \"page.tsx\" -o -name \"layout.tsx\")",
       "Bash(cd \"C:/Users/etien/Desktop/CETé\" && mkdir -p public/assets/brand public/assets/founders)",
       "Bash(cd \"C:/Users/etien/Desktop/CETé\" && cp \"Photos/Logo dynamique du CETé ADN.png\" public/assets/brand/logo-cete-adn.png && cp \"Photos/Michel photo.png\" public/assets/founders/michel.webp && cp \"Photos/Photo Bruno CLAUDEL.jpg\" public/assets/founders/bruno-claudel.webp && cp \"Photos/Photo Pierre Virely.jpg\" public/assets/founders/pierre-virely.webp && echo \"Done\" && ls -la public/assets/brand/ && ls -la public/assets/founders/)",
-      "Bash(cd \"C:/Users/etien/Desktop/CETé/public/assets/founders\" && mv michel.webp michel.png && mv bruno-claudel.webp bruno-claudel.jpg && mv pierre-virely.webp pierre-virely.jpg && ls -la)"
+      "Bash(cd \"C:/Users/etien/Desktop/CETé/public/assets/founders\" && mv michel.webp michel.png && mv bruno-claudel.webp bruno-claudel.jpg && mv pierre-virely.webp pierre-virely.jpg && ls -la)",
+      "Bash(ls -la \"/c/Users/etien/Desktop/CETé/src/lib/repo/\" | grep -E \"\\\\.ts$\")"
     ]
   }
 }

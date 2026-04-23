@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, FileText, Video, ExternalLink, Search, Library, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, Video, ExternalLink, Search, Library, Loader2, Eye, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -166,6 +166,7 @@ export default function AdminResourcesPage() {
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Ressource</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Catégorie</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Type</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Accès</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Date</th>
               <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">Actions</th>
             </tr>
@@ -192,6 +193,15 @@ export default function AdminResourcesPage() {
                   <td className="px-4 py-3"><Badge variant="secondary">{categoryLabels[res.category]}</Badge></td>
                   <td className="px-4 py-3">
                     <Badge className={cfg.color}>{typeLabels[res.type]}</Badge>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Badge variant="outline" className="gap-1">
+                      {res.accessMode === "telechargement" ? (
+                        <><Download className="h-3 w-3" /> Téléchargement</>
+                      ) : (
+                        <><Eye className="h-3 w-3" /> Consultation</>
+                      )}
+                    </Badge>
                   </td>
                   <td className="px-4 py-3 text-sm text-muted-foreground">{res.publishedDate}</td>
                   <td className="px-4 py-3 text-right">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Search, FileText, ExternalLink, Video, Download, Library, Loader2 } from "lucide-react";
+import { Search, FileText, ExternalLink, Video, Download, Eye, Library, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -67,19 +67,18 @@ function ResourceCard({ res }: { res: Resource }) {
               <span className="text-xs text-muted-foreground">{res.fileSize}</span>
             )}
           </div>
-          {res.type === "pdf" && (
+          {res.accessMode === "telechargement" ? (
             <Button variant="outline" size="sm" asChild>
-              <a href={res.url} target="_blank" rel="noopener noreferrer">
+              <a href={res.url} download>
                 <Download className="mr-1.5 h-3.5 w-3.5" />
                 Télécharger
               </a>
             </Button>
-          )}
-          {res.type === "lien" && (
+          ) : (
             <Button variant="outline" size="sm" asChild>
               <a href={res.url} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                Ouvrir
+                <Eye className="mr-1.5 h-3.5 w-3.5" />
+                Consulter
               </a>
             </Button>
           )}

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { Resource, ResourceCategory, ResourceType } from "@/types/resource";
+import type { Resource, ResourceCategory, ResourceType, ResourceAccessMode } from "@/types/resource";
 
 interface ResourceFormDialogProps {
   open: boolean;
@@ -34,6 +34,11 @@ const typeLabels: Record<ResourceType, string> = {
   video: "Vidéo",
 };
 
+const accessModeLabels: Record<ResourceAccessMode, string> = {
+  lecture: "Consultation en ligne",
+  telechargement: "Téléchargement",
+};
+
 const urlPlaceholders: Record<ResourceType, string> = {
   pdf: "/ressources/document.pdf",
   lien: "https://exemple.com/article",
@@ -45,6 +50,7 @@ const EMPTY: Omit<Resource, "id"> = {
   description: "",
   category: "normes",
   type: "pdf",
+  accessMode: "lecture",
   url: "",
   youtubeId: undefined,
   fileSize: undefined,
@@ -143,6 +149,23 @@ export function ResourceFormDialog({
                 )}
               </select>
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Mode d&apos;accès client</Label>
+            <select
+              className={selectClass}
+              value={form.accessMode}
+              onChange={(e) => set("accessMode", e.target.value)}
+            >
+              {(Object.entries(accessModeLabels) as [ResourceAccessMode, string][]).map(
+                ([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                )
+              )}
+            </select>
           </div>
 
           <div className="space-y-2">
