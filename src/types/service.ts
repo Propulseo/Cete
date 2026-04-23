@@ -8,4 +8,5 @@ export interface Service {
   features: string[];
   icon: string;
   imageUrl: string;
+  pillar?: boolean;
 }

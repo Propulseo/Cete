@@ -3,17 +3,77 @@
     "id": "exp-dps",
     "category": "Expertise",
     "type": "expertise",
-    "title": "DPS - Diagnostic Prévention Sécurité",
-    "description": "Évaluation terrain de votre système de maîtrise du risque électrique. Base factuelle de votre notation.",
-    "shortDescription": "Audit terrain structuré — base de votre notation",
+    "pillar": true,
+    "title": "DPS - Diagnostic Performance Sécurité",
+    "description": "Évaluation terrain structurée de votre système de maîtrise du risque électrique. Le DPS est le socle de la démarche CETé : analyse, notation, certificat et accompagnement.",
+    "shortDescription": "Audit terrain structuré — base de votre notation et certification",
     "features": [
-      "Audit sur site de 2 à 5 jours selon périmètre",
-      "Rapport structuré avec scoring par axe",
-      "Plan d'action priorisé et chiffré",
-      "Restitution direction + équipes opérationnelles"
+      "Analyse de l'auto-évaluation du prescrit réglementaire",
+      "Analyse de l'organisation et de la maîtrise opérationnelle sur chantier représentatif",
+      "Rapport avec management visuel sur 4 niveaux de lecture",
+      "Recommandations et notation en comité de suivi",
+      "Remise d'un certificat pour valoir ce que de droit",
+      "Accompagnement au plan d'actions de progrès",
+      "Abonnement newsletter pendant la durée de certification"
     ],
     "icon": "clipboard-check",
     "imageUrl": "/images/services/dps.jpg"
+  },
+  {
+    "id": "exp-save",
+    "category": "Expertise",
+    "type": "expertise",
+    "pillar": true,
+    "title": "SAVE - Scan d'Analyse de Vulnérabilité des Événements",
+    "description": "Expertise d'appui à l'analyse d'événements : accidents, chaudes alertes, presqu'accidents, situations dangereuses. Un regard indépendant pour comprendre et prévenir.",
+    "shortDescription": "Analyse experte d'événements pour comprendre et prévenir",
+    "features": [
+      "Analyse approfondie de l'événement",
+      "Recommandations ciblées",
+      "Rédaction d'un compte-rendu détaillé",
+      "Accompagnement au plan d'actions de progrès"
+    ],
+    "icon": "shield-alert",
+    "imageUrl": "/images/services/save.jpg"
+  },
+  {
+    "id": "srv-campus",
+    "category": "Conseil",
+    "type": "service",
+    "pillar": true,
+    "title": "Campus CPF - Coaching, Performance, Formation",
+    "description": "Le triptyque gagnant de la Performance : conseils et accompagnement sur mesure pour faire progresser vos équipes et votre organisation.",
+    "shortDescription": "Le triptyque gagnant : Coaching - Performance - Formation",
+    "features": [
+      "VIR-ELEX",
+      "Coaching individuel ou collectif",
+      "Professionnalisation et formation",
+      "Coaching pour l'obtention d'une aptitude à un marché",
+      "Coaching pour l'agrément d'un Organisme de formation"
+    ],
+    "icon": "graduation-cap",
+    "imageUrl": "/images/services/campus-cpf.jpg"
+  },
+  {
+    "id": "srv-pass-vip",
+    "category": "Conseil",
+    "type": "service",
+    "pillar": true,
+    "title": "PASS-Sérénité VIP",
+    "description": "Votre accès privilégié à l'écosystème CETé ADN : veille réglementaire, base de connaissances, outils partenaires et animation de vos référents.",
+    "shortDescription": "Accès privilégié à l'écosystème CETé ADN",
+    "features": [
+      "Accès à l'espace VIP de CETé ADN",
+      "Abonnement à la newsletter",
+      "Veille réglementaire CETé ADN",
+      "Base Questions/Réponses CETé ADN",
+      "Synthèse annuelle des DPS",
+      "Animation des Encadrants et Formateurs Référents",
+      "Les TST pour les nuls",
+      "Éligibilité aux outils partenaires : Viz-Act, VISA, Vi.T.A.L, VESTA, VISU…"
+    ],
+    "icon": "crown",
+    "imageUrl": "/images/services/pass-vip.jpg"
   },
   {
     "id": "exp-vigi",
@@ -30,38 +90,6 @@
     ],
     "icon": "star",
     "imageUrl": "/images/services/vigi-score.jpg"
-  },
-  {
-    "id": "exp-cert",
-    "category": "Expertise",
-    "type": "expertise",
-    "title": "Certificat CETé",
-    "description": "Attestation officielle de votre niveau de maîtrise. Valorisable auprès de vos donneurs d'ordre et partenaires.",
-    "shortDescription": "Attestation officielle de votre notation",
-    "features": [
-      "Certificat nominatif par périmètre évalué",
-      "Validité 2 ans renouvelable",
-      "Utilisable dans vos appels d'offres",
-      "Registre CETé consultable sur demande"
-    ],
-    "icon": "award",
-    "imageUrl": "/images/services/certificate.jpg"
-  },
-  {
-    "id": "exp-veille",
-    "category": "Expertise",
-    "type": "expertise",
-    "title": "Veille Réglementaire",
-    "description": "Surveillance continue des évolutions normatives et réglementaires impactant votre notation et votre conformité.",
-    "shortDescription": "Alertes normatives et impact sur votre notation",
-    "features": [
-      "Bulletin ciblé par secteur",
-      "Alertes immédiates sur évolutions critiques",
-      "Analyse d'impact sur votre notation",
-      "Recommandations de mise en conformité"
-    ],
-    "icon": "bell",
-    "imageUrl": "/images/services/veille.jpg"
   },
   {
     "id": "srv-coach-mgr",

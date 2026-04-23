@@ -38,6 +38,10 @@ export function getConseilServices(): Service[] {
   return getServices().filter((s) => s.category === "Conseil");
 }
 
+export function getPillarServices(): Service[] {
+  return getServices().filter((s) => s.pillar === true);
+}
+
 export function getPillars(): Pillar[] {
   return pillarsData as Pillar[];
 }

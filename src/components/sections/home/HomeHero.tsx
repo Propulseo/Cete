@@ -58,19 +58,23 @@ export function HomeHero() {
                 VOTRE NOTATION
               </span>
               <span className="block font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
-                <span className="text-gradient-accent">DU RISQUE</span>
+                <span className="text-[#1A2940]">DU </span>
+                <span className="text-[#E8630A]">RISQUE</span>
               </span>
-              <span className="block font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] leading-[0.9] tracking-tight">
+              <span className="block font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight text-gradient-accent">
                 ÉLECTRIQUE
               </span>
             </h1>
 
-            {/* Triple A highlight */}
-            <div className="opacity-0 animate-slide-up animation-delay-150 flex items-center gap-4">
-              <div className="px-6 py-3 rounded-2xl bg-gradient-to-r from-green-500/20 to-green-400/10 border border-green-400/40">
-                <span className="font-display text-2xl md:text-3xl text-green-600">
-                  Visez le Triple A{" "}
-                  <span className="text-green-500 font-bold">AAA</span>
+            {/* Baseline + Slogan */}
+            <div className="opacity-0 animate-slide-up animation-delay-150 space-y-3">
+              <p className="text-lg md:text-xl text-[#4A6580] font-medium italic">
+                La force d&apos;un collectif
+              </p>
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-[#E8630A]" />
+                <span className="text-sm font-bold text-[#E8630A] tracking-widest uppercase">
+                  Classer. Évaluer. Éclairer.
                 </span>
               </div>
             </div>

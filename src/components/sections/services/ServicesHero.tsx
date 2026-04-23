@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Phone } from "lucide-react";
+import { ArrowRight, Briefcase, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ServicesHero() {
@@ -16,26 +16,27 @@ export function ServicesHero() {
       <div className="relative z-10 container mx-auto px-4 py-32">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 mb-8 animate-slide-up">
-            <GraduationCap className="h-4 w-4 text-[#E8630A]" />
-            <span className="text-sm font-medium text-[#E8630A]">Accompagnement vers le AAA</span>
+            <Briefcase className="h-4 w-4 text-[#E8630A]" />
+            <span className="text-sm font-medium text-[#E8630A]">4 offres structurées</span>
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] tracking-wide mb-6 animate-slide-up animation-delay-100">
-            ACCOMPAGNEMENT{" "}
+            NOS{" "}
             <span className="text-[#E8630A] relative">
-              & PROGRESSION
+              OFFRES
               <span className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E8630A]/50 rounded-full" />
             </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-[#4A6580] font-light mb-6 animate-slide-up animation-delay-200">
-            Coaching et formation <span className="text-[#E8630A] font-semibold">ciblés</span> pour
-            améliorer votre notation et ancrer la maîtrise du risque.
+            Expertise, diagnostic, coaching et accompagnement{" "}
+            <span className="text-[#E8630A] font-semibold">sur mesure</span> pour
+            maîtriser le risque électrique.
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed mb-10 animate-slide-up animation-delay-300">
-            200+ organisations accompagnées avec un taux de satisfaction de 98%.
-            Chaque programme part de votre Vigi-Score pour des résultats mesurables.
+            Du DPS au PASS-Sérénité VIP, CETé ADN vous accompagne
+            à chaque étape de votre démarche de performance.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-400">
@@ -45,7 +46,7 @@ export function ServicesHero() {
               className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold px-8 py-6 text-lg rounded-full group shadow-lg shadow-[#E8630A]/25 hover:shadow-[#E8630A]/40 transition-all"
             >
               <Link href="/contact">
-                Demander une évaluation
+                Nous contacter
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>

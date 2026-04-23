@@ -1,7 +1,6 @@
 import {
   ServicesHero,
-  ServicesApproach,
-  ServicesCatalog,
+  ServicesPillars,
   ServicesProcess,
   ServicesCTA,
 } from "@/components/sections/services";
@@ -10,8 +9,7 @@ export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
-      <ServicesApproach />
-      <ServicesCatalog />
+      <ServicesPillars />
       <ServicesProcess />
       <ServicesCTA />
     </>
