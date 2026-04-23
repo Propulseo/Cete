@@ -26,6 +26,12 @@
   --color-cete-text-secondary: #4A6580;
   --color-cete-text-muted: #8AA5BE;
 
+  /* Vigi-Score Notation Levels */
+  --color-vigi-a: #22C55E;
+  --color-vigi-b: #A3E635;
+  --color-vigi-c: #F97316;
+  --color-vigi-d: #EF4444;
+
   /* Sidebar */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -165,6 +171,9 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html, body {
+    overscroll-behavior: none;
   }
   body {
     @apply bg-background text-foreground antialiased;

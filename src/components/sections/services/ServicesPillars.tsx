@@ -9,7 +9,6 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { getPillarServices } from "@/lib/data-loader";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -88,9 +87,10 @@ function PillarGroup({
         {services.map((service) => {
           const style = categoryStyle[service.category];
           return (
-            <div
+            <Link
               key={service.id}
-              className={`group relative bg-white rounded-3xl border-2 border-[#DAEEF8] ${style.hover} p-8 md:p-10 transition-all duration-500 hover:shadow-2xl`}
+              href="/contact"
+              className={`block group relative bg-white rounded-3xl border-2 border-[#DAEEF8] ${style.hover} p-8 md:p-10 transition-all duration-500 hover:shadow-2xl`}
             >
               <div className="flex items-start gap-5 mb-6">
                 <div
@@ -121,17 +121,11 @@ function PillarGroup({
                 ))}
               </ul>
 
-              <Button
-                asChild
-                variant="ghost"
-                className="text-[#1A2940] hover:text-[#E8630A] hover:bg-[#E8630A]/10 font-semibold group/btn px-0"
-              >
-                <Link href="/contact">
-                  Nous contacter
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-            </div>
+              <span className="inline-flex items-center text-[#1A2940] group-hover:text-[#E8630A] font-semibold transition-colors">
+                Nous contacter
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
           );
         })}
       </div>

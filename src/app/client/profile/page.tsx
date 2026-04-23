@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { User, Mail, Building2, Shield, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BrandName } from "@/components/ui/brand-name";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/auth-context";
 import { listDocumentsForClient } from "@/lib/repo/documents.repo";
@@ -85,7 +86,7 @@ export default function ProfilePage() {
             </div>
             <p className="text-sm text-muted-foreground">
               Votre espace client vous donne accès aux newsletters, capsules vidéo,
-              guides pratiques et carnets d&apos;appui CETé. Contactez votre
+              guides pratiques et carnets d&apos;appui <BrandName />. Contactez votre
               référent pour toute question sur votre notation ou vos ressources.
             </p>
           </CardContent>

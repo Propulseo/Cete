@@ -250,7 +250,7 @@ export async function generateCertificatePDF(
   doc.setFontSize(6);
   doc.setTextColor(138, 165, 190);
   const legalLines = [
-    "Ce certificat est délivré par CETé — Conseil Expertise Technique Électricité, agence de notation indépendante.",
+    "Ce certificat est délivré par CETé — Consortium Experts Techniques Électricité, agence de notation indépendante.",
     "La notation attribuée est fondée sur le référentiel propriétaire CETé ADN et ne constitue pas une garantie d'absence de risque.",
     "La reproduction ou la falsification de ce document est passible de poursuites. Vérifiez l'authenticité via le QR code ci-contre.",
   ];

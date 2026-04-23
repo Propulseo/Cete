@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Zap, ArrowLeft, LogIn } from "lucide-react";
+import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,7 +51,7 @@ function PortailContent() {
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 backdrop-blur">
             <Zap className="h-8 w-8 text-[#E8630A]" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Espace CETé</h1>
+          <h1 className="text-2xl font-bold text-white">Espace <BrandName /></h1>
           <p className="mt-1 text-sm text-white/60">
             Accédez à votre notation et vos ressources
           </p>

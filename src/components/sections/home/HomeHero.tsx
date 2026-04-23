@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/ui/brand-name";
 
 const trustedBy = ["EDF", "Engie", "Vinci Énergies", "Bouygues", "Eiffage", "SPIE"];
 
@@ -81,10 +82,10 @@ export function HomeHero() {
 
             {/* Subheadline */}
             <p className="text-xl md:text-2xl text-[#4A6580] max-w-xl leading-relaxed opacity-0 animate-slide-up animation-delay-200">
-              CETé évalue, note et accompagne les organisations grâce au{" "}
-              <span className="text-[#4DA6D9] font-semibold">Vigi-Score</span>,
-              sur l&apos;échelle <span className="text-green-500 font-semibold">Triple A (AAA)</span> à <span className="text-red-400 font-semibold">DDD</span>.
-              Un rating indépendant pour objectiver votre maîtrise du risque.
+              L&apos;aptitude TST en un simple regard. <BrandName /> évalue et note chaque organisation
+              sur 3 critères (A, B, C ou D) assemblés en{" "}
+              <span className="text-[#4DA6D9] font-semibold">Vigi-Score</span> composite,
+              de <span className="text-[#22C55E] font-semibold">AAA</span> à <span className="text-[#EF4444] font-semibold">DDD</span>.
             </p>
 
             {/* CTA Buttons */}
@@ -134,25 +135,25 @@ export function HomeHero() {
             <div className="absolute w-[420px] h-[420px] rounded-full border border-[#4DA6D9]/5" />
             <div className="absolute w-[340px] h-[340px] rounded-full border border-[#4DA6D9]/20" />
 
-            {/* Rating badges floating around */}
+            {/* Rating badges — 4 niveaux individuels A/B/C/D */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2">
-              <div className="px-5 py-2.5 rounded-xl bg-green-500/25 border border-green-400/50 text-green-600 font-bold text-lg animate-float shadow-lg shadow-green-500/10">
-                Triple A
+              <div className="px-5 py-2.5 rounded-xl bg-[#22C55E]/25 border border-[#22C55E]/50 text-[#22C55E] font-bold text-lg animate-float shadow-lg shadow-[#22C55E]/10">
+                A — Conforme
               </div>
             </div>
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-              <div className="px-5 py-2.5 rounded-xl bg-red-500/25 border border-red-400/50 text-red-600 font-bold text-lg animate-float animation-delay-300 shadow-lg shadow-red-500/10">
-                DDD
+              <div className="px-5 py-2.5 rounded-xl bg-[#EF4444]/25 border border-[#EF4444]/50 text-[#EF4444] font-bold text-lg animate-float animation-delay-300 shadow-lg shadow-[#EF4444]/10">
+                D — Critique
               </div>
             </div>
             <div className="absolute left-0 top-1/2 -translate-y-1/2">
-              <div className="px-5 py-2.5 rounded-xl bg-yellow-500/25 border border-yellow-400/50 text-yellow-600 font-bold text-lg animate-float animation-delay-500 shadow-lg shadow-yellow-500/10">
-                BBB
+              <div className="px-5 py-2.5 rounded-xl bg-[#A3E635]/25 border border-[#A3E635]/50 text-[#65A30D] font-bold text-lg animate-float animation-delay-500 shadow-lg shadow-[#A3E635]/10">
+                B — Progrès
               </div>
             </div>
             <div className="absolute right-0 top-1/2 -translate-y-1/2">
-              <div className="px-5 py-2.5 rounded-xl bg-orange-500/25 border border-orange-400/50 text-orange-600 font-bold text-lg animate-float animation-delay-700 shadow-lg shadow-orange-500/10">
-                CCC
+              <div className="px-5 py-2.5 rounded-xl bg-[#F97316]/25 border border-[#F97316]/50 text-[#F97316] font-bold text-lg animate-float animation-delay-700 shadow-lg shadow-[#F97316]/10">
+                C — Alerte
               </div>
             </div>
 

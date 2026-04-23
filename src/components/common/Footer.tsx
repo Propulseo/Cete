@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { Zap, Mail } from "lucide-react";
+import Image from "next/image";
+import { Mail } from "lucide-react";
 import { getNavigation, getContactInfo } from "@/lib/data-loader";
+import { BrandName } from "@/components/ui/brand-name";
 
 export function Footer() {
   const navigation = getNavigation();
@@ -15,16 +17,14 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15">
-                <Zap className="h-6 w-6 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold">CET<span className="text-[0.75em] align-super">É</span></span>
-                <span className="text-xs text-white/60">
-                  Agence de Notation
-                </span>
-              </div>
+            <Link href="/" aria-label="Retour à l'accueil CETé">
+              <Image
+                src="/assets/brand/logo-cete-adn.png"
+                alt="CETé ADN — Agence de Notation du Risque Électrique"
+                height={40}
+                width={167}
+                className="h-20 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-sm text-white/60 leading-relaxed">
               Agence de Notation indépendante du risque électrique.
@@ -85,7 +85,7 @@ export function Footer() {
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 text-xs text-white/40 md:flex-row">
             <p>
-              © {new Date().getFullYear()} CETé — Agence de Notation du Risque
+              © {new Date().getFullYear()} <BrandName /> — Agence de Notation du Risque
               Électrique. Tous droits réservés.
             </p>
             <p className="md:-ml-40">

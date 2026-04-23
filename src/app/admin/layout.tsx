@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/ui/brand-name";
 
 const sidebarItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -63,7 +64,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
               <Zap className="h-5 w-5 text-accent" />
             </div>
-            <span className="text-lg font-bold">CETé Admin</span>
+            <span className="text-lg font-bold"><BrandName /> Admin</span>
           </div>
 
           <nav className="flex-1 space-y-1 px-4 py-4">

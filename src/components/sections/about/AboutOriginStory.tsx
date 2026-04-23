@@ -2,6 +2,7 @@
 
 import { Zap, Award, Shield, Building2, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { brandify } from "@/components/ui/brand-name";
 
 const timelineEvents = [
   {
@@ -42,7 +43,7 @@ export function AboutOriginStory() {
               Notre Histoire
             </Badge>
             <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-              LE CONSORTIUM CETé
+              LE CONSORTIUM CET<span className="text-[0.75em] align-super">é</span>
             </h2>
             <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full" />
           </div>
@@ -56,7 +57,7 @@ export function AboutOriginStory() {
                 a révélé un manque : <strong className="text-[#1A2940]">aucun système de notation indépendant</strong> n&apos;existait.
               </p>
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                En 2024, quatre experts fondent <strong className="text-[#1A2940]">CETé</strong> —
+                En 2024, quatre experts fondent <strong className="text-[#1A2940]">CET<span className="text-[0.75em] align-super">é</span></strong> —
                 une structure séparée du SERECT pour garantir une{" "}
                 <strong className="text-[#1A2940]">indépendance totale</strong>.
                 Mission : devenir l&apos;agence de notation de référence du risque électrique
@@ -124,7 +125,7 @@ export function AboutOriginStory() {
                       }`}
                     >
                       <span className="text-sm font-bold text-[#E8630A]">{event.year}</span>
-                      <h3 className="text-xl font-bold text-[#1A2940] mt-1">{event.title}</h3>
+                      <h3 className="text-xl font-bold text-[#1A2940] mt-1">{brandify(event.title)}</h3>
                       <p className="text-[#4A6580] mt-2">{event.description}</p>
                     </div>
                   </div>

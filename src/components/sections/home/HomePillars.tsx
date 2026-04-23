@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Zap, Star, Users } from "lucide-react";
 import { getPillars } from "@/lib/data-loader";
 
@@ -37,27 +38,29 @@ export function HomePillars() {
             const bgColor = colors[pillar.color as keyof typeof colors] || colors.blue;
 
             return (
-              <div key={pillar.id} className="group relative">
-                <div className="relative h-full p-8 rounded-3xl bg-white border border-[#DAEEF8] hover:border-transparent hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <Link key={pillar.id} href="/expertise" className="block">
+                <div className="group relative">
+                  <div className="relative h-full p-8 rounded-3xl bg-white border border-[#DAEEF8] hover:border-transparent hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                  <div className="relative z-10">
-                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${bgColor} text-white mb-6 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300`}>
-                      <Icon className="w-8 h-8" />
+                    <div className="relative z-10">
+                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${bgColor} text-white mb-6 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300`}>
+                        <Icon className="w-8 h-8" />
+                      </div>
+                      <h3 className="font-display text-2xl md:text-3xl text-[#1A2940] group-hover:text-white mb-4 transition-colors duration-300">
+                        {pillar.title.toUpperCase()}
+                      </h3>
+                      <p className="text-[#4A6580] group-hover:text-white/80 leading-relaxed transition-colors duration-300">
+                        {pillar.description}
+                      </p>
                     </div>
-                    <h3 className="font-display text-2xl md:text-3xl text-[#1A2940] group-hover:text-white mb-4 transition-colors duration-300">
-                      {pillar.title.toUpperCase()}
-                    </h3>
-                    <p className="text-[#4A6580] group-hover:text-white/80 leading-relaxed transition-colors duration-300">
-                      {pillar.description}
-                    </p>
-                  </div>
 
-                  <div className="absolute top-4 right-4 font-display text-6xl text-[#1A2940]/5 group-hover:text-white/10 transition-colors duration-300">
-                    0{index + 1}
+                    <div className="absolute top-4 right-4 font-display text-6xl text-[#1A2940]/5 group-hover:text-white/10 transition-colors duration-300">
+                      0{index + 1}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

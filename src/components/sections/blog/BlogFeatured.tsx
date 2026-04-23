@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { type BlogPost } from "@/types";
+import { brandify } from "@/components/ui/brand-name";
 
 export function BlogFeatured({ post }: { post: BlogPost }) {
   return (
@@ -50,7 +51,7 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
               </h2>
 
               <p className="text-[#4A6580] leading-relaxed text-lg">
-                {post.excerpt}
+                {brandify(post.excerpt)}
               </p>
 
               <div className="flex items-center justify-between pt-6 border-t border-[#DAEEF8]">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Briefcase, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/ui/brand-name";
 
 export function ServicesHero() {
   return (
@@ -35,7 +36,7 @@ export function ServicesHero() {
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed mb-10 animate-slide-up animation-delay-300">
-            Du DPS au PASS-Sérénité VIP, CETé ADN vous accompagne
+            Du DPS au PASS-Sérénité VIP, <BrandName /> ADN vous accompagne
             à chaque étape de votre démarche de performance.
           </p>
 

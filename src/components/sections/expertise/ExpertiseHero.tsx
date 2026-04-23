@@ -35,8 +35,9 @@ export function ExpertiseHero() {
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed mb-10 animate-slide-up animation-delay-300">
-            Rating indépendant du risque électrique. Une évaluation objective
-            de votre maîtrise opérationnelle, de AAA à DDD.
+            Agence de notation internationale et indépendante. L&apos;ambition
+            d&apos;offrir par un simple regard le niveau de confiance du travail
+            de prévention d&apos;une organisation — de AAA à DDD.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-400">

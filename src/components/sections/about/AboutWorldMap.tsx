@@ -1,22 +1,40 @@
 "use client";
 
-import { MapPin, Globe } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Globe } from "lucide-react";
+import { BrandName } from "@/components/ui/brand-name";
 
 const interventionZones = [
-  { name: "France", position: { top: "35%", left: "48%" }, primary: true },
-  { name: "Afrique de l'Ouest", position: { top: "55%", left: "45%" }, primary: false },
-  { name: "Afrique du Nord", position: { top: "42%", left: "48%" }, primary: false },
-  { name: "Moyen-Orient", position: { top: "40%", left: "58%" }, primary: false },
-  { name: "Océan Indien", position: { top: "60%", left: "62%" }, primary: false },
+  { name: "France métropolitaine", lat: 46.6, lng: 2.2, primary: true },
+  { name: "Île-de-France", lat: 48.86, lng: 2.35, primary: true },
+  { name: "Lyon", lat: 45.76, lng: 4.83, primary: true },
+  { name: "Marseille", lat: 43.3, lng: 5.37, primary: true },
+  { name: "Bordeaux", lat: 44.84, lng: -0.58, primary: true },
+  { name: "Belgique", lat: 50.85, lng: 4.35, primary: false },
+  { name: "Suisse", lat: 46.95, lng: 7.45, primary: false },
+  { name: "Maroc", lat: 33.97, lng: -6.85, primary: false },
+  { name: "Algérie", lat: 36.75, lng: 3.06, primary: false },
+  { name: "Tunisie", lat: 36.81, lng: 10.17, primary: false },
+  { name: "Sénégal", lat: 14.69, lng: -17.44, primary: false },
+  { name: "Côte d'Ivoire", lat: 5.35, lng: -4.01, primary: false },
+  { name: "Cameroun", lat: 3.87, lng: 11.52, primary: false },
+  { name: "Madagascar", lat: -18.88, lng: 47.51, primary: false },
+  { name: "La Réunion", lat: -21.12, lng: 55.53, primary: false },
 ];
 
 export function AboutWorldMap() {
+  const [mapReady, setMapReady] = useState(false);
+
+  useEffect(() => {
+    setMapReady(true);
+  }, []);
+
   return (
     <section className="py-24 bg-[#1A2940] relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A]/30 to-[#1A2940]" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#4DA6D9] text-sm font-semibold uppercase tracking-wider mb-4">
             <Globe className="h-4 w-4" />
             Rayonnement international
@@ -25,73 +43,105 @@ export function AboutWorldMap() {
             ZONES D&apos;INTERVENTION
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            CETé intervient en France et à l&apos;international pour évaluer et noter
+            <BrandName /> intervient en France et à l&apos;international pour évaluer et noter
             la maîtrise du risque électrique
           </p>
         </div>
 
-        {/* Simplified world map */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="relative aspect-[2/1] rounded-3xl bg-[#0D5A8A]/30 border border-[#4DA6D9]/20 overflow-hidden">
-            {/* Grid lines */}
-            <div className="absolute inset-0">
-              {[...Array(6)].map((_, i) => (
-                <div
-                  key={`h-${i}`}
-                  className="absolute w-full border-t border-[#4DA6D9]/10"
-                  style={{ top: `${(i + 1) * 14.28}%` }}
-                />
-              ))}
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={`v-${i}`}
-                  className="absolute h-full border-l border-[#4DA6D9]/10"
-                  style={{ left: `${(i + 1) * 11.11}%` }}
-                />
-              ))}
+        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-[#4DA6D9]/20 shadow-2xl">
+          {mapReady ? (
+            <LeafletMap />
+          ) : (
+            <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
+              <span className="text-white/40">Chargement de la carte…</span>
             </div>
-
-            {/* Intervention zone markers */}
-            {interventionZones.map((zone) => (
-              <div
-                key={zone.name}
-                className="absolute group cursor-pointer z-10"
-                style={{ top: zone.position.top, left: zone.position.left }}
-              >
-                {zone.primary && (
-                  <div className="absolute -inset-8 rounded-full bg-[#E8630A]/20 animate-pulse" />
-                )}
-                <div className={`relative flex items-center justify-center w-6 h-6 rounded-full ${
-                  zone.primary
-                    ? "bg-[#E8630A] shadow-lg shadow-[#E8630A]/30"
-                    : "bg-[#4DA6D9] shadow-lg shadow-[#4DA6D9]/30"
-                }`}>
-                  <MapPin className="w-3.5 h-3.5 text-white" />
-                </div>
-                <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className={`px-3 py-1.5 rounded-lg text-sm font-semibold ${
-                    zone.primary ? "bg-[#E8630A] text-white" : "bg-[#4DA6D9] text-white"
-                  }`}>
-                    {zone.name}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+          )}
         </div>
 
         {/* Legend */}
         <div className="flex flex-wrap justify-center gap-6 mt-8">
-          {interventionZones.map((zone) => (
-            <div key={zone.name} className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${
-                zone.primary ? "bg-[#E8630A]" : "bg-[#4DA6D9]"
-              }`} />
-              <span className="text-sm text-white/70">{zone.name}</span>
-            </div>
-          ))}
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#E8630A]" />
+            <span className="text-sm text-white/70">Siège &amp; France</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#4DA6D9]" />
+            <span className="text-sm text-white/70">International</span>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function LeafletMap() {
+  const [L, setL] = useState<typeof import("leaflet") | null>(null);
+  const [components, setComponents] = useState<typeof import("react-leaflet") | null>(null);
+
+  useEffect(() => {
+    Promise.all([import("leaflet"), import("react-leaflet")]).then(
+      ([leaflet, rc]) => {
+        setL(leaflet.default || leaflet);
+        setComponents(rc);
+      }
+    );
+  }, []);
+
+  if (!L || !components) {
+    return (
+      <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
+        <span className="text-white/40">Chargement de la carte…</span>
+      </div>
+    );
+  }
+
+  const { MapContainer, TileLayer, Marker, Popup } = components;
+
+  const orangeIcon = L.divIcon({
+    className: "",
+    html: `<div style="width:28px;height:28px;background:#E8630A;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(232,99,10,0.5);"></div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+
+  const blueIcon = L.divIcon({
+    className: "",
+    html: `<div style="width:24px;height:24px;background:#4DA6D9;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(77,166,217,0.5);"></div>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+
+  return (
+    <>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        crossOrigin=""
+      />
+      <MapContainer
+        center={[30, 10]}
+        zoom={3}
+        scrollWheelZoom={false}
+        style={{ height: 500, width: "100%" }}
+        attributionControl={false}
+      >
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        />
+        {interventionZones.map((zone) => (
+          <Marker
+            key={zone.name}
+            position={[zone.lat, zone.lng]}
+            icon={zone.primary ? orangeIcon : blueIcon}
+          >
+            <Popup>
+              <span style={{ fontWeight: 600, color: "#1A2940" }}>
+                {zone.name}
+              </span>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </>
   );
 }

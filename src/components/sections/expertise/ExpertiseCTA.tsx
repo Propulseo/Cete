@@ -3,6 +3,14 @@
 import Link from "next/link";
 import { Target, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/ui/brand-name";
+
+const levels = [
+  { letter: "A", bg: "bg-[#22C55E]", text: "text-white" },
+  { letter: "B", bg: "bg-[#A3E635]", text: "text-white" },
+  { letter: "C", bg: "bg-[#F97316]", text: "text-white" },
+  { letter: "D", bg: "bg-[#EF4444]", text: "text-white" },
+];
 
 export function ExpertiseCTA() {
   return (
@@ -46,30 +54,25 @@ export function ExpertiseCTA() {
               className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg rounded-full"
             >
               <Link href="/a-propos">
-                Découvrir CETé
+                Découvrir <BrandName />
               </Link>
             </Button>
           </div>
 
-          <div className="mt-16 flex justify-center gap-3">
-            {["AAA", "AA", "A", "BBB", "BB", "B", "CCC", "CC", "C", "DDD"].map((rating, i) => (
+          {/* 4 niveaux → notation composite */}
+          <div className="mt-16 flex justify-center items-center gap-3">
+            {levels.map((level) => (
               <div
-                key={rating}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${
-                  i === 0
-                    ? "bg-green-500 text-white scale-110"
-                    : i < 3
-                    ? "bg-green-500/20 text-green-400"
-                    : i < 6
-                    ? "bg-yellow-500/20 text-yellow-400"
-                    : i < 9
-                    ? "bg-orange-500/20 text-orange-400"
-                    : "bg-red-500/20 text-red-400"
-                }`}
+                key={level.letter}
+                className={`px-4 py-2 rounded-xl text-sm font-bold ${level.bg} ${level.text}`}
               >
-                {rating}
+                {level.letter}
               </div>
             ))}
+            <ArrowRight className="h-5 w-5 text-white/40 mx-2" />
+            <div className="px-4 py-2 rounded-xl text-sm font-bold bg-[#22C55E] text-white scale-110">
+              AAA
+            </div>
           </div>
         </div>
       </div>

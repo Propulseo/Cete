@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-CETé (Conseil Expertise Technique Électricité) — a French-language showcase website for an independent electrical risk rating agency. Phase 1 is a static site with mock data; Phase 2 will integrate Supabase for real auth and database.
+CETé (Consortium Experts Techniques Électricité) — a French-language showcase website for an independent electrical risk rating agency. Phase 1 is a static site with mock data; Phase 2 will integrate Supabase for real auth and database.
 
 ## Commands
 

@@ -65,9 +65,11 @@ function FounderCard({
           {!imgError ? (
             <Image
               src={founder.imageUrl}
-              alt={founder.name}
+              alt={`Portrait de ${founder.name}, ${founder.role}`}
               fill
-              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 192px"
+              className="object-cover object-top"
+              style={founder.imagePosition ? { objectPosition: founder.imagePosition } : undefined}
               onError={() => setImgError(true)}
             />
           ) : (

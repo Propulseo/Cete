@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Users, Zap, HardHat, BookOpen, Sparkles, ArrowRight, CheckCircle, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { getConseilServices } from "@/lib/data-loader";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -31,7 +30,7 @@ export function ServicesCatalog() {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-7 group">
+          <Link href="/contact" className="block lg:col-span-7 group">
             <div className="relative h-full bg-[#1A2940] rounded-3xl overflow-hidden min-h-[500px]">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#4DA6D9]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -63,25 +62,21 @@ export function ServicesCatalog() {
                 </div>
 
                 <div className="mt-auto pt-8">
-                  <Button
-                    asChild
-                    className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-bold px-8 py-6 rounded-full group/btn"
-                  >
-                    <Link href="/contact">
-                      Demander un devis
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
+                  <span className="inline-flex items-center bg-[#E8630A] text-white font-bold px-8 py-6 rounded-full group-hover:bg-[#B84D08] transition-colors">
+                    Demander un devis
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           <div className="lg:col-span-5 flex flex-col gap-6">
             {conseilServices.slice(1).map((service) => (
-              <div
+              <Link
                 key={service.id}
-                className="group relative bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-[#E8630A]"
+                href="/contact"
+                className="block group relative bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-[#E8630A]"
               >
                 <div className="flex items-start gap-6">
                   <div className="w-16 h-16 rounded-2xl bg-[#4DA6D9] flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
@@ -108,7 +103,7 @@ export function ServicesCatalog() {
 
                   <ArrowUpRight className="h-6 w-6 text-[#8AA5BE] group-hover:text-[#E8630A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

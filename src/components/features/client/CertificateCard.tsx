@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Award, Download, QrCode, Shield, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { generateCertificatePDF } from "@/lib/generate-certificate-pdf";
@@ -69,7 +70,7 @@ export function CertificateCard({ companyName }: CertificateCardProps) {
           <CardHeader className="flex-row items-center justify-between pb-2">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Award className="h-5 w-5 text-green-600" />
-              Certificat CETé — {cert.certificateNumber}
+              Certificat <BrandName /> — {cert.certificateNumber}
             </CardTitle>
             {statusBadge(cert.status)}
           </CardHeader>

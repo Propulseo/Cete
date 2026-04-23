@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { BrandName } from "@/components/ui/brand-name";
 
 export const metadata: Metadata = {
   title: "Conditions Générales d'Utilisation",
@@ -25,15 +26,15 @@ export default function CGUPage() {
           <p>
             Les présentes Conditions Générales d&apos;Utilisation (CGU) définissent
             les modalités d&apos;accès et d&apos;utilisation du site internet
-            www.cete-notation.fr (ci-après « le Site »), édité par CETé — Conseil
-            Expertise Technique Électricité.
+            www.cete-notation.fr (ci-après « le Site »), édité par <BrandName /> — Consortium
+            Experts Techniques Électricité.
           </p>
 
           <h2 className="font-display text-2xl text-[#1A2940] mt-10 mb-4">
             2. Éditeur du Site
           </h2>
           <p>
-            CETé — Conseil Expertise Technique Électricité<br />
+            <BrandName /> — Consortium Experts Techniques Électricité<br />
             Agence de Notation indépendante du risque électrique<br />
             Email : contact@cete-notation.fr
           </p>
@@ -55,13 +56,13 @@ export default function CGUPage() {
             L&apos;ensemble des contenus présents sur le Site (textes, images,
             logos, méthodologie de notation, échelle AAA-DDD, Vigi-Score,
             référentiel ADN) sont protégés par le droit de la propriété
-            intellectuelle et appartiennent à CETé ou font l&apos;objet d&apos;une
+            intellectuelle et appartiennent à <BrandName /> ou font l&apos;objet d&apos;une
             autorisation d&apos;utilisation.
           </p>
           <p>
             Toute reproduction, représentation, modification, publication ou
             adaptation de tout ou partie des éléments du Site est interdite sans
-            autorisation écrite préalable de CETé.
+            autorisation écrite préalable de <BrandName />.
           </p>
 
           <h2 className="font-display text-2xl text-[#1A2940] mt-10 mb-4">
@@ -95,7 +96,7 @@ export default function CGUPage() {
           </h2>
           <p>
             Les résultats de notation, les Vigi-Scores et les certificats
-            délivrés par CETé sont strictement confidentiels. Leur divulgation
+            délivrés par <BrandName /> sont strictement confidentiels. Leur divulgation
             à des tiers n&apos;est possible qu&apos;avec l&apos;accord écrit de
             l&apos;organisation évaluée.
           </p>
@@ -104,8 +105,8 @@ export default function CGUPage() {
             8. Limitation de responsabilité
           </h2>
           <p>
-            CETé s&apos;efforce d&apos;assurer l&apos;exactitude des informations
-            diffusées sur le Site. Toutefois, CETé ne saurait être tenu
+            <BrandName /> s&apos;efforce d&apos;assurer l&apos;exactitude des informations
+            diffusées sur le Site. Toutefois, <BrandName /> ne saurait être tenu
             responsable des omissions, inexactitudes ou carences dans la mise à
             jour des informations.
           </p>

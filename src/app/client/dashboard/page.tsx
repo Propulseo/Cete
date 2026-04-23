@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { listDocumentsForClient } from "@/lib/repo/documents.repo";
 import { listNotifications } from "@/lib/repo/notifications.repo";
+import { BrandName } from "@/components/ui/brand-name";
 import { DashboardSummary } from "@/components/features/client/DashboardSummary";
 import { CertificateCard } from "@/components/features/client/CertificateCard";
 import { NotificationsTicker } from "@/components/features/client/NotificationsTicker";
@@ -66,7 +67,7 @@ export default function ClientDashboardPage() {
           Bienvenue, {user.name}
         </h1>
         <p className="text-muted-foreground">
-          Retrouvez vos documents, votre notation et vos ressources CETé
+          Retrouvez vos documents, votre notation et vos ressources <BrandName />
         </p>
       </div>
 

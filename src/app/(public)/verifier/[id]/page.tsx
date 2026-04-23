@@ -14,6 +14,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/ui/brand-name";
 import { getCertificateById } from "@/lib/repo/certificates.repo";
 import type { CertificateData } from "@/types/certificate";
 
@@ -95,7 +96,7 @@ export default function VerifierPage() {
             Certificat non reconnu
           </h1>
           <p className="text-[#4A6580] mb-8">
-            L&apos;identifiant <code className="font-mono bg-[#F4F9FD] px-2 py-1 rounded">{id}</code> ne correspond à aucun certificat CETé.
+            L&apos;identifiant <code className="font-mono bg-[#F4F9FD] px-2 py-1 rounded">{id}</code> ne correspond à aucun certificat <BrandName />.
             Vérifiez que le QR code scanné est correct.
           </p>
           <Button asChild variant="outline">
@@ -118,7 +119,7 @@ export default function VerifierPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#4DA6D9]/10 border border-[#4DA6D9]/30 mb-6">
             <Shield className="h-4 w-4 text-[#4DA6D9]" />
             <span className="text-sm font-medium text-[#4DA6D9]">
-              Vérification de certificat CETé ADN
+              Vérification de certificat <BrandName /> ADN
             </span>
           </div>
 
@@ -138,7 +139,7 @@ export default function VerifierPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <InfoBlock label="Entreprise certifiée" value={cert.companyName} />
-              <InfoBlock label="Notation CETé ADN">
+              <InfoBlock label={<>Notation <BrandName /> ADN</>}>
                 <span className="inline-block rounded-lg bg-yellow-100 px-3 py-1 font-bold text-yellow-700 text-xl">
                   {cert.rating}
                 </span>
@@ -189,8 +190,8 @@ export default function VerifierPage() {
             </div>
 
             <p className="text-xs text-[#8AA5BE] text-center pt-4">
-              Ce certificat a été délivré par CETé — Agence de Notation
-              indépendante du risque électrique, selon le référentiel CETé ADN.
+              Ce certificat a été délivré par <BrandName /> — Agence de Notation
+              indépendante du risque électrique, selon le référentiel <BrandName /> ADN.
             </p>
           </CardContent>
         </Card>
@@ -213,7 +214,7 @@ function InfoBlock({
   value,
   children,
 }: {
-  label: string;
+  label: React.ReactNode;
   value?: string;
   children?: React.ReactNode;
 }) {

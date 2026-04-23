@@ -29,7 +29,7 @@ const MOCK_CERTIFICATES: CertificateData[] = [
     companyName: "Electricité Pro SA",
     siren: "123 456 789",
     address: "12 rue de l'Industrie, 69003 Lyon",
-    rating: "BB",
+    rating: "BBC",
     vigiScore: "B",
     vigiScoreTendance: "",
     subCriteria: {

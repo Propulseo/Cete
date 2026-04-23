@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BrandName } from "@/components/ui/brand-name";
 import { listDocuments } from "@/lib/repo/documents.repo";
 import { listArticles } from "@/lib/repo/articles.repo";
 import { getAdminStats } from "@/lib/repo/stats.repo";
@@ -86,7 +87,7 @@ export default function AdminDashboardPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
         <p className="text-muted-foreground">
-          Pilotage de l&apos;agence de notation CETé
+          Pilotage de l&apos;agence de notation <BrandName />
         </p>
       </div>
 

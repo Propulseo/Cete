@@ -18,11 +18,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+const SUBJECT_OPTIONS = [
+  { value: "", label: "Sélectionnez un sujet…" },
+  { value: "dps", label: "Notation — Diagnostic Performance Sécurité (DPS)" },
+  { value: "save", label: "Expertise — Analyse d'événements (SAVE)" },
+  { value: "campus", label: "Formation — Coaching, Performance, Formation (Campus CPF)" },
+  { value: "pass-vip", label: "Abonnement — PASS-Sérénité VIP" },
+  { value: "autre", label: "Autre demande" },
+] as const;
+
 const contactSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
   company: z.string().min(2, "Le nom de l'entreprise est requis"),
   email: z.string().email("Email invalide"),
   phone: z.string().optional(),
+  subject: z.string().min(1, "Veuillez sélectionner un sujet"),
   message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
   acceptCgu: z.boolean().refine((val) => val === true, {
     message: "Vous devez accepter les CGU",
@@ -41,6 +51,7 @@ export function ContactForm() {
       company: "",
       email: "",
       phone: "",
+      subject: "",
       message: "",
       acceptCgu: false,
     },
@@ -128,6 +139,29 @@ export function ContactForm() {
                     placeholder="+33 1 XX XX XX XX"
                     {...field}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sujet *</FormLabel>
+                <FormControl>
+                  <select
+                    {...field}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {SUBJECT_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value} disabled={opt.value === ""}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
                 </FormControl>
                 <FormMessage />
               </FormItem>

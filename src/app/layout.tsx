@@ -16,7 +16,7 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: {
-    default: "CETé - Conseil Expertise Technique Électricité",
+    default: "CETé - Consortium Experts Techniques Électricité",
     template: "%s | CETé",
   },
   description:
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://cete-notation.fr",
     siteName: "CETé",
-    title: "CETé - Conseil Expertise Technique Électricité",
+    title: "CETé - Consortium Experts Techniques Électricité",
     description:
       "Agence de Notation indépendante du risque électrique. Transformer la vigilance en énergie collective.",
   },

@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { getContactInfo } from "@/lib/data-loader";
+import { BrandName } from "@/components/ui/brand-name";
 
 export function ContactInfo() {
   const contact = getContactInfo();
@@ -8,7 +9,7 @@ export function ContactInfo() {
     <div className="space-y-8">
       <div>
         <h3 className="mb-6 text-xl font-bold text-foreground">
-          CETé - Contact
+          <BrandName /> - Contact
         </h3>
         <p className="text-muted-foreground">
           Prêts à transformer votre vigilance en énergie collective ?

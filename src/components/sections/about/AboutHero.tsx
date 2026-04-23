@@ -29,11 +29,11 @@ export function AboutHero() {
 
           <p className="text-xl md:text-2xl text-[#4A6580] font-light mb-8 animate-slide-up animation-delay-200">
             Du <span className="text-[#E8630A] font-semibold">SERECT</span> à{" "}
-            <span className="text-[#E8630A] font-semibold">CETé</span> — 20 ans de terrain, une agence de notation.
+            <span className="text-[#E8630A] font-semibold">CET<span className="text-[0.75em] align-super">é</span></span> — 20 ans de terrain, une agence de notation.
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed animate-slide-up animation-delay-300">
-            Quatre experts indépendants ont fondé CETé pour objectiver la maîtrise
+            Quatre experts indépendants ont fondé CET<span className="text-[0.75em] align-super">é</span> pour objectiver la maîtrise
             du risque électrique avec un système de notation structuré et transparent.
           </p>
 

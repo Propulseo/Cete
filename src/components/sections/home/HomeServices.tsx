@@ -3,17 +3,20 @@
 import Link from "next/link";
 import { Zap, CheckCircle, Star, Award, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getExpertiseServices } from "@/lib/data-loader";
+import { getPillarServices } from "@/lib/data-loader";
 
-const icons = {
+const icons: Record<string, typeof Zap> = {
   "clipboard-check": CheckCircle,
+  "shield-alert": Shield,
+  "graduation-cap": Star,
+  "crown": Award,
   "star": Star,
   "award": Award,
   "bell": Shield,
 };
 
 export function HomeServices() {
-  const services = getExpertiseServices();
+  const services = getPillarServices();
 
   return (
     <section className="py-24 bg-white relative">
@@ -35,36 +38,37 @@ export function HomeServices() {
             const Icon = icons[service.icon as keyof typeof icons] || Zap;
 
             return (
-              <div
-                key={service.id}
-                className="group relative p-8 rounded-3xl bg-[#F4F9FD] hover:bg-[#1A2940] border border-transparent hover:border-[#4DA6D9]/30 transition-all duration-500 overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#4DA6D9]/5 group-hover:bg-[#4DA6D9]/10 rounded-full blur-2xl transition-all duration-500" />
+              <Link key={service.id} href="/services" className="block">
+                <div
+                  className="group relative p-8 rounded-3xl bg-[#F4F9FD] hover:bg-[#1A2940] border border-transparent hover:border-[#4DA6D9]/30 transition-all duration-500 overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#4DA6D9]/5 group-hover:bg-[#4DA6D9]/10 rounded-full blur-2xl transition-all duration-500" />
 
-                <div className="relative z-10 flex gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-[#4DA6D9] group-hover:bg-[#4DA6D9] flex items-center justify-center transition-colors duration-300">
-                      <Icon className="w-8 h-8 text-white group-hover:text-white transition-colors duration-300" />
+                  <div className="relative z-10 flex gap-6">
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 rounded-2xl bg-[#4DA6D9] group-hover:bg-[#4DA6D9] flex items-center justify-center transition-colors duration-300">
+                        <Icon className="w-8 h-8 text-white group-hover:text-white transition-colors duration-300" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-display text-2xl text-[#1A2940] group-hover:text-white mb-2 transition-colors duration-300">
+                        {service.title.toUpperCase()}
+                      </h3>
+                      <p className="text-[#4A6580] group-hover:text-white/70 mb-4 transition-colors duration-300">
+                        {service.description}
+                      </p>
+                      <ul className="space-y-2">
+                        {service.features.slice(0, 3).map((feature, i) => (
+                          <li key={i} className="flex items-center gap-2 text-sm text-[#4A6580] group-hover:text-white/60 transition-colors duration-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E8630A]" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-display text-2xl text-[#1A2940] group-hover:text-white mb-2 transition-colors duration-300">
-                      {service.title.toUpperCase()}
-                    </h3>
-                    <p className="text-[#4A6580] group-hover:text-white/70 mb-4 transition-colors duration-300">
-                      {service.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {service.features.slice(0, 3).map((feature, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-[#4A6580] group-hover:text-white/60 transition-colors duration-300">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E8630A]" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

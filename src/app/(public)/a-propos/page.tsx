@@ -4,6 +4,7 @@ import {
   AboutStats,
   AboutFounders,
   AboutWorldMap,
+  AboutGouvernance,
   AboutValues,
   AboutCTA,
 } from "@/components/sections/about";
@@ -16,6 +17,7 @@ export default function AProposPage() {
       <AboutStats />
       <AboutFounders />
       <AboutWorldMap />
+      <AboutGouvernance />
       <AboutValues />
       <AboutCTA />
     </>

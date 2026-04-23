@@ -4,6 +4,13 @@ import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const progression = [
+  { letter: "D", color: "bg-[#EF4444]/20", text: "text-[#EF4444]" },
+  { letter: "C", color: "bg-[#F97316]/20", text: "text-[#F97316]" },
+  { letter: "B", color: "bg-[#A3E635]/20", text: "text-[#65A30D]" },
+  { letter: "A", color: "bg-[#22C55E]/20", text: "text-[#22C55E]" },
+];
+
 export function ServicesCTA() {
   return (
     <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
@@ -52,26 +59,21 @@ export function ServicesCTA() {
             </Button>
           </div>
 
-          <div className="mt-16 flex justify-center gap-3">
-            {["B", "BB", "BBB"].map((rating, i) => (
-              <div key={rating} className="flex items-center gap-2">
-                <div className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
-                  i === 0
-                    ? "bg-yellow-500/20 text-yellow-400"
-                    : i === 1
-                    ? "bg-yellow-500/20 text-yellow-400"
-                    : "bg-green-500/20 text-green-400"
-                }`}>
-                  {rating}
+          {/* Progression D → C → B → A → AAA */}
+          <div className="mt-16 flex justify-center items-center gap-2">
+            {progression.map((level, i) => (
+              <div key={level.letter} className="flex items-center gap-2">
+                <div className={`px-3 py-1.5 rounded-lg text-xs font-bold ${level.color} ${level.text}`}>
+                  {level.letter}
                 </div>
-                {i < 2 && (
+                {i < progression.length - 1 && (
                   <ArrowRight className="h-4 w-4 text-white/30" />
                 )}
               </div>
             ))}
             <div className="flex items-center gap-2">
               <ArrowRight className="h-4 w-4 text-white/30" />
-              <div className="px-3 py-1.5 rounded-lg text-xs font-bold bg-green-500 text-white scale-110">
+              <div className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#22C55E] text-white scale-110">
                 AAA
               </div>
             </div>

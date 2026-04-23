@@ -1,7 +1,7 @@
 import {
   ExpertiseHero,
   ExpertiseVigiScore,
-  ExpertiseADN,
+  ExpertiseVigilance,
   ExpertiseOMT,
   ExpertiseTertiles,
   ExpertiseComparison,
@@ -14,7 +14,7 @@ export default function ExpertisePage() {
     <>
       <ExpertiseHero />
       <ExpertiseVigiScore />
-      <ExpertiseADN />
+      <ExpertiseVigilance />
       <ExpertiseOMT />
       <ExpertiseTertiles />
       <ExpertiseComparison />

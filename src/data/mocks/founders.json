@@ -4,7 +4,8 @@
     "name": "Michel LIGIER",
     "role": "Co-fondateur — Directeur Technique",
     "bio": "25 ans d'expertise en sécurité électrique et Travaux Sous Tension. Ancien cadre SERECT. Architecte du référentiel de notation CETé.",
-    "imageUrl": "/images/founders/michel.jpg",
+    "imageUrl": "/assets/founders/michel.png",
+    "imagePosition": "left top",
     "specialties": ["Travaux Sous Tension", "Diagnostic terrain", "Référentiel de notation"],
     "formerOrg": "Ancien Expert SERECT",
     "currentEntity": "Fondateur de MaP Expertise Conseils"
@@ -14,7 +15,7 @@
     "name": "Bruno CLAUDEL",
     "role": "Co-fondateur — Conformité & Réglementation",
     "bio": "20 ans en prévention et conformité réglementaire électrique. Responsable de la veille normative et de la gouvernance de notation CETé.",
-    "imageUrl": "/images/founders/bruno.jpg",
+    "imageUrl": "/assets/founders/bruno-claudel.jpg",
     "specialties": ["Conformité réglementaire", "Audit normatif", "Veille juridique"],
     "formerOrg": "Ancien Expert SERECT",
     "currentEntity": ""
@@ -24,7 +25,7 @@
     "name": "Pierre VIRELY",
     "role": "Co-fondateur — Formation & Pédagogie",
     "bio": "20 ans en ingénierie pédagogique appliquée à la sécurité. Concepteur des programmes d'accompagnement vers le AAA.",
-    "imageUrl": "/images/founders/pierre.jpg",
+    "imageUrl": "/assets/founders/pierre-virely.jpg",
     "specialties": ["Ingénierie pédagogique", "Coaching opérationnel", "Montée en compétence"],
     "formerOrg": "Ancien Expert SERECT",
     "currentEntity": ""
@@ -34,7 +35,7 @@
     "name": "Denis VUILLOZ",
     "role": "Co-fondateur — Notation & Analyse",
     "bio": "20 ans en analyse de risques et systèmes de notation. Concepteur de l'échelle AAA-DDD et de la méthodologie Vigi-Score.",
-    "imageUrl": "/images/founders/denis.jpg",
+    "imageUrl": "/assets/founders/denis.jpg",
     "specialties": ["Méthodologie de notation", "Analyse de risques", "Échelle AAA-DDD"],
     "visible": false,
     "formerOrg": "Ancien Expert SERECT",

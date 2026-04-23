@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavigation } from "@/lib/data-loader";
@@ -14,25 +15,22 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container mx-auto flex h-[72px] items-center justify-between px-4">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#DAEEF8]/90 via-[#F4F9FD]/90 to-[#DAEEF8]/90 backdrop-blur-md border-b border-[#4DA6D9]/10">
+      <div className="max-w-[1400px] mx-auto flex h-[72px] items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4DA6D9] transition-shadow group-hover:shadow-md group-hover:shadow-[#4DA6D9]/20">
-            <Zap className="h-5 w-5 text-white" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display text-xl tracking-wide text-[#1A2940]">
-              CET<span className="text-[0.75em] align-super">É</span>
-            </span>
-            <span className="hidden text-[10px] font-medium uppercase tracking-[0.15em] text-[#4A6580] sm:block">
-              Agence de Notation
-            </span>
-          </div>
+        <Link href="/" aria-label="Retour à l'accueil CETé">
+          <Image
+            src="/assets/brand/logo-cete-adn.png"
+            alt="CETé ADN — Agence de Notation du Risque Électrique"
+            height={48}
+            width={200}
+            priority
+            className="h-16 w-auto sm:h-20"
+          />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 md:flex ml-28">
           {navigation.mainNav.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -124,8 +122,8 @@ export function Header() {
         </Sheet>
       </div>
 
-      {/* Branded bottom line */}
-      <div className="h-[2px] bg-gradient-to-r from-[#4DA6D9] via-[#1A7AB5] to-[#4DA6D9]/20" />
+      {/* Subtle branded bottom line */}
+      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#4DA6D9]/30 to-transparent" />
     </header>
   );
 }
