@@ -64,7 +64,7 @@ export function ContactForm() {
     setIsSubmitting(false);
 
     toast.success("Message envoyé !", {
-      description: "Nous vous répondrons dans les 24 heures.",
+      description: "Nous vous recontacterons dans les meilleurs délais.",
     });
 
     form.reset();

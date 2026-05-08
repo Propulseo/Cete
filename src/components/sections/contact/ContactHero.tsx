@@ -28,7 +28,7 @@ export function ContactHero() {
 
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/60">
             Demandez votre évaluation ou posez vos questions sur la notation.
-            Réponse garantie sous 24h ouvrées.
+            Entretien dans les meilleurs délais.
           </p>
         </div>
       </div>

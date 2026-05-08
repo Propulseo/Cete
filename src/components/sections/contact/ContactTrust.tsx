@@ -13,8 +13,8 @@ const trustItems = [
   },
   {
     icon: Clock,
-    title: "Réponse sous 24h",
-    description: "Cadrage initial et proposition de calendrier sous 24h ouvrées",
+    title: "Entretien dans les meilleurs délais",
+    description: "Cadrage initial, proposition de solutions et de calendrier adaptés",
   },
 ];
 

@@ -23,7 +23,7 @@ export function AboutFounders() {
             NOS CO-FONDATEURS
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            Des experts passionnés issus du SERECT, unis par une vision commune :
+            Des experts passionnés issus de SERECT, unis par une vision commune :
             transformer la vigilance en énergie collective
           </p>
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />

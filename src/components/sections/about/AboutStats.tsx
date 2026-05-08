@@ -7,7 +7,7 @@ const stats = [
   { value: 20, suffix: "+", label: "Années d'expertise terrain", icon: Calendar },
   { value: 200, suffix: "+", label: "Organisations évaluées", icon: Users },
   { value: 4, suffix: "", label: "Experts fondateurs", icon: Award },
-  { value: 98, suffix: "%", label: "Taux de satisfaction", icon: TrendingUp },
+  { value: 100, suffix: "%", label: "Taux de satisfaction", icon: TrendingUp },
 ];
 
 export function AboutStats() {
@@ -15,7 +15,7 @@ export function AboutStats() {
     useCountUp(20, 2000),
     useCountUp(200, 2000),
     useCountUp(4, 1500),
-    useCountUp(98, 2000),
+    useCountUp(100, 2000),
   ];
 
   return (

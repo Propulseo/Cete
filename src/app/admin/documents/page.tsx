@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, FileText, Video, Search, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, Video, Search, Loader2, Eye, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -145,6 +145,7 @@ export default function AdminDocumentsPage() {
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Catégorie</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Type</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Visibilité</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Accès</th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Date</th>
               <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">Actions</th>
             </tr>
@@ -166,6 +167,19 @@ export default function AdminDocumentsPage() {
                 <td className="px-4 py-3"><Badge variant="secondary">{categoryLabels[doc.category]}</Badge></td>
                 <td className="px-4 py-3"><Badge variant={doc.type === "pdf" ? "outline" : "default"}>{doc.type}</Badge></td>
                 <td className="px-4 py-3"><Badge variant={doc.visibility === "global" ? "default" : "outline"}>{doc.visibility}{doc.clientId ? ` · ${doc.clientId}` : ""}</Badge></td>
+                <td className="px-4 py-3">
+                  {doc.accessType === "download" ? (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                      <Download className="h-3 w-3" />
+                      Téléchargement
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
+                      <Eye className="h-3 w-3" />
+                      Lecture seule
+                    </span>
+                  )}
+                </td>
                 <td className="px-4 py-3 text-sm text-muted-foreground">{doc.uploadDate}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">

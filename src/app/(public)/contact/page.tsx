@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import {
   ContactHero,
   ContactMain,
@@ -6,16 +7,18 @@ import {
 } from "@/components/sections/contact";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact & Demande d'évaluation",
   description:
-    "Contactez CETé pour un audit, une formation ou un accompagnement. Réponse garantie sous 24h.",
+    "Demandez une évaluation CETé ou posez vos questions. Entretien dans les meilleurs délais.",
 };
 
 export default function ContactPage() {
   return (
     <>
       <ContactHero />
-      <ContactMain />
+      <Suspense>
+        <ContactMain />
+      </Suspense>
       <ContactTrust />
     </>
   );

@@ -6,27 +6,33 @@ import { brandify } from "@/components/ui/brand-name";
 
 const timelineEvents = [
   {
-    year: "2000",
-    title: "Création du SERECT",
-    description: "Société d'Études, de Recherches et de Conseils Techniques. Début de l'expertise terrain en sécurité électrique.",
+    year: "2007–2021",
+    title: "SERECT",
+    description: "Expérience en tant que Responsables d'affaires Expertise risque électrique. En charge du pilotage de l'expertise TST BT et HTA en France et à l'international.",
     icon: Building2,
   },
   {
-    year: "2010",
-    title: "200+ organisations évaluées",
-    description: "Consolidation de l'expertise terrain. Conception des premiers outils de scoring du risque électrique.",
+    year: "2019–2021",
+    title: "Création des SASU",
+    description: "Création des SASU LEXPREL, VIRELEX et MaP Expertise Conseils. Consolidation de l'expertise terrain, conception des premiers outils de scoring du risque électrique.",
     icon: Award,
   },
   {
-    year: "2020",
+    year: "2022",
     title: "Conception du référentiel ADN",
-    description: "Structuration de la méthodologie de notation AAA-DDD. Formalisation des trois axes d'évaluation.",
+    description: "Innovation permettant d'avoir une vision à 360° du management de la prévention du risque électrique.",
     icon: GraduationCap,
   },
   {
-    year: "2024",
-    title: "Création de CETé",
-    description: "Première agence de notation indépendante du risque électrique en France. Séparation du SERECT pour garantir l'indépendance.",
+    year: "2025",
+    title: "Création du Vigi-Score",
+    description: "Innovation permettant de lire le capital Prévention d'une entreprise sur un simple regard.",
+    icon: Shield,
+  },
+  {
+    year: "2026",
+    title: "Création de l'Agence de Notation CETé",
+    description: "Dépôt de propriété intellectuelle des marques CETé ADN et Vigi-Score complétée d'une quinzaine d'innovations portant sur le pilotage du management des risques professionnels.",
     icon: Zap,
   },
 ];
@@ -51,17 +57,24 @@ export function AboutOriginStory() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div className="space-y-6">
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                Le <strong className="text-[#1A2940]">SERECT</strong> (Société d&apos;Études,
-                de Recherches et de Conseils Techniques) a accompagné pendant 20 ans
-                les organisations dans la maîtrise du risque électrique. Cette expérience terrain
-                a révélé un manque : <strong className="text-[#1A2940]">aucun système de notation indépendant</strong> n&apos;existait.
+                En 1962, <strong className="text-[#1A2940]">SERECT</strong> est créé pour
+                promouvoir et développer les TST en France. En 2000, EDF généralise les audits
+                TST dans les unités EDF sur une périodicité de 4 ans. L&apos;année 2008 voit le
+                début des visites d&apos;entreprises prestataires du distributeur ERDF. ENEDIS
+                généralise les audits terrain chez leurs entreprises prestataires en 2014.
               </p>
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                En 2024, quatre experts fondent <strong className="text-[#1A2940]">CET<span className="text-[0.75em] align-super">é</span></strong> —
-                une structure séparée du SERECT pour garantir une{" "}
-                <strong className="text-[#1A2940]">indépendance totale</strong>.
-                Mission : devenir l&apos;agence de notation de référence du risque électrique
-                en France et à l&apos;international.
+                En 2019, des anciens experts de SERECT fondent leur société d&apos;expertise
+                conseils et crée un observatoire international de la Maîtrise du risque
+                électrique. Ils font le constat d&apos;un manque :{" "}
+                <strong className="text-[#1A2940]">aucun système de notation indépendant</strong> n&apos;existait.
+              </p>
+              <p className="text-lg text-[#4A6580] leading-relaxed">
+                En 2026, ils créent <strong className="text-[#1A2940]">CET<span className="text-[0.75em] align-super">é</span></strong> une
+                Agence de notation totalement indépendante avec l&apos;ambition de devenir
+                l&apos;agence de notation de référence du risque électrique en France et à
+                l&apos;international et d&apos;être un influenceur reconnu de partage des bonnes
+                pratiques de la prévention des risques électriques.
               </p>
               <div className="flex items-center gap-4 pt-4">
                 <div className="h-12 w-12 rounded-full bg-[#E8630A] flex items-center justify-center">
@@ -126,7 +139,7 @@ export function AboutOriginStory() {
                     >
                       <span className="text-sm font-bold text-[#E8630A]">{event.year}</span>
                       <h3 className="text-xl font-bold text-[#1A2940] mt-1">{brandify(event.title)}</h3>
-                      <p className="text-[#4A6580] mt-2">{event.description}</p>
+                      <p className="text-[#4A6580] mt-2">{brandify(event.description)}</p>
                     </div>
                   </div>
                   <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg border-4 border-[#4DA6D9] z-10">

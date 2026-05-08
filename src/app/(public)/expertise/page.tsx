@@ -6,6 +6,7 @@ import {
   ExpertiseTertiles,
   ExpertiseComparison,
   ExpertiseServices,
+  ExpertiseCertificate,
   ExpertiseCTA,
 } from "@/components/sections/expertise";
 
@@ -19,6 +20,7 @@ export default function ExpertisePage() {
       <ExpertiseTertiles />
       <ExpertiseComparison />
       <ExpertiseServices />
+      <ExpertiseCertificate />
       <ExpertiseCTA />
     </>
   );

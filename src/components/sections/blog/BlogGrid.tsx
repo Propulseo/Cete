@@ -3,6 +3,18 @@ import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { type BlogPost } from "@/types";
 import { brandify } from "@/components/ui/brand-name";
+import { VideoEmbed } from "@/components/ui/video-embed";
+
+function CategoryBadge({ post }: { post: BlogPost }) {
+  return (
+    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm">
+      <span className={`w-2 h-2 rounded-full ${post.categoryColor}`} />
+      <span className="text-xs font-semibold uppercase tracking-wider text-[#1A2940]">
+        {post.category}
+      </span>
+    </div>
+  );
+}
 
 export function BlogGrid({ posts }: { posts: BlogPost[] }) {
   return (
@@ -22,29 +34,35 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
               <article className="h-full bg-white rounded-2xl border border-[#DAEEF8] overflow-hidden hover:shadow-xl hover:shadow-[#1A2940]/[0.06] hover:border-transparent transition-all duration-500">
-                {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A2940]/30 via-transparent to-transparent" />
-                  {/* Category badge on image */}
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm">
-                    <span
-                      className={`w-2 h-2 rounded-full ${post.categoryColor}`}
-                    />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#1A2940]">
-                      {post.category}
-                    </span>
+                {/* Media */}
+                {post.videoUrl ? (
+                  <div className="p-4 pb-0">
+                    <VideoEmbed url={post.videoUrl} title={post.title} />
                   </div>
-                </div>
+                ) : (
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={post.imageUrl}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A2940]/30 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4">
+                      <CategoryBadge post={post} />
+                    </div>
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="p-6 md:p-8 space-y-4 flex flex-col flex-1">
+                  {post.videoUrl && (
+                    <div>
+                      <CategoryBadge post={post} />
+                    </div>
+                  )}
+
                   <h3 className="font-display text-xl md:text-2xl text-[#1A2940] leading-snug group-hover:text-[#E8630A] transition-colors duration-300">
                     {post.title}
                   </h3>

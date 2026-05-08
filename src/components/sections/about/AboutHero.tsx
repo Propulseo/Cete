@@ -28,7 +28,7 @@ export function AboutHero() {
           </h1>
 
           <p className="text-xl md:text-2xl text-[#4A6580] font-light mb-8 animate-slide-up animation-delay-200">
-            Du <span className="text-[#E8630A] font-semibold">SERECT</span> à{" "}
+            De <span className="text-[#E8630A] font-semibold">SERECT</span> à{" "}
             <span className="text-[#E8630A] font-semibold">CET<span className="text-[0.75em] align-super">é</span></span> — 20 ans de terrain, une agence de notation.
           </p>
 

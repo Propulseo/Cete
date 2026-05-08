@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Zap, CheckCircle, Star, Award, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { brandify } from "@/components/ui/brand-name";
 import { getPillarServices } from "@/lib/data-loader";
 
 const icons: Record<string, typeof Zap> = {
@@ -55,13 +56,13 @@ export function HomeServices() {
                         {service.title.toUpperCase()}
                       </h3>
                       <p className="text-[#4A6580] group-hover:text-white/70 mb-4 transition-colors duration-300">
-                        {service.description}
+                        {brandify(service.description)}
                       </p>
                       <ul className="space-y-2">
                         {service.features.slice(0, 3).map((feature, i) => (
                           <li key={i} className="flex items-center gap-2 text-sm text-[#4A6580] group-hover:text-white/60 transition-colors duration-300">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#E8630A]" />
-                            {feature}
+                            {brandify(feature)}
                           </li>
                         ))}
                       </ul>

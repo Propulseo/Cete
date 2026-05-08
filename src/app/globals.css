@@ -253,6 +253,11 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes scroll-logos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ===== UTILITY CLASSES ===== */
 @layer utilities {
   /* Font utilities */
@@ -343,6 +348,11 @@
 
   .animate-rotate-slow {
     animation: rotate-slow 20s linear infinite;
+  }
+
+  .animate-scroll-logos {
+    animation: scroll-logos 30s linear infinite;
+    width: max-content;
   }
 
   /* Delay utilities */

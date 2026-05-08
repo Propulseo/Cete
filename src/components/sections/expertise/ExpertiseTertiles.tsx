@@ -74,10 +74,6 @@ const tertiles = [
 export function ExpertiseTertiles() {
   return (
     <section className="py-32 bg-white relative overflow-hidden">
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 font-display text-[12rem] text-[#DAEEF8] leading-none select-none whitespace-nowrap pointer-events-none">
-        TERTILES
-      </div>
-
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mb-16">
           <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">

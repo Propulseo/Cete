@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { type BlogPost } from "@/types";
 import { brandify } from "@/components/ui/brand-name";
+import { VideoEmbed } from "@/components/ui/video-embed";
 
 export function BlogFeatured({ post }: { post: BlogPost }) {
   return (
@@ -18,16 +19,22 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
 
         <Link href={`/blog/${post.slug}`} className="group block">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Image — 7 columns */}
-            <div className="lg:col-span-7 relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-[#1A2940]/10 ring-1 ring-[#DAEEF8]/50">
-              <Image
-                src={post.imageUrl}
-                alt={post.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 58vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A2940]/20 to-transparent" />
+            {/* Media — 7 columns */}
+            <div className="lg:col-span-7">
+              {post.videoUrl ? (
+                <VideoEmbed url={post.videoUrl} title={post.title} />
+              ) : (
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-[#1A2940]/10 ring-1 ring-[#DAEEF8]/50">
+                  <Image
+                    src={post.imageUrl}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A2940]/20 to-transparent" />
+                </div>
+              )}
             </div>
 
             {/* Content — 5 columns */}

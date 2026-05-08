@@ -15,6 +15,20 @@ export const metadata: Metadata = {
 
 const blogPosts: BlogPost[] = [
   {
+    slug: "viz-act-tracabilite-intelligente-tst",
+    title: "VIZ-ACT : la traçabilité intelligente des travaux sous tension",
+    excerpt:
+      "Finis les tableurs et les suivis manuels ! VIZ-ACT capture, géolocalise et enregistre automatiquement vos actes T. Une solution simple, connectée et sécurisée pour piloter vos TST en toute confiance.",
+    author: "Bruno CLAUDEL",
+    category: "Innovation",
+    categoryColor: "bg-[#E8630A]",
+    publishedDate: "2026-05-08",
+    readTime: "7 min",
+    imageUrl:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    featured: true,
+  },
+  {
     slug: "nouvelle-reglementation-nf-c-18-510-2026",
     title: "Nouvelle réglementation NF C 18-510 : ce qui change en 2026",
     excerpt:
@@ -26,7 +40,7 @@ const blogPosts: BlogPost[] = [
     readTime: "8 min",
     imageUrl:
       "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&h=600&fit=crop",
-    featured: true,
+    featured: false,
   },
   {
     slug: "ameliorer-notation-risque-electrique",

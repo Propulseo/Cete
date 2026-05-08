@@ -35,6 +35,8 @@ const EMPTY: Omit<ClientDocument, "id"> = {
   uploadDate: new Date().toISOString().split("T")[0],
   url: "",
   visibility: "global",
+  accessRights: "all-clients",
+  accessType: "view-only",
 };
 
 export function DocumentFormDialog({
@@ -213,7 +215,7 @@ export function DocumentFormDialog({
               <Label>Droits d&apos;accès</Label>
               <select
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
-                value={(form as Record<string, unknown>).accessRights as string ?? "all-clients"}
+                value={form.accessRights ?? "all-clients"}
                 onChange={(e) => set("accessRights", e.target.value)}
               >
                 <option value="all-clients">Tous les clients</option>
@@ -225,7 +227,7 @@ export function DocumentFormDialog({
               <Label>Type d&apos;accès</Label>
               <select
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
-                value={(form as Record<string, unknown>).accessType as string ?? "view-only"}
+                value={form.accessType ?? "view-only"}
                 onChange={(e) => set("accessType", e.target.value)}
               >
                 <option value="view-only">Visualisation uniquement</option>

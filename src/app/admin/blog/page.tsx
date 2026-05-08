@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, Star, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Star, Loader2, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -122,6 +122,7 @@ export default function AdminBlogPage() {
                       <p className="font-medium text-foreground">{article.title}</p>
                       <p className="text-xs text-muted-foreground">{article.publishedDate || "Non publié"}</p>
                     </div>
+                    {article.videoUrl && <Video className="h-4 w-4 text-[#4DA6D9]" />}
                     {article.featured && <Star className="h-4 w-4 fill-accent text-accent" />}
                   </div>
                 </td>

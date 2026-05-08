@@ -20,19 +20,29 @@ export function HomeOrganizations() {
             Ils nous font confiance pour évaluer et noter leur maîtrise du risque électrique
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {organizations.map((org) => (
-            <div
-              key={org}
-              className="group flex items-center gap-3 p-5 rounded-2xl bg-[#F4F9FD] border border-[#DAEEF8] hover:border-[#4DA6D9]/30 hover:shadow-lg transition-all duration-300"
-            >
-              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4DA6D9]/10 flex items-center justify-center group-hover:bg-[#4DA6D9] transition-colors duration-300">
-                <Building2 className="w-5 h-5 text-[#4DA6D9] group-hover:text-white transition-colors duration-300" />
+      {/* Carousel with fade edges */}
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+        <div className="overflow-hidden">
+          <div className="flex animate-scroll-logos">
+            {[...organizations, ...organizations].map((org, i) => (
+              <div
+                key={`${org}-${i}`}
+                className="flex-shrink-0 px-3"
+              >
+                <div className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#F4F9FD] border border-[#DAEEF8] whitespace-nowrap">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4DA6D9]/10 flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-[#4DA6D9]" />
+                  </div>
+                  <span className="font-semibold text-sm text-[#1A2940]">{org}</span>
+                </div>
               </div>
-              <span className="font-semibold text-sm text-[#1A2940]">{org}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "id": "art-vizact",
+      "title": "VIZ-ACT : la traçabilité intelligente des travaux sous tension",
+      "excerpt": "Finis les tableurs et les suivis manuels ! VIZ-ACT capture, géolocalise et enregistre automatiquement vos actes T.",
+      "author": "Bruno CLAUDEL",
+      "category": "Innovation",
+      "status": "published",
+      "publishedDate": "2026-05-08",
+      "views": 0,
+      "featured": true
+    },
+    {
       "id": "art-1",
       "title": "Tendances de la sécurité électrique 2026",
       "excerpt": "L'année 2026 apporte des évolutions réglementaires majeures...",

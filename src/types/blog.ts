@@ -9,4 +9,5 @@ export interface BlogPost {
   readTime: string;
   imageUrl: string;
   featured: boolean;
+  videoUrl?: string;
 }

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { VideoEmbed } from "@/components/ui/video-embed";
 import type { Article } from "@/types/article";
 
 interface ArticleFormDialogProps {
@@ -29,6 +30,7 @@ const EMPTY: Omit<Article, "id"> = {
   publishedDate: null,
   views: 0,
   featured: false,
+  videoUrl: "",
 };
 
 export function ArticleFormDialog({
@@ -87,6 +89,20 @@ export function ArticleFormDialog({
               onChange={(e) => set("excerpt", e.target.value)}
               rows={2}
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Vidéo (optionnel)</Label>
+            <Input
+              value={form.videoUrl ?? ""}
+              onChange={(e) => set("videoUrl", e.target.value)}
+              placeholder="URL YouTube, Vimeo ou vidéo directe (.mp4)"
+            />
+            {form.videoUrl && (
+              <div className="mt-2">
+                <VideoEmbed url={form.videoUrl} title={form.title} />
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">

@@ -2,8 +2,8 @@
   {
     "id": "1",
     "name": "Michel LIGIER",
-    "role": "Co-fondateur — Directeur Technique",
-    "bio": "25 ans d'expertise en sécurité électrique et Travaux Sous Tension. Ancien cadre SERECT. Architecte du référentiel de notation CETé.",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — Conformité réglementaire - Veille juridique - Ingénierie pédagogique appliquée à la sécurité",
     "imageUrl": "/assets/founders/michel.png",
     "imagePosition": "center top",
     "specialties": ["Travaux Sous Tension", "Diagnostic terrain", "Référentiel de notation"],
@@ -13,8 +13,8 @@
   {
     "id": "2",
     "name": "Bruno CLAUDEL",
-    "role": "Co-fondateur — Conformité & Réglementation",
-    "bio": "20 ans en prévention et conformité réglementaire électrique. Responsable de la veille normative et de la gouvernance de notation CETé.",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — IPRP - Architecte du référentiel de notation - Ingénierie pédagogique appliquée à la sécurité",
     "imageUrl": "/assets/founders/bruno-claudel.jpg",
     "specialties": ["Conformité réglementaire", "Audit normatif", "Veille juridique"],
     "formerOrg": "Ancien Expert SERECT",
@@ -23,8 +23,8 @@
   {
     "id": "3",
     "name": "Pierre VIRELY",
-    "role": "Co-fondateur — Formation & Pédagogie",
-    "bio": "20 ans en ingénierie pédagogique appliquée à la sécurité. Concepteur des programmes d'accompagnement vers le AAA.",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — Concepteur de programmes d'accompagnement vers le triple A - Ingénierie pédagogique appliquée à la sécurité",
     "imageUrl": "/assets/founders/pierre-virely.jpg",
     "specialties": ["Ingénierie pédagogique", "Coaching opérationnel", "Montée en compétence"],
     "formerOrg": "Ancien Expert SERECT",

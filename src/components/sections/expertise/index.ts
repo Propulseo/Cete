@@ -5,4 +5,5 @@ export { ExpertiseOMT } from "./ExpertiseOMT";
 export { ExpertiseTertiles } from "./ExpertiseTertiles";
 export { ExpertiseComparison } from "./ExpertiseComparison";
 export { ExpertiseServices } from "./ExpertiseServices";
+export { ExpertiseCertificate } from "./ExpertiseCertificate";
 export { ExpertiseCTA } from "./ExpertiseCTA";

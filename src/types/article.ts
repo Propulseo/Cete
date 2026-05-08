@@ -15,6 +15,7 @@ export interface Article {
   publishedDate: string | null;
   views: number;
   featured: boolean;
+  videoUrl?: string;
   created_at?: string;
   updated_at?: string;
 }

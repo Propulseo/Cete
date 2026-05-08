@@ -100,7 +100,7 @@ export function Footer() {
               </a>
             </p>
             <p>
-              Fondé par des experts du{" "}
+              Fondé par des anciens Experts de{" "}
               <span className="text-white/55">SERECT</span>
             </p>
           </div>
