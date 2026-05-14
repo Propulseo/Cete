@@ -1,10 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export function ExpertiseHero() {
+  const t = useTranslations("expertise.hero");
   return (
     <section className="relative min-h-[70vh] overflow-hidden bg-hero-gradient">
       <div className="absolute inset-0">
@@ -17,11 +19,11 @@ export function ExpertiseHero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 mb-8 animate-slide-up">
             <Sparkles className="h-4 w-4 text-[#E8630A]" />
-            <span className="text-sm font-medium text-[#E8630A]">Méthodologie de notation</span>
+            <span className="text-sm font-medium text-[#E8630A]">{t("badge")}</span>
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] tracking-wide mb-6 animate-slide-up animation-delay-100">
-            LA MÉTHODE{" "}
+            {t("heading")}{" "}
             <span className="text-[#E8630A] relative">
               ADN
               <span className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E8630A]/50 rounded-full" />
@@ -29,15 +31,13 @@ export function ExpertiseHero() {
           </h1>
 
           <p className="text-xl md:text-2xl text-[#4A6580] font-light mb-6 animate-slide-up animation-delay-200">
-            <span className="text-[#E8630A] font-semibold">A</span>gence{" "}
-            <span className="text-[#E8630A] font-semibold">D</span>e{" "}
-            <span className="text-[#E8630A] font-semibold">N</span>otation
+            <span className="text-[#E8630A] font-semibold">A</span>{t("subheading.part1")}{" "}
+            <span className="text-[#E8630A] font-semibold">D</span>{t("subheading.part2")}{" "}
+            <span className="text-[#E8630A] font-semibold">N</span>{t("subheading.part3")}
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed mb-10 animate-slide-up animation-delay-300">
-            Agence de notation internationale et indépendante. L&apos;ambition
-            d&apos;offrir par un simple regard le niveau de confiance du travail
-            de prévention d&apos;une organisation — de AAA à DDD.
+            {t("description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-400">
@@ -47,7 +47,7 @@ export function ExpertiseHero() {
               className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold px-8 py-6 text-lg rounded-full group shadow-lg shadow-[#E8630A]/25 hover:shadow-[#E8630A]/40 transition-all"
             >
               <Link href="/contact">
-                Demander une évaluation
+                {t("cta1")}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -57,7 +57,7 @@ export function ExpertiseHero() {
               className="bg-transparent border-2 border-[#1A2940]/20 text-[#1A2940] hover:bg-[#1A2940]/10 font-semibold px-8 py-6 text-lg rounded-full"
             >
               <Link href="/services">
-                Voir l&apos;accompagnement
+                {t("cta2")}
               </Link>
             </Button>
           </div>

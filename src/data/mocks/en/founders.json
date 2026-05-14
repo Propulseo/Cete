@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "Michel LIGIER",
+    "role": "Co-founder — Live-Line Work & Electrical Risk Expert",
+    "bio": "Former graduate of EDF Distribution trade schools, Former SERECT Expert — Regulatory compliance - Legal monitoring - Safety-focused instructional engineering",
+    "imageUrl": "/assets/founders/michel.png",
+    "imagePosition": "center top",
+    "specialties": ["Live-Line Work", "Field diagnostics", "Rating framework"],
+    "formerOrg": "Former SERECT Expert",
+    "currentEntity": "Founder of MaP Expertise Conseils"
+  },
+  {
+    "id": "2",
+    "name": "Bruno CLAUDEL",
+    "role": "Co-founder — Live-Line Work & Electrical Risk Expert",
+    "bio": "Former graduate of EDF Distribution trade schools, Former SERECT Expert — IPRP - Rating framework architect - Safety-focused instructional engineering",
+    "imageUrl": "/assets/founders/bruno-claudel.jpg",
+    "specialties": ["Regulatory compliance", "Standards auditing", "Legal monitoring"],
+    "formerOrg": "Former SERECT Expert",
+    "currentEntity": ""
+  },
+  {
+    "id": "3",
+    "name": "Pierre VIRELY",
+    "role": "Co-founder — Live-Line Work & Electrical Risk Expert",
+    "bio": "Former graduate of EDF Distribution trade schools, Former SERECT Expert — Designer of Triple-A improvement programs - Safety-focused instructional engineering",
+    "imageUrl": "/assets/founders/pierre-virely.jpg",
+    "specialties": ["Instructional engineering", "Operational coaching", "Skills development"],
+    "formerOrg": "Former SERECT Expert",
+    "currentEntity": ""
+  },
+  {
+    "id": "4",
+    "name": "Denis VUILLOZ",
+    "role": "Co-founder — Rating & Analysis",
+    "bio": "20 years in risk analysis and rating systems. Designer of the AAA-DDD scale and the Vigi-Score methodology.",
+    "imageUrl": "/assets/founders/denis.jpg",
+    "specialties": ["Rating methodology", "Risk analysis", "AAA-DDD scale"],
+    "visible": false,
+    "formerOrg": "Former SERECT Expert",
+    "currentEntity": ""
+  }
+]

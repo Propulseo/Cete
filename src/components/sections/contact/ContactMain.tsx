@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Mail,
   Clock,
@@ -15,35 +16,7 @@ import { getContactInfo } from "@/lib/data-loader";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { EvaluationForm } from "@/components/sections/EvaluationForm";
 
-const processSteps = [
-  {
-    icon: MessageCircle,
-    number: "01",
-    title: "Échange initial",
-    description: "Cadrage de votre périmètre et objectifs",
-  },
-  {
-    icon: FileSearch,
-    number: "02",
-    title: "Évaluation terrain",
-    description: "Diagnostic sur site selon le référentiel ADN",
-  },
-  {
-    icon: Handshake,
-    number: "03",
-    title: "Notation et plan d'action",
-    description: "Remise de votre Vigi-Score et feuille de route",
-  },
-];
-
-const serviceChips = ["Notation Vigi-Score", "Diagnostic DPS", "Coaching", "Veille réglementaire"];
-
-const tabs = [
-  { id: "evaluation", label: "Demander une évaluation", icon: ClipboardList },
-  { id: "contact", label: "Question générale", icon: MessageSquare },
-] as const;
-
-type TabId = (typeof tabs)[number]["id"];
+type TabId = "evaluation" | "contact";
 
 export function ContactMain() {
   const searchParams = useSearchParams();
@@ -53,8 +26,37 @@ export function ContactMain() {
 }
 
 function ContactMainInner({ initialTab }: { initialTab: TabId }) {
+  const t = useTranslations("contact.main");
   const [activeTab, setActiveTab] = useState<TabId>(initialTab);
   const contact = getContactInfo();
+
+  const tabs = [
+    { id: "evaluation" as const, label: t("tabEvaluation"), icon: ClipboardList },
+    { id: "contact" as const, label: t("tabQuestion"), icon: MessageSquare },
+  ];
+
+  const processSteps = [
+    {
+      icon: MessageCircle,
+      number: "01",
+      title: t("step1Title"),
+      description: t("step1Desc"),
+    },
+    {
+      icon: FileSearch,
+      number: "02",
+      title: t("step2Title"),
+      description: t("step2Desc"),
+    },
+    {
+      icon: Handshake,
+      number: "03",
+      title: t("step3Title"),
+      description: t("step3Desc"),
+    },
+  ];
+
+  const serviceChips = [t("chipVigiScore"), t("chipDPS"), t("chipCoaching"), t("chipVeille")];
 
   return (
     <section className="py-20">
@@ -93,19 +95,19 @@ function ContactMainInner({ initialTab }: { initialTab: TabId }) {
             {/* Info Cards */}
             <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm">
               <h3 className="mb-5 font-display text-xl tracking-wide text-[#1A2940]">
-                COORDONNÉES
+                {t("coordinates")}
               </h3>
               <div className="space-y-4">
                 <InfoRow
                   icon={Mail}
-                  label="Email"
+                  label={t("emailLabel")}
                   value={contact.email}
                   href={`mailto:${contact.email}`}
                 />
                 <InfoRow
                   icon={Clock}
-                  label="Horaires"
-                  value={`Lun–Ven : ${contact.businessHours.monday}\nSam–Dim : Fermé`}
+                  label={t("hoursLabel")}
+                  value={`${t("weekdays")}\n${t("weekend")}`}
                 />
               </div>
             </div>
@@ -113,7 +115,7 @@ function ContactMainInner({ initialTab }: { initialTab: TabId }) {
             {/* Mini Process */}
             <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm">
               <h3 className="mb-5 font-display text-xl tracking-wide text-[#1A2940]">
-                COMMENT ÇA MARCHE
+                {t("howItWorks")}
               </h3>
               <div className="space-y-4">
                 {processSteps.map((step, i) => (

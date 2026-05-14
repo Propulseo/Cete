@@ -1,0 +1,20 @@
+{
+  "mainNav": [
+    { "label": "Accueil", "href": "/" },
+    { "label": "Qui sommes-nous ?", "href": "/a-propos" },
+    { "label": "Notation", "href": "/expertise" },
+    { "label": "Accompagnement", "href": "/services" },
+    { "label": "Blog", "href": "/blog" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "footerNav": [
+    { "label": "Mentions légales", "href": "/legal" },
+    { "label": "Politique de confidentialité", "href": "/privacy" },
+    { "label": "Conditions générales", "href": "/cgu" },
+    { "label": "Plan du site", "href": "/sitemap" }
+  ],
+  "ctaButtons": [
+    { "label": "Espace Client", "href": "/client" },
+    { "label": "Demander une évaluation", "href": "/contact" }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "val-1",
+    "title": "Independence",
+    "description": "No commercial ties with the contractors or suppliers we evaluate. Our rating is free from any conflict of interest.",
+    "icon": "shield"
+  },
+  {
+    "id": "val-2",
+    "title": "Confidentiality",
+    "description": "Your data, results, and rating remain strictly confidential. Anonymized reporting available upon request.",
+    "icon": "lock"
+  },
+  {
+    "id": "val-3",
+    "title": "Objectivity",
+    "description": "Structured framework, measurable criteria, reproducible methodology. Every rating is based on facts, not impressions.",
+    "icon": "heart"
+  },
+  {
+    "id": "val-4",
+    "title": "Progression",
+    "description": "A rating is not a penalty. It is a starting point. Every organization can progress toward AAA with the right support.",
+    "icon": "target"
+  }
+]

@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Zap, CheckCircle, Star, Award, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { brandify } from "@/components/ui/brand-name";
@@ -17,6 +18,7 @@ const icons: Record<string, typeof Zap> = {
 };
 
 export function HomeServices() {
+  const t = useTranslations("home.services");
   const services = getPillarServices();
 
   return (
@@ -24,13 +26,13 @@ export function HomeServices() {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
-            Nos leviers
+            {t("badge")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] mb-6">
-            DE L&apos;ÉVALUATION AU AAA
+            {t("heading")}
           </h2>
           <p className="text-xl text-[#4A6580]">
-            Quatre prestations structurées qui alimentent et améliorent votre notation
+            {t("description")}
           </p>
         </div>
 
@@ -82,7 +84,7 @@ export function HomeServices() {
             className="text-lg px-8 py-6 border-2 border-[#1A2940] text-[#1A2940] hover:bg-[#1A2940] hover:text-white rounded-xl transition-all duration-300"
           >
             <Link href="/services">
-              Voir l&apos;accompagnement complet
+              {t("viewAll")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

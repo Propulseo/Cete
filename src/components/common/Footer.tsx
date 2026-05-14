@@ -1,10 +1,13 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Mail } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { getNavigation, getContactInfo } from "@/lib/data-loader";
-import { BrandName } from "@/components/ui/brand-name";
 
-export function Footer() {
+import type { Pathnames } from "@/i18n/routing";
+
+export async function Footer() {
+  const t = await getTranslations("common.footer");
   const navigation = getNavigation();
   const contact = getContactInfo();
 
@@ -17,31 +20,31 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" aria-label="Retour à l'accueil CETé">
+            <Link href="/" aria-label={t("logoAriaLabel")}>
               <Image
                 src="/assets/brand/logo-cete-adn.png"
-                alt="CETé ADN — Agence de Notation du Risque Électrique"
+                alt={t("logoAlt")}
                 height={40}
                 width={167}
                 className="h-20 w-auto brightness-0 invert"
               />
             </Link>
             <p className="text-sm text-white/60 leading-relaxed">
-              Agence de Notation indépendante du risque électrique.
+              {t("tagline")}
             </p>
             <p className="text-sm font-medium text-[#E8630A]/80 italic">
-              Indépendance. Objectivité. Transparence.
+              {t("motto")}
             </p>
           </div>
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">Navigation</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t("navigation")}</h3>
             <nav className="flex flex-col gap-2">
               {navigation.mainNav.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as "/"}
                   className="text-sm text-white/55 transition-colors hover:text-white"
                 >
                   {item.label}
@@ -52,7 +55,7 @@ export function Footer() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">Contact</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t("contact")}</h3>
             <div className="flex flex-col gap-3">
               <a
                 href={`mailto:${contact.email}`}
@@ -66,12 +69,12 @@ export function Footer() {
 
           {/* Legal */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">Légal</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t("legal")}</h3>
             <nav className="flex flex-col gap-2">
               {navigation.footerNav.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as "/"}
                   className="text-sm text-white/55 transition-colors hover:text-white"
                 >
                   {item.label}
@@ -85,11 +88,10 @@ export function Footer() {
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 text-xs text-white/40 md:flex-row">
             <p>
-              © {new Date().getFullYear()} <BrandName /> — Agence de Notation du Risque
-              Électrique. Tous droits réservés.
+              {t("copyright", { year: new Date().getFullYear() })}
             </p>
             <p className="md:-ml-40">
-              Fait avec passion par{" "}
+              {t("madeBy")}{" "}
               <a
                 href="https://propulseo-site.com"
                 target="_blank"
@@ -100,8 +102,7 @@ export function Footer() {
               </a>
             </p>
             <p>
-              Fondé par des anciens Experts de{" "}
-              <span className="text-white/55">SERECT</span>
+              {t("foundedBy")}
             </p>
           </div>
         </div>

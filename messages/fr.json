@@ -1,0 +1,582 @@
+{
+  "common": {
+    "header": {
+      "logoAlt": "CETé ADN — Agence de Notation du Risque Électrique",
+      "logoAriaLabel": "Retour à l'accueil CETé",
+      "clientArea": "Espace Client",
+      "requestEvaluation": "Demander une évaluation",
+      "menu": "Menu"
+    },
+    "footer": {
+      "logoAlt": "CETé ADN — Agence de Notation du Risque Électrique",
+      "logoAriaLabel": "Retour à l'accueil CETé",
+      "tagline": "Agence de Notation indépendante du risque électrique.",
+      "motto": "Indépendance. Objectivité. Transparence.",
+      "navigation": "Navigation",
+      "contact": "Contact",
+      "legal": "Légal",
+      "copyright": "© {year} CETé — Agence de Notation du Risque Électrique. Tous droits réservés.",
+      "madeBy": "Fait avec passion par",
+      "foundedBy": "Fondé par des anciens Experts de SERECT"
+    },
+    "buttons": {
+      "learnMore": "En savoir plus",
+      "requestEvaluation": "Demander une évaluation",
+      "requestQuote": "Demander un devis",
+      "contactUs": "Nous contacter",
+      "backToHome": "Retour à l'accueil",
+      "retry": "Réessayer"
+    },
+    "states": {
+      "loading": "Chargement...",
+      "error": "Erreur",
+      "noResults": "Aucun résultat"
+    },
+    "languageSwitcher": {
+      "label": "Changer de langue",
+      "fr": "FR",
+      "en": "EN"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Agence de Notation Indépendante",
+      "titleLine1": "VOTRE NOTATION",
+      "titleLine2": "DU",
+      "titleLine3": "RISQUE",
+      "titleLine4": "ÉLECTRIQUE",
+      "baseline": "La force d'un collectif",
+      "slogan": "Classer. Évaluer. Éclairer.",
+      "subtitle": "L'aptitude TST en un simple regard — notre référentiel évalue et note chaque organisation sur 3 critères (A, B, C ou D) assemblés en Vigi-Score composite, de AAA à DDD.",
+      "discoverRating": "Découvrir notre notation",
+      "requestEvaluation": "Demander une évaluation",
+      "trustIndicator": "200+ organisations évaluées",
+      "ratingA": "A — Conforme",
+      "ratingB": "B — Progrès",
+      "ratingC": "C — Alerte",
+      "ratingD": "D — Critique",
+      "vigiScore": "Vigi-Score",
+      "tripleA": "Triple A — Excellence"
+    },
+    "stats": {
+      "title": "Observatoire O-M-T · 2022–2025",
+      "dps": "DPS réalisés",
+      "companies": "Entreprises auditées",
+      "requirements": "Exigences observées",
+      "fieldFacts": "Faits terrain observés"
+    },
+    "pillars": {
+      "badge": "Notre méthodologie",
+      "heading": "ÉVALUER. NOTER. ACCOMPAGNER.",
+      "description": "Trois étapes structurées pour objectiver et améliorer votre maîtrise du risque électrique"
+    },
+    "adn": {
+      "badge": "Notation propriétaire",
+      "heading": "MÉTHODE ADN — AGENCE DE NOTATION",
+      "description": "Notre référentiel produit une notation composite de AAA à DDD, fondée sur la Règle des 3C — trois capacités mesurables",
+      "criterion1Title": "Auto-évaluation",
+      "criterion1Desc": "Capacité d'auto-évaluation — diagnostic factuel de vos pratiques actuelles.",
+      "criterion2Title": "Recommandation & Amélioration",
+      "criterion2Desc": "Capacité à maîtriser les exigences de la Recommandation du Métier.",
+      "criterion3Title": "Gestes Métiers",
+      "criterion3Desc": "Capacité à maîtriser les gestes métiers — scoring terrain.",
+      "ratingA": "A — Conforme",
+      "ratingB": "B — Progrès attendus",
+      "ratingC": "C — Alerte",
+      "ratingD": "D — Non conforme",
+      "understandRating": "Comprendre la notation",
+      "assemblyLabel": "Assemblage → Notation composite"
+    },
+    "services": {
+      "badge": "Nos leviers",
+      "heading": "DE L'ÉVALUATION AU AAA",
+      "description": "Quatre prestations structurées qui alimentent et améliorent votre notation",
+      "viewAll": "Voir l'accompagnement complet"
+    },
+    "organizations": {
+      "badge": "Références",
+      "heading": "ORGANISATIONS ÉVALUÉES",
+      "description": "Ils nous font confiance pour évaluer et noter leur maîtrise du risque électrique"
+    },
+    "testimonials": {
+      "badge": "Témoignage client",
+      "heading": "RÉSULTATS MESURABLES",
+      "pullQuote": "Le diagnostic CETé a identifié des écarts que nos audits internes ne voyaient pas. Notre passage de BBB à AAA a crédibilisé notre démarche auprès de nos donneurs d'ordre.",
+      "paragraph1": "Quand nous avons fait appel à CETé, nous pensions que notre niveau de maîtrise des TST était satisfaisant. Notre notation initiale BBB a révélé une réalité différente : des procédures formellement correctes, mais des écarts terrain significatifs.",
+      "paragraph2": "Le diagnostic DPS a mis en lumière trois axes critiques : la traçabilité des habilitations, la conformité des équipements de protection, et surtout la culture sécurité au quotidien. Des points que nos audits internes ne captaient pas.",
+      "paragraph3": "En 14 mois d'accompagnement Campus CPF, nous avons restructuré nos formations, déployé un coaching terrain pour nos animateurs TST, et mis en place un système de veille réglementaire continu.",
+      "paragraph4": "Le résultat : une réduction de 40 % des incidents électriques, une montée en compétence mesurable de nos équipes, et surtout, le passage de BBB à AAA — une transformation qui a renforcé notre crédibilité auprès de nos donneurs d'ordre.",
+      "authorName": "Marie Dubois",
+      "authorRole": "Directrice QSE",
+      "authorCompany": "Électricité Industrielle SA",
+      "ratingBefore": "BBB",
+      "ratingAfter": "AAA",
+      "duration": "14 mois",
+      "viewTestimonial": "Voir le témoignage",
+      "readFull": "Lire le témoignage complet",
+      "collapse": "Réduire"
+    },
+    "founders": {
+      "badge": "Les co-fondateurs",
+      "heading": "80 ANS D'EXPERTISE CUMULÉE",
+      "description": "Quatre anciens cadres du SERECT ont fondé CETé pour créer la première agence de notation indépendante du risque électrique en France.",
+      "bullet1": "Anciens cadres SERECT — référence du secteur",
+      "bullet2": "Concepteurs du référentiel de notation AAA-DDD",
+      "bullet3": "Indépendance totale — aucun conflit d'intérêt",
+      "bullet4": "200+ organisations évaluées en 20 ans",
+      "cta": "Qui sommes-nous",
+      "imageAlt": "Portrait de {name}, {role}"
+    },
+    "cta": {
+      "heading": "CONNAISSEZ-VOUS VOTRE NOTATION ?",
+      "description": "Demandez votre évaluation initiale. En quelques jours, vous saurez où vous vous situez sur l'échelle AAA-DDD et quels leviers activer.",
+      "requestEvaluation": "Demander une évaluation",
+      "clientArea": "Espace Client"
+    }
+  },
+  "about": {
+    "hero": {
+      "badge": "Agence de notation indépendante",
+      "heading": "QUI SOMMES-<accent>NOUS</accent>?",
+      "subtitle": "De <serect>SERECT</serect> à <cete>CET</cete> — 20 ans de terrain, une agence de notation.",
+      "description": "Quatre experts indépendants ont fondé CETé pour objectiver la maîtrise du risque électrique avec un système de notation structuré et transparent."
+    },
+    "originStory": {
+      "badge": "Notre Histoire",
+      "heading": "LE CONSORTIUM CET<sup>é</sup>",
+      "narrative1": "En 1962, <strong>SERECT</strong> est créé pour promouvoir et développer les TST en France. En 2000, EDF généralise les audits TST dans les unités EDF sur une périodicité de 4 ans. L'année 2008 voit le début des visites d'entreprises prestataires du distributeur ERDF. ENEDIS généralise les audits terrain chez leurs entreprises prestataires en 2014.",
+      "narrative2": "En 2019, des anciens experts de SERECT fondent leur société d'expertise conseils et crée un observatoire international de la Maîtrise du risque électrique. Ils font le constat d'un manque : <strong>aucun système de notation indépendant</strong> n'existait.",
+      "narrative3": "En 2026, ils créent <strong>CET<sup>é</sup></strong> une Agence de notation totalement indépendante avec l'ambition de devenir l'agence de notation de référence du risque électrique en France et à l'international et d'être un influenceur reconnu de partage des bonnes pratiques de la prévention des risques électriques.",
+      "motto": "Indépendance. Objectivité. Transparence.",
+      "statsYears": "Années d'expertise",
+      "statsTerrain": "Terrain",
+      "statsNotation": "Notation",
+      "statsOrgs": "Organisations",
+      "events": {
+        "0": {
+          "year": "2007–2021",
+          "title": "SERECT",
+          "description": "Expérience en tant que Responsables d'affaires Expertise risque électrique. En charge du pilotage de l'expertise TST BT et HTA en France et à l'international."
+        },
+        "1": {
+          "year": "2019–2021",
+          "title": "Création des SASU",
+          "description": "Création des SASU LEXPREL, VIRELEX et MaP Expertise Conseils. Consolidation de l'expertise terrain, conception des premiers outils de scoring du risque électrique."
+        },
+        "2": {
+          "year": "2022",
+          "title": "Conception du référentiel ADN",
+          "description": "Innovation permettant d'avoir une vision à 360° du management de la prévention du risque électrique."
+        },
+        "3": {
+          "year": "2025",
+          "title": "Création du Vigi-Score",
+          "description": "Innovation permettant de lire le capital Prévention d'une entreprise sur un simple regard."
+        },
+        "4": {
+          "year": "2026",
+          "title": "Création de l'Agence de Notation CETé",
+          "description": "Dépôt de propriété intellectuelle des marques CETé ADN et Vigi-Score complétée d'une quinzaine d'innovations portant sur le pilotage du management des risques professionnels."
+        }
+      }
+    },
+    "stats": {
+      "yearsLabel": "Années d'expertise terrain",
+      "orgsLabel": "Organisations évaluées",
+      "foundersLabel": "Experts fondateurs",
+      "satisfactionLabel": "Taux de satisfaction"
+    },
+    "founders": {
+      "badge": "L'Équipe",
+      "heading": "NOS CO-FONDATEURS",
+      "description": "Des experts passionnés issus de SERECT, unis par une vision commune : transformer la vigilance en énergie collective"
+    },
+    "worldMap": {
+      "badge": "Rayonnement international",
+      "heading": "ZONES D'INTERVENTION",
+      "description": "CETé intervient en France et à l'international pour évaluer et noter la maîtrise du risque électrique",
+      "loading": "Chargement de la carte…",
+      "legendFrance": "Siège & France",
+      "legendInternational": "International"
+    },
+    "governance": {
+      "badge": "Gouvernance",
+      "heading": "UNE NOTATION <accent>INDÉPENDANTE</accent>",
+      "description": "La crédibilité du Vigi-Score repose sur une gouvernance rigoureuse, un outil propriétaire et une totale indépendance vis-à-vis des organisations évaluées.",
+      "items": {
+        "0": {
+          "title": "Comité de Suivi",
+          "description": "Composé des fondateurs CETé et d'un expert mandaté, le Comité de Suivi assure la notation, l'évaluation dynamique et la durée de validité de chaque certificat."
+        },
+        "1": {
+          "title": "Logiciel CIBLE",
+          "description": "Outil propriétaire de capitalisation et d'analyse. CIBLE centralise l'ensemble des données d'évaluation et garantit la traçabilité de chaque notation."
+        },
+        "2": {
+          "title": "Indépendance",
+          "description": "CETé est une agence de notation indépendante. L'évaluation est réalisée sans lien commercial avec les organisations évaluées, garantissant l'objectivité du Vigi-Score."
+        }
+      }
+    },
+    "values": {
+      "badge": "Notre ADN",
+      "heading": "INDÉPENDANCE & CONFIDENTIALITÉ",
+      "description": "Les valeurs fondamentales qui guident notre engagement quotidien"
+    },
+    "cta": {
+      "badge": "Passez à l'action",
+      "heading": "CONNAISSEZ-VOUS VOTRE <accent>NOTATION</accent> ?",
+      "description": "Demandez votre évaluation initiale et situez votre organisation sur l'échelle AAA-DDD.",
+      "primaryButton": "Demander une évaluation",
+      "secondaryButton": "Notre notation"
+    }
+  },
+  "expertise": {
+    "hero": {
+      "badge": "Méthodologie de notation",
+      "heading": "LA MÉTHODE ADN",
+      "subheading": "Agence De Notation",
+      "description": "Notre méthodologie exclusive offre un niveau de confiance — de AAA (excellence) à DDD (risque critique) — sur la maîtrise du risque électrique de votre organisation.",
+      "requestEvaluation": "Demander une évaluation",
+      "viewSupport": "Voir l'accompagnement"
+    },
+    "vigiScore": {
+      "badge": "La Règle des 3C — Système de notation",
+      "heading": "LE VIGI-SCORE",
+      "description": "Le Vigi-Score est une notation composite fondée sur trois critères indépendants — la Règle des 3C — chacun évalué de A à D.",
+      "criterion1Label": "C1",
+      "criterion1Title": "Auto-évaluation",
+      "criterion1Desc": "Capacité d'auto-évaluation de l'organisation — diagnostic factuel.",
+      "criterion2Label": "C2",
+      "criterion2Title": "Recommandation & Amélioration",
+      "criterion2Desc": "Respect de la Recommandation du Métier — conformité réglementaire.",
+      "criterion3Label": "C3",
+      "criterion3Title": "Gestes Métiers",
+      "criterion3Desc": "Maîtrise opérationnelle des gestes métiers — scoring terrain.",
+      "assemblyHeading": "Assemblage en notation composite",
+      "resultLabel": "Résultat",
+      "resultDesc": "L'excellence traduite par un Triple A (AAA) — la maîtrise optimale du risque électrique.",
+      "tendencyLabel": "Indicateur de tendance + / −",
+      "tendencyUp": "Tendance à la hausse",
+      "tendencyStable": "Stable",
+      "tendencyDown": "Tendance à la baisse"
+    },
+    "vigilance": {
+      "badge": "Concept fondateur",
+      "heading": "VIGILANCE ↔ VULNÉRABILITÉ",
+      "vigilanceTitle": "Vigilance",
+      "vigilanceDesc": "Capacité proactive de l'organisation à anticiper, détecter et maîtriser les risques électriques.",
+      "vulnerabilityTitle": "Vulnérabilité",
+      "vulnerabilityDesc": "Exposition résiduelle aux risques lorsque la vigilance est insuffisante.",
+      "gaugeHigh": "Vigilance élevée",
+      "gaugeLow": "Vulnérabilité élevée",
+      "ncTitle": "Ce qui déclenche une note D",
+      "ncAudimat": "AuDiMaT",
+      "ncOrganisationnel": "Organisationnel",
+      "ncOperationnel": "Opérationnel"
+    },
+    "omt": {
+      "badge": "Observatoire O-M-T · 2022–2025",
+      "heading": "L'OBSERVATOIRE DE LA MAÎTRISE DES TST",
+      "stat1": "DPS réalisés",
+      "stat2": "Entreprises auditées",
+      "stat3": "Exigences observées",
+      "stat4": "Faits terrain"
+    },
+    "tertiles": {
+      "badge": "Observatoire O-M-T",
+      "heading": "OÙ VOUS SITUEZ-VOUS ?",
+      "description": "L'analyse croisée AudiMaT des résultats de l'observatoire O-M-T fait émerger trois profils d'organisations.",
+      "tertile1Name": "Les Vulnérables",
+      "tertile1Subtitle": "« Les Grognons »",
+      "tertile1Risk": "VULNÉRABILITÉ",
+      "tertile1RiskDesc": "Probabilité d'accident forte",
+      "tertile2Name": "Le Ventre Mou",
+      "tertile2Subtitle": "Position médiane",
+      "tertile2Risk": "VIGILANCE",
+      "tertile2RiskDesc": "Probabilité d'accident modérée",
+      "tertile3Name": "Les Talents",
+      "tertile3Subtitle": "L'excellence opérationnelle",
+      "tertile3Risk": "MAÎTRISE",
+      "tertile3RiskDesc": "Probabilité d'accident faible",
+      "note": "Une maîtrise opérationnelle des TST proportionnelle au respect de la Recommandation, voire plus."
+    },
+    "comparison": {
+      "heading": "VULNÉRABLES vs TALENTS",
+      "badge": "Les 3 axes de progrès systématiques",
+      "gapHeading": "LE TIERCÉ DES ÉCARTS",
+      "axis1": "Prévention primaire",
+      "axis2": "Compétence",
+      "axis3": "Animation TST",
+      "axis4": "Formation"
+    },
+    "services": {
+      "badge": "Nos Offres",
+      "heading": "OFFRES EXPERTISE",
+      "description": "Des solutions adaptées à vos besoins d'évaluation et de certification"
+    },
+    "certificate": {
+      "badge": "Certification",
+      "heading": "LE CERTIFICAT CETé ADN",
+      "differenceHeading": "Un certificat qui fait la différence",
+      "requestEvaluation": "Demander une évaluation",
+      "learnMore": "En savoir plus"
+    },
+    "cta": {
+      "badge": "Objectif AAA",
+      "heading": "OBJECTIF AAA",
+      "description": "Découvrez où vous vous situez dans la maîtrise du risque électrique et engagez une démarche d'amélioration continue.",
+      "requestEvaluation": "Demander une évaluation",
+      "discoverCete": "Découvrir CETé"
+    }
+  },
+  "services": {
+    "hero": {
+      "badge": "4 offres structurées",
+      "heading": "NOS OFFRES",
+      "description": "Expertise, diagnostic, coaching et accompagnement sur mesure pour maîtriser le risque électrique.",
+      "subdescription": "Du DPS au PASS-Sérénité VIP, CETé ADN vous accompagne à chaque étape de votre démarche de performance.",
+      "contactUs": "Nous contacter",
+      "discoverRating": "Découvrir notre notation"
+    },
+    "pillars": {
+      "badge": "4 piliers",
+      "heading": "UNE OFFRE COMPLÈTE",
+      "description": "De l'expertise terrain au conseil stratégique, chaque offre répond à un besoin précis de votre démarche de maîtrise du risque électrique.",
+      "expertise": "Expertise",
+      "conseil": "Conseil & Accompagnement",
+      "contactUs": "Nous contacter"
+    },
+    "approach": {
+      "badge": "Notre méthode",
+      "heading": "CHAQUE PROGRAMME PART DE VOTRE NOTATION",
+      "anchor1Title": "Ancré terrain",
+      "anchor1Subtitle": "pas théorique",
+      "anchor1Desc": "Chaque programme s'appuie sur des situations réelles observées lors de nos diagnostics terrain.",
+      "anchor2Title": "Orienté progression",
+      "anchor2Subtitle": "pas sanction",
+      "anchor2Desc": "L'objectif est toujours l'amélioration de votre notation, pas la pénalisation.",
+      "anchor3Title": "Calibré sur votre notation",
+      "anchor3Subtitle": "pas standard",
+      "anchor3Desc": "Chaque programme est adapté à votre niveau actuel et à vos objectifs de notation.",
+      "learnMore": "En savoir plus",
+      "watermark": "PROGRESSION"
+    },
+    "process": {
+      "badge": "Méthodologie",
+      "heading": "NOTRE APPROCHE",
+      "description": "Un accompagnement structuré en 4 étapes pour des résultats durables",
+      "step1Title": "Diagnostic",
+      "step1Desc": "Analyse approfondie de vos pratiques et de votre organisation.",
+      "step2Title": "Conception",
+      "step2Desc": "Élaboration d'un plan d'action personnalisé et priorisé.",
+      "step3Title": "Déploiement",
+      "step3Desc": "Mise en œuvre des actions avec accompagnement terrain.",
+      "step4Title": "Suivi",
+      "step4Desc": "Mesure des résultats et ajustement continu."
+    },
+    "catalog": {
+      "badge": "Nos offres",
+      "heading": "SERVICES",
+      "description": "Coaching et formation pour tous les niveaux de votre organisation",
+      "popular": "Populaire",
+      "requestQuote": "Demander un devis"
+    },
+    "cta": {
+      "badge": "Passez à l'action",
+      "heading": "PRÊT À PROGRESSER VERS LE AAA ?",
+      "description": "Demandez votre évaluation initiale. Nous construirons ensemble le programme d'accompagnement adapté à votre notation.",
+      "requestEvaluation": "Demander une évaluation",
+      "ourRating": "Notre notation"
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Agence de Notation CETé",
+      "heading": "PARLONS DE VOTRE PROJET",
+      "description": "Demandez votre évaluation ou posez vos questions sur la notation. Entretien dans les meilleurs délais."
+    },
+    "main": {
+      "tabEvaluation": "Demander une évaluation",
+      "tabQuestion": "Question générale",
+      "step1Title": "Échange initial",
+      "step1Desc": "Cadrage de votre besoin et de vos objectifs.",
+      "step2Title": "Évaluation terrain",
+      "step2Desc": "Diagnostic sur site selon le référentiel ADN.",
+      "step3Title": "Notation et plan d'action",
+      "step3Desc": "Remise du Vigi-Score et recommandations.",
+      "coordinates": "COORDONNÉES",
+      "emailLabel": "Email",
+      "hoursLabel": "Horaires",
+      "weekdays": "Lun–Ven : 09:00–18:00",
+      "weekend": "Sam–Dim : Fermé",
+      "howItWorks": "COMMENT ÇA MARCHE",
+      "chipVigiScore": "Notation Vigi-Score",
+      "chipDPS": "Diagnostic DPS",
+      "chipCoaching": "Coaching",
+      "chipVeille": "Veille réglementaire"
+    },
+    "map": {
+      "heading": "NOUS TROUVER",
+      "openGoogleMaps": "Ouvrir dans Google Maps"
+    },
+    "trust": {
+      "item1Title": "Indépendance totale",
+      "item1Desc": "Aucun lien avec les prestataires ou fournisseurs évalués",
+      "item2Title": "Confidentialité garantie",
+      "item2Desc": "Vos résultats et votre notation restent strictement confidentiels",
+      "item3Title": "Entretien dans les meilleurs délais",
+      "item3Desc": "Cadrage initial, proposition de solutions et de calendrier adaptés"
+    },
+    "form": {
+      "heading": "ENVOYEZ-NOUS UN MESSAGE",
+      "nameLabel": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "companyLabel": "Entreprise",
+      "companyPlaceholder": "Votre entreprise",
+      "emailLabel": "Email",
+      "emailPlaceholder": "jean.dupont@entreprise.fr",
+      "phoneLabel": "Téléphone",
+      "phonePlaceholder": "+33 1 XX XX XX XX",
+      "subjectLabel": "Sujet",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Décrivez votre besoin...",
+      "requiredFields": "Tous les champs marqués * sont obligatoires",
+      "acceptCgu": "J'accepte les conditions générales d'utilisation",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "successTitle": "Message envoyé !",
+      "successDesc": "Nous vous recontacterons dans les meilleurs délais.",
+      "subjectOptions": {
+        "dps": "Notation — Diagnostic Performance Sécurité (DPS)",
+        "save": "Expertise — Analyse d'événements (SAVE)",
+        "campus": "Formation — Coaching, Performance, Formation (Campus CPF)",
+        "pass": "Abonnement — PASS-Sérénité VIP",
+        "other": "Autre demande"
+      },
+      "validation": {
+        "nameMin": "Le nom doit contenir au moins 2 caractères",
+        "companyMin": "Le nom de l'entreprise doit contenir au moins 2 caractères",
+        "emailInvalid": "Email invalide",
+        "subjectRequired": "Veuillez sélectionner un sujet",
+        "messageMin": "Le message doit contenir au moins 10 caractères",
+        "cguRequired": "Vous devez accepter les CGU"
+      }
+    },
+    "evaluationForm": {
+      "heading": "DEMANDER UNE ÉVALUATION",
+      "description": "Renseignez votre organisation pour recevoir une proposition adaptée. Champs marqués * obligatoires.",
+      "nameLabel": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "roleLabel": "Fonction",
+      "rolePlaceholder": "Responsable QSE",
+      "companyLabel": "Entreprise",
+      "companyPlaceholder": "Nom de l'entreprise",
+      "sirenLabel": "SIREN",
+      "sirenPlaceholder": "123 456 789",
+      "sectorLabel": "Secteur d'activité",
+      "employeesLabel": "Effectif",
+      "emailLabel": "Email professionnel",
+      "emailPlaceholder": "jean.dupont@entreprise.fr",
+      "phoneLabel": "Téléphone",
+      "phonePlaceholder": "+33 1 XX XX XX XX",
+      "evaluationTypeLabel": "Type d'évaluation souhaitée",
+      "sitesLabel": "Nombre et localisation des sites",
+      "sitesPlaceholder": "Ex : 3 sites — Lyon, Grenoble, Paris",
+      "detailsLabel": "Précisions complémentaires",
+      "detailsPlaceholder": "Contexte, contraintes de calendrier, objectifs particuliers…",
+      "acceptCgu": "J'accepte les conditions générales d'utilisation",
+      "submit": "Envoyer la demande d'évaluation",
+      "sending": "Envoi en cours...",
+      "successTitle": "Demande d'évaluation envoyée !",
+      "successDesc": "Nous vous recontacterons dans les meilleurs délais pour organiser un entretien.",
+      "sectorOptions": {
+        "energy": "Énergie & Utilities",
+        "construction": "BTP & Génie électrique",
+        "industry": "Industrie",
+        "transport": "Transport & Ferroviaire",
+        "tertiary": "Tertiaire",
+        "collectivities": "Collectivités territoriales",
+        "other": "Autre"
+      },
+      "evaluationOptions": {
+        "dps": "DPS — Diagnostic Performance Sécurité",
+        "save": "SAVE — Analyse de Vulnérabilité des Événements",
+        "campus": "Campus CPF — Coaching, Performance, Formation",
+        "pass": "PASS-Sérénité VIP",
+        "vigiScore": "Vigi-Score — Notation indépendante",
+        "multiple": "Plusieurs prestations (préciser ci-dessous)"
+      },
+      "employeeOptions": {
+        "xs": "1 à 10 salariés",
+        "sm": "11 à 50 salariés",
+        "md": "51 à 250 salariés",
+        "lg": "251 à 1 000 salariés",
+        "xl": "Plus de 1 000 salariés"
+      },
+      "validation": {
+        "nameMin": "Le nom doit contenir au moins 2 caractères",
+        "roleMin": "La fonction doit contenir au moins 2 caractères",
+        "companyMin": "Le nom de l'entreprise doit contenir au moins 2 caractères",
+        "emailInvalid": "Email invalide",
+        "sectorRequired": "Veuillez sélectionner un secteur",
+        "employeesRequired": "Veuillez sélectionner l'effectif",
+        "evaluationRequired": "Veuillez sélectionner un type d'évaluation",
+        "cguRequired": "Vous devez accepter les CGU"
+      }
+    },
+    "info": {
+      "heading": "CETé - Contact",
+      "description": "Prêts à transformer votre vigilance en énergie collective ? Contactez-nous pour discuter de vos besoins.",
+      "addressLabel": "Adresse",
+      "emailLabel": "Email",
+      "phoneLabel": "Téléphone",
+      "hoursLabel": "Horaires",
+      "weekdays": "Lun-Ven",
+      "weekendClosed": "Sam-Dim : Fermé",
+      "mapPlaceholder": "Carte Google Maps"
+    }
+  },
+  "shared": {
+    "foundersGrid": {
+      "heading": "Nos Fondateurs",
+      "description": "4 experts passionnés, passeurs de prévention"
+    },
+    "pillarsSection": {
+      "badge": "En un regard",
+      "heading": "Nos trois piliers fondamentaux"
+    },
+    "servicesGrid": {
+      "learnMore": "En savoir plus"
+    },
+    "valuesSection": {
+      "heading": "Notre ADN : Indépendance & Confidentialité",
+      "description": "Les valeurs qui guident notre engagement quotidien"
+    },
+    "processSection": {
+      "badge": "Notre Approche",
+      "heading": "Un accompagnement structuré pour des résultats durables",
+      "stepLabel": "Étape {number}",
+      "step1": "Diagnostic",
+      "step1Desc": "Analyse approfondie de votre organisation et de vos pratiques en matière de risque électrique.",
+      "step2": "Conception",
+      "step2Desc": "Élaboration d'un plan d'action personnalisé, priorisé et adapté à votre notation.",
+      "step3": "Déploiement",
+      "step3Desc": "Mise en œuvre des actions sur le terrain avec accompagnement continu.",
+      "step4": "Suivi & Amélioration",
+      "step4Desc": "Mesure des résultats, ajustement des actions et amélioration continue de votre notation."
+    },
+    "adnTeaser": {
+      "heading": "La Méthode ADN",
+      "description": "Agence De Notation : Rating indépendant du risque électrique",
+      "content": "Notre méthodologie exclusive permet d'évaluer et noter objectivement le niveau de maîtrise du risque électrique de votre organisation, de AAA (maîtrise optimale) à DDD (risque critique).",
+      "step1": "Auto-évaluation",
+      "step1Desc": "Diagnostic factuel de vos pratiques actuelles",
+      "step2": "Respect du prescrit",
+      "step2Desc": "Conformité avec la Recommandation du Métier",
+      "step3": "Maîtrise opérationnelle",
+      "step3Desc": "Gestion quotidienne du risque électrique sur le terrain",
+      "learnMore": "En savoir plus"
+    }
+  }
+}

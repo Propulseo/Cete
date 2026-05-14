@@ -1,0 +1,23 @@
+[
+  {
+    "id": "pillar-1",
+    "title": "Assess",
+    "icon": "zap",
+    "description": "Structured field diagnostics. We objectively measure your level of electrical risk management using a proprietary framework proven across 200+ organizations.",
+    "color": "blue"
+  },
+  {
+    "id": "pillar-2",
+    "title": "Rate",
+    "icon": "star",
+    "description": "Independent rating from AAA to DDD. A transparent, comparable, and recognized rating that positions your organization on an industry-standard scale.",
+    "color": "yellow"
+  },
+  {
+    "id": "pillar-3",
+    "title": "Support",
+    "icon": "users",
+    "description": "Improvement plan toward Triple A (AAA). Group or individualized coaching, remote or on-site, to sustainably improve your rating. Measurement of your training plan effectiveness.",
+    "color": "green"
+  }
+]

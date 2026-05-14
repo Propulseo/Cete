@@ -1,0 +1,582 @@
+{
+  "common": {
+    "header": {
+      "logoAlt": "CETé ADN — Independent Electrical Risk Rating Agency",
+      "logoAriaLabel": "Back to CETé homepage",
+      "clientArea": "Client Area",
+      "requestEvaluation": "Request an Assessment",
+      "menu": "Menu"
+    },
+    "footer": {
+      "logoAlt": "CETé ADN — Independent Electrical Risk Rating Agency",
+      "logoAriaLabel": "Back to CETé homepage",
+      "tagline": "Independent Electrical Risk Rating Agency.",
+      "motto": "Independence. Objectivity. Transparency.",
+      "navigation": "Navigation",
+      "contact": "Contact",
+      "legal": "Legal",
+      "copyright": "© {year} CETé — Independent Electrical Risk Rating Agency. All rights reserved.",
+      "madeBy": "Made with passion by",
+      "foundedBy": "Founded by former SERECT Experts"
+    },
+    "buttons": {
+      "learnMore": "Learn more",
+      "requestEvaluation": "Request an Assessment",
+      "requestQuote": "Request a Quote",
+      "contactUs": "Contact Us",
+      "backToHome": "Back to homepage",
+      "retry": "Retry"
+    },
+    "states": {
+      "loading": "Loading...",
+      "error": "Error",
+      "noResults": "No results"
+    },
+    "languageSwitcher": {
+      "label": "Change language",
+      "fr": "FR",
+      "en": "EN"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Independent Rating Agency",
+      "titleLine1": "YOUR RATING",
+      "titleLine2": "OF",
+      "titleLine3": "ELECTRICAL",
+      "titleLine4": "RISK",
+      "baseline": "The strength of a collective",
+      "slogan": "Classify. Assess. Illuminate.",
+      "subtitle": "Live Working aptitude at a glance — our framework rates each organization on 3 criteria (A, B, C or D) assembled into a composite Vigi-Score, from AAA to DDD.",
+      "discoverRating": "Discover our rating",
+      "requestEvaluation": "Request an Assessment",
+      "trustIndicator": "200+ organizations assessed",
+      "ratingA": "A — Compliant",
+      "ratingB": "B — Progress needed",
+      "ratingC": "C — Alert",
+      "ratingD": "D — Critical",
+      "vigiScore": "Vigi-Score",
+      "tripleA": "Triple A — Excellence"
+    },
+    "stats": {
+      "title": "O-M-T Observatory · 2022–2025",
+      "dps": "DPS completed",
+      "companies": "Companies audited",
+      "requirements": "Requirements observed",
+      "fieldFacts": "Field facts observed"
+    },
+    "pillars": {
+      "badge": "Our methodology",
+      "heading": "ASSESS. RATE. SUPPORT.",
+      "description": "Three structured steps to objectively measure and improve your electrical risk management"
+    },
+    "adn": {
+      "badge": "Proprietary rating",
+      "heading": "ADN METHOD — RATING AGENCY",
+      "description": "Our framework produces a composite rating from AAA to DDD, based on the 3C Rule — three measurable capabilities",
+      "criterion1Title": "Self-Assessment",
+      "criterion1Desc": "Self-assessment capability — factual diagnosis of your current practices.",
+      "criterion2Title": "Compliance & Improvement",
+      "criterion2Desc": "Ability to meet the requirements of the Professional Recommendation.",
+      "criterion3Title": "Operational Skills",
+      "criterion3Desc": "Mastery of operational skills — field-based scoring.",
+      "ratingA": "A — Compliant",
+      "ratingB": "B — Progress expected",
+      "ratingC": "C — Alert",
+      "ratingD": "D — Non-compliant",
+      "understandRating": "Understand the rating",
+      "assemblyLabel": "Assembly → Composite rating"
+    },
+    "services": {
+      "badge": "Our levers",
+      "heading": "FROM ASSESSMENT TO AAA",
+      "description": "Four structured services that feed and improve your rating",
+      "viewAll": "View full support program"
+    },
+    "organizations": {
+      "badge": "References",
+      "heading": "ASSESSED ORGANIZATIONS",
+      "description": "They trust us to assess and rate their electrical risk management"
+    },
+    "testimonials": {
+      "badge": "Client testimonial",
+      "heading": "MEASURABLE RESULTS",
+      "pullQuote": "The CETé diagnosis identified gaps that our internal audits couldn't see. Our move from BBB to AAA strengthened our credibility with our clients.",
+      "paragraph1": "When we called on CETé, we thought our Live Working management level was satisfactory. Our initial BBB rating revealed a different reality: formally correct procedures, but significant field gaps.",
+      "paragraph2": "The DPS diagnosis highlighted three critical areas: qualification traceability, protective equipment compliance, and above all, the day-to-day safety culture. Issues our internal audits weren't capturing.",
+      "paragraph3": "Over 14 months of Campus CPF support, we restructured our training, deployed field coaching for our Live Working coordinators, and implemented a continuous regulatory monitoring system.",
+      "paragraph4": "The result: a 40% reduction in electrical incidents, measurable upskilling of our teams, and most importantly, the jump from BBB to AAA — a transformation that strengthened our credibility with our clients.",
+      "authorName": "Marie Dubois",
+      "authorRole": "QSE Director",
+      "authorCompany": "Électricité Industrielle SA",
+      "ratingBefore": "BBB",
+      "ratingAfter": "AAA",
+      "duration": "14 months",
+      "viewTestimonial": "View testimonial",
+      "readFull": "Read full testimonial",
+      "collapse": "Collapse"
+    },
+    "founders": {
+      "badge": "The Co-founders",
+      "heading": "80 YEARS OF COMBINED EXPERTISE",
+      "description": "Four former SERECT executives founded CETé to create the first independent electrical risk rating agency in France.",
+      "bullet1": "Former SERECT executives — industry benchmark",
+      "bullet2": "Designers of the AAA-DDD rating framework",
+      "bullet3": "Complete independence — zero conflict of interest",
+      "bullet4": "200+ organizations assessed over 20 years",
+      "cta": "Who we are",
+      "imageAlt": "Portrait of {name}, {role}"
+    },
+    "cta": {
+      "heading": "DO YOU KNOW YOUR RATING?",
+      "description": "Request your initial assessment. Within days, you'll know where you stand on the AAA-DDD scale and which levers to activate.",
+      "requestEvaluation": "Request an Assessment",
+      "clientArea": "Client Area"
+    }
+  },
+  "about": {
+    "hero": {
+      "badge": "Independent Rating Agency",
+      "heading": "WHO ARE <accent>WE</accent>?",
+      "subtitle": "From <serect>SERECT</serect> to <cete>CET</cete> — 20 years in the field, a rating agency.",
+      "description": "Four independent experts founded CETé to objectively measure electrical risk management with a structured and transparent rating system."
+    },
+    "originStory": {
+      "badge": "Our Story",
+      "heading": "THE CET<sup>é</sup> CONSORTIUM",
+      "narrative1": "In 1962, <strong>SERECT</strong> was created to promote and develop Live Working (TST) in France. In 2000, EDF generalized TST audits across EDF units on a 4-year cycle. In 2008, visits to ERDF contractor companies began. ENEDIS generalized field audits at their contractor companies in 2014.",
+      "narrative2": "In 2019, former SERECT experts founded their consulting firm and created an international observatory for electrical risk management. They identified a gap: <strong>no independent rating system</strong> existed.",
+      "narrative3": "In 2026, they created <strong>CET<sup>é</sup></strong>, a fully independent rating agency with the ambition of becoming the reference electrical risk rating agency in France and internationally, and a recognized influencer in sharing best practices for electrical risk prevention.",
+      "motto": "Independence. Objectivity. Transparency.",
+      "statsYears": "Years of expertise",
+      "statsTerrain": "Field",
+      "statsNotation": "Rating",
+      "statsOrgs": "Organizations",
+      "events": {
+        "0": {
+          "year": "2007–2021",
+          "title": "SERECT",
+          "description": "Experience as Business Managers for Electrical Risk Expertise. In charge of managing TST LV and MV expertise in France and internationally."
+        },
+        "1": {
+          "year": "2019–2021",
+          "title": "Creation of the SASUs",
+          "description": "Creation of LEXPREL, VIRELEX and MaP Expertise Conseils SASUs. Consolidation of field expertise, design of the first electrical risk scoring tools."
+        },
+        "2": {
+          "year": "2022",
+          "title": "Design of the ADN framework",
+          "description": "Innovation enabling a 360° view of electrical risk prevention management."
+        },
+        "3": {
+          "year": "2025",
+          "title": "Creation of the Vigi-Score",
+          "description": "Innovation enabling the reading of a company's Prevention capital at a glance."
+        },
+        "4": {
+          "year": "2026",
+          "title": "Launch of the CETé Rating Agency",
+          "description": "Intellectual property filing for the CETé ADN and Vigi-Score brands, complemented by about fifteen innovations in professional risk management piloting."
+        }
+      }
+    },
+    "stats": {
+      "yearsLabel": "Years of field expertise",
+      "orgsLabel": "Organizations assessed",
+      "foundersLabel": "Founding experts",
+      "satisfactionLabel": "Satisfaction rate"
+    },
+    "founders": {
+      "badge": "The Team",
+      "heading": "OUR CO-FOUNDERS",
+      "description": "Passionate experts from SERECT, united by a common vision: turning vigilance into collective energy"
+    },
+    "worldMap": {
+      "badge": "International reach",
+      "heading": "AREAS OF OPERATION",
+      "description": "CETé operates in France and internationally to assess and rate electrical risk management",
+      "loading": "Loading map…",
+      "legendFrance": "Headquarters & France",
+      "legendInternational": "International"
+    },
+    "governance": {
+      "badge": "Governance",
+      "heading": "AN <accent>INDEPENDENT</accent> RATING",
+      "description": "The Vigi-Score's credibility rests on rigorous governance, a proprietary tool and total independence from assessed organizations.",
+      "items": {
+        "0": {
+          "title": "Monitoring Committee",
+          "description": "Composed of CETé founders and a mandated expert, the Monitoring Committee ensures rating, dynamic evaluation and the validity period of each certificate."
+        },
+        "1": {
+          "title": "CIBLE Software",
+          "description": "Proprietary capitalization and analysis tool. CIBLE centralizes all evaluation data and guarantees the traceability of each rating."
+        },
+        "2": {
+          "title": "Independence",
+          "description": "CETé is an independent rating agency. The evaluation is carried out without any commercial ties with assessed organizations, guaranteeing the objectivity of the Vigi-Score."
+        }
+      }
+    },
+    "values": {
+      "badge": "Our DNA",
+      "heading": "INDEPENDENCE & CONFIDENTIALITY",
+      "description": "The core values that guide our daily commitment"
+    },
+    "cta": {
+      "badge": "Take action",
+      "heading": "DO YOU KNOW YOUR <accent>RATING</accent>?",
+      "description": "Request your initial assessment and position your organization on the AAA-DDD scale.",
+      "primaryButton": "Request an Assessment",
+      "secondaryButton": "Our rating"
+    }
+  },
+  "expertise": {
+    "hero": {
+      "badge": "Rating methodology",
+      "heading": "THE ADN METHOD",
+      "subheading": "Rating Agency",
+      "description": "Our exclusive methodology provides a confidence level — from AAA (excellence) to DDD (critical risk) — on your organization's electrical risk management.",
+      "requestEvaluation": "Request an Assessment",
+      "viewSupport": "View support program"
+    },
+    "vigiScore": {
+      "badge": "The 3C Rule — Rating System",
+      "heading": "THE VIGI-SCORE",
+      "description": "The Vigi-Score is a composite rating based on three independent criteria — the 3C Rule — each assessed from A to D.",
+      "criterion1Label": "C1",
+      "criterion1Title": "Self-Assessment",
+      "criterion1Desc": "Organization's self-assessment capability — factual diagnosis.",
+      "criterion2Label": "C2",
+      "criterion2Title": "Compliance & Improvement",
+      "criterion2Desc": "Adherence to the Professional Recommendation — regulatory compliance.",
+      "criterion3Label": "C3",
+      "criterion3Title": "Operational Skills",
+      "criterion3Desc": "Operational mastery of professional practices — field-based scoring.",
+      "assemblyHeading": "Assembly into composite rating",
+      "resultLabel": "Result",
+      "resultDesc": "Excellence expressed as a Triple A (AAA) — optimal electrical risk management.",
+      "tendencyLabel": "Trend indicator + / −",
+      "tendencyUp": "Upward trend",
+      "tendencyStable": "Stable",
+      "tendencyDown": "Downward trend"
+    },
+    "vigilance": {
+      "badge": "Founding concept",
+      "heading": "VIGILANCE ↔ VULNERABILITY",
+      "vigilanceTitle": "Vigilance",
+      "vigilanceDesc": "Organization's proactive ability to anticipate, detect and manage electrical risks.",
+      "vulnerabilityTitle": "Vulnerability",
+      "vulnerabilityDesc": "Residual risk exposure when vigilance is insufficient.",
+      "gaugeHigh": "High vigilance",
+      "gaugeLow": "High vulnerability",
+      "ncTitle": "What triggers a D rating",
+      "ncAudimat": "AuDiMaT",
+      "ncOrganisationnel": "Organizational",
+      "ncOperationnel": "Operational"
+    },
+    "omt": {
+      "badge": "O-M-T Observatory · 2022–2025",
+      "heading": "THE LIVE WORKING MASTERY OBSERVATORY",
+      "stat1": "DPS completed",
+      "stat2": "Companies audited",
+      "stat3": "Requirements observed",
+      "stat4": "Field facts"
+    },
+    "tertiles": {
+      "badge": "O-M-T Observatory",
+      "heading": "WHERE DO YOU STAND?",
+      "description": "The AudiMaT cross-analysis of O-M-T observatory results reveals three organization profiles.",
+      "tertile1Name": "The Vulnerable",
+      "tertile1Subtitle": "\"The Grumblers\"",
+      "tertile1Risk": "VULNERABILITY",
+      "tertile1RiskDesc": "High accident probability",
+      "tertile2Name": "The Middle Ground",
+      "tertile2Subtitle": "Median position",
+      "tertile2Risk": "VIGILANCE",
+      "tertile2RiskDesc": "Moderate accident probability",
+      "tertile3Name": "The Talents",
+      "tertile3Subtitle": "Operational excellence",
+      "tertile3Risk": "MASTERY",
+      "tertile3RiskDesc": "Low accident probability",
+      "note": "Operational mastery of Live Working proportional to compliance with the Recommendation, or beyond."
+    },
+    "comparison": {
+      "heading": "VULNERABLE vs TALENTS",
+      "badge": "The 3 systematic improvement areas",
+      "gapHeading": "THE TOP 3 GAPS",
+      "axis1": "Primary prevention",
+      "axis2": "Competence",
+      "axis3": "Live Working coordination",
+      "axis4": "Training"
+    },
+    "services": {
+      "badge": "Our Services",
+      "heading": "EXPERTISE SERVICES",
+      "description": "Solutions tailored to your assessment and certification needs"
+    },
+    "certificate": {
+      "badge": "Certification",
+      "heading": "THE CETé ADN CERTIFICATE",
+      "differenceHeading": "A certificate that makes the difference",
+      "requestEvaluation": "Request an Assessment",
+      "learnMore": "Learn more"
+    },
+    "cta": {
+      "badge": "Objective AAA",
+      "heading": "OBJECTIVE AAA",
+      "description": "Discover where you stand in electrical risk management and start a continuous improvement journey.",
+      "requestEvaluation": "Request an Assessment",
+      "discoverCete": "Discover CETé"
+    }
+  },
+  "services": {
+    "hero": {
+      "badge": "4 structured services",
+      "heading": "OUR SERVICES",
+      "description": "Expertise, diagnostics, coaching and tailored support to master electrical risk.",
+      "subdescription": "From DPS to PASS-Sérénité VIP, CETé ADN supports you at every stage of your performance journey.",
+      "contactUs": "Contact Us",
+      "discoverRating": "Discover our rating"
+    },
+    "pillars": {
+      "badge": "4 pillars",
+      "heading": "A COMPLETE OFFERING",
+      "description": "From field expertise to strategic consulting, each service meets a specific need in your electrical risk management journey.",
+      "expertise": "Expertise",
+      "conseil": "Consulting & Support",
+      "contactUs": "Contact Us"
+    },
+    "approach": {
+      "badge": "Our method",
+      "heading": "EVERY PROGRAM STARTS FROM YOUR RATING",
+      "anchor1Title": "Field-based",
+      "anchor1Subtitle": "not theoretical",
+      "anchor1Desc": "Every program is based on real situations observed during our field diagnostics.",
+      "anchor2Title": "Progress-oriented",
+      "anchor2Subtitle": "not punitive",
+      "anchor2Desc": "The goal is always to improve your rating, not to penalize.",
+      "anchor3Title": "Calibrated to your rating",
+      "anchor3Subtitle": "not one-size-fits-all",
+      "anchor3Desc": "Every program is tailored to your current level and your rating objectives.",
+      "learnMore": "Learn more",
+      "watermark": "PROGRESSION"
+    },
+    "process": {
+      "badge": "Methodology",
+      "heading": "OUR APPROACH",
+      "description": "Structured support in 4 steps for lasting results",
+      "step1Title": "Diagnosis",
+      "step1Desc": "In-depth analysis of your practices and organization.",
+      "step2Title": "Design",
+      "step2Desc": "Development of a customized and prioritized action plan.",
+      "step3Title": "Deployment",
+      "step3Desc": "Implementation of actions with field support.",
+      "step4Title": "Follow-up",
+      "step4Desc": "Measuring results and continuous adjustment."
+    },
+    "catalog": {
+      "badge": "Our services",
+      "heading": "SERVICES",
+      "description": "Coaching and training for all levels of your organization",
+      "popular": "Popular",
+      "requestQuote": "Request a Quote"
+    },
+    "cta": {
+      "badge": "Take action",
+      "heading": "READY TO PROGRESS TOWARD AAA?",
+      "description": "Request your initial assessment. Together, we'll build the support program tailored to your rating.",
+      "requestEvaluation": "Request an Assessment",
+      "ourRating": "Our rating"
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "CETé Rating Agency",
+      "heading": "LET'S DISCUSS YOUR PROJECT",
+      "description": "Request your assessment or ask questions about the rating. We'll get back to you promptly."
+    },
+    "main": {
+      "tabEvaluation": "Request an Assessment",
+      "tabQuestion": "General Question",
+      "step1Title": "Initial meeting",
+      "step1Desc": "Scoping your needs and objectives.",
+      "step2Title": "Field assessment",
+      "step2Desc": "On-site diagnosis following the ADN framework.",
+      "step3Title": "Rating and action plan",
+      "step3Desc": "Delivery of Vigi-Score and recommendations.",
+      "coordinates": "CONTACT DETAILS",
+      "emailLabel": "Email",
+      "hoursLabel": "Hours",
+      "weekdays": "Mon–Fri: 09:00–18:00",
+      "weekend": "Sat–Sun: Closed",
+      "howItWorks": "HOW IT WORKS",
+      "chipVigiScore": "Vigi-Score Rating",
+      "chipDPS": "DPS Diagnosis",
+      "chipCoaching": "Coaching",
+      "chipVeille": "Regulatory watch"
+    },
+    "map": {
+      "heading": "FIND US",
+      "openGoogleMaps": "Open in Google Maps"
+    },
+    "trust": {
+      "item1Title": "Complete independence",
+      "item1Desc": "No ties with assessed providers or suppliers",
+      "item2Title": "Guaranteed confidentiality",
+      "item2Desc": "Your results and rating remain strictly confidential",
+      "item3Title": "Prompt response",
+      "item3Desc": "Initial scoping, tailored solutions and timeline proposal"
+    },
+    "form": {
+      "heading": "SEND US A MESSAGE",
+      "nameLabel": "Full name",
+      "namePlaceholder": "John Smith",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Your company",
+      "emailLabel": "Email",
+      "emailPlaceholder": "john.smith@company.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+33 1 XX XX XX XX",
+      "subjectLabel": "Subject",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Describe your needs...",
+      "requiredFields": "All fields marked * are required",
+      "acceptCgu": "I accept the terms and conditions",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "successTitle": "Message sent!",
+      "successDesc": "We will get back to you as soon as possible.",
+      "subjectOptions": {
+        "dps": "Rating — Safety Performance Diagnosis (DPS)",
+        "save": "Expertise — Event Analysis (SAVE)",
+        "campus": "Training — Coaching, Performance, Training (Campus CPF)",
+        "pass": "Subscription — PASS-Sérénité VIP",
+        "other": "Other inquiry"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "companyMin": "Company name must be at least 2 characters",
+        "emailInvalid": "Invalid email",
+        "subjectRequired": "Please select a subject",
+        "messageMin": "Message must be at least 10 characters",
+        "cguRequired": "You must accept the terms and conditions"
+      }
+    },
+    "evaluationForm": {
+      "heading": "REQUEST AN ASSESSMENT",
+      "description": "Tell us about your organization to receive a tailored proposal. Fields marked * are required.",
+      "nameLabel": "Full name",
+      "namePlaceholder": "John Smith",
+      "roleLabel": "Position",
+      "rolePlaceholder": "QSE Manager",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Company name",
+      "sirenLabel": "SIREN",
+      "sirenPlaceholder": "123 456 789",
+      "sectorLabel": "Industry sector",
+      "employeesLabel": "Number of employees",
+      "emailLabel": "Professional email",
+      "emailPlaceholder": "john.smith@company.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+33 1 XX XX XX XX",
+      "evaluationTypeLabel": "Desired assessment type",
+      "sitesLabel": "Number and location of sites",
+      "sitesPlaceholder": "e.g.: 3 sites — Lyon, Grenoble, Paris",
+      "detailsLabel": "Additional details",
+      "detailsPlaceholder": "Context, timeline constraints, specific objectives…",
+      "acceptCgu": "I accept the terms and conditions",
+      "submit": "Submit assessment request",
+      "sending": "Sending...",
+      "successTitle": "Assessment request sent!",
+      "successDesc": "We will contact you shortly to schedule a meeting.",
+      "sectorOptions": {
+        "energy": "Energy & Utilities",
+        "construction": "Construction & Electrical Engineering",
+        "industry": "Industry",
+        "transport": "Transport & Railway",
+        "tertiary": "Tertiary",
+        "collectivities": "Local authorities",
+        "other": "Other"
+      },
+      "evaluationOptions": {
+        "dps": "DPS — Safety Performance Diagnosis",
+        "save": "SAVE — Event Vulnerability Analysis",
+        "campus": "Campus CPF — Coaching, Performance, Training",
+        "pass": "PASS-Sérénité VIP",
+        "vigiScore": "Vigi-Score — Independent rating",
+        "multiple": "Multiple services (specify below)"
+      },
+      "employeeOptions": {
+        "xs": "1 to 10 employees",
+        "sm": "11 to 50 employees",
+        "md": "51 to 250 employees",
+        "lg": "251 to 1,000 employees",
+        "xl": "Over 1,000 employees"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "roleMin": "Position must be at least 2 characters",
+        "companyMin": "Company name must be at least 2 characters",
+        "emailInvalid": "Invalid email",
+        "sectorRequired": "Please select a sector",
+        "employeesRequired": "Please select the number of employees",
+        "evaluationRequired": "Please select an assessment type",
+        "cguRequired": "You must accept the terms and conditions"
+      }
+    },
+    "info": {
+      "heading": "CETé - Contact",
+      "description": "Ready to turn your vigilance into collective energy? Contact us to discuss your needs.",
+      "addressLabel": "Address",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "hoursLabel": "Hours",
+      "weekdays": "Mon-Fri",
+      "weekendClosed": "Sat-Sun: Closed",
+      "mapPlaceholder": "Google Maps"
+    }
+  },
+  "shared": {
+    "foundersGrid": {
+      "heading": "Our Founders",
+      "description": "4 passionate experts, champions of prevention"
+    },
+    "pillarsSection": {
+      "badge": "At a glance",
+      "heading": "Our three fundamental pillars"
+    },
+    "servicesGrid": {
+      "learnMore": "Learn more"
+    },
+    "valuesSection": {
+      "heading": "Our DNA: Independence & Confidentiality",
+      "description": "The values that guide our daily commitment"
+    },
+    "processSection": {
+      "badge": "Our Approach",
+      "heading": "Structured support for lasting results",
+      "stepLabel": "Step {number}",
+      "step1": "Diagnosis",
+      "step1Desc": "In-depth analysis of your organization and electrical risk management practices.",
+      "step2": "Design",
+      "step2Desc": "Development of a customized, prioritized action plan tailored to your rating.",
+      "step3": "Deployment",
+      "step3Desc": "Field implementation with continuous support.",
+      "step4": "Follow-up & Improvement",
+      "step4Desc": "Measuring results, adjusting actions and continuously improving your rating."
+    },
+    "adnTeaser": {
+      "heading": "The ADN Method",
+      "description": "Rating Agency: Independent electrical risk rating",
+      "content": "Our exclusive methodology objectively assesses and rates your organization's electrical risk management level, from AAA (optimal mastery) to DDD (critical risk).",
+      "step1": "Self-Assessment",
+      "step1Desc": "Factual diagnosis of your current practices",
+      "step2": "Regulatory compliance",
+      "step2Desc": "Compliance with the Professional Recommendation",
+      "step3": "Operational mastery",
+      "step3Desc": "Day-to-day electrical risk management in the field",
+      "learnMore": "Learn more"
+    }
+  }
+}

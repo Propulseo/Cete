@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Globe } from "lucide-react";
-import { BrandName } from "@/components/ui/brand-name";
 
 const interventionZones = [
   { name: "France métropolitaine", lat: 46.6, lng: 2.2, primary: true },
@@ -23,6 +23,7 @@ const interventionZones = [
 ];
 
 export function AboutWorldMap() {
+  const t = useTranslations("about.worldMap");
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
@@ -37,14 +38,13 @@ export function AboutWorldMap() {
         <div className="text-center mb-12">
           <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#4DA6D9] text-sm font-semibold uppercase tracking-wider mb-4">
             <Globe className="h-4 w-4" />
-            Rayonnement international
+            {t("badge")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-4">
-            ZONES D&apos;INTERVENTION
+            {t("heading")}
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            <BrandName /> intervient en France et à l&apos;international pour évaluer et noter
-            la maîtrise du risque électrique
+            {t("description")}
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export function AboutWorldMap() {
             <LeafletMap />
           ) : (
             <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
-              <span className="text-white/40">Chargement de la carte…</span>
+              <span className="text-white/40">{t("loading")}</span>
             </div>
           )}
         </div>
@@ -62,11 +62,11 @@ export function AboutWorldMap() {
         <div className="flex flex-wrap justify-center gap-6 mt-8">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#E8630A]" />
-            <span className="text-sm text-white/70">Siège &amp; France</span>
+            <span className="text-sm text-white/70">{t("legendFrance")}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#4DA6D9]" />
-            <span className="text-sm text-white/70">International</span>
+            <span className="text-sm text-white/70">{t("legendInternational")}</span>
           </div>
         </div>
       </div>
@@ -75,6 +75,7 @@ export function AboutWorldMap() {
 }
 
 function LeafletMap() {
+  const t = useTranslations("about.worldMap");
   const [L, setL] = useState<typeof import("leaflet") | null>(null);
   const [components, setComponents] = useState<typeof import("react-leaflet") | null>(null);
 
@@ -90,7 +91,7 @@ function LeafletMap() {
   if (!L || !components) {
     return (
       <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
-        <span className="text-white/40">Chargement de la carte…</span>
+        <span className="text-white/40">{t("loading")}</span>
       </div>
     );
   }

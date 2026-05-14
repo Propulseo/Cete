@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Zap, Star, Users } from "lucide-react";
 import { getPillars } from "@/lib/data-loader";
 
@@ -12,6 +13,7 @@ const colors = {
 };
 
 export function HomePillars() {
+  const t = useTranslations("home.pillars");
   const pillars = getPillars();
 
   return (
@@ -22,13 +24,13 @@ export function HomePillars() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
-            Notre méthodologie
+            {t("badge")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] mb-6">
-            ÉVALUER. NOTER. ACCOMPAGNER.
+            {t("heading")}
           </h2>
           <p className="text-xl text-[#4A6580]">
-            Trois étapes structurées pour objectiver et améliorer votre maîtrise du risque électrique
+            {t("description")}
           </p>
         </div>
 

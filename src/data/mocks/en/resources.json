@@ -1,0 +1,131 @@
+{
+  "resources": [
+    {
+      "id": "res-001",
+      "title": "NF C 15-100 — Low-Voltage Electrical Installations",
+      "description": "Fundamental standard for the design, implementation, and verification of low-voltage electrical installations in France.",
+      "category": "normes",
+      "type": "pdf",
+      "accessMode": "telechargement",
+      "url": "/resources/nf-c-15-100.pdf",
+      "fileSize": "4.8 MB",
+      "source": "AFNOR",
+      "publishedDate": "2025-06-15",
+      "createdAt": "2026-01-10"
+    },
+    {
+      "id": "res-002",
+      "title": "NF C 18-510 — Operations on Electrical Works and Installations",
+      "description": "Safety requirements for operations on or in the vicinity of electrical works and installations.",
+      "category": "normes",
+      "type": "pdf",
+      "accessMode": "lecture",
+      "url": "/resources/nf-c-18-510.pdf",
+      "fileSize": "3.2 MB",
+      "source": "AFNOR",
+      "publishedDate": "2024-11-01",
+      "createdAt": "2026-01-10"
+    },
+    {
+      "id": "res-003",
+      "title": "Decree No. 2010-1016 — Project Owner Obligations",
+      "description": "Decree regarding the obligations of project owners undertaking the construction or renovation of buildings intended for workers.",
+      "category": "reglementation",
+      "type": "lien",
+      "accessMode": "lecture",
+      "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022840784",
+      "source": "Légifrance",
+      "publishedDate": "2010-08-30",
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "res-004",
+      "title": "Directive 2014/35/EU — Low-Voltage Electrical Equipment",
+      "description": "European directive on the harmonization of legislation concerning the making available on the market of electrical equipment.",
+      "category": "reglementation",
+      "type": "lien",
+      "accessMode": "lecture",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0035",
+      "source": "EUR-Lex",
+      "publishedDate": "2014-02-26",
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "res-005",
+      "title": "Practical Guide — Electrical Installation Inspections",
+      "description": "Complete methodology for initial and periodic inspection of electrical installations in compliance with regulations.",
+      "category": "guides",
+      "type": "pdf",
+      "accessMode": "telechargement",
+      "url": "/resources/guide-verifications.pdf",
+      "fileSize": "2.9 MB",
+      "source": "CETé",
+      "publishedDate": "2026-01-20",
+      "createdAt": "2026-01-22"
+    },
+    {
+      "id": "res-006",
+      "title": "Technical Sheet — Surge Protection",
+      "description": "Sizing and selection of surge protection devices against atmospheric and industrial overvoltages.",
+      "category": "guides",
+      "type": "pdf",
+      "accessMode": "lecture",
+      "url": "/resources/fiche-surtensions.pdf",
+      "fileSize": "1.4 MB",
+      "source": "CETé",
+      "publishedDate": "2025-11-05",
+      "createdAt": "2025-11-10"
+    },
+    {
+      "id": "res-007",
+      "title": "Report — Electrical Incident Statistics in France 2025",
+      "description": "Statistical analysis of electrical accidents in professional environments for the year 2025.",
+      "category": "rapports",
+      "type": "pdf",
+      "accessMode": "telechargement",
+      "url": "/resources/rapport-sinistralite-2025.pdf",
+      "fileSize": "5.1 MB",
+      "source": "CETé",
+      "publishedDate": "2026-02-10",
+      "createdAt": "2026-02-12"
+    },
+    {
+      "id": "res-008",
+      "title": "Lessons Learned — Fire of Electrical Origin",
+      "description": "Case study of a fire caused by an insulation fault on a high-voltage industrial installation.",
+      "category": "rapports",
+      "type": "video",
+      "accessMode": "lecture",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "youtubeId": "dQw4w9WgXcQ",
+      "source": "CETé",
+      "publishedDate": "2026-01-18",
+      "createdAt": "2026-01-20"
+    },
+    {
+      "id": "res-009",
+      "title": "Regulatory Watch — NF C 15-100 Amendment A6 Updates",
+      "description": "Summary of changes introduced by Amendment A6 to the NF C 15-100 standard, effective from June 2026.",
+      "category": "veille",
+      "type": "pdf",
+      "accessMode": "telechargement",
+      "url": "/resources/veille-nfc15100-a6.pdf",
+      "fileSize": "890 KB",
+      "source": "AFNOR",
+      "publishedDate": "2026-02-25",
+      "createdAt": "2026-02-26"
+    },
+    {
+      "id": "res-010",
+      "title": "Regulatory Watch — New 2026 Periodic Inspection Decree",
+      "description": "Analysis of Decree 2026-XXX amending the periodic inspection requirements for electrical installations.",
+      "category": "veille",
+      "type": "lien",
+      "accessMode": "lecture",
+      "url": "https://www.legifrance.gouv.fr",
+      "source": "Légifrance",
+      "publishedDate": "2026-02-20",
+      "createdAt": "2026-02-21"
+    }
+  ]
+}

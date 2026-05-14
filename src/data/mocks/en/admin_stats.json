@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-02-04",
+  "stats": [
+    {
+      "id": "stat-1",
+      "label": "Rated Organizations",
+      "value": 47,
+      "trend": "+12%",
+      "icon": "users"
+    },
+    {
+      "id": "stat-2",
+      "label": "Assessments Completed",
+      "value": 134,
+      "trend": "+8%",
+      "icon": "check-circle"
+    },
+    {
+      "id": "stat-3",
+      "label": "Ratings Issued",
+      "value": 28,
+      "trend": "+5%",
+      "icon": "award"
+    },
+    {
+      "id": "stat-4",
+      "label": "Average Rating",
+      "value": "BBB+",
+      "trend": "stable",
+      "icon": "star"
+    }
+  ]
+}

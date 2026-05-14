@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getFounders } from "@/lib/data-loader";
 
 export function AboutFounders() {
+  const t = useTranslations("about.founders");
   const founders = getFounders();
 
   return (
@@ -17,14 +19,13 @@ export function AboutFounders() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <Badge className="bg-[#4DA6D9]/10 text-[#1A2940] hover:bg-[#4DA6D9]/20 mb-4">
-            L&apos;Équipe
+            {t("badge")}
           </Badge>
           <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-            NOS CO-FONDATEURS
+            {t("heading")}
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            Des experts passionnés issus de SERECT, unis par une vision commune :
-            transformer la vigilance en énergie collective
+            {t("description")}
           </p>
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>

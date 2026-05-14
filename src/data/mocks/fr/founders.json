@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "Michel LIGIER",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — Conformité réglementaire - Veille juridique - Ingénierie pédagogique appliquée à la sécurité",
+    "imageUrl": "/assets/founders/michel.png",
+    "imagePosition": "center top",
+    "specialties": ["Travaux Sous Tension", "Diagnostic terrain", "Référentiel de notation"],
+    "formerOrg": "Ancien Expert SERECT",
+    "currentEntity": "Fondateur de MaP Expertise Conseils"
+  },
+  {
+    "id": "2",
+    "name": "Bruno CLAUDEL",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — IPRP - Architecte du référentiel de notation - Ingénierie pédagogique appliquée à la sécurité",
+    "imageUrl": "/assets/founders/bruno-claudel.jpg",
+    "specialties": ["Conformité réglementaire", "Audit normatif", "Veille juridique"],
+    "formerOrg": "Ancien Expert SERECT",
+    "currentEntity": ""
+  },
+  {
+    "id": "3",
+    "name": "Pierre VIRELY",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT — Concepteur de programmes d'accompagnement vers le triple A - Ingénierie pédagogique appliquée à la sécurité",
+    "imageUrl": "/assets/founders/pierre-virely.jpg",
+    "specialties": ["Ingénierie pédagogique", "Coaching opérationnel", "Montée en compétence"],
+    "formerOrg": "Ancien Expert SERECT",
+    "currentEntity": ""
+  },
+  {
+    "id": "4",
+    "name": "Denis VUILLOZ",
+    "role": "Co-fondateur — Notation & Analyse",
+    "bio": "20 ans en analyse de risques et systèmes de notation. Concepteur de l'échelle AAA-DDD et de la méthodologie Vigi-Score.",
+    "imageUrl": "/assets/founders/denis.jpg",
+    "specialties": ["Méthodologie de notation", "Analyse de risques", "Échelle AAA-DDD"],
+    "visible": false,
+    "formerOrg": "Ancien Expert SERECT",
+    "currentEntity": ""
+  }
+]

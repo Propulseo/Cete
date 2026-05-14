@@ -1,7 +1,10 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/navigation";
 import { Shield, CheckCircle, QrCode, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandName } from "@/components/ui/brand-name";
+import { useTranslations } from "next-intl";
 
 const subCriteria = [
   { label: "Capacité d'auto-évaluation", score: "A" },
@@ -10,6 +13,7 @@ const subCriteria = [
 ];
 
 export function ExpertiseCertificate() {
+  const t = useTranslations("expertise.certificate");
   return (
     <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-80 h-80 bg-[#4DA6D9]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
@@ -18,16 +22,14 @@ export function ExpertiseCertificate() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
-            Certification
+            {t("badge")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-            LE CERTIFICAT{" "}
+            {t("heading")}{" "}
             <span className="text-[#E8630A]">CET<span className="text-[0.75em] align-super">é</span> ADN</span>
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            À l&apos;issue de chaque évaluation, un certificat officiel vous est délivré.
-            Il atteste de votre niveau de maîtrise du risque électrique et constitue
-            un avantage concurrentiel auprès de vos donneurs d&apos;ordre.
+            {t("description")}
           </p>
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
@@ -137,26 +139,18 @@ export function ExpertiseCertificate() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h3 className="font-display text-2xl md:text-3xl text-[#1A2940]">
-                Un certificat qui fait la différence
+                {t("differenceHeading")}
               </h3>
               <p className="text-[#4A6580] leading-relaxed">
-                Le certificat <BrandName /> ADN est le document officiel attestant de votre
-                notation sur l&apos;échelle AAA-DDD. Délivré après chaque Diagnostic Performance
-                Sécurité (DPS), il formalise votre niveau de maîtrise du risque électrique.
+                {t("differenceDescription")}
               </p>
             </div>
 
             <ul className="space-y-4">
-              {[
-                "Notation triple-lettre sur l'échelle AAA à DDD",
-                "Détail des sous-critères et indicateurs de tendance",
-                "QR code de vérification d'authenticité en ligne",
-                "Validité d'un an — renouvellement après réévaluation",
-                "Avantage concurrentiel auprès des donneurs d'ordre",
-              ].map((item, i) => (
+              {Array.from({ length: 5 }, (_, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-[#22C55E] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#4A6580]">{item}</span>
+                  <span className="text-[#4A6580]">{t(`features.${i}`)}</span>
                 </li>
               ))}
             </ul>
@@ -168,7 +162,7 @@ export function ExpertiseCertificate() {
                 className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold px-8 py-6 text-lg rounded-xl group shadow-lg shadow-[#E8630A]/20 hover:shadow-[#E8630A]/40 transition-all"
               >
                 <Link href="/contact">
-                  Demander une évaluation
+                  {t("cta1")}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
@@ -179,7 +173,7 @@ export function ExpertiseCertificate() {
                 className="border-2 border-[#1A2940] text-[#1A2940] hover:bg-[#1A2940] hover:text-white font-semibold px-8 py-6 text-lg rounded-xl transition-all"
               >
                 <Link href="/services">
-                  En savoir plus
+                  {t("cta2")}
                 </Link>
               </Button>
             </div>

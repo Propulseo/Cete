@@ -1,43 +1,14 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Zap, Award, Shield, Building2, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { brandify } from "@/components/ui/brand-name";
 
-const timelineEvents = [
-  {
-    year: "2007–2021",
-    title: "SERECT",
-    description: "Expérience en tant que Responsables d'affaires Expertise risque électrique. En charge du pilotage de l'expertise TST BT et HTA en France et à l'international.",
-    icon: Building2,
-  },
-  {
-    year: "2019–2021",
-    title: "Création des SASU",
-    description: "Création des SASU LEXPREL, VIRELEX et MaP Expertise Conseils. Consolidation de l'expertise terrain, conception des premiers outils de scoring du risque électrique.",
-    icon: Award,
-  },
-  {
-    year: "2022",
-    title: "Conception du référentiel ADN",
-    description: "Innovation permettant d'avoir une vision à 360° du management de la prévention du risque électrique.",
-    icon: GraduationCap,
-  },
-  {
-    year: "2025",
-    title: "Création du Vigi-Score",
-    description: "Innovation permettant de lire le capital Prévention d'une entreprise sur un simple regard.",
-    icon: Shield,
-  },
-  {
-    year: "2026",
-    title: "Création de l'Agence de Notation CETé",
-    description: "Dépôt de propriété intellectuelle des marques CETé ADN et Vigi-Score complétée d'une quinzaine d'innovations portant sur le pilotage du management des risques professionnels.",
-    icon: Zap,
-  },
-];
+const timelineIcons = [Building2, Award, GraduationCap, Shield, Zap];
 
 export function AboutOriginStory() {
+  const t = useTranslations("about.originStory");
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#4DA6D9]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -46,10 +17,12 @@ export function AboutOriginStory() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="bg-[#1A2940]/10 text-[#1A2940] hover:bg-[#1A2940]/20 mb-4">
-              Notre Histoire
+              {t("badge")}
             </Badge>
             <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-              LE CONSORTIUM CET<span className="text-[0.75em] align-super">é</span>
+              {t.rich("heading", {
+                sup: (chunks) => <span className="text-[0.75em] align-super">{chunks}</span>,
+              })}
             </h2>
             <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full" />
           </div>
@@ -57,31 +30,27 @@ export function AboutOriginStory() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div className="space-y-6">
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                En 1962, <strong className="text-[#1A2940]">SERECT</strong> est créé pour
-                promouvoir et développer les TST en France. En 2000, EDF généralise les audits
-                TST dans les unités EDF sur une périodicité de 4 ans. L&apos;année 2008 voit le
-                début des visites d&apos;entreprises prestataires du distributeur ERDF. ENEDIS
-                généralise les audits terrain chez leurs entreprises prestataires en 2014.
+                {t.rich("narrative1", {
+                  strong: (chunks) => <strong className="text-[#1A2940]">{chunks}</strong>,
+                })}
               </p>
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                En 2019, des anciens experts de SERECT fondent leur société d&apos;expertise
-                conseils et crée un observatoire international de la Maîtrise du risque
-                électrique. Ils font le constat d&apos;un manque :{" "}
-                <strong className="text-[#1A2940]">aucun système de notation indépendant</strong> n&apos;existait.
+                {t.rich("narrative2", {
+                  strong: (chunks) => <strong className="text-[#1A2940]">{chunks}</strong>,
+                })}
               </p>
               <p className="text-lg text-[#4A6580] leading-relaxed">
-                En 2026, ils créent <strong className="text-[#1A2940]">CET<span className="text-[0.75em] align-super">é</span></strong> une
-                Agence de notation totalement indépendante avec l&apos;ambition de devenir
-                l&apos;agence de notation de référence du risque électrique en France et à
-                l&apos;international et d&apos;être un influenceur reconnu de partage des bonnes
-                pratiques de la prévention des risques électriques.
+                {t.rich("narrative3", {
+                  strong: (chunks) => <strong className="text-[#1A2940]">{chunks}</strong>,
+                  sup: (chunks) => <span className="text-[0.75em] align-super">{chunks}</span>,
+                })}
               </p>
               <div className="flex items-center gap-4 pt-4">
                 <div className="h-12 w-12 rounded-full bg-[#E8630A] flex items-center justify-center">
                   <Zap className="h-6 w-6 text-[#1A2940]" />
                 </div>
                 <p className="text-[#1A2940] font-semibold">
-                  Indépendance. Objectivité. Transparence.
+                  {t("motto")}
                 </p>
               </div>
             </div>
@@ -93,24 +62,24 @@ export function AboutOriginStory() {
                   <div className="text-6xl font-display text-[#4DA6D9] mb-2 group-hover:scale-110 transition-transform duration-500">
                     20+
                   </div>
-                  <p className="text-white/80 text-sm">Années d&apos;expertise</p>
+                  <p className="text-white/80 text-sm">{t("statsYears")}</p>
                 </div>
                 <div className="aspect-square rounded-2xl bg-[#4DA6D9]/10 border border-[#DAEEF8] flex items-center justify-center overflow-hidden">
                   <div className="text-center p-4">
                     <Zap className="h-12 w-12 text-[#E8630A] mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-[#1A2940]">Terrain</p>
+                    <p className="text-sm font-semibold text-[#1A2940]">{t("statsTerrain")}</p>
                   </div>
                 </div>
                 <div className="aspect-square rounded-2xl bg-[#F4F9FD] border border-[#DAEEF8] flex items-center justify-center overflow-hidden">
                   <div className="text-center p-4">
                     <Award className="h-12 w-12 text-[#4DA6D9] mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-[#1A2940]">Notation</p>
+                    <p className="text-sm font-semibold text-[#1A2940]">{t("statsNotation")}</p>
                   </div>
                 </div>
                 <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#E8630A] to-[#B84D08] flex items-center justify-center overflow-hidden group">
                   <div className="text-center">
                     <div className="text-4xl font-display text-white mb-1 group-hover:scale-110 transition-transform duration-500">200+</div>
-                    <p className="text-white/80 text-sm">Organisations</p>
+                    <p className="text-white/80 text-sm">{t("statsOrgs")}</p>
                   </div>
                 </div>
               </div>
@@ -124,9 +93,9 @@ export function AboutOriginStory() {
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#E8630A] via-[#4DA6D9] to-[#1A2940] hidden md:block" />
 
             <div className="space-y-12">
-              {timelineEvents.map((event, index) => (
+              {timelineIcons.map((Icon, index) => (
                 <div
-                  key={event.year}
+                  key={index}
                   className={`flex items-center gap-8 ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
@@ -137,13 +106,13 @@ export function AboutOriginStory() {
                         index % 2 === 0 ? "border-[#E8630A]" : "border-[#4DA6D9]"
                       }`}
                     >
-                      <span className="text-sm font-bold text-[#E8630A]">{event.year}</span>
-                      <h3 className="text-xl font-bold text-[#1A2940] mt-1">{brandify(event.title)}</h3>
-                      <p className="text-[#4A6580] mt-2">{brandify(event.description)}</p>
+                      <span className="text-sm font-bold text-[#E8630A]">{t(`events.${index}.year`)}</span>
+                      <h3 className="text-xl font-bold text-[#1A2940] mt-1">{brandify(t(`events.${index}.title`))}</h3>
+                      <p className="text-[#4A6580] mt-2">{brandify(t(`events.${index}.description`))}</p>
                     </div>
                   </div>
                   <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg border-4 border-[#4DA6D9] z-10">
-                    <event.icon className="h-6 w-6 text-[#E8630A]" />
+                    <Icon className="h-6 w-6 text-[#E8630A]" />
                   </div>
                   <div className="flex-1 hidden md:block" />
                 </div>

@@ -1,7 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { MapPin, ExternalLink } from "lucide-react";
 import { getContactInfo } from "@/lib/data-loader";
 
 export function ContactMap() {
+  const t = useTranslations("contact.map");
   const contact = getContactInfo();
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${contact.address}, ${contact.city}`
@@ -13,7 +17,7 @@ export function ContactMap() {
         <div className="mx-auto max-w-4xl">
           <div className="mb-8 text-center">
             <h2 className="font-display text-3xl tracking-wide text-[#1A2940] md:text-4xl">
-              NOUS TROUVER
+              {t("heading")}
             </h2>
             <p className="mt-3 text-[#4A6580]">
               {contact.address}, {contact.city}
@@ -36,7 +40,7 @@ export function ContactMap() {
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#4DA6D9]/30 px-5 py-2.5 text-sm font-medium text-[#1A2940] transition-colors hover:bg-[#4DA6D9] hover:text-white"
               >
-                Ouvrir dans Google Maps
+                {t("openGoogleMaps")}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Users, Zap, HardHat, BookOpen, Sparkles, ArrowRight, CheckCircle, ArrowUpRight } from "lucide-react";
 import { getConseilServices } from "@/lib/data-loader";
 
@@ -12,6 +13,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function ServicesCatalog() {
+  const t = useTranslations("services.catalog");
   const conseilServices = getConseilServices();
 
   return (
@@ -19,13 +21,13 @@ export function ServicesCatalog() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16">
           <div>
-            <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">Nos offres</span>
+            <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">{t("badge")}</span>
             <h2 className="font-display text-5xl md:text-6xl text-[#1A2940] tracking-wide mt-4">
-              SERVICES
+              {t("heading")}
             </h2>
           </div>
           <p className="text-[#4A6580] max-w-md mt-6 lg:mt-0 lg:text-right">
-            Coaching et formation pour tous les niveaux de votre organisation
+            {t("description")}
           </p>
         </div>
 
@@ -37,7 +39,7 @@ export function ServicesCatalog() {
               <div className="relative z-10 p-10 h-full flex flex-col">
                 <div className="inline-flex items-center gap-2 bg-[#E8630A] text-white px-4 py-2 rounded-full text-sm font-bold w-fit">
                   <Sparkles className="h-4 w-4" />
-                  Populaire
+                  {t("popular")}
                 </div>
 
                 <div className="w-24 h-24 rounded-3xl bg-white/10 backdrop-blur flex items-center justify-center text-[#4DA6D9] mt-8">
@@ -63,7 +65,7 @@ export function ServicesCatalog() {
 
                 <div className="mt-auto pt-8">
                   <span className="inline-flex items-center bg-[#E8630A] text-white font-bold px-8 py-6 rounded-full group-hover:bg-[#B84D08] transition-colors">
-                    Demander un devis
+                    {t("requestQuote")}
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>

@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import {
   AboutHero,
   AboutOriginStory,
@@ -9,7 +10,14 @@ import {
   AboutCTA,
 } from "@/components/sections/about";
 
-export default function AProposPage() {
+export default async function AProposPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <AboutHero />

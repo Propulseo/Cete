@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,31 +19,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const SUBJECT_OPTIONS = [
-  { value: "", label: "Sélectionnez un sujet…" },
-  { value: "dps", label: "Notation — Diagnostic Performance Sécurité (DPS)" },
-  { value: "save", label: "Expertise — Analyse d'événements (SAVE)" },
-  { value: "campus", label: "Formation — Coaching, Performance, Formation (Campus CPF)" },
-  { value: "pass-vip", label: "Abonnement — PASS-Sérénité VIP" },
-  { value: "autre", label: "Autre demande" },
-] as const;
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  company: z.string().min(2, "Le nom de l'entreprise est requis"),
-  email: z.string().email("Email invalide"),
-  phone: z.string().optional(),
-  subject: z.string().min(1, "Veuillez sélectionner un sujet"),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
-  acceptCgu: z.boolean().refine((val) => val === true, {
-    message: "Vous devez accepter les CGU",
-  }),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
-
 export function ContactForm() {
+  const t = useTranslations("contact.form");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const SUBJECT_OPTIONS = [
+    { value: "", label: `${t("subjectLabel")}…` },
+    { value: "dps", label: t("subjectOptions.dps") },
+    { value: "save", label: t("subjectOptions.save") },
+    { value: "campus", label: t("subjectOptions.campus") },
+    { value: "pass-vip", label: t("subjectOptions.pass") },
+    { value: "autre", label: t("subjectOptions.other") },
+  ];
+
+  const contactSchema = z.object({
+    name: z.string().min(2, t("validation.nameMin")),
+    company: z.string().min(2, t("validation.companyMin")),
+    email: z.string().email(t("validation.emailInvalid")),
+    phone: z.string().optional(),
+    subject: z.string().min(1, t("validation.subjectRequired")),
+    message: z.string().min(10, t("validation.messageMin")),
+    acceptCgu: z.boolean().refine((val) => val === true, {
+      message: t("validation.cguRequired"),
+    }),
+  });
+
+  type ContactFormData = z.infer<typeof contactSchema>;
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -63,8 +65,8 @@ export function ContactForm() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitting(false);
 
-    toast.success("Message envoyé !", {
-      description: "Nous vous recontacterons dans les meilleurs délais.",
+    toast.success(t("successTitle"), {
+      description: t("successDesc"),
     });
 
     form.reset();
@@ -73,10 +75,10 @@ export function ContactForm() {
   return (
     <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm md:p-8">
       <h3 className="mb-1 font-display text-xl tracking-wide text-[#1A2940]">
-        ENVOYEZ-NOUS UN MESSAGE
+        {t("heading")}
       </h3>
       <p className="mb-6 text-sm text-[#4A6580]">
-        Tous les champs marqués * sont obligatoires
+        {t("requiredFields")}
       </p>
 
       <Form {...form}>
@@ -86,9 +88,9 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nom complet *</FormLabel>
+                <FormLabel>{t("nameLabel")} *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Jean Dupont" {...field} />
+                  <Input placeholder={t("namePlaceholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -100,9 +102,9 @@ export function ContactForm() {
             name="company"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Entreprise *</FormLabel>
+                <FormLabel>{t("companyLabel")} *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Votre entreprise" {...field} />
+                  <Input placeholder={t("companyPlaceholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -114,11 +116,11 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email *</FormLabel>
+                <FormLabel>{t("emailLabel")} *</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="jean.dupont@entreprise.fr"
+                    placeholder={t("emailPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -132,11 +134,11 @@ export function ContactForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Téléphone</FormLabel>
+                <FormLabel>{t("phoneLabel")}</FormLabel>
                 <FormControl>
                   <Input
                     type="tel"
-                    placeholder="+33 1 XX XX XX XX"
+                    placeholder={t("phonePlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -150,7 +152,7 @@ export function ContactForm() {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sujet *</FormLabel>
+                <FormLabel>{t("subjectLabel")} *</FormLabel>
                 <FormControl>
                   <select
                     {...field}
@@ -173,10 +175,10 @@ export function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message *</FormLabel>
+                <FormLabel>{t("messageLabel")} *</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Décrivez votre besoin..."
+                    placeholder={t("messagePlaceholder")}
                     rows={5}
                     {...field}
                   />
@@ -201,11 +203,7 @@ export function ContactForm() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel className="text-sm font-normal">
-                    J&apos;accepte les{" "}
-                    <a href="/cgu" className="text-primary underline">
-                      conditions générales d&apos;utilisation
-                    </a>{" "}
-                    *
+                    {t("acceptCgu")} *
                   </FormLabel>
                   <FormMessage />
                 </div>
@@ -219,10 +217,10 @@ export function ContactForm() {
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              "Envoi en cours..."
+              t("sending")
             ) : (
               <>
-                Envoyer le message
+                {t("submit")}
                 <Send className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </>
             )}

@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ClipboardCheck, Star, ShieldAlert, Zap, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getExpertiseServices } from "@/lib/data-loader";
+import { useTranslations } from "next-intl";
 
 const iconMap: Record<string, React.ReactNode> = {
   "clipboard-check": <ClipboardCheck className="h-6 w-6" />,
@@ -12,6 +13,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function ExpertiseServices() {
+  const t = useTranslations("expertise.services");
   const expertiseServices = getExpertiseServices();
 
   return (
@@ -22,13 +24,13 @@ export function ExpertiseServices() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <Badge className="bg-[#1A2940] text-white hover:bg-[#0D5A8A] mb-4">
-            Nos Offres
+            {t("badge")}
           </Badge>
           <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-            OFFRES EXPERTISE
+            {t("heading")}
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            Des solutions adaptées à vos besoins d&apos;évaluation et de certification
+            {t("description")}
           </p>
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
@@ -68,7 +70,7 @@ export function ExpertiseServices() {
                 </ul>
 
                 <span className="inline-flex items-center justify-between w-full text-[#1A2940] group-hover:text-[#1A2940] font-medium transition-colors">
-                  En savoir plus
+                  {t("learnMore")}
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Shield, Lock, Heart, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getValues } from "@/lib/data-loader";
@@ -12,6 +13,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function AboutValues() {
+  const t = useTranslations("about.values");
   const values = getValues();
 
   return (
@@ -25,13 +27,13 @@ export function AboutValues() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <Badge className="bg-[#1A2940] text-white hover:bg-[#0D5A8A] mb-4">
-            Notre ADN
+            {t("badge")}
           </Badge>
           <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-            INDÉPENDANCE & CONFIDENTIALITÉ
+            {t("heading")}
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            Les valeurs fondamentales qui guident notre engagement quotidien
+            {t("description")}
           </p>
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>

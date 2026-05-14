@@ -1,0 +1,180 @@
+{
+  "clientName": "Jean Dupont - Electricité Pro SA",
+  "clientId": "cli-12345",
+  "documents": [
+    {
+      "id": "doc-nl-001",
+      "title": "CETé Newsletter #15 - February 2026",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Regulatory updates and electrical safety trends",
+      "fileSize": "1.2 MB",
+      "uploadDate": "2026-02-01",
+      "url": "/documents/newsletter-15.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-nl-002",
+      "title": "CETé Newsletter #14 - January 2026",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Review of Q4 2025 incidents and new NFC standards",
+      "fileSize": "980 KB",
+      "uploadDate": "2026-01-05",
+      "url": "/documents/newsletter-14.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-nl-003",
+      "title": "CETé Newsletter #13 - December 2025",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Annual safety review and 2026 outlook",
+      "fileSize": "1.5 MB",
+      "uploadDate": "2025-12-02",
+      "url": "/documents/newsletter-13.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-001",
+      "title": "Capsule #12 - Live-Line Work Safety Harness",
+      "category": "capsules",
+      "type": "video",
+      "description": "Use and certification of personal protective equipment against electrical hazards",
+      "duration": "8:42",
+      "uploadDate": "2026-01-28",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-002",
+      "title": "Capsule #11 - Low-Voltage Lockout/Tagout",
+      "category": "capsules",
+      "type": "video",
+      "description": "Complete low-voltage lockout/tagout procedure with field demonstration",
+      "duration": "12:15",
+      "uploadDate": "2026-01-10",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-003",
+      "title": "Capsule #10 - PPE Inspection",
+      "category": "capsules",
+      "type": "video",
+      "description": "How to inspect your personal protective equipment before intervention",
+      "duration": "6:30",
+      "uploadDate": "2025-12-15",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-guide-001",
+      "title": "Operating Guide - Electrical Authorization Procedure",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Steps and verifications for personnel electrical authorization per NF C18-510",
+      "fileSize": "3.1 MB",
+      "uploadDate": "2026-01-20",
+      "url": "/documents/guide-habilitation.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-guide-002",
+      "title": "Live-Line Work Guide 2026",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Regulations and best practices for accredited live-line work",
+      "fileSize": "4.2 MB",
+      "uploadDate": "2026-01-10",
+      "url": "/documents/guide-tst-2026.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-guide-003",
+      "title": "Guide - Electrical Risk Analysis",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Analysis methodology and risk assessment grid for electrical installations",
+      "fileSize": "2.4 MB",
+      "uploadDate": "2025-11-22",
+      "url": "/documents/guide-analyse-risques.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-carnet-001",
+      "title": "Field Reference Book - Common Electrical Hazards",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Field quick-reference guide for operators and technicians",
+      "fileSize": "2.8 MB",
+      "uploadDate": "2026-01-15",
+      "url": "/documents/carnet-appui.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-carnet-002",
+      "title": "Field Reference Book - Periodic Inspections",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Checklist and schedule for regulatory inspections of electrical installations",
+      "fileSize": "1.9 MB",
+      "uploadDate": "2025-12-20",
+      "url": "/documents/carnet-verifications.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-carnet-003",
+      "title": "Field Reference Book - Electrical First Aid",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Emergency protocol for electrical accidents on worksites",
+      "fileSize": "1.6 MB",
+      "uploadDate": "2025-11-10",
+      "url": "/documents/carnet-premiers-secours.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1",
+      "type": "veille",
+      "message": "New electrical decree regulation effective 02/01/2026",
+      "date": "2026-02-04",
+      "read": false
+    },
+    {
+      "id": "notif-2",
+      "type": "veille",
+      "message": "NF C18-510 standard update: new PPE requirements",
+      "date": "2026-01-28",
+      "read": false
+    },
+    {
+      "id": "notif-3",
+      "type": "document",
+      "message": "New Live-Line Work Guide 2026 available in your resources",
+      "date": "2026-01-10",
+      "read": true
+    },
+    {
+      "id": "notif-4",
+      "type": "veille",
+      "message": "Reminder: Q1 2026 periodic inspections to schedule",
+      "date": "2026-01-05",
+      "read": true
+    }
+  ]
+}

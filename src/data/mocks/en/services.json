@@ -1,0 +1,158 @@
+[
+  {
+    "id": "exp-dps",
+    "category": "Expertise",
+    "type": "expertise",
+    "pillar": true,
+    "title": "DPS - Safety Performance Diagnosis",
+    "description": "Structured field assessment of your electrical risk management system. The DPS is the cornerstone of the CETé approach: analysis, rating, certification, and ongoing support.",
+    "shortDescription": "Structured field audit — the foundation of your rating and certification",
+    "features": [
+      "Analysis of regulatory compliance self-assessment",
+      "Analysis of organization and operational control on a representative worksite",
+      "Report with visual management across 4 reading levels",
+      "Recommendations and rating issued by the monitoring committee",
+      "Issuance of a certificate for all relevant purposes",
+      "Support for the improvement action plan",
+      "Newsletter subscription for the duration of certification"
+    ],
+    "icon": "clipboard-check",
+    "imageUrl": "/images/services/dps.jpg"
+  },
+  {
+    "id": "exp-save",
+    "category": "Expertise",
+    "type": "expertise",
+    "pillar": true,
+    "title": "SAVE - Event Vulnerability Analysis Scan",
+    "description": "Expert support for event analysis: accidents, close calls, near-misses, and hazardous situations. An independent perspective to understand and prevent.",
+    "shortDescription": "Expert event analysis to understand and prevent incidents",
+    "features": [
+      "In-depth event analysis",
+      "Targeted recommendations",
+      "Detailed incident report preparation",
+      "Support for the improvement action plan"
+    ],
+    "icon": "shield-alert",
+    "imageUrl": "/images/services/save.jpg"
+  },
+  {
+    "id": "srv-campus",
+    "category": "Conseil",
+    "type": "service",
+    "pillar": true,
+    "title": "Campus CPF - Coaching, Performance, Training",
+    "description": "The winning triptych of Performance: tailored advice and support to advance your teams and your organization.",
+    "shortDescription": "The winning triptych: Coaching - Performance - Training",
+    "features": [
+      "VIR-ELEX",
+      "Individual or group coaching",
+      "Professional development and training",
+      "Coaching for market certification eligibility",
+      "Coaching for training organization accreditation"
+    ],
+    "icon": "graduation-cap",
+    "imageUrl": "/images/services/campus-cpf.jpg"
+  },
+  {
+    "id": "srv-pass-vip",
+    "category": "Conseil",
+    "type": "service",
+    "pillar": true,
+    "title": "PASS-Sérénité VIP",
+    "description": "Your privileged access to the CETé ADN ecosystem: regulatory monitoring, knowledge base, partner tools, and facilitation for your key contacts.",
+    "shortDescription": "Privileged access to the CETé ADN ecosystem",
+    "features": [
+      "Access to the CETé ADN VIP portal",
+      "Newsletter subscription",
+      "CETé ADN regulatory monitoring",
+      "CETé ADN Q&A knowledge base",
+      "Annual DPS summary report",
+      "Facilitation for supervisors and lead trainers",
+      "Live-Line Work for beginners",
+      "Eligibility for partner tools: Viz-Act, VISA, Vi.T.A.L, VESTA, VISU..."
+    ],
+    "icon": "crown",
+    "imageUrl": "/images/services/pass-vip.jpg"
+  },
+  {
+    "id": "exp-vigi",
+    "category": "Expertise",
+    "type": "expertise",
+    "title": "Vigi-Score - Independent Rating",
+    "description": "Independent rating of your electrical risk management on the AAA-DDD scale. The core product of CETé.",
+    "shortDescription": "Your official rating from AAA to DDD",
+    "features": [
+      "Rating on the AAA to DDD scale",
+      "Detailed rating report by assessment axis",
+      "Anonymized industry benchmark",
+      "Annual or quarterly reassessment"
+    ],
+    "icon": "star",
+    "imageUrl": "/images/services/vigi-score.jpg"
+  },
+  {
+    "id": "srv-coach-mgr",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Executive & HSE Leadership Coaching",
+    "description": "Supporting decision-makers in integrating electrical risk management into their operational strategy.",
+    "shortDescription": "Strategic electrical risk management",
+    "features": [
+      "Executive seminar: 1 to 2 days",
+      "Electrical risk KPI dashboards",
+      "Individual coaching for HSE managers",
+      "Deliverable: roadmap to AAA"
+    ],
+    "icon": "users",
+    "imageUrl": "/images/services/coaching-mgr.jpg"
+  },
+  {
+    "id": "srv-coach-tst",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Live-Line Work Coordinator Coaching",
+    "description": "Advanced training for live-line work coordinators to strengthen operational field expertise.",
+    "shortDescription": "Strengthening live-line work field competencies",
+    "features": [
+      "Advanced modules: 3 to 5 days",
+      "Supervised field exercises",
+      "Individual competency assessment",
+      "Deliverable: skills development plan"
+    ],
+    "icon": "zap",
+    "imageUrl": "/images/services/coaching-tst.jpg"
+  },
+  {
+    "id": "srv-coach-encad",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Site Supervision Coaching",
+    "description": "Training for site managers and frontline supervisors in day-to-day electrical risk management.",
+    "shortDescription": "Risk management at the operational level",
+    "features": [
+      "Field training: 2 to 3 days per group",
+      "On-site audit with immediate debrief",
+      "Individual mentoring over 3 months",
+      "Deliverable: site self-assessment checklist"
+    ],
+    "icon": "hard-hat",
+    "imageUrl": "/images/services/coaching-encad.jpg"
+  },
+  {
+    "id": "srv-form-orgs",
+    "category": "Conseil",
+    "type": "service",
+    "title": "Training Organization Support",
+    "description": "Methodological support and content for training organizations seeking to integrate the CETé framework into their curricula.",
+    "shortDescription": "Integrating the CETé framework into your training programs",
+    "features": [
+      "Pedagogical audit of your existing content",
+      "Content certified compliant with the CETé framework",
+      "Formalized 12-month partnership",
+      "Deliverable: trainer toolkit and course materials"
+    ],
+    "icon": "book-open",
+    "imageUrl": "/images/services/coaching-orgs.jpg"
+  }
+]

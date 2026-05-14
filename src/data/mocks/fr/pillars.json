@@ -1,0 +1,23 @@
+[
+  {
+    "id": "pillar-1",
+    "title": "Évaluer",
+    "icon": "zap",
+    "description": "Diagnostic terrain structuré. Nous mesurons objectivement votre niveau de maîtrise du risque électrique selon un référentiel propriétaire éprouvé sur 200+ organisations.",
+    "color": "blue"
+  },
+  {
+    "id": "pillar-2",
+    "title": "Noter",
+    "icon": "star",
+    "description": "Notation indépendante de AAA à DDD. Un rating transparent, comparable et reconnu qui positionne votre organisation sur une échelle de référence sectorielle.",
+    "color": "yellow"
+  },
+  {
+    "id": "pillar-3",
+    "title": "Accompagner",
+    "icon": "users",
+    "description": "Plan de progression vers le Triple A (AAA). Coaching de groupe ou individualisé, en distanciel ou présentiel, pour améliorer durablement votre notation. Mesure de l'efficience de votre plan de formation.",
+    "color": "green"
+  }
+]

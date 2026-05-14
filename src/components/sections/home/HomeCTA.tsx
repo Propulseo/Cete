@@ -1,10 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Zap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function HomeCTA() {
+  const t = useTranslations("home.cta");
+
   return (
     <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
       <div className="absolute top-10 left-10 w-64 h-64 bg-[#4DA6D9]/10 rounded-full blur-3xl" />
@@ -16,10 +19,10 @@ export function HomeCTA() {
             <Zap className="w-10 h-10 text-white" />
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
-            CONNAISSEZ-VOUS VOTRE NOTATION ?
+            {t("heading")}
           </h2>
           <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-            Demandez votre évaluation initiale. En quelques jours, vous saurez où vous vous situez sur l&apos;échelle AAA-DDD et quels leviers activer.
+            {t("description")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -28,7 +31,7 @@ export function HomeCTA() {
               className="bg-[#E8630A] text-white hover:bg-[#B84D08] text-lg px-10 py-6 font-semibold rounded-xl shadow-lg shadow-[#E8630A]/20 hover:shadow-xl hover:shadow-[#E8630A]/30 transition-all duration-300"
             >
               <Link href="/contact">
-                Demander une évaluation
+                {t("requestEvaluation")}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -38,7 +41,7 @@ export function HomeCTA() {
               className="bg-transparent text-lg px-10 py-6 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 rounded-xl transition-all duration-300"
             >
               <Link href="/client">
-                Espace Client
+                {t("clientArea")}
               </Link>
             </Button>
           </div>

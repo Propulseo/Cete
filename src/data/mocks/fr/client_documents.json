@@ -1,0 +1,180 @@
+{
+  "clientName": "Jean Dupont - Electricité Pro SA",
+  "clientId": "cli-12345",
+  "documents": [
+    {
+      "id": "doc-nl-001",
+      "title": "Newsletter CETé #15 - Février 2026",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Actualités réglementaires et tendances sécurité électrique",
+      "fileSize": "1.2 MB",
+      "uploadDate": "2026-02-01",
+      "url": "/documents/newsletter-15.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-nl-002",
+      "title": "Newsletter CETé #14 - Janvier 2026",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Retour sur les incidents Q4 2025 et nouvelles normes NFC",
+      "fileSize": "980 KB",
+      "uploadDate": "2026-01-05",
+      "url": "/documents/newsletter-14.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-nl-003",
+      "title": "Newsletter CETé #13 - Décembre 2025",
+      "category": "newsletters",
+      "type": "pdf",
+      "description": "Bilan annuel sécurité et perspectives 2026",
+      "fileSize": "1.5 MB",
+      "uploadDate": "2025-12-02",
+      "url": "/documents/newsletter-13.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-001",
+      "title": "Capsule #12 - Harnais de sécurité TST",
+      "category": "capsules",
+      "type": "video",
+      "description": "Utilisation et certification du matériel de protection individuelle contre les risques électriques",
+      "duration": "8:42",
+      "uploadDate": "2026-01-28",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-002",
+      "title": "Capsule #11 - Consignation en BT",
+      "category": "capsules",
+      "type": "video",
+      "description": "Procédure complète de consignation basse tension avec démonstration terrain",
+      "duration": "12:15",
+      "uploadDate": "2026-01-10",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-cap-003",
+      "title": "Capsule #10 - Vérification des EPI",
+      "category": "capsules",
+      "type": "video",
+      "description": "Comment vérifier vos équipements de protection individuelle avant intervention",
+      "duration": "6:30",
+      "uploadDate": "2025-12-15",
+      "youtubeId": "dQw4w9WgXcQ",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-guide-001",
+      "title": "Guide Opératoire - Procédure Habilitation électrique",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Étapes et vérifications pour l'habilitation du personnel selon NF C18-510",
+      "fileSize": "3.1 MB",
+      "uploadDate": "2026-01-20",
+      "url": "/documents/guide-habilitation.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-guide-002",
+      "title": "Guide TST 2026 - Travaux Sous Tension",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Réglementation et bonnes pratiques pour les TST accrédités",
+      "fileSize": "4.2 MB",
+      "uploadDate": "2026-01-10",
+      "url": "/documents/guide-tst-2026.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-guide-003",
+      "title": "Guide - Analyse des risques électriques",
+      "category": "guides",
+      "type": "pdf",
+      "description": "Méthodologie d'analyse et grille d'évaluation des risques sur installations",
+      "fileSize": "2.4 MB",
+      "uploadDate": "2025-11-22",
+      "url": "/documents/guide-analyse-risques.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-carnet-001",
+      "title": "Carnet d'Appui - Risques électriques courants",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Aide-mémoire terrain pour opérateurs et techniciens",
+      "fileSize": "2.8 MB",
+      "uploadDate": "2026-01-15",
+      "url": "/documents/carnet-appui.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    },
+    {
+      "id": "doc-carnet-002",
+      "title": "Carnet d'Appui - Vérifications périodiques",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Check-list et calendrier des vérifications réglementaires des installations",
+      "fileSize": "1.9 MB",
+      "uploadDate": "2025-12-20",
+      "url": "/documents/carnet-verifications.pdf",
+      "visibility": "global",
+      "accessType": "view-only"
+    },
+    {
+      "id": "doc-carnet-003",
+      "title": "Carnet d'Appui - Premiers secours électriques",
+      "category": "carnets",
+      "type": "pdf",
+      "description": "Protocole d'urgence en cas d'accident électrique sur chantier",
+      "fileSize": "1.6 MB",
+      "uploadDate": "2025-11-10",
+      "url": "/documents/carnet-premiers-secours.pdf",
+      "visibility": "global",
+      "accessType": "download"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1",
+      "type": "veille",
+      "message": "Nouvelle réglementation décret électrique du 01/02/2026",
+      "date": "2026-02-04",
+      "read": false
+    },
+    {
+      "id": "notif-2",
+      "type": "veille",
+      "message": "Mise à jour norme NF C18-510 : nouvelles exigences EPI",
+      "date": "2026-01-28",
+      "read": false
+    },
+    {
+      "id": "notif-3",
+      "type": "document",
+      "message": "Nouveau guide TST 2026 disponible dans vos ressources",
+      "date": "2026-01-10",
+      "read": true
+    },
+    {
+      "id": "notif-4",
+      "type": "veille",
+      "message": "Rappel : vérifications périodiques Q1 2026 à planifier",
+      "date": "2026-01-05",
+      "read": true
+    }
+  ]
+}

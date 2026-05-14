@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BrandName } from "@/components/ui/brand-name";
 import { getFounders } from "@/lib/data-loader";
 
 export function HomeFounders() {
+  const t = useTranslations("home.founders");
   const founders = getFounders();
 
   return (
@@ -23,22 +24,16 @@ export function HomeFounders() {
 
           <div className="space-y-8">
             <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider">
-              Les co-fondateurs
+              {t("badge")}
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] leading-tight">
-              80 ANS D&apos;EXPERTISE CUMULÉE
+              {t("heading")}
             </h2>
             <p className="text-xl text-[#4A6580] leading-relaxed">
-              Quatre anciens cadres du SERECT ont fondé <BrandName /> pour créer la première agence
-              de notation indépendante du risque électrique en France.
+              {t("description")}
             </p>
             <ul className="space-y-4">
-              {[
-                "Anciens cadres SERECT — référence du secteur",
-                "Concepteurs du référentiel de notation AAA-DDD",
-                "Indépendance totale — aucun conflit d'intérêt",
-                "200+ organisations évaluées en 20 ans",
-              ].map((item, i) => (
+              {[t("bullet1"), t("bullet2"), t("bullet3"), t("bullet4")].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-[#4A6580]">
                   <CheckCircle className="w-5 h-5 text-[#E8630A] flex-shrink-0" />
                   {item}
@@ -51,7 +46,7 @@ export function HomeFounders() {
               className="mt-4 bg-[#4DA6D9] text-white hover:bg-[#1A7AB5] text-lg px-8 py-6 font-semibold rounded-xl transition-all duration-300"
             >
               <Link href="/a-propos">
-                Qui sommes-nous
+                {t("cta")}
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -67,6 +62,7 @@ function FounderTile({
 }: {
   founder: ReturnType<typeof getFounders>[number];
 }) {
+  const t = useTranslations("home.founders");
   const [imgError, setImgError] = useState(false);
   const initials = founder.name
     .split(" ")
@@ -79,7 +75,7 @@ function FounderTile({
         {!imgError ? (
           <Image
             src={founder.imageUrl}
-            alt={`Portrait de ${founder.name}, ${founder.role}`}
+            alt={t("imageAlt", { name: founder.name, role: founder.role })}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
             className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"

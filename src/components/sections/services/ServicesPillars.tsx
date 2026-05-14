@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   ClipboardCheck,
   ShieldAlert,
@@ -34,6 +35,7 @@ const categoryStyle = {
 };
 
 export function ServicesPillars() {
+  const t = useTranslations("services.pillars");
   const pillars = getPillarServices();
   const expertise = pillars.filter((s) => s.category === "Expertise");
   const conseil = pillars.filter((s) => s.category === "Conseil");
@@ -41,27 +43,25 @@ export function ServicesPillars() {
   return (
     <section className="py-32 bg-white relative overflow-hidden">
       <div className="absolute top-1/2 left-0 -translate-y-1/2 font-display text-[12rem] text-[#DAEEF8] leading-none select-none whitespace-nowrap pointer-events-none">
-        NOS OFFRES
+        {t("heading")}
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mb-20">
           <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">
-            4 piliers
+            {t("badge")}
           </span>
           <h2 className="font-display text-5xl md:text-6xl text-[#1A2940] tracking-wide mt-4">
-            UNE OFFRE
-            <br />
-            <span className="text-[#4DA6D9]">COMPLÈTE</span>
+            {t("heading")}
           </h2>
           <div className="w-24 h-1.5 bg-[#E8630A] mt-6" />
           <p className="text-lg text-[#4A6580] mt-6 max-w-xl">
-            De l&apos;expertise terrain au conseil stratégique, chaque offre répond à un besoin précis de votre démarche de maîtrise du risque électrique.
+            {t("description")}
           </p>
         </div>
 
-        <PillarGroup label="Expertise" services={expertise} />
-        <PillarGroup label="Conseil & Accompagnement" services={conseil} />
+        <PillarGroup label={t("expertise")} services={expertise} contactLabel={t("contactUs")} />
+        <PillarGroup label={t("conseil")} services={conseil} contactLabel={t("contactUs")} />
       </div>
     </section>
   );
@@ -70,9 +70,11 @@ export function ServicesPillars() {
 function PillarGroup({
   label,
   services,
+  contactLabel,
 }: {
   label: string;
   services: ReturnType<typeof getPillarServices>;
+  contactLabel: string;
 }) {
   return (
     <div className="mb-16 last:mb-0">
@@ -122,7 +124,7 @@ function PillarGroup({
               </ul>
 
               <span className="inline-flex items-center text-[#1A2940] group-hover:text-[#E8630A] font-semibold transition-colors">
-                Nous contacter
+                {contactLabel}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </Link>

@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import {
   ExpertiseHero,
   ExpertiseVigiScore,
@@ -10,7 +11,14 @@ import {
   ExpertiseCTA,
 } from "@/components/sections/expertise";
 
-export default function ExpertisePage() {
+export default async function ExpertisePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <ExpertiseHero />

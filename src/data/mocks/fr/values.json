@@ -1,0 +1,26 @@
+[
+  {
+    "id": "val-1",
+    "title": "Indépendance",
+    "description": "Aucun lien commercial avec les prestataires ou fournisseurs évalués. Notre notation est libre de tout conflit d'intérêt.",
+    "icon": "shield"
+  },
+  {
+    "id": "val-2",
+    "title": "Confidentialité",
+    "description": "Vos données, vos résultats et votre notation restent strictement confidentiels. Communication anonymisée sur demande.",
+    "icon": "lock"
+  },
+  {
+    "id": "val-3",
+    "title": "Objectivité",
+    "description": "Référentiel structuré, critères mesurables, méthodologie reproductible. Chaque notation repose sur des faits, pas sur des impressions.",
+    "icon": "heart"
+  },
+  {
+    "id": "val-4",
+    "title": "Progression",
+    "description": "La notation n'est pas une sanction. C'est un point de départ. Chaque organisation peut progresser vers le AAA avec un accompagnement adapté.",
+    "icon": "target"
+  }
+]

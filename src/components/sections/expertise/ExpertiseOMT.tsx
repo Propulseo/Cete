@@ -2,15 +2,17 @@
 
 import { useCountUp } from "@/lib/hooks/useCountUp";
 import { BarChart3 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-const omtStats = [
-  { value: 133, label: "DPS réalisés" },
-  { value: 43, label: "Entreprises auditées" },
-  { value: 10108, label: "Exigences observées" },
-  { value: 11000, label: "Faits terrain" },
+const omtStatKeys = [
+  { value: 133, key: "stat1" },
+  { value: 43, key: "stat2" },
+  { value: 10108, key: "stat3" },
+  { value: 11000, key: "stat4" },
 ];
 
 export function ExpertiseOMT() {
+  const t = useTranslations("expertise.omt");
   const counters = [
     useCountUp(133, 2000),
     useCountUp(43, 1500),
@@ -29,32 +31,30 @@ export function ExpertiseOMT() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#4DA6D9]/30 bg-[#4DA6D9]/10 px-4 py-2 mb-6">
             <BarChart3 className="h-4 w-4 text-[#4DA6D9]" />
-            <span className="text-sm font-medium text-[#4DA6D9]">Observatoire O-M-T · 2022–2025</span>
+            <span className="text-sm font-medium text-[#4DA6D9]">{t("badge")}</span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white tracking-wide mb-6">
-            L&apos;OBSERVATOIRE DE LA{" "}
-            <span className="text-[#E8630A]">MAÎTRISE DES TST</span>
+            {t("heading")}{" "}
+            <span className="text-[#E8630A]">{t("headingHighlight")}</span>
           </h2>
           <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
-            L&apos;O-M-T capitalise les résultats des DPS Organisationnels et Opérationnels
-            pour objectiver la maîtrise du risque électrique à l&apos;échelle sectorielle.
-            Trois niveaux de lecture pour une vision complète.
+            {t("description")}
           </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {omtStats.map((stat, index) => {
+          {omtStatKeys.map((stat, index) => {
             const counter = counters[index];
             return (
               <div
-                key={stat.label}
+                key={stat.key}
                 ref={counter.ref}
                 className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
               >
                 <div className="font-display text-3xl md:text-4xl text-white leading-none mb-2">
                   {counter.count.toLocaleString("fr-FR")}
                 </div>
-                <div className="text-sm text-white/60 font-medium">{stat.label}</div>
+                <div className="text-sm text-white/60 font-medium">{t(stat.key)}</div>
               </div>
             );
           })}

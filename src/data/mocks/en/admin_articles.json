@@ -1,0 +1,48 @@
+{
+  "articles": [
+    {
+      "id": "art-vizact",
+      "title": "VIZ-ACT: Intelligent Traceability for Live-Line Work",
+      "excerpt": "No more spreadsheets and manual tracking! VIZ-ACT captures, geolocates, and automatically records your live-line work activities.",
+      "author": "Bruno CLAUDEL",
+      "category": "Innovation",
+      "status": "published",
+      "publishedDate": "2026-05-08",
+      "views": 0,
+      "featured": true
+    },
+    {
+      "id": "art-1",
+      "title": "Electrical Safety Trends 2026",
+      "excerpt": "The year 2026 brings major regulatory changes...",
+      "author": "Michel LIGIER",
+      "category": "Expertise",
+      "status": "published",
+      "publishedDate": "2026-02-01",
+      "views": 342,
+      "featured": true
+    },
+    {
+      "id": "art-2",
+      "title": "Live-Line Work and Neuroscience: An Innovative Pedagogy",
+      "excerpt": "How neuroscience insights are transforming training...",
+      "author": "Pierre VIRELY",
+      "category": "Training",
+      "status": "published",
+      "publishedDate": "2026-01-25",
+      "views": 187,
+      "featured": false
+    },
+    {
+      "id": "art-3",
+      "title": "Compliance Audit: New 2026 Approach",
+      "excerpt": "CETé launches a new audit methodology...",
+      "author": "Bruno CLAUDEL",
+      "category": "Expertise",
+      "status": "draft",
+      "publishedDate": null,
+      "views": 0,
+      "featured": false
+    }
+  ]
+}

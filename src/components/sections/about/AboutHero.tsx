@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 
 export function AboutHero() {
+  const t = useTranslations("about.hero");
   return (
     <section className="relative min-h-[70vh] overflow-hidden bg-hero-gradient">
       <div className="absolute inset-0">
@@ -15,26 +17,29 @@ export function AboutHero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 mb-8 animate-slide-up">
             <Sparkles className="h-4 w-4 text-[#E8630A]" />
-            <span className="text-sm font-medium text-[#E8630A]">Agence de notation indépendante</span>
+            <span className="text-sm font-medium text-[#E8630A]">{t("badge")}</span>
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] tracking-wide mb-6 animate-slide-up animation-delay-100">
-            QUI SOMMES-
-            <span className="text-[#E8630A] relative">
-              NOUS
-              <span className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E8630A]/50 rounded-full" />
-            </span>
-            ?
+            {t.rich("heading", {
+              accent: (chunks) => (
+                <span className="text-[#E8630A] relative">
+                  {chunks}
+                  <span className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E8630A]/50 rounded-full" />
+                </span>
+              ),
+            })}
           </h1>
 
           <p className="text-xl md:text-2xl text-[#4A6580] font-light mb-8 animate-slide-up animation-delay-200">
-            De <span className="text-[#E8630A] font-semibold">SERECT</span> à{" "}
-            <span className="text-[#E8630A] font-semibold">CET<span className="text-[0.75em] align-super">é</span></span> — 20 ans de terrain, une agence de notation.
+            {t.rich("subtitle", {
+              serect: (chunks) => <span className="text-[#E8630A] font-semibold">{chunks}</span>,
+              cete: (chunks) => <span className="text-[#E8630A] font-semibold">{chunks}<span className="text-[0.75em] align-super">é</span></span>,
+            })}
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed animate-slide-up animation-delay-300">
-            Quatre experts indépendants ont fondé CET<span className="text-[0.75em] align-super">é</span> pour objectiver la maîtrise
-            du risque électrique avec un système de notation structuré et transparent.
+            {t("description")}
           </p>
 
           <div className="mt-16 animate-bounce">

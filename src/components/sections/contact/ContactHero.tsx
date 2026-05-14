@@ -1,7 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { MessageSquare } from "lucide-react";
-import { BrandName } from "@/components/ui/brand-name";
 
 export function ContactHero() {
+  const t = useTranslations("contact.hero");
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] py-20 md:py-24">
       {/* Decorative blurs */}
@@ -13,22 +17,16 @@ export function ContactHero() {
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2">
             <MessageSquare className="h-4 w-4 text-[#E8630A]" />
             <span className="text-sm font-medium text-[#E8630A]">
-              Agence de Notation <BrandName />
+              {t("badge")}
             </span>
           </div>
 
-          <h1>
-            <span className="block font-display text-5xl tracking-wide text-white/90 md:text-6xl lg:text-7xl">
-              PARLONS DE
-            </span>
-            <span className="-mt-1 block font-display text-5xl tracking-wide text-[#E8630A] md:text-6xl lg:text-7xl">
-              VOTRE PROJET
-            </span>
+          <h1 className="font-display text-5xl tracking-wide text-white/90 md:text-6xl lg:text-7xl">
+            {t("heading")}
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/60">
-            Demandez votre évaluation ou posez vos questions sur la notation.
-            Entretien dans les meilleurs délais.
+            {t("description")}
           </p>
         </div>
       </div>

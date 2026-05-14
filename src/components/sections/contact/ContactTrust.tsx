@@ -1,24 +1,29 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Shield, Lock, Clock } from "lucide-react";
 
-const trustItems = [
-  {
-    icon: Shield,
-    title: "Indépendance totale",
-    description: "Aucun lien avec les prestataires ou fournisseurs évalués",
-  },
-  {
-    icon: Lock,
-    title: "Confidentialité garantie",
-    description: "Vos résultats et votre notation restent strictement confidentiels",
-  },
-  {
-    icon: Clock,
-    title: "Entretien dans les meilleurs délais",
-    description: "Cadrage initial, proposition de solutions et de calendrier adaptés",
-  },
-];
-
 export function ContactTrust() {
+  const t = useTranslations("contact.trust");
+
+  const trustItems = [
+    {
+      icon: Shield,
+      title: t("item1Title"),
+      description: t("item1Desc"),
+    },
+    {
+      icon: Lock,
+      title: t("item2Title"),
+      description: t("item2Desc"),
+    },
+    {
+      icon: Clock,
+      title: t("item3Title"),
+      description: t("item3Desc"),
+    },
+  ];
+
   return (
     <section className="border-y border-[#DAEEF8] bg-[#F4F9FD] py-16">
       <div className="container mx-auto px-4">

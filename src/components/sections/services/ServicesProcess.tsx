@@ -1,37 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Search, Pencil, Rocket, TrendingUp, Target } from "lucide-react";
 
-const processSteps = [
-  {
-    icon: <Search className="h-6 w-6" />,
-    title: "Diagnostic",
-    description: "Analyse approfondie de votre situation actuelle et identification des besoins",
-    number: "01",
-  },
-  {
-    icon: <Pencil className="h-6 w-6" />,
-    title: "Conception",
-    description: "Élaboration d'un plan d'action sur mesure adapté à vos enjeux",
-    number: "02",
-  },
-  {
-    icon: <Rocket className="h-6 w-6" />,
-    title: "Déploiement",
-    description: "Mise en œuvre accompagnée des solutions avec support terrain",
-    number: "03",
-  },
-  {
-    icon: <TrendingUp className="h-6 w-6" />,
-    title: "Suivi",
-    description: "Mesure des résultats et optimisation continue des performances",
-    number: "04",
-  },
-];
-
 export function ServicesProcess() {
+  const t = useTranslations("services.process");
   const [activeStep, setActiveStep] = useState(0);
+
+  const processSteps = [
+    {
+      icon: <Search className="h-6 w-6" />,
+      title: t("step1Title"),
+      description: t("step1Desc"),
+      number: "01",
+    },
+    {
+      icon: <Pencil className="h-6 w-6" />,
+      title: t("step2Title"),
+      description: t("step2Desc"),
+      number: "02",
+    },
+    {
+      icon: <Rocket className="h-6 w-6" />,
+      title: t("step3Title"),
+      description: t("step3Desc"),
+      number: "03",
+    },
+    {
+      icon: <TrendingUp className="h-6 w-6" />,
+      title: t("step4Title"),
+      description: t("step4Desc"),
+      number: "04",
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,14 +48,13 @@ export function ServicesProcess() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 mb-8">
             <Target className="h-4 w-4 text-[#E8630A]" />
-            <span className="text-sm font-medium text-[#E8630A]">Méthodologie</span>
+            <span className="text-sm font-medium text-[#E8630A]">{t("badge")}</span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] tracking-wide mb-6">
-            NOTRE{" "}
-            <span className="text-[#E8630A]">APPROCHE</span>
+            {t("heading")}
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
-            Un accompagnement structuré en 4 étapes pour des résultats durables
+            {t("description")}
           </p>
         </div>
 

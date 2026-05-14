@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import {
   ServicesHero,
   ServicesPillars,
@@ -5,7 +6,14 @@ import {
   ServicesCTA,
 } from "@/components/sections/services";
 
-export default function ServicesPage() {
+export default async function ServicesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <ServicesHero />
