@@ -90,19 +90,6 @@
       "createdAt": "2026-02-12"
     },
     {
-      "id": "res-008",
-      "title": "Lessons Learned - Fire of Electrical Origin",
-      "description": "Case study of a fire caused by an insulation fault on a high-voltage industrial installation.",
-      "category": "rapports",
-      "type": "video",
-      "accessMode": "lecture",
-      "url": "",
-      "youtubeId": "",
-      "source": "CETé",
-      "publishedDate": "2026-01-18",
-      "createdAt": "2026-01-20"
-    },
-    {
       "id": "res-009",
       "title": "Regulatory Watch - NF C 15-100 Amendment A6 Updates",
       "description": "Summary of changes introduced by Amendment A6 to the NF C 15-100 standard, effective from June 2026.",
