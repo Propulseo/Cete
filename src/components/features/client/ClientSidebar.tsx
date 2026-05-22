@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   LayoutDashboard,
   FileText,
@@ -20,12 +21,12 @@ import { Badge } from "@/components/ui/badge";
 import type { Profile } from "@/types/auth";
 
 const navItems = [
-  { label: "Tableau de bord", href: "/client/dashboard", icon: LayoutDashboard },
-  { label: "Newsletters", href: "/client/newsletters", icon: FileText },
-  { label: "Capsules vidéo", href: "/client/capsules", icon: Video },
-  { label: "Guides pratiques", href: "/client/guides", icon: BookOpen },
-  { label: "Carnets d'appui", href: "/client/carnets", icon: ClipboardList },
-  { label: "Ressources", href: "/client/ressources", icon: Library },
+  { key: "dashboard" as const, href: "/client/dashboard", icon: LayoutDashboard },
+  { key: "newsletters" as const, href: "/client/newsletters", icon: FileText },
+  { key: "capsules" as const, href: "/client/capsules", icon: Video },
+  { key: "guides" as const, href: "/client/guides", icon: BookOpen },
+  { key: "carnets" as const, href: "/client/carnets", icon: ClipboardList },
+  { key: "resources" as const, href: "/client/ressources", icon: Library },
 ];
 
 interface ClientSidebarProps {
@@ -36,6 +37,7 @@ interface ClientSidebarProps {
 
 export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProps) {
   const pathname = usePathname();
+  const t = useTranslations("client.sidebar");
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-white">
@@ -45,7 +47,7 @@ export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProp
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <Zap className="h-5 w-5 text-accent" />
           </div>
-          <span className="text-lg font-bold text-primary">Espace Client</span>
+          <span className="text-lg font-bold text-primary">{t("title")}</span>
         </div>
 
         {/* User Info */}
@@ -76,7 +78,7 @@ export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProp
                 }`}
               >
                 <item.icon className="h-5 w-5" />
-                {item.label}
+                {t(item.key)}
               </Link>
             );
           })}
@@ -92,7 +94,7 @@ export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProp
               }`}
             >
               <UserCircle className="h-5 w-5" />
-              Mon profil
+              {t("profile")}
             </Link>
           </div>
         </nav>
@@ -103,8 +105,8 @@ export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProp
             <div className="flex items-center gap-2 rounded-lg bg-accent/10 p-3">
               <Bell className="h-5 w-5 text-accent" />
               <div className="flex-1">
-                <p className="text-sm font-medium">Notifications</p>
-                <p className="text-xs text-muted-foreground">{unreadCount} non lue(s)</p>
+                <p className="text-sm font-medium">{t("notifications")}</p>
+                <p className="text-xs text-muted-foreground">{t("unread", { count: unreadCount })}</p>
               </div>
               <Badge variant="destructive">{unreadCount}</Badge>
             </div>
@@ -120,7 +122,7 @@ export function ClientSidebar({ user, unreadCount, onLogout }: ClientSidebarProp
             onClick={onLogout}
           >
             <LogOut className="mr-2 h-4 w-4" />
-            Déconnexion
+            {t("logout")}
           </Button>
         </div>
       </div>

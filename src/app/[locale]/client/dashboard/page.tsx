@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { listDocumentsForClient } from "@/lib/repo/documents.repo";
@@ -14,6 +15,7 @@ import type { ClientDocument, Notification } from "@/types/document";
 
 export default function ClientDashboardPage() {
   const { user } = useAuth();
+  const t = useTranslations("client");
   const [documents, setDocuments] = useState<ClientDocument[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,11 +33,11 @@ export default function ClientDashboardPage() {
       setDocuments(docs);
       setNotifications(notifs);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur de chargement");
+      setError(err instanceof Error ? err.message : t("states.error"));
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, t]);
 
   useEffect(() => {
     loadData();
@@ -55,7 +57,7 @@ export default function ClientDashboardPage() {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
         <p className="text-destructive">{error}</p>
-        <Button onClick={loadData} variant="outline">Réessayer</Button>
+        <Button onClick={loadData} variant="outline">{t("states.retry")}</Button>
       </div>
     );
   }
@@ -64,10 +66,10 @@ export default function ClientDashboardPage() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground">
-          Bienvenue, {user.name}
+          {t("dashboard.welcome", { name: user.name })}
         </h1>
         <p className="text-muted-foreground">
-          Retrouvez vos documents, votre notation et vos ressources <BrandName />
+          {t("dashboard.description")} <BrandName />
         </p>
       </div>
 

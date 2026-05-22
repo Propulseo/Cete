@@ -1,4 +1,7 @@
+"use client";
+
 import { Play, Clock, Video } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +12,10 @@ interface DocumentCardProps {
 }
 
 export function DocumentCard({ document }: DocumentCardProps) {
+  const t = useTranslations("client.documents");
+  const locale = useLocale();
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
+
   const handleView = () => {
     if (document.type === "video" && document.youtubeId) {
       window.open(`https://www.youtube.com/watch?v=${document.youtubeId}`, "_blank");
@@ -39,7 +46,7 @@ export function DocumentCard({ document }: DocumentCardProps) {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">
-            {new Date(document.uploadDate).toLocaleDateString("fr-FR", {
+            {new Date(document.uploadDate).toLocaleDateString(dateLocale, {
               day: "numeric",
               month: "short",
               year: "numeric",
@@ -47,7 +54,7 @@ export function DocumentCard({ document }: DocumentCardProps) {
           </span>
           <Button size="sm" onClick={handleView}>
             <Play className="mr-2 h-4 w-4" />
-            Voir
+            {t("playBtn")}
           </Button>
         </div>
       </CardContent>

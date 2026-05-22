@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Award, Download, QrCode, Shield, Loader2 } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { generateCertificatePDF } from "@/lib/generate-certificate-pdf";
@@ -15,15 +15,9 @@ interface CertificateCardProps {
   companyName?: string;
 }
 
-function statusBadge(status: CertificateData["status"]) {
-  if (status === "valide")
-    return <Badge className="bg-green-100 text-green-700">Valide</Badge>;
-  if (status === "expire")
-    return <Badge className="bg-yellow-100 text-yellow-700">Expiré</Badge>;
-  return <Badge className="bg-red-100 text-red-700">Révoqué</Badge>;
-}
-
 export function CertificateCard({ companyName }: CertificateCardProps) {
+  const t = useTranslations("client.certificate");
+  const locale = useLocale();
   const [certificates, setCertificates] = useState<CertificateData[]>([]);
   const [downloading, setDownloading] = useState<string | null>(null);
 
@@ -54,6 +48,16 @@ export function CertificateCard({ companyName }: CertificateCardProps) {
     }
   };
 
+  function statusBadge(status: CertificateData["status"]) {
+    if (status === "valide")
+      return <Badge className="bg-green-100 text-green-700">{t("valid")}</Badge>;
+    if (status === "expire")
+      return <Badge className="bg-yellow-100 text-yellow-700">{t("expired")}</Badge>;
+    return <Badge className="bg-red-100 text-red-700">{t("revoked")}</Badge>;
+  }
+
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
+
   if (certificates.length === 0) return null;
 
   return (
@@ -70,40 +74,40 @@ export function CertificateCard({ companyName }: CertificateCardProps) {
           <CardHeader className="flex-row items-center justify-between pb-2">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Award className="h-5 w-5 text-green-600" />
-              Certificat <BrandName /> — {cert.certificateNumber}
+              {t("title", { brand: "CETé", number: cert.certificateNumber })}
             </CardTitle>
             {statusBadge(cert.status)}
           </CardHeader>
           <CardContent>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-3">
-                <Row label="Notation globale">
+                <Row label={t("rating")}>
                   <span className="rounded-lg bg-yellow-100 px-3 py-1 font-bold text-yellow-700">
                     {cert.rating}
                   </span>
                 </Row>
-                <Row label="Vigi-Score">
+                <Row label={t("vigiScore")}>
                   <span className="font-bold text-[#4DA6D9]">
                     {cert.vigiScore}
                     {cert.vigiScoreTendance}
                   </span>
                 </Row>
-                <Row label="Évaluation">
-                  {new Date(cert.evaluationDate).toLocaleDateString("fr-FR")}
+                <Row label={t("evaluation")}>
+                  {new Date(cert.evaluationDate).toLocaleDateString(dateLocale)}
                 </Row>
-                <Row label="Validité">
-                  {new Date(cert.validityDate).toLocaleDateString("fr-FR")}
+                <Row label={t("validity")}>
+                  {new Date(cert.validityDate).toLocaleDateString(dateLocale)}
                 </Row>
-                <Row label="Expert">{cert.expertName}</Row>
+                <Row label={t("expert")}>{cert.expertName}</Row>
                 <div className="flex gap-2 pt-1">
                   <Badge variant="outline">
-                    Auto-éval: {cert.subCriteria.autoEvaluation}
+                    {t("autoEval", { value: cert.subCriteria.autoEvaluation })}
                   </Badge>
                   <Badge variant="outline">
-                    Exigences: {cert.subCriteria.maitriseExigences}
+                    {t("requirements", { value: cert.subCriteria.maitriseExigences })}
                   </Badge>
                   <Badge variant="outline">
-                    Opéra: {cert.subCriteria.maitriseOperationnelle}
+                    {t("operational", { value: cert.subCriteria.maitriseOperationnelle })}
                   </Badge>
                 </div>
               </div>
@@ -116,7 +120,7 @@ export function CertificateCard({ companyName }: CertificateCardProps) {
                   </div>
                 </div>
                 <p className="text-center text-xs text-muted-foreground">
-                  QR code unique :{" "}
+                  {t("qrCode")}
                   <span className="font-mono">{cert.id.slice(-12)}</span>
                 </p>
                 <Button
@@ -129,7 +133,7 @@ export function CertificateCard({ companyName }: CertificateCardProps) {
                   ) : (
                     <Download className="mr-2 h-4 w-4" />
                   )}
-                  Télécharger mon certificat
+                  {t("downloadCert")}
                 </Button>
               </div>
             </div>

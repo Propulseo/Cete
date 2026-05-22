@@ -41,7 +41,7 @@ export function FounderFormDialog({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Modifier — {founder.name}</DialogTitle>
+          <DialogTitle>Modifier - {founder.name}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-2">

@@ -28,7 +28,7 @@ function PortailContent() {
 
       if (success) {
         toast.success("Connexion réussie");
-        // user state is now updated by AuthProvider — read role from email to route immediately
+        // user state is now updated by AuthProvider - read role from email to route immediately
         const isAdmin = email === "admin@cete.fr";
         router.push(isAdmin ? "/admin/dashboard" : "/client/dashboard");
       } else {

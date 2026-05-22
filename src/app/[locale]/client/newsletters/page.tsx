@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { FileText, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { listDocumentsForClient } from "@/lib/repo/documents.repo";
@@ -10,6 +11,7 @@ import type { ClientDocument } from "@/types/document";
 
 export default function NewslettersPage() {
   const { user } = useAuth();
+  const t = useTranslations("client");
   const [newsletters, setNewsletters] = useState<ClientDocument[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,11 +24,11 @@ export default function NewslettersPage() {
       const docs = await listDocumentsForClient(user.id);
       setNewsletters(docs.filter((d) => d.category === "newsletters"));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur de chargement");
+      setError(err instanceof Error ? err.message : t("states.error"));
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, t]);
 
   useEffect(() => {
     loadData();
@@ -44,7 +46,7 @@ export default function NewslettersPage() {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
         <p className="text-destructive">{error}</p>
-        <Button onClick={loadData} variant="outline">Réessayer</Button>
+        <Button onClick={loadData} variant="outline">{t("states.retry")}</Button>
       </div>
     );
   }
@@ -56,9 +58,9 @@ export default function NewslettersPage() {
           <FileText className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Newsletters</h1>
+          <h1 className="text-2xl font-bold text-foreground">{t("pages.newslettersTitle")}</h1>
           <p className="text-sm text-muted-foreground">
-            {newsletters.length} newsletter{newsletters.length > 1 ? "s" : ""} disponible{newsletters.length > 1 ? "s" : ""}
+            {t("pages.available", { count: newsletters.length, item: "newsletter" + (newsletters.length > 1 ? "s" : "") })}
           </p>
         </div>
       </div>

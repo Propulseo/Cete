@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { Download, FileText, Eye, Lock } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -11,20 +12,19 @@ interface DocumentsListProps {
   documents: ClientDocument[];
 }
 
-function ViewOnlyViewer({ doc }: { doc: ClientDocument }) {
+function ViewOnlyViewer({ doc, viewBtnLabel, viewOnlyTitle, popupError }: { doc: ClientDocument; viewBtnLabel: string; viewOnlyTitle: string; popupError: string }) {
   const handleView = useCallback(() => {
     const url = doc.url ?? "#";
     const viewer = window.open("", "_blank", "noopener,noreferrer");
     if (!viewer) {
-      toast.error("Impossible d'ouvrir le document. Autorisez les pop-ups.");
+      toast.error(popupError);
       return;
     }
-    // Render a minimal page with an embedded PDF and print/download blocking
     viewer.document.write(`<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8"/>
-  <title>${doc.title} — Lecture seule</title>
+  <title>${doc.title} - ${viewOnlyTitle}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #1A2940; overflow: hidden; }
@@ -45,28 +45,32 @@ function ViewOnlyViewer({ doc }: { doc: ClientDocument }) {
 <body>
   <div class="bar">
     <span>${doc.title}</span>
-    <span class="badge">Lecture seule</span>
+    <span class="badge">${viewOnlyTitle}</span>
   </div>
   <iframe src="${url}#toolbar=0&navpanes=0" title="${doc.title}"></iframe>
 </body>
 </html>`);
     viewer.document.close();
-  }, [doc]);
+  }, [doc, viewOnlyTitle, popupError]);
 
   return (
     <Button size="sm" variant="outline" onClick={handleView}>
       <Eye className="mr-2 h-4 w-4" />
-      Consulter
+      {viewBtnLabel}
     </Button>
   );
 }
 
 export function DocumentsList({ documents }: DocumentsListProps) {
+  const t = useTranslations("client.documents");
+  const locale = useLocale();
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
+
   if (documents.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-lg border border-dashed bg-white p-12 text-center">
         <FileText className="mb-3 h-10 w-10 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">Aucun document disponible</p>
+        <p className="text-sm text-muted-foreground">{t("empty")}</p>
       </div>
     );
   }
@@ -77,22 +81,22 @@ export function DocumentsList({ documents }: DocumentsListProps) {
         <thead>
           <tr className="border-b bg-secondary/50">
             <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              Document
+              {t("headerDocument")}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              Type
+              {t("headerType")}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              Taille
+              {t("headerSize")}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              Date
+              {t("headerDate")}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              Droits
+              {t("headerRights")}
             </th>
             <th className="px-6 py-3 text-right text-xs font-medium uppercase text-muted-foreground">
-              Action
+              {t("headerAction")}
             </th>
           </tr>
         </thead>
@@ -119,10 +123,10 @@ export function DocumentsList({ documents }: DocumentsListProps) {
                   <Badge variant="outline">{doc.type}</Badge>
                 </td>
                 <td className="px-6 py-4 text-sm text-muted-foreground">
-                  {doc.fileSize ?? "—"}
+                  {doc.fileSize ?? "-"}
                 </td>
                 <td className="px-6 py-4 text-sm text-muted-foreground">
-                  {new Date(doc.uploadDate).toLocaleDateString("fr-FR", {
+                  {new Date(doc.uploadDate).toLocaleDateString(dateLocale, {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
@@ -132,12 +136,12 @@ export function DocumentsList({ documents }: DocumentsListProps) {
                   {canDownload ? (
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
                       <Download className="h-3 w-3" />
-                      Téléchargement
+                      {t("downloadAccess")}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
                       <Lock className="h-3 w-3" />
-                      Lecture seule
+                      {t("viewOnly")}
                     </span>
                   )}
                 </td>
@@ -146,11 +150,16 @@ export function DocumentsList({ documents }: DocumentsListProps) {
                     <Button size="sm" variant="outline" asChild>
                       <a href={doc.url ?? "#"} download>
                         <Download className="mr-2 h-4 w-4" />
-                        Télécharger
+                        {t("downloadBtn")}
                       </a>
                     </Button>
                   ) : (
-                    <ViewOnlyViewer doc={doc} />
+                    <ViewOnlyViewer
+                      doc={doc}
+                      viewBtnLabel={t("viewBtn")}
+                      viewOnlyTitle={t("viewOnlyTitle")}
+                      popupError={t("popupError")}
+                    />
                   )}
                 </td>
               </tr>

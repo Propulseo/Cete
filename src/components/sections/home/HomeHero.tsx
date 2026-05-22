@@ -12,7 +12,7 @@ export function HomeHero() {
 
   return (
     <section className="relative min-h-[100vh] overflow-hidden bg-gradient-to-b from-[#DAEEF8] to-white">
-      {/* Radial gradient overlay — soft blue accents */}
+      {/* Radial gradient overlay - soft blue accents */}
       <div
         className="absolute inset-0"
         style={{
@@ -134,7 +134,7 @@ export function HomeHero() {
             <div className="absolute w-[420px] h-[420px] rounded-full border border-[#4DA6D9]/5" />
             <div className="absolute w-[340px] h-[340px] rounded-full border border-[#4DA6D9]/20" />
 
-            {/* Rating badges — 4 niveaux individuels A/B/C/D */}
+            {/* Rating badges - 4 niveaux individuels A/B/C/D */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2">
               <div className="px-5 py-2.5 rounded-xl bg-[#22C55E]/25 border border-[#22C55E]/50 text-[#22C55E] font-bold text-lg animate-float shadow-lg shadow-[#22C55E]/10">
                 {t("ratingA")}
@@ -156,7 +156,7 @@ export function HomeHero() {
               </div>
             </div>
 
-            {/* Center element — Vigi-Score */}
+            {/* Center element - Vigi-Score */}
             <div className="relative z-10 flex flex-col items-center justify-center w-64 h-64 rounded-full bg-gradient-to-br from-[#4DA6D9] to-[#1A7AB5] shadow-2xl shadow-[#4DA6D9]/30 animate-pulse-glow">
               <span className="text-sm text-white/80 font-medium uppercase tracking-wider mb-1">{t("vigiScore")}</span>
               <span className="font-display text-5xl text-white mb-1">AAA</span>

@@ -64,7 +64,7 @@ export function HomeADN() {
             </Button>
           </div>
 
-          {/* 3×4 pastilles — un score par critère */}
+          {/* 3×4 pastilles - un score par critère */}
           <div className="relative flex items-center justify-center py-12">
             <div className="w-full max-w-md space-y-8">
               {threeCriteria.map((criterion, ci) => (

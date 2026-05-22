@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertCircle, Bell, CheckCircle } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,10 @@ interface NotificationsTickerProps {
 }
 
 export function NotificationsTicker({ notifications, onMarkAsRead }: NotificationsTickerProps) {
+  const t = useTranslations("client.notifications");
+  const locale = useLocale();
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
+
   if (notifications.length === 0) return null;
 
   const handleMarkAsRead = async (id: string) => {
@@ -20,7 +25,7 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
       await markAsRead(id);
       onMarkAsRead?.(id);
     } catch {
-      // silently fail — non-critical action
+      // silently fail - non-critical action
     }
   };
 
@@ -28,7 +33,7 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
     <Card>
       <CardHeader className="flex-row items-center gap-2 pb-4">
         <Bell className="h-5 w-5 text-accent" />
-        <CardTitle className="text-lg">Veille réglementaire</CardTitle>
+        <CardTitle className="text-lg">{t("title")}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <div className="divide-y">
@@ -50,7 +55,7 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
                 </p>
                 <div className="mt-1 flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">
-                    {new Date(notif.date).toLocaleDateString("fr-FR", {
+                    {new Date(notif.date).toLocaleDateString(dateLocale, {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
@@ -58,7 +63,7 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
                   </span>
                   {!notif.read && (
                     <Badge variant="secondary" className="text-[10px]">
-                      Nouveau
+                      {t("new")}
                     </Badge>
                   )}
                 </div>
@@ -70,7 +75,7 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
                   className="text-xs"
                   onClick={() => handleMarkAsRead(notif.id)}
                 >
-                  Marquer lu
+                  {t("markRead")}
                 </Button>
               )}
             </div>

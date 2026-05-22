@@ -202,7 +202,7 @@ export function DocumentFormDialog({
                   <option value="">Choisir...</option>
                   {clients.map((c) => (
                     <option key={c.id} value={c.id}>
-                      {c.name} — {c.company}
+                      {c.name} - {c.company}
                     </option>
                   ))}
                 </select>

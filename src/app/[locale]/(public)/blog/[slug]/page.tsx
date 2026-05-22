@@ -51,7 +51,7 @@ export async function generateMetadata({
   if (!article) return { title: "Article introuvable" };
 
   return {
-    title: `${article.title}${article.titleHighlight ?? ""} — Blog CETé`,
+    title: `${article.title}${article.titleHighlight ?? ""} - Blog CETé`,
     description: article.metaDescription,
     keywords: seoKeywords[slug],
   };

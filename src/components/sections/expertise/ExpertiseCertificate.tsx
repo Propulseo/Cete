@@ -70,7 +70,7 @@ export function ExpertiseCertificate() {
 
                 {/* Body */}
                 <div className="px-6 pb-6 grid grid-cols-2 gap-4">
-                  {/* Left — company info */}
+                  {/* Left - company info */}
                   <div className="space-y-3">
                     <div>
                       <div className="text-[10px] font-bold text-[#8AA5BE] uppercase">Entreprise évaluée</div>
@@ -87,14 +87,14 @@ export function ExpertiseCertificate() {
                     </div>
                   </div>
 
-                  {/* Right — rating */}
+                  {/* Right - rating */}
                   <div className="space-y-3">
                     <div className="rounded-xl border-2 border-[#22C55E] p-3 text-center">
                       <div className="bg-[#1A2940] rounded-lg px-3 py-1 mb-2 inline-block">
                         <span className="text-[10px] font-bold text-white tracking-wider">NOTATION CETé ADN</span>
                       </div>
                       <div className="font-display text-4xl font-bold text-[#22C55E]">ABA</div>
-                      <div className="text-[9px] text-[#8AA5BE] mt-1">AAA (optimal) — DDD (critique)</div>
+                      <div className="text-[9px] text-[#8AA5BE] mt-1">AAA (optimal) - DDD (critique)</div>
                     </div>
 
                     {/* Sub-criteria */}
@@ -112,7 +112,7 @@ export function ExpertiseCertificate() {
                 {/* Footer */}
                 <div className="px-6 py-3 bg-[#F4F9FD] border-t border-[#DAEEF8] flex items-center justify-between">
                   <div className="text-[9px] text-[#8AA5BE] max-w-[60%]">
-                    Ce certificat est délivré par CETé — Consortium Experts Techniques Électricité.
+                    Ce certificat est délivré par CETé - Consortium Experts Techniques Électricité.
                   </div>
                   <div className="flex flex-col items-center gap-1">
                     <QrCode className="h-8 w-8 text-[#1A2940]/20" />

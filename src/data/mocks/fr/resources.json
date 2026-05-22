@@ -2,7 +2,7 @@
   "resources": [
     {
       "id": "res-001",
-      "title": "NF C 15-100 — Installations électriques à basse tension",
+      "title": "NF C 15-100 - Installations électriques à basse tension",
       "description": "Norme fondamentale pour la conception, la réalisation et la vérification des installations électriques basse tension en France.",
       "category": "normes",
       "type": "pdf",
@@ -15,7 +15,7 @@
     },
     {
       "id": "res-002",
-      "title": "NF C 18-510 — Opérations sur les ouvrages et installations électriques",
+      "title": "NF C 18-510 - Opérations sur les ouvrages et installations électriques",
       "description": "Prescriptions de sécurité pour les opérations sur ou au voisinage des ouvrages et installations électriques.",
       "category": "normes",
       "type": "pdf",
@@ -28,7 +28,7 @@
     },
     {
       "id": "res-003",
-      "title": "Décret n° 2010-1016 — Obligations des maîtres d'ouvrage",
+      "title": "Décret n° 2010-1016 - Obligations des maîtres d'ouvrage",
       "description": "Décret relatif aux obligations des maîtres d'ouvrage entreprenant la construction ou l'aménagement de bâtiments destinés à recevoir des travailleurs.",
       "category": "reglementation",
       "type": "lien",
@@ -40,7 +40,7 @@
     },
     {
       "id": "res-004",
-      "title": "Directive 2014/35/UE — Matériel électrique basse tension",
+      "title": "Directive 2014/35/UE - Matériel électrique basse tension",
       "description": "Directive européenne relative à l'harmonisation des législations concernant la mise à disposition sur le marché du matériel électrique.",
       "category": "reglementation",
       "type": "lien",
@@ -52,7 +52,7 @@
     },
     {
       "id": "res-005",
-      "title": "Guide pratique — Vérifications des installations électriques",
+      "title": "Guide pratique - Vérifications des installations électriques",
       "description": "Méthodologie complète pour la vérification initiale et périodique des installations électriques conformément à la réglementation.",
       "category": "guides",
       "type": "pdf",
@@ -65,7 +65,7 @@
     },
     {
       "id": "res-006",
-      "title": "Fiche technique — Protection contre les surtensions",
+      "title": "Fiche technique - Protection contre les surtensions",
       "description": "Dimensionnement et choix des dispositifs de protection contre les surtensions d'origine atmosphérique et industrielle.",
       "category": "guides",
       "type": "pdf",
@@ -78,7 +78,7 @@
     },
     {
       "id": "res-007",
-      "title": "Rapport — Sinistralité électrique en France 2025",
+      "title": "Rapport - Sinistralité électrique en France 2025",
       "description": "Analyse statistique des accidents d'origine électrique en milieu professionnel pour l'année 2025.",
       "category": "rapports",
       "type": "pdf",
@@ -91,7 +91,7 @@
     },
     {
       "id": "res-008",
-      "title": "Retour d'expérience — Incendie d'origine électrique",
+      "title": "Retour d'expérience - Incendie d'origine électrique",
       "description": "Analyse d'un cas d'incendie lié à un défaut d'isolement sur installation industrielle haute tension.",
       "category": "rapports",
       "type": "video",
@@ -104,7 +104,7 @@
     },
     {
       "id": "res-009",
-      "title": "Veille — Évolutions NF C 15-100 amendement A6",
+      "title": "Veille - Évolutions NF C 15-100 amendement A6",
       "description": "Synthèse des modifications apportées par l'amendement A6 à la norme NF C 15-100, applicable à compter de juin 2026.",
       "category": "veille",
       "type": "pdf",
@@ -117,7 +117,7 @@
     },
     {
       "id": "res-010",
-      "title": "Veille — Nouveau décret contrôles périodiques 2026",
+      "title": "Veille - Nouveau décret contrôles périodiques 2026",
       "description": "Décryptage du décret 2026-XXX modifiant les modalités de contrôle périodique des installations électriques.",
       "category": "veille",
       "type": "lien",

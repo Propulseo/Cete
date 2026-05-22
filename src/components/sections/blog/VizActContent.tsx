@@ -19,7 +19,7 @@ export function VizActContent() {
       {/* Introduction */}
       <p className="text-lg text-[#1A2940] leading-relaxed mb-6">
         Dans le monde exigeant des travaux sous tension (TST BT), la fiabilité et la
-        maîtrise des compétences ne sont pas une option — ce sont des{" "}
+        maîtrise des compétences ne sont pas une option - ce sont des{" "}
         <strong>impératifs de sécurité</strong>. Pourtant, selon l&apos;Observatoire de la
         Maîtrise des TST (OMT) :
       </p>

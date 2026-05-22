@@ -1,21 +1,21 @@
 {
   "common": {
     "header": {
-      "logoAlt": "CETé ADN — Independent Electrical Risk Rating Agency",
+      "logoAlt": "CETé ADN - Independent Electrical Risk Rating Agency",
       "logoAriaLabel": "Back to CETé homepage",
       "clientArea": "Client Area",
       "requestEvaluation": "Request an Assessment",
       "menu": "Menu"
     },
     "footer": {
-      "logoAlt": "CETé ADN — Independent Electrical Risk Rating Agency",
+      "logoAlt": "CETé ADN - Independent Electrical Risk Rating Agency",
       "logoAriaLabel": "Back to CETé homepage",
       "tagline": "Independent Electrical Risk Rating Agency.",
       "motto": "Independence. Objectivity. Transparency.",
       "navigation": "Navigation",
       "contact": "Contact",
       "legal": "Legal",
-      "copyright": "© {year} CETé — Independent Electrical Risk Rating Agency. All rights reserved.",
+      "copyright": "© {year} CETé - Independent Electrical Risk Rating Agency. All rights reserved.",
       "madeBy": "Made with passion by",
       "foundedBy": "Founded by former SERECT Experts"
     },
@@ -47,16 +47,16 @@
       "titleLine4": "RISK",
       "baseline": "The strength of a collective",
       "slogan": "Classify. Assess. Illuminate.",
-      "subtitle": "Live Working aptitude at a glance — our framework rates each organization on 3 criteria (A, B, C or D) assembled into a composite Vigi-Score, from AAA to DDD.",
+      "subtitle": "Live Working aptitude at a glance - our framework rates each organization on 3 criteria (A, B, C or D) assembled into a composite Vigi-Score, from AAA to DDD.",
       "discoverRating": "Discover our rating",
       "requestEvaluation": "Request an Assessment",
       "trustIndicator": "200+ organizations assessed",
-      "ratingA": "A — Compliant",
-      "ratingB": "B — Progress needed",
-      "ratingC": "C — Alert",
-      "ratingD": "D — Critical",
+      "ratingA": "A - Compliant",
+      "ratingB": "B - Progress needed",
+      "ratingC": "C - Alert",
+      "ratingD": "D - Critical",
       "vigiScore": "Vigi-Score",
-      "tripleA": "Triple A — Excellence"
+      "tripleA": "Triple A - Excellence"
     },
     "stats": {
       "title": "O-M-T Observatory · 2022–2025",
@@ -72,18 +72,18 @@
     },
     "adn": {
       "badge": "Proprietary rating",
-      "heading": "ADN METHOD — RATING AGENCY",
-      "description": "Our framework produces a composite rating from AAA to DDD, based on the 3C Rule — three measurable capabilities",
+      "heading": "ADN METHOD - RATING AGENCY",
+      "description": "Our framework produces a composite rating from AAA to DDD, based on the 3C Rule - three measurable capabilities",
       "criterion1Title": "Self-Assessment",
-      "criterion1Desc": "Self-assessment capability — factual diagnosis of your current practices.",
+      "criterion1Desc": "Self-assessment capability - factual diagnosis of your current practices.",
       "criterion2Title": "Compliance & Improvement",
       "criterion2Desc": "Ability to meet the requirements of the Professional Recommendation.",
       "criterion3Title": "Operational Skills",
-      "criterion3Desc": "Mastery of operational skills — field-based scoring.",
-      "ratingA": "A — Compliant",
-      "ratingB": "B — Progress expected",
-      "ratingC": "C — Alert",
-      "ratingD": "D — Non-compliant",
+      "criterion3Desc": "Mastery of operational skills - field-based scoring.",
+      "ratingA": "A - Compliant",
+      "ratingB": "B - Progress expected",
+      "ratingC": "C - Alert",
+      "ratingD": "D - Non-compliant",
       "understandRating": "Understand the rating",
       "assemblyLabel": "Assembly → Composite rating"
     },
@@ -105,7 +105,7 @@
       "paragraph1": "When we called on CETé, we thought our Live Working management level was satisfactory. Our initial BBB rating revealed a different reality: formally correct procedures, but significant field gaps.",
       "paragraph2": "The DPS diagnosis highlighted three critical areas: qualification traceability, protective equipment compliance, and above all, the day-to-day safety culture. Issues our internal audits weren't capturing.",
       "paragraph3": "Over 14 months of Campus CPF support, we restructured our training, deployed field coaching for our Live Working coordinators, and implemented a continuous regulatory monitoring system.",
-      "paragraph4": "The result: a 40% reduction in electrical incidents, measurable upskilling of our teams, and most importantly, the jump from BBB to AAA — a transformation that strengthened our credibility with our clients.",
+      "paragraph4": "The result: a 40% reduction in electrical incidents, measurable upskilling of our teams, and most importantly, the jump from BBB to AAA - a transformation that strengthened our credibility with our clients.",
       "authorName": "Marie Dubois",
       "authorRole": "QSE Director",
       "authorCompany": "Électricité Industrielle SA",
@@ -120,9 +120,9 @@
       "badge": "The Co-founders",
       "heading": "80 YEARS OF COMBINED EXPERTISE",
       "description": "Four former SERECT executives founded CETé to create the first independent electrical risk rating agency in France.",
-      "bullet1": "Former SERECT executives — industry benchmark",
+      "bullet1": "Former SERECT executives - industry benchmark",
       "bullet2": "Designers of the AAA-DDD rating framework",
-      "bullet3": "Complete independence — zero conflict of interest",
+      "bullet3": "Complete independence - zero conflict of interest",
       "bullet4": "200+ organizations assessed over 20 years",
       "cta": "Who we are",
       "imageAlt": "Portrait of {name}, {role}"
@@ -138,7 +138,7 @@
     "hero": {
       "badge": "Independent Rating Agency",
       "heading": "WHO ARE <accent>WE</accent>?",
-      "subtitle": "From <serect>SERECT</serect> to <cete>CET</cete> — 20 years in the field, a rating agency.",
+      "subtitle": "From <serect>SERECT</serect> to <cete>CET</cete> - 20 years in the field, a rating agency.",
       "description": "Four independent experts founded CETé to objectively measure electrical risk management with a structured and transparent rating system."
     },
     "originStory": {
@@ -234,50 +234,90 @@
   "expertise": {
     "hero": {
       "badge": "Rating methodology",
-      "heading": "THE ADN METHOD",
-      "subheading": "Rating Agency",
-      "description": "Our exclusive methodology provides a confidence level — from AAA (excellence) to DDD (critical risk) — on your organization's electrical risk management.",
-      "requestEvaluation": "Request an Assessment",
-      "viewSupport": "View support program"
+      "heading": "THE METHOD",
+      "subheading": {
+        "part1": "gence",
+        "part2": "e",
+        "part3": "otation"
+      },
+      "description": "Our exclusive methodology provides a confidence level - from AAA (excellence) to DDD (critical risk) - on your organization's electrical risk management.",
+      "cta1": "Request an Assessment",
+      "cta2": "View support program"
     },
     "vigiScore": {
-      "badge": "The 3C Rule — Rating System",
-      "heading": "THE VIGI-SCORE",
-      "description": "The Vigi-Score is a composite rating based on three independent criteria — the 3C Rule — each assessed from A to D.",
-      "criterion1Label": "C1",
-      "criterion1Title": "Self-Assessment",
-      "criterion1Desc": "Organization's self-assessment capability — factual diagnosis.",
-      "criterion2Label": "C2",
-      "criterion2Title": "Compliance & Improvement",
-      "criterion2Desc": "Adherence to the Professional Recommendation — regulatory compliance.",
-      "criterion3Label": "C3",
-      "criterion3Title": "Operational Skills",
-      "criterion3Desc": "Operational mastery of professional practices — field-based scoring.",
-      "assemblyHeading": "Assembly into composite rating",
+      "badge": "The 3C Rule - Rating System",
+      "headingPrefix": "THE",
+      "description": "The Vigi-Score is a composite rating based on three independent criteria - the 3C Rule - each assessed from A to D.",
+      "C1": {
+        "title": "Self-Assessment",
+        "description": "Organization's self-assessment capability - factual diagnosis."
+      },
+      "C2": {
+        "title": "Compliance & Improvement",
+        "description": "Adherence to the Professional Recommendation - regulatory compliance."
+      },
+      "C3": {
+        "title": "Operational Skills",
+        "description": "Operational mastery of professional practices - field-based scoring."
+      },
+      "assemblyHeading": "Assembly into",
+      "assemblyHighlight": "composite rating",
       "resultLabel": "Result",
-      "resultDesc": "Excellence expressed as a Triple A (AAA) — optimal electrical risk management.",
-      "tendencyLabel": "Trend indicator + / −",
-      "tendencyUp": "Upward trend",
-      "tendencyStable": "Stable",
-      "tendencyDown": "Downward trend"
+      "resultDescription": "Excellence expressed as a Triple A (AAA) - optimal electrical risk management.",
+      "tendencyHeading": "Trend indicator",
+      "tendencyDescription": "Each criterion can include a progression or regression indicator.",
+      "tendency": {
+        "up": "Upward trend",
+        "stable": "Stable",
+        "down": "Downward trend"
+      }
     },
     "vigilance": {
       "badge": "Founding concept",
-      "heading": "VIGILANCE ↔ VULNERABILITY",
+      "headingVigilance": "VIGILANCE",
+      "headingVulnerability": "VULNERABILITY",
+      "description": "Two opposing forces that determine the level of electrical risk management in your organization.",
+      "gaugeVigilance": "Vigilance",
+      "gaugeVulnerability": "Vulnerability",
+      "gaugeLow": "High vigilance",
+      "gaugeHigh": "High vulnerability",
       "vigilanceTitle": "Vigilance",
-      "vigilanceDesc": "Organization's proactive ability to anticipate, detect and manage electrical risks.",
+      "vigilanceDescription": "Organization's proactive ability to anticipate, detect and manage electrical risks.",
       "vulnerabilityTitle": "Vulnerability",
-      "vulnerabilityDesc": "Residual risk exposure when vigilance is insufficient.",
-      "gaugeHigh": "High vigilance",
-      "gaugeLow": "High vulnerability",
-      "ncTitle": "What triggers a D rating",
-      "ncAudimat": "AuDiMaT",
-      "ncOrganisationnel": "Organizational",
-      "ncOperationnel": "Operational"
+      "vulnerabilityDescription": "Residual risk exposure when vigilance is insufficient.",
+      "ncHeading": "What triggers a",
+      "ncHeadingHighlight": "D rating",
+      "ncDescription": "Three categories of major non-conformities can result in a D rating on one or more criteria.",
+      "nc0": {
+        "title": "AuDiMaT",
+        "items": {
+          "0": "Missing or invalid work authorizations",
+          "1": "Non-compliant electrical qualifications",
+          "2": "Personal protective equipment not verified or expired"
+        }
+      },
+      "nc1": {
+        "title": "Organizational",
+        "items": {
+          "0": "Missing documented lockout/tagout procedures",
+          "1": "Lack of traceability for Live Working interventions",
+          "2": "Prevention plan incomplete or not updated"
+        }
+      },
+      "nc2": {
+        "title": "Operational",
+        "items": {
+          "0": "Non-compliance with safety distances in real situations",
+          "1": "Use of non-compliant tools in the field",
+          "2": "No voltage absence verification before intervention"
+        }
+      }
     },
     "omt": {
       "badge": "O-M-T Observatory · 2022–2025",
-      "heading": "THE LIVE WORKING MASTERY OBSERVATORY",
+      "heading": "THE LIVE WORKING MASTERY",
+      "headingHighlight": "OBSERVATORY",
+      "description": "A unique observatory in France that capitalizes field data to objectively measure electrical risk mastery.",
       "stat1": "DPS completed",
       "stat2": "Companies audited",
       "stat3": "Requirements observed",
@@ -285,49 +325,121 @@
     },
     "tertiles": {
       "badge": "O-M-T Observatory",
-      "heading": "WHERE DO YOU STAND?",
+      "heading": "WHERE DO YOU",
+      "headingHighlight": "STAND",
       "description": "The AudiMaT cross-analysis of O-M-T observatory results reveals three organization profiles.",
-      "tertile1Name": "The Vulnerable",
-      "tertile1Subtitle": "\"The Grumblers\"",
-      "tertile1Risk": "VULNERABILITY",
-      "tertile1RiskDesc": "High accident probability",
-      "tertile2Name": "The Middle Ground",
-      "tertile2Subtitle": "Median position",
-      "tertile2Risk": "VIGILANCE",
-      "tertile2RiskDesc": "Moderate accident probability",
-      "tertile3Name": "The Talents",
-      "tertile3Subtitle": "Operational excellence",
-      "tertile3Risk": "MASTERY",
-      "tertile3RiskDesc": "Low accident probability",
+      "vulnerables": {
+        "name": "The Vulnerable",
+        "subtitle": "\"The Grumblers\"",
+        "quote": "We've always done it this way, why change?",
+        "traits": {
+          "0": "Resistance to change and new practices",
+          "1": "Incomplete or outdated documentation",
+          "2": "Insufficient training for field workers",
+          "3": "Safety culture not embedded in daily operations"
+        },
+        "riskLabel": "VULNERABILITY",
+        "risk": "High accident probability"
+      },
+      "ventreMou": {
+        "name": "The Middle Ground",
+        "subtitle": "Median position",
+        "quote": "We do the bare minimum, that should be enough.",
+        "traits": {
+          "0": "Formal compliance without real ownership",
+          "1": "Gaps between written procedures and field practices",
+          "2": "Unstructured continuous improvement",
+          "3": "Variable engagement across teams"
+        },
+        "riskLabel": "VIGILANCE",
+        "risk": "Moderate accident probability"
+      },
+      "talents": {
+        "name": "The Talents",
+        "subtitle": "Operational excellence",
+        "quote": "Safety is our culture, not a constraint.",
+        "traits": {
+          "0": "Safety culture integrated at all levels",
+          "1": "Measurable and documented continuous improvement",
+          "2": "Regular field training and coaching",
+          "3": "Proactive anticipation of emerging risks"
+        },
+        "riskLabel": "MASTERY",
+        "risk": "Low accident probability"
+      },
       "note": "Operational mastery of Live Working proportional to compliance with the Recommendation, or beyond."
     },
     "comparison": {
-      "heading": "VULNERABLE vs TALENTS",
       "badge": "The 3 systematic improvement areas",
-      "gapHeading": "THE TOP 3 GAPS",
-      "axis1": "Primary prevention",
-      "axis2": "Competence",
-      "axis3": "Live Working coordination",
-      "axis4": "Training"
+      "heading": "VULNERABLE",
+      "headingTalents": "TALENTS",
+      "columnTheme": "Theme",
+      "columnVulnerables": "Vulnerable",
+      "columnTalents": "Talents",
+      "axis0": {
+        "theme": "Primary prevention",
+        "vulnerable": "Reactive, focused on documentary compliance without field anchoring.",
+        "talent": "Proactive, integrated into daily management with monitoring indicators."
+      },
+      "axis1": {
+        "theme": "Competence",
+        "vulnerable": "Qualifications up to date but field skills not regularly assessed.",
+        "talent": "Continuous skills assessment with individualized field coaching."
+      },
+      "axis2": {
+        "theme": "Live Working coordination",
+        "vulnerable": "Formal coordination, little structured experience feedback.",
+        "talent": "Dynamic coordination with best practice sharing and systematic REX."
+      },
+      "axis3": {
+        "theme": "Training",
+        "vulnerable": "Initial training only, no refresher adapted to changes.",
+        "talent": "Continuous training pathway adapted to needs identified in the field."
+      },
+      "gapBadge": "The top 3 gaps",
+      "gapHeading": "THE TOP 3",
+      "gapHeadingHighlight": "GAPS",
+      "gap0": {
+        "title": "Primary prevention",
+        "description": "The most frequent gap: documentary prevention that doesn't translate into concrete, measurable field actions."
+      },
+      "gap1": {
+        "title": "Skills maintenance",
+        "description": "Qualifications are current but actual competencies are neither assessed nor maintained through regular field coaching."
+      },
+      "gap2": {
+        "title": "Safety coordination",
+        "description": "Safety coordination is limited to mandatory meetings without structured exploitation of field experience feedback."
+      }
     },
     "services": {
       "badge": "Our Services",
       "heading": "EXPERTISE SERVICES",
-      "description": "Solutions tailored to your assessment and certification needs"
+      "description": "Solutions tailored to your assessment and certification needs",
+      "learnMore": "Learn more"
     },
     "certificate": {
       "badge": "Certification",
-      "heading": "THE CETé ADN CERTIFICATE",
+      "heading": "THE CERTIFICATE",
+      "description": "The CETé ADN certificate attests to your organization's level of electrical risk management, assessed according to our exclusive methodology.",
       "differenceHeading": "A certificate that makes the difference",
-      "requestEvaluation": "Request an Assessment",
-      "learnMore": "Learn more"
+      "differenceDescription": "The CETé ADN certificate is the only document that objectively attests to your level of electrical risk management, assessed by an independent agency using a transparent methodology.",
+      "features": {
+        "0": "Triple-letter composite rating from AAA to DDD",
+        "1": "Independent assessment by certified experts",
+        "2": "Verifiable online via unique QR code",
+        "3": "Validity period defined by the CETé Monitoring Committee",
+        "4": "Recognition by clients and insurers"
+      },
+      "cta1": "Request an Assessment",
+      "cta2": "Learn more"
     },
     "cta": {
       "badge": "Objective AAA",
-      "heading": "OBJECTIVE AAA",
+      "heading": "OBJECTIVE",
       "description": "Discover where you stand in electrical risk management and start a continuous improvement journey.",
-      "requestEvaluation": "Request an Assessment",
-      "discoverCete": "Discover CETé"
+      "cta1": "Request an Assessment",
+      "cta2": "Discover"
     }
   },
   "services": {
@@ -448,10 +560,10 @@
       "successTitle": "Message sent!",
       "successDesc": "We will get back to you as soon as possible.",
       "subjectOptions": {
-        "dps": "Rating — Safety Performance Diagnosis (DPS)",
-        "save": "Expertise — Event Analysis (SAVE)",
-        "campus": "Training — Coaching, Performance, Training (Campus CPF)",
-        "pass": "Subscription — PASS-Sérénité VIP",
+        "dps": "Rating - Safety Performance Diagnosis (DPS)",
+        "save": "Expertise - Event Analysis (SAVE)",
+        "campus": "Training - Coaching, Performance, Training (Campus CPF)",
+        "pass": "Subscription - PASS-Sérénité VIP",
         "other": "Other inquiry"
       },
       "validation": {
@@ -482,7 +594,7 @@
       "phonePlaceholder": "+33 1 XX XX XX XX",
       "evaluationTypeLabel": "Desired assessment type",
       "sitesLabel": "Number and location of sites",
-      "sitesPlaceholder": "e.g.: 3 sites — Lyon, Grenoble, Paris",
+      "sitesPlaceholder": "e.g.: 3 sites - Lyon, Grenoble, Paris",
       "detailsLabel": "Additional details",
       "detailsPlaceholder": "Context, timeline constraints, specific objectives…",
       "acceptCgu": "I accept the terms and conditions",
@@ -500,11 +612,11 @@
         "other": "Other"
       },
       "evaluationOptions": {
-        "dps": "DPS — Safety Performance Diagnosis",
-        "save": "SAVE — Event Vulnerability Analysis",
-        "campus": "Campus CPF — Coaching, Performance, Training",
+        "dps": "DPS - Safety Performance Diagnosis",
+        "save": "SAVE - Event Vulnerability Analysis",
+        "campus": "Campus CPF - Coaching, Performance, Training",
         "pass": "PASS-Sérénité VIP",
-        "vigiScore": "Vigi-Score — Independent rating",
+        "vigiScore": "Vigi-Score - Independent rating",
         "multiple": "Multiple services (specify below)"
       },
       "employeeOptions": {
@@ -577,6 +689,111 @@
       "step3": "Operational mastery",
       "step3Desc": "Day-to-day electrical risk management in the field",
       "learnMore": "Learn more"
+    }
+  },
+  "client": {
+    "sidebar": {
+      "title": "Client Area",
+      "dashboard": "Dashboard",
+      "newsletters": "Newsletters",
+      "capsules": "Video Capsules",
+      "guides": "Practical Guides",
+      "carnets": "Support Notebooks",
+      "resources": "Resources",
+      "profile": "My Profile",
+      "notifications": "Notifications",
+      "unread": "{count} unread",
+      "logout": "Log out"
+    },
+    "states": {
+      "loading": "Loading...",
+      "error": "Loading error",
+      "retry": "Retry"
+    },
+    "dashboard": {
+      "welcome": "Welcome, {name}",
+      "description": "Access your documents, rating and resources",
+      "recentPublications": "Recent publications",
+      "totalCount": "{count} total",
+      "viewAll": "View all publications"
+    },
+    "profile": {
+      "heading": "My Profile",
+      "subtitle": "Your account and organization",
+      "personalInfo": "Personal information",
+      "clientBadge": "Client",
+      "clientId": "Client ID: {id}",
+      "subscription": "Your subscription",
+      "docsAccessible": "accessible documents",
+      "description": "Your client area gives you access to newsletters, video capsules, practical guides and {brand} support notebooks. Contact your representative for any questions about your rating or resources."
+    },
+    "categories": {
+      "newsletters": "Newsletters",
+      "capsules": "Video Capsules",
+      "guides": "Practical Guides",
+      "carnets": "Support Notebooks"
+    },
+    "pages": {
+      "newslettersTitle": "Newsletters",
+      "capsulesTitle": "Video Capsules",
+      "guidesTitle": "Practical Guides",
+      "carnetsTitle": "Support Notebooks",
+      "resourcesTitle": "Technical & Regulatory Library",
+      "available": "{count} {item} available",
+      "noResources": "No resources found",
+      "noCapsules": "No capsules available"
+    },
+    "resources": {
+      "categoryNormes": "Standards",
+      "categoryReglementation": "Regulations",
+      "categoryGuides": "Technical Guides",
+      "categoryRapports": "Reports",
+      "categoryVeille": "Regulatory Watch",
+      "typePdf": "PDF",
+      "typeLien": "Link",
+      "typeVideo": "Video",
+      "search": "Search...",
+      "allCategories": "All categories",
+      "allTypes": "All types",
+      "download": "Download",
+      "view": "View"
+    },
+    "documents": {
+      "headerDocument": "Document",
+      "headerType": "Type",
+      "headerSize": "Size",
+      "headerDate": "Date",
+      "headerRights": "Access",
+      "headerAction": "Action",
+      "empty": "No documents available",
+      "downloadAccess": "Download",
+      "viewOnly": "View only",
+      "downloadBtn": "Download",
+      "viewBtn": "View",
+      "playBtn": "Watch",
+      "popupError": "Unable to open document. Please allow pop-ups.",
+      "viewOnlyTitle": "View only"
+    },
+    "certificate": {
+      "title": "Certificate {brand} - {number}",
+      "valid": "Valid",
+      "expired": "Expired",
+      "revoked": "Revoked",
+      "rating": "Overall rating",
+      "vigiScore": "Vigi-Score",
+      "evaluation": "Assessment",
+      "validity": "Validity",
+      "expert": "Expert",
+      "autoEval": "Self-assess: {value}",
+      "requirements": "Requirements: {value}",
+      "operational": "Operational: {value}",
+      "qrCode": "Unique QR code: ",
+      "downloadCert": "Download my certificate"
+    },
+    "notifications": {
+      "title": "Regulatory Watch",
+      "new": "New",
+      "markRead": "Mark as read"
     }
   }
 }

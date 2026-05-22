@@ -1,15 +1,16 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Mail } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { getNavigation, getContactInfo } from "@/lib/data-loader";
 
 import type { Pathnames } from "@/i18n/routing";
 
 export async function Footer() {
   const t = await getTranslations("common.footer");
-  const navigation = getNavigation();
-  const contact = getContactInfo();
+  const locale = (await getLocale()) as "fr" | "en";
+  const navigation = getNavigation(locale);
+  const contact = getContactInfo(locale);
 
   return (
     <footer className="relative border-t border-[#DAEEF8] bg-[#1A2940] text-white overflow-hidden">

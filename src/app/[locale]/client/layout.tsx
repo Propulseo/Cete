@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { getUnreadCount } from "@/lib/repo/notifications.repo";
 import { ClientSidebar } from "@/components/features/client/ClientSidebar";
@@ -9,6 +10,7 @@ import { ClientSidebar } from "@/components/features/client/ClientSidebar";
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
+  const t = useTranslations("client");
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="text-muted-foreground">Chargement...</div>
+        <div className="text-muted-foreground">{t("states.loading")}</div>
       </div>
     );
   }

@@ -12,7 +12,7 @@
   --font-sans: var(--font-inter);
   --font-display: var(--font-merriweather);
 
-  /* CETé Brand Colors — New Sky Blue + Orange TST */
+  /* CETé Brand Colors - New Sky Blue + Orange TST */
   --color-cete-primary: #4DA6D9;
   --color-cete-primary-light: #87C4E8;
   --color-cete-primary-deep: #1A7AB5;
@@ -365,19 +365,19 @@
   .animation-delay-700 { animation-delay: 700ms; }
   .animation-delay-800 { animation-delay: 800ms; }
 
-  /* Bubbles pattern — organic blue circles only (inspired by OMT bubble chart) */
+  /* Bubbles pattern - organic blue circles only (inspired by OMT bubble chart) */
   .bg-bubbles-pattern {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700' viewBox='0 0 900 700'%3E%3Ccircle cx='120' cy='80' r='65' fill='%234DA6D9' fill-opacity='0.08'/%3E%3Ccircle cx='700' cy='130' r='45' fill='%234DA6D9' fill-opacity='0.06'/%3E%3Ccircle cx='400' cy='200' r='85' fill='%2387C4E8' fill-opacity='0.07'/%3E%3Ccircle cx='60' cy='400' r='35' fill='%231A7AB5' fill-opacity='0.08'/%3E%3Ccircle cx='560' cy='480' r='55' fill='%234DA6D9' fill-opacity='0.06'/%3E%3Ccircle cx='260' cy='560' r='40' fill='%2387C4E8' fill-opacity='0.07'/%3E%3Ccircle cx='780' cy='370' r='50' fill='%234DA6D9' fill-opacity='0.06'/%3E%3Ccircle cx='450' cy='50' r='30' fill='%231A7AB5' fill-opacity='0.08'/%3E%3Ccircle cx='180' cy='300' r='70' fill='%234DA6D9' fill-opacity='0.05'/%3E%3Ccircle cx='640' cy='600' r='28' fill='%2387C4E8' fill-opacity='0.07'/%3E%3Ccircle cx='830' cy='550' r='42' fill='%234DA6D9' fill-opacity='0.06'/%3E%3Ccircle cx='320' cy='380' r='38' fill='%231A7AB5' fill-opacity='0.06'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 900px 700px;
   }
 
-  /* Hero gradient — light blue sky to white */
+  /* Hero gradient - light blue sky to white */
   .bg-hero-gradient {
     background: linear-gradient(180deg, #DAEEF8 0%, #EDF6FB 40%, #FFFFFF 100%);
   }
 
-  /* Text gradient — blue accent */
+  /* Text gradient - blue accent */
   .text-gradient-accent {
     background: linear-gradient(135deg, #4DA6D9 0%, #1A7AB5 50%, #4DA6D9 100%);
     -webkit-background-clip: text;
@@ -404,7 +404,7 @@
     margin: 0.75rem auto 0;
   }
 
-  /* Noise texture overlay — subtle grain */
+  /* Noise texture overlay - subtle grain */
   .noise-overlay::after {
     content: '';
     position: absolute;

@@ -1,21 +1,21 @@
 {
   "common": {
     "header": {
-      "logoAlt": "CETé ADN — Agence de Notation du Risque Électrique",
+      "logoAlt": "CETé ADN - Agence de Notation du Risque Électrique",
       "logoAriaLabel": "Retour à l'accueil CETé",
       "clientArea": "Espace Client",
       "requestEvaluation": "Demander une évaluation",
       "menu": "Menu"
     },
     "footer": {
-      "logoAlt": "CETé ADN — Agence de Notation du Risque Électrique",
+      "logoAlt": "CETé ADN - Agence de Notation du Risque Électrique",
       "logoAriaLabel": "Retour à l'accueil CETé",
       "tagline": "Agence de Notation indépendante du risque électrique.",
       "motto": "Indépendance. Objectivité. Transparence.",
       "navigation": "Navigation",
       "contact": "Contact",
       "legal": "Légal",
-      "copyright": "© {year} CETé — Agence de Notation du Risque Électrique. Tous droits réservés.",
+      "copyright": "© {year} CETé - Agence de Notation du Risque Électrique. Tous droits réservés.",
       "madeBy": "Fait avec passion par",
       "foundedBy": "Fondé par des anciens Experts de SERECT"
     },
@@ -47,16 +47,16 @@
       "titleLine4": "ÉLECTRIQUE",
       "baseline": "La force d'un collectif",
       "slogan": "Classer. Évaluer. Éclairer.",
-      "subtitle": "L'aptitude TST en un simple regard — notre référentiel évalue et note chaque organisation sur 3 critères (A, B, C ou D) assemblés en Vigi-Score composite, de AAA à DDD.",
+      "subtitle": "L'aptitude TST en un simple regard - notre référentiel évalue et note chaque organisation sur 3 critères (A, B, C ou D) assemblés en Vigi-Score composite, de AAA à DDD.",
       "discoverRating": "Découvrir notre notation",
       "requestEvaluation": "Demander une évaluation",
       "trustIndicator": "200+ organisations évaluées",
-      "ratingA": "A — Conforme",
-      "ratingB": "B — Progrès",
-      "ratingC": "C — Alerte",
-      "ratingD": "D — Critique",
+      "ratingA": "A - Conforme",
+      "ratingB": "B - Progrès",
+      "ratingC": "C - Alerte",
+      "ratingD": "D - Critique",
       "vigiScore": "Vigi-Score",
-      "tripleA": "Triple A — Excellence"
+      "tripleA": "Triple A - Excellence"
     },
     "stats": {
       "title": "Observatoire O-M-T · 2022–2025",
@@ -72,18 +72,18 @@
     },
     "adn": {
       "badge": "Notation propriétaire",
-      "heading": "MÉTHODE ADN — AGENCE DE NOTATION",
-      "description": "Notre référentiel produit une notation composite de AAA à DDD, fondée sur la Règle des 3C — trois capacités mesurables",
+      "heading": "MÉTHODE ADN - AGENCE DE NOTATION",
+      "description": "Notre référentiel produit une notation composite de AAA à DDD, fondée sur la Règle des 3C - trois capacités mesurables",
       "criterion1Title": "Auto-évaluation",
-      "criterion1Desc": "Capacité d'auto-évaluation — diagnostic factuel de vos pratiques actuelles.",
+      "criterion1Desc": "Capacité d'auto-évaluation - diagnostic factuel de vos pratiques actuelles.",
       "criterion2Title": "Recommandation & Amélioration",
       "criterion2Desc": "Capacité à maîtriser les exigences de la Recommandation du Métier.",
       "criterion3Title": "Gestes Métiers",
-      "criterion3Desc": "Capacité à maîtriser les gestes métiers — scoring terrain.",
-      "ratingA": "A — Conforme",
-      "ratingB": "B — Progrès attendus",
-      "ratingC": "C — Alerte",
-      "ratingD": "D — Non conforme",
+      "criterion3Desc": "Capacité à maîtriser les gestes métiers - scoring terrain.",
+      "ratingA": "A - Conforme",
+      "ratingB": "B - Progrès attendus",
+      "ratingC": "C - Alerte",
+      "ratingD": "D - Non conforme",
       "understandRating": "Comprendre la notation",
       "assemblyLabel": "Assemblage → Notation composite"
     },
@@ -105,7 +105,7 @@
       "paragraph1": "Quand nous avons fait appel à CETé, nous pensions que notre niveau de maîtrise des TST était satisfaisant. Notre notation initiale BBB a révélé une réalité différente : des procédures formellement correctes, mais des écarts terrain significatifs.",
       "paragraph2": "Le diagnostic DPS a mis en lumière trois axes critiques : la traçabilité des habilitations, la conformité des équipements de protection, et surtout la culture sécurité au quotidien. Des points que nos audits internes ne captaient pas.",
       "paragraph3": "En 14 mois d'accompagnement Campus CPF, nous avons restructuré nos formations, déployé un coaching terrain pour nos animateurs TST, et mis en place un système de veille réglementaire continu.",
-      "paragraph4": "Le résultat : une réduction de 40 % des incidents électriques, une montée en compétence mesurable de nos équipes, et surtout, le passage de BBB à AAA — une transformation qui a renforcé notre crédibilité auprès de nos donneurs d'ordre.",
+      "paragraph4": "Le résultat : une réduction de 40 % des incidents électriques, une montée en compétence mesurable de nos équipes, et surtout, le passage de BBB à AAA - une transformation qui a renforcé notre crédibilité auprès de nos donneurs d'ordre.",
       "authorName": "Marie Dubois",
       "authorRole": "Directrice QSE",
       "authorCompany": "Électricité Industrielle SA",
@@ -120,9 +120,9 @@
       "badge": "Les co-fondateurs",
       "heading": "80 ANS D'EXPERTISE CUMULÉE",
       "description": "Quatre anciens cadres du SERECT ont fondé CETé pour créer la première agence de notation indépendante du risque électrique en France.",
-      "bullet1": "Anciens cadres SERECT — référence du secteur",
+      "bullet1": "Anciens cadres SERECT - référence du secteur",
       "bullet2": "Concepteurs du référentiel de notation AAA-DDD",
-      "bullet3": "Indépendance totale — aucun conflit d'intérêt",
+      "bullet3": "Indépendance totale - aucun conflit d'intérêt",
       "bullet4": "200+ organisations évaluées en 20 ans",
       "cta": "Qui sommes-nous",
       "imageAlt": "Portrait de {name}, {role}"
@@ -138,7 +138,7 @@
     "hero": {
       "badge": "Agence de notation indépendante",
       "heading": "QUI SOMMES-<accent>NOUS</accent>?",
-      "subtitle": "De <serect>SERECT</serect> à <cete>CET</cete> — 20 ans de terrain, une agence de notation.",
+      "subtitle": "De <serect>SERECT</serect> à <cete>CET</cete> - 20 ans de terrain, une agence de notation.",
       "description": "Quatre experts indépendants ont fondé CETé pour objectiver la maîtrise du risque électrique avec un système de notation structuré et transparent."
     },
     "originStory": {
@@ -234,50 +234,90 @@
   "expertise": {
     "hero": {
       "badge": "Méthodologie de notation",
-      "heading": "LA MÉTHODE ADN",
-      "subheading": "Agence De Notation",
-      "description": "Notre méthodologie exclusive offre un niveau de confiance — de AAA (excellence) à DDD (risque critique) — sur la maîtrise du risque électrique de votre organisation.",
-      "requestEvaluation": "Demander une évaluation",
-      "viewSupport": "Voir l'accompagnement"
+      "heading": "LA MÉTHODE",
+      "subheading": {
+        "part1": "gence",
+        "part2": "e",
+        "part3": "otation"
+      },
+      "description": "Notre méthodologie exclusive offre un niveau de confiance - de AAA (excellence) à DDD (risque critique) - sur la maîtrise du risque électrique de votre organisation.",
+      "cta1": "Demander une évaluation",
+      "cta2": "Voir l'accompagnement"
     },
     "vigiScore": {
-      "badge": "La Règle des 3C — Système de notation",
-      "heading": "LE VIGI-SCORE",
-      "description": "Le Vigi-Score est une notation composite fondée sur trois critères indépendants — la Règle des 3C — chacun évalué de A à D.",
-      "criterion1Label": "C1",
-      "criterion1Title": "Auto-évaluation",
-      "criterion1Desc": "Capacité d'auto-évaluation de l'organisation — diagnostic factuel.",
-      "criterion2Label": "C2",
-      "criterion2Title": "Recommandation & Amélioration",
-      "criterion2Desc": "Respect de la Recommandation du Métier — conformité réglementaire.",
-      "criterion3Label": "C3",
-      "criterion3Title": "Gestes Métiers",
-      "criterion3Desc": "Maîtrise opérationnelle des gestes métiers — scoring terrain.",
-      "assemblyHeading": "Assemblage en notation composite",
+      "badge": "La Règle des 3C - Système de notation",
+      "headingPrefix": "LE",
+      "description": "Le Vigi-Score est une notation composite fondée sur trois critères indépendants - la Règle des 3C - chacun évalué de A à D.",
+      "C1": {
+        "title": "Auto-évaluation",
+        "description": "Capacité d'auto-évaluation de l'organisation - diagnostic factuel."
+      },
+      "C2": {
+        "title": "Recommandation & Amélioration",
+        "description": "Respect de la Recommandation du Métier - conformité réglementaire."
+      },
+      "C3": {
+        "title": "Gestes Métiers",
+        "description": "Maîtrise opérationnelle des gestes métiers - scoring terrain."
+      },
+      "assemblyHeading": "Assemblage en notation",
+      "assemblyHighlight": "composite",
       "resultLabel": "Résultat",
-      "resultDesc": "L'excellence traduite par un Triple A (AAA) — la maîtrise optimale du risque électrique.",
-      "tendencyLabel": "Indicateur de tendance + / −",
-      "tendencyUp": "Tendance à la hausse",
-      "tendencyStable": "Stable",
-      "tendencyDown": "Tendance à la baisse"
+      "resultDescription": "L'excellence traduite par un Triple A (AAA) - la maîtrise optimale du risque électrique.",
+      "tendencyHeading": "Indicateur de tendance",
+      "tendencyDescription": "Chaque critère peut être assorti d'un indicateur de progression ou de régression.",
+      "tendency": {
+        "up": "Tendance à la hausse",
+        "stable": "Stable",
+        "down": "Tendance à la baisse"
+      }
     },
     "vigilance": {
       "badge": "Concept fondateur",
-      "heading": "VIGILANCE ↔ VULNÉRABILITÉ",
+      "headingVigilance": "VIGILANCE",
+      "headingVulnerability": "VULNÉRABILITÉ",
+      "description": "Deux forces opposées qui déterminent le niveau de maîtrise du risque électrique de votre organisation.",
+      "gaugeVigilance": "Vigilance",
+      "gaugeVulnerability": "Vulnérabilité",
+      "gaugeLow": "Vigilance élevée",
+      "gaugeHigh": "Vulnérabilité élevée",
       "vigilanceTitle": "Vigilance",
-      "vigilanceDesc": "Capacité proactive de l'organisation à anticiper, détecter et maîtriser les risques électriques.",
+      "vigilanceDescription": "Capacité proactive de l'organisation à anticiper, détecter et maîtriser les risques électriques.",
       "vulnerabilityTitle": "Vulnérabilité",
-      "vulnerabilityDesc": "Exposition résiduelle aux risques lorsque la vigilance est insuffisante.",
-      "gaugeHigh": "Vigilance élevée",
-      "gaugeLow": "Vulnérabilité élevée",
-      "ncTitle": "Ce qui déclenche une note D",
-      "ncAudimat": "AuDiMaT",
-      "ncOrganisationnel": "Organisationnel",
-      "ncOperationnel": "Opérationnel"
+      "vulnerabilityDescription": "Exposition résiduelle aux risques lorsque la vigilance est insuffisante.",
+      "ncHeading": "Ce qui déclenche une note",
+      "ncHeadingHighlight": "D",
+      "ncDescription": "Trois catégories de non-conformités majeures peuvent entraîner une note D sur un ou plusieurs critères.",
+      "nc0": {
+        "title": "AuDiMaT",
+        "items": {
+          "0": "Absence ou invalidité des autorisations de travail",
+          "1": "Non-conformité des habilitations électriques",
+          "2": "Matériel de protection individuelle non vérifié ou périmé"
+        }
+      },
+      "nc1": {
+        "title": "Organisationnel",
+        "items": {
+          "0": "Absence de procédures de consignation documentées",
+          "1": "Défaut de traçabilité des interventions TST",
+          "2": "Plan de prévention incomplet ou non mis à jour"
+        }
+      },
+      "nc2": {
+        "title": "Opérationnel",
+        "items": {
+          "0": "Non-respect des distances de sécurité en situation réelle",
+          "1": "Utilisation d'outillage non conforme sur le terrain",
+          "2": "Absence de vérification d'absence de tension avant intervention"
+        }
+      }
     },
     "omt": {
       "badge": "Observatoire O-M-T · 2022–2025",
-      "heading": "L'OBSERVATOIRE DE LA MAÎTRISE DES TST",
+      "heading": "L'OBSERVATOIRE DE LA MAÎTRISE",
+      "headingHighlight": "DES TST",
+      "description": "Un observatoire unique en France qui capitalise les données terrain pour objectiver la maîtrise du risque électrique.",
       "stat1": "DPS réalisés",
       "stat2": "Entreprises auditées",
       "stat3": "Exigences observées",
@@ -285,49 +325,121 @@
     },
     "tertiles": {
       "badge": "Observatoire O-M-T",
-      "heading": "OÙ VOUS SITUEZ-VOUS ?",
+      "heading": "OÙ VOUS",
+      "headingHighlight": "SITUEZ-VOUS",
       "description": "L'analyse croisée AudiMaT des résultats de l'observatoire O-M-T fait émerger trois profils d'organisations.",
-      "tertile1Name": "Les Vulnérables",
-      "tertile1Subtitle": "« Les Grognons »",
-      "tertile1Risk": "VULNÉRABILITÉ",
-      "tertile1RiskDesc": "Probabilité d'accident forte",
-      "tertile2Name": "Le Ventre Mou",
-      "tertile2Subtitle": "Position médiane",
-      "tertile2Risk": "VIGILANCE",
-      "tertile2RiskDesc": "Probabilité d'accident modérée",
-      "tertile3Name": "Les Talents",
-      "tertile3Subtitle": "L'excellence opérationnelle",
-      "tertile3Risk": "MAÎTRISE",
-      "tertile3RiskDesc": "Probabilité d'accident faible",
+      "vulnerables": {
+        "name": "Les Vulnérables",
+        "subtitle": "« Les Grognons »",
+        "quote": "On a toujours fait comme ça, pourquoi changer ?",
+        "traits": {
+          "0": "Résistance au changement et aux nouvelles pratiques",
+          "1": "Documentation incomplète ou non mise à jour",
+          "2": "Formation insuffisante des intervenants terrain",
+          "3": "Culture sécurité peu ancrée dans le quotidien"
+        },
+        "riskLabel": "VULNÉRABILITÉ",
+        "risk": "Probabilité d'accident forte"
+      },
+      "ventreMou": {
+        "name": "Le Ventre Mou",
+        "subtitle": "Position médiane",
+        "quote": "On fait le minimum requis, ça devrait suffire.",
+        "traits": {
+          "0": "Conformité formelle sans appropriation réelle",
+          "1": "Écarts entre procédures écrites et pratiques terrain",
+          "2": "Amélioration continue non structurée",
+          "3": "Engagement variable selon les équipes"
+        },
+        "riskLabel": "VIGILANCE",
+        "risk": "Probabilité d'accident modérée"
+      },
+      "talents": {
+        "name": "Les Talents",
+        "subtitle": "L'excellence opérationnelle",
+        "quote": "La sécurité est notre culture, pas une contrainte.",
+        "traits": {
+          "0": "Culture sécurité intégrée à tous les niveaux",
+          "1": "Amélioration continue mesurable et documentée",
+          "2": "Formation et coaching terrain réguliers",
+          "3": "Anticipation proactive des risques émergents"
+        },
+        "riskLabel": "MAÎTRISE",
+        "risk": "Probabilité d'accident faible"
+      },
       "note": "Une maîtrise opérationnelle des TST proportionnelle au respect de la Recommandation, voire plus."
     },
     "comparison": {
-      "heading": "VULNÉRABLES vs TALENTS",
       "badge": "Les 3 axes de progrès systématiques",
-      "gapHeading": "LE TIERCÉ DES ÉCARTS",
-      "axis1": "Prévention primaire",
-      "axis2": "Compétence",
-      "axis3": "Animation TST",
-      "axis4": "Formation"
+      "heading": "VULNÉRABLES",
+      "headingTalents": "TALENTS",
+      "columnTheme": "Thème",
+      "columnVulnerables": "Vulnérables",
+      "columnTalents": "Talents",
+      "axis0": {
+        "theme": "Prévention primaire",
+        "vulnerable": "Réactive, centrée sur la conformité documentaire sans ancrage terrain.",
+        "talent": "Proactive, intégrée au management quotidien avec indicateurs de suivi."
+      },
+      "axis1": {
+        "theme": "Compétence",
+        "vulnerable": "Habilitations à jour mais compétences terrain non évaluées régulièrement.",
+        "talent": "Évaluation continue des compétences avec coaching terrain individualisé."
+      },
+      "axis2": {
+        "theme": "Animation TST",
+        "vulnerable": "Animation formelle, peu de retour d'expérience structuré.",
+        "talent": "Animation dynamique avec partage de bonnes pratiques et REX systématique."
+      },
+      "axis3": {
+        "theme": "Formation",
+        "vulnerable": "Formation initiale uniquement, pas de recyclage adapté aux évolutions.",
+        "talent": "Parcours de formation continue adapté aux besoins identifiés sur le terrain."
+      },
+      "gapBadge": "Le Tiercé des écarts",
+      "gapHeading": "LE TIERCÉ DES",
+      "gapHeadingHighlight": "ÉCARTS",
+      "gap0": {
+        "title": "Prévention primaire",
+        "description": "L'écart le plus fréquent : une prévention documentaire qui ne se traduit pas en actions terrain concrètes et mesurables."
+      },
+      "gap1": {
+        "title": "Maintien des compétences",
+        "description": "Les habilitations sont à jour mais les compétences réelles ne sont ni évaluées ni entretenues par un coaching terrain régulier."
+      },
+      "gap2": {
+        "title": "Animation de la sécurité",
+        "description": "L'animation sécurité se limite aux réunions obligatoires sans exploitation structurée des retours d'expérience terrain."
+      }
     },
     "services": {
       "badge": "Nos Offres",
       "heading": "OFFRES EXPERTISE",
-      "description": "Des solutions adaptées à vos besoins d'évaluation et de certification"
+      "description": "Des solutions adaptées à vos besoins d'évaluation et de certification",
+      "learnMore": "En savoir plus"
     },
     "certificate": {
       "badge": "Certification",
-      "heading": "LE CERTIFICAT CETé ADN",
+      "heading": "LE CERTIFICAT",
+      "description": "Le certificat CETé ADN atteste du niveau de maîtrise du risque électrique de votre organisation, évalué selon notre méthodologie exclusive.",
       "differenceHeading": "Un certificat qui fait la différence",
-      "requestEvaluation": "Demander une évaluation",
-      "learnMore": "En savoir plus"
+      "differenceDescription": "Le certificat CETé ADN est le seul document qui atteste objectivement de votre niveau de maîtrise du risque électrique, évalué par une agence indépendante selon une méthodologie transparente.",
+      "features": {
+        "0": "Notation composite triple-lettre de AAA à DDD",
+        "1": "Évaluation indépendante par des experts certifiés",
+        "2": "Vérifiable en ligne via QR code unique",
+        "3": "Validité définie par le Comité de Suivi CETé",
+        "4": "Reconnaissance auprès des donneurs d'ordre et assureurs"
+      },
+      "cta1": "Demander une évaluation",
+      "cta2": "En savoir plus"
     },
     "cta": {
       "badge": "Objectif AAA",
-      "heading": "OBJECTIF AAA",
+      "heading": "OBJECTIF",
       "description": "Découvrez où vous vous situez dans la maîtrise du risque électrique et engagez une démarche d'amélioration continue.",
-      "requestEvaluation": "Demander une évaluation",
-      "discoverCete": "Découvrir CETé"
+      "cta1": "Demander une évaluation",
+      "cta2": "Découvrir"
     }
   },
   "services": {
@@ -448,10 +560,10 @@
       "successTitle": "Message envoyé !",
       "successDesc": "Nous vous recontacterons dans les meilleurs délais.",
       "subjectOptions": {
-        "dps": "Notation — Diagnostic Performance Sécurité (DPS)",
-        "save": "Expertise — Analyse d'événements (SAVE)",
-        "campus": "Formation — Coaching, Performance, Formation (Campus CPF)",
-        "pass": "Abonnement — PASS-Sérénité VIP",
+        "dps": "Notation - Diagnostic Performance Sécurité (DPS)",
+        "save": "Expertise - Analyse d'événements (SAVE)",
+        "campus": "Formation - Coaching, Performance, Formation (Campus CPF)",
+        "pass": "Abonnement - PASS-Sérénité VIP",
         "other": "Autre demande"
       },
       "validation": {
@@ -482,7 +594,7 @@
       "phonePlaceholder": "+33 1 XX XX XX XX",
       "evaluationTypeLabel": "Type d'évaluation souhaitée",
       "sitesLabel": "Nombre et localisation des sites",
-      "sitesPlaceholder": "Ex : 3 sites — Lyon, Grenoble, Paris",
+      "sitesPlaceholder": "Ex : 3 sites - Lyon, Grenoble, Paris",
       "detailsLabel": "Précisions complémentaires",
       "detailsPlaceholder": "Contexte, contraintes de calendrier, objectifs particuliers…",
       "acceptCgu": "J'accepte les conditions générales d'utilisation",
@@ -500,11 +612,11 @@
         "other": "Autre"
       },
       "evaluationOptions": {
-        "dps": "DPS — Diagnostic Performance Sécurité",
-        "save": "SAVE — Analyse de Vulnérabilité des Événements",
-        "campus": "Campus CPF — Coaching, Performance, Formation",
+        "dps": "DPS - Diagnostic Performance Sécurité",
+        "save": "SAVE - Analyse de Vulnérabilité des Événements",
+        "campus": "Campus CPF - Coaching, Performance, Formation",
         "pass": "PASS-Sérénité VIP",
-        "vigiScore": "Vigi-Score — Notation indépendante",
+        "vigiScore": "Vigi-Score - Notation indépendante",
         "multiple": "Plusieurs prestations (préciser ci-dessous)"
       },
       "employeeOptions": {
@@ -577,6 +689,111 @@
       "step3": "Maîtrise opérationnelle",
       "step3Desc": "Gestion quotidienne du risque électrique sur le terrain",
       "learnMore": "En savoir plus"
+    }
+  },
+  "client": {
+    "sidebar": {
+      "title": "Espace Client",
+      "dashboard": "Tableau de bord",
+      "newsletters": "Newsletters",
+      "capsules": "Capsules vidéo",
+      "guides": "Guides pratiques",
+      "carnets": "Carnets d'appui",
+      "resources": "Ressources",
+      "profile": "Mon profil",
+      "notifications": "Notifications",
+      "unread": "{count} non lue(s)",
+      "logout": "Déconnexion"
+    },
+    "states": {
+      "loading": "Chargement...",
+      "error": "Erreur de chargement",
+      "retry": "Réessayer"
+    },
+    "dashboard": {
+      "welcome": "Bienvenue, {name}",
+      "description": "Retrouvez vos documents, votre notation et vos ressources",
+      "recentPublications": "Dernières publications",
+      "totalCount": "{count} au total",
+      "viewAll": "Voir toutes les publications"
+    },
+    "profile": {
+      "heading": "Mon profil",
+      "subtitle": "Votre compte et votre organisation",
+      "personalInfo": "Informations personnelles",
+      "clientBadge": "Client",
+      "clientId": "ID Client : {id}",
+      "subscription": "Votre abonnement",
+      "docsAccessible": "documents accessibles",
+      "description": "Votre espace client vous donne accès aux newsletters, capsules vidéo, guides pratiques et carnets d'appui {brand}. Contactez votre référent pour toute question sur votre notation ou vos ressources."
+    },
+    "categories": {
+      "newsletters": "Newsletters",
+      "capsules": "Capsules vidéo",
+      "guides": "Guides pratiques",
+      "carnets": "Carnets d'appui"
+    },
+    "pages": {
+      "newslettersTitle": "Newsletters",
+      "capsulesTitle": "Capsules vidéo",
+      "guidesTitle": "Guides pratiques",
+      "carnetsTitle": "Carnets d'appui",
+      "resourcesTitle": "Bibliothèque technique et réglementaire",
+      "available": "{count} {item} disponible(s)",
+      "noResources": "Aucune ressource trouvée",
+      "noCapsules": "Aucune capsule disponible"
+    },
+    "resources": {
+      "categoryNormes": "Normes",
+      "categoryReglementation": "Réglementation",
+      "categoryGuides": "Guides techniques",
+      "categoryRapports": "Rapports",
+      "categoryVeille": "Veille réglementaire",
+      "typePdf": "PDF",
+      "typeLien": "Lien",
+      "typeVideo": "Vidéo",
+      "search": "Rechercher...",
+      "allCategories": "Toutes catégories",
+      "allTypes": "Tous types",
+      "download": "Télécharger",
+      "view": "Consulter"
+    },
+    "documents": {
+      "headerDocument": "Document",
+      "headerType": "Type",
+      "headerSize": "Taille",
+      "headerDate": "Date",
+      "headerRights": "Droits",
+      "headerAction": "Action",
+      "empty": "Aucun document disponible",
+      "downloadAccess": "Téléchargement",
+      "viewOnly": "Lecture seule",
+      "downloadBtn": "Télécharger",
+      "viewBtn": "Consulter",
+      "playBtn": "Voir",
+      "popupError": "Impossible d'ouvrir le document. Autorisez les pop-ups.",
+      "viewOnlyTitle": "Lecture seule"
+    },
+    "certificate": {
+      "title": "Certificat {brand} - {number}",
+      "valid": "Valide",
+      "expired": "Expiré",
+      "revoked": "Révoqué",
+      "rating": "Notation globale",
+      "vigiScore": "Vigi-Score",
+      "evaluation": "Évaluation",
+      "validity": "Validité",
+      "expert": "Expert",
+      "autoEval": "Auto-éval : {value}",
+      "requirements": "Exigences : {value}",
+      "operational": "Opéra : {value}",
+      "qrCode": "QR code unique : ",
+      "downloadCert": "Télécharger mon certificat"
+    },
+    "notifications": {
+      "title": "Veille réglementaire",
+      "new": "Nouveau",
+      "markRead": "Marquer lu"
     }
   }
 }

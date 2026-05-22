@@ -8,7 +8,7 @@ import {
 } from "@/components/sections/blog";
 
 export const metadata: Metadata = {
-  title: "Blog — Décryptages & Analyses",
+  title: "Blog - Décryptages & Analyses",
   description:
     "Réglementation, retours d'expérience et bonnes pratiques : nos experts décryptent l'actualité du risque électrique.",
 };

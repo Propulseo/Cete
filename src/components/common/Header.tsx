@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Pathnames } from "@/i18n/routing";
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
@@ -13,8 +13,9 @@ import { getNavigation } from "@/lib/data-loader";
 
 export function Header() {
   const t = useTranslations("common.header");
+  const locale = useLocale() as "fr" | "en";
   const [isOpen, setIsOpen] = useState(false);
-  const navigation = getNavigation();
+  const navigation = getNavigation(locale);
   const pathname = usePathname();
 
   return (

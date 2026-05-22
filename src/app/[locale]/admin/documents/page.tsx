@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, FileText, Video, Search, Loader2, Eye, Download } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import type { ClientDocument } from "@/types/document";
 import {
@@ -14,13 +12,8 @@ import {
   deleteDocument,
 } from "@/lib/repo/documents.repo";
 import { DocumentFormDialog } from "@/components/features/admin/DocumentFormDialog";
-
-const categoryLabels: Record<string, string> = {
-  newsletters: "Newsletters",
-  capsules: "Capsules",
-  guides: "Guides",
-  carnets: "Carnets",
-};
+import { AdminDocumentFilters } from "@/components/features/admin/AdminDocumentFilters";
+import { AdminDocumentTable } from "@/components/features/admin/AdminDocumentTable";
 
 export default function AdminDocumentsPage() {
   const [docs, setDocs] = useState<ClientDocument[]>([]);
@@ -119,86 +112,20 @@ export default function AdminDocumentsPage() {
         </Button>
       </div>
 
-      {/* Filters */}
-      <div className="mb-4 flex flex-wrap gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input className="pl-9" placeholder="Rechercher..." value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
-        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={filterCat} onChange={(e) => setFilterCat(e.target.value)}>
-          <option value="">Toutes catégories</option>
-          {Object.entries(categoryLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-        </select>
-        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={filterVis} onChange={(e) => setFilterVis(e.target.value)}>
-          <option value="">Toute visibilité</option>
-          <option value="global">Global</option>
-          <option value="client">Client</option>
-        </select>
-      </div>
+      <AdminDocumentFilters
+        search={search}
+        onSearchChange={setSearch}
+        filterCat={filterCat}
+        onFilterCatChange={setFilterCat}
+        filterVis={filterVis}
+        onFilterVisChange={setFilterVis}
+      />
 
-      {/* Table */}
-      <div className="overflow-hidden rounded-lg border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b bg-secondary/50">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Document</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Catégorie</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Type</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Visibilité</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Accès</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Date</th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {filtered.map((doc) => (
-              <tr key={doc.id} className="hover:bg-secondary/30">
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${doc.type === "pdf" ? "bg-red-100 text-red-600" : "bg-purple-100 text-purple-600"}`}>
-                      {doc.type === "pdf" ? <FileText className="h-4 w-4" /> : <Video className="h-4 w-4" />}
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground line-clamp-1">{doc.title}</p>
-                      <p className="text-xs text-muted-foreground line-clamp-1">{doc.description}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-4 py-3"><Badge variant="secondary">{categoryLabels[doc.category]}</Badge></td>
-                <td className="px-4 py-3"><Badge variant={doc.type === "pdf" ? "outline" : "default"}>{doc.type}</Badge></td>
-                <td className="px-4 py-3"><Badge variant={doc.visibility === "global" ? "default" : "outline"}>{doc.visibility}{doc.clientId ? ` · ${doc.clientId}` : ""}</Badge></td>
-                <td className="px-4 py-3">
-                  {doc.accessType === "download" ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
-                      <Download className="h-3 w-3" />
-                      Téléchargement
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
-                      <Eye className="h-3 w-3" />
-                      Lecture seule
-                    </span>
-                  )}
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{doc.uploadDate}</td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    <Button variant="ghost" size="icon" onClick={() => { setEditing(doc); setDialogOpen(true); }}>
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(doc.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {filtered.length === 0 && (
-          <div className="p-8 text-center text-sm text-muted-foreground">Aucun document trouvé</div>
-        )}
-      </div>
+      <AdminDocumentTable
+        documents={filtered}
+        onEdit={(doc) => { setEditing(doc); setDialogOpen(true); }}
+        onDelete={handleDelete}
+      />
 
       <DocumentFormDialog
         open={dialogOpen}

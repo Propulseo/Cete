@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { ClipboardCheck, Star, ShieldAlert, Zap, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getExpertiseServices } from "@/lib/data-loader";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const iconMap: Record<string, React.ReactNode> = {
   "clipboard-check": <ClipboardCheck className="h-6 w-6" />,
@@ -14,7 +14,8 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function ExpertiseServices() {
   const t = useTranslations("expertise.services");
-  const expertiseServices = getExpertiseServices();
+  const locale = useLocale() as "fr" | "en";
+  const expertiseServices = getExpertiseServices(locale);
 
   return (
     <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">

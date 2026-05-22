@@ -3,7 +3,7 @@ import { BrandName } from "@/components/ui/brand-name";
 
 export const metadata: Metadata = {
   title: "Conditions Générales d'Utilisation",
-  description: "CGU du site CETé — Agence de Notation du Risque Électrique.",
+  description: "CGU du site CETé - Agence de Notation du Risque Électrique.",
 };
 
 export default function CGUPage() {
@@ -26,7 +26,7 @@ export default function CGUPage() {
           <p>
             Les présentes Conditions Générales d&apos;Utilisation (CGU) définissent
             les modalités d&apos;accès et d&apos;utilisation du site internet
-            www.cete-notation.fr (ci-après « le Site »), édité par <BrandName /> — Consortium
+            www.cete-notation.fr (ci-après « le Site »), édité par <BrandName /> - Consortium
             Experts Techniques Électricité.
           </p>
 
@@ -34,7 +34,7 @@ export default function CGUPage() {
             2. Éditeur du Site
           </h2>
           <p>
-            <BrandName /> — Consortium Experts Techniques Électricité<br />
+            <BrandName /> - Consortium Experts Techniques Électricité<br />
             Agence de Notation indépendante du risque électrique<br />
             Email : contact@cete-notation.fr
           </p>

@@ -94,7 +94,7 @@ export function ExpertiseTertiles() {
               </ul>
 
               <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold ${tert.color.badge}`}>
-                {t(`${tert.key}.riskLabel`)} — {t(`${tert.key}.risk`)}
+                {t(`${tert.key}.riskLabel`)} - {t(`${tert.key}.risk`)}
               </div>
             </div>
           ))}

@@ -121,7 +121,7 @@ export async function generateCertificatePDF(
   doc.setFont("helvetica", "normal");
   doc.text(formatDate(cert.validityDate), LX + 42, ly);
 
-  // ── Right block — Rating badge ──
+  // ── Right block - Rating badge ──
   const RX = 120;
   let ry = 58;
 
@@ -150,7 +150,7 @@ export async function generateCertificatePDF(
   // Label
   doc.setFontSize(7);
   doc.setTextColor(74, 101, 128);
-  doc.text("Échelle : AAA (optimal) — DDD (critique)", RX + 37.5, ry + 43, {
+  doc.text("Échelle : AAA (optimal) - DDD (critique)", RX + 37.5, ry + 43, {
     align: "center",
   });
 
@@ -240,7 +240,7 @@ export async function generateCertificatePDF(
   doc.setFontSize(4);
   doc.text(cert.certificateNumber, RX + 37.5, ry + 17, { align: "center" });
 
-  // ── Footer — Legal mentions ──
+  // ── Footer - Legal mentions ──
   const fy = H - 38;
   doc.setDrawColor(218, 238, 248);
   doc.setLineWidth(0.3);
@@ -250,7 +250,7 @@ export async function generateCertificatePDF(
   doc.setFontSize(6);
   doc.setTextColor(138, 165, 190);
   const legalLines = [
-    "Ce certificat est délivré par CETé — Consortium Experts Techniques Électricité, agence de notation indépendante.",
+    "Ce certificat est délivré par CETé - Consortium Experts Techniques Électricité, agence de notation indépendante.",
     "La notation attribuée est fondée sur le référentiel propriétaire CETé ADN et ne constitue pas une garantie d'absence de risque.",
     "La reproduction ou la falsification de ce document est passible de poursuites. Vérifiez l'authenticité via le QR code ci-contre.",
   ];
@@ -258,7 +258,7 @@ export async function generateCertificatePDF(
     doc.text(line, 15, fy + 5 + i * 3.5);
   });
 
-  // ── QR Code — bottom right ──
+  // ── QR Code - bottom right ──
   const verifyUrl = `https://cete-adn.fr/verifier/${cert.id}`;
   try {
     const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
