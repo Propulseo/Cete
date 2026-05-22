@@ -4,10 +4,13 @@ import { RepoError } from "@/types/repo-error";
 import seedData from "@/data/mocks/resources.json";
 
 const KEY = "cete_resources";
+const SEED_VERSION_KEY = "cete_resources_v";
+const SEED_VERSION = 2;
 
 function seedIfEmpty(): void {
-  if (!getItem<Resource[]>(KEY)) {
+  if (!getItem<Resource[]>(KEY) || getItem<number>(SEED_VERSION_KEY) !== SEED_VERSION) {
     setItem(KEY, seedData.resources);
+    setItem(SEED_VERSION_KEY, SEED_VERSION);
   }
 }
 
