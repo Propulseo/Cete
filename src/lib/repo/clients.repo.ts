@@ -206,6 +206,28 @@ export async function updateClient(
   }
   if (!updated) return null;
 
+  // Synchronise les contacts si fournis (delete + re-insert ; ids uuid régénérés).
+  if (payload.contacts !== undefined) {
+    await supabase.from("client_contacts").delete().eq("client_id", id);
+    if (payload.contacts.length > 0) {
+      const contactRows: ClientContactInsert[] = payload.contacts.map((c) => ({
+        client_id: id,
+        first_name: c.firstName,
+        last_name: c.lastName,
+        role: c.role,
+        email: c.email || null,
+        phone: c.phone || null,
+        is_primary: c.isPrimary,
+      }));
+      const { error: contactError } = await supabase
+        .from("client_contacts")
+        .insert(contactRows);
+      if (contactError) {
+        throw new RepoError("Impossible de modifier les contacts", "clients", "update");
+      }
+    }
+  }
+
   return getClientById(updated.id);
 }
 

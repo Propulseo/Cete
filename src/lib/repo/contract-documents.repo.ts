@@ -124,9 +124,14 @@ export async function createContractDocument(
   payload: Omit<ContractDocument, "id">
 ): Promise<ContractDocument> {
   const supabase = createClient();
+  // uploaded_by = utilisateur courant (ignore les valeurs mock type "adm-001"
+  // qui violeraient la FK vers profiles).
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   const { data, error } = await supabase
     .from("contract_documents")
-    .insert(toInsert(payload))
+    .insert({ ...toInsert(payload), uploaded_by: user?.id ?? null })
     .select("*")
     .single();
   if (error || !data) {

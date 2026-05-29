@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { useClient } from "@/components/features/admin/clients/ClientContext";
 import { listEvaluationsByClientId, createEvaluation, updateEvaluation } from "@/lib/repo/evaluations.repo";
 import { createContractDocument } from "@/lib/repo/contract-documents.repo";
-import { getFounders } from "@/lib/data-loader";
+import { listAllFounders } from "@/lib/repo/founders.repo";
 import type { Evaluation, VigiScoreGrade } from "@/types/client";
 import type { Founder } from "@/types/founder";
 import { RatingSeal, CompositeRating } from "@/components/features/admin/ui/rating-seal";
@@ -47,12 +47,14 @@ export default function ClientEvaluationsPage() {
 
   useEffect(() => {
     let cancelled = false;
-    listEvaluationsByClientId(client.id).then((e) => {
-      if (!cancelled) {
-        setEvals(e.sort((a, b) => b.visitDate.localeCompare(a.visitDate)));
-        setFounders(getFounders());
-      }
-    });
+    Promise.all([listEvaluationsByClientId(client.id), listAllFounders()]).then(
+      ([e, f]) => {
+        if (!cancelled) {
+          setEvals(e.sort((a, b) => b.visitDate.localeCompare(a.visitDate)));
+          setFounders(f);
+        }
+      },
+    );
     return () => { cancelled = true; };
   }, [client.id, refreshKey]);
 
@@ -83,7 +85,6 @@ export default function ClientEvaluationsPage() {
   const handleComplete = async () => {
     if (!completeTarget) return;
     const compositeRating = `${autoEval[0]}${reqScore[0]}${opScore[0]}`;
-    const certId = `cete-cert-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}-${Math.random().toString(36).slice(2, 6)}`;
 
     const reportDoc = await createContractDocument({
       clientId: client.id, type: "report", title: `Rapport evaluation ${completeTarget.siteName}`,
@@ -98,7 +99,7 @@ export default function ClientEvaluationsPage() {
     await updateEvaluation(completeTarget.id, {
       status: "completed", vigiScore,
       omtScore: { autoEvaluation: autoEval, recommandation: reqScore, gestesMetiers: opScore },
-      compositeRating, certificateId: certId, reportDocumentId: reportDoc.id,
+      compositeRating, reportDocumentId: reportDoc.id,
       nextEvaluationDue: nextDue.toISOString().split("T")[0],
       notes: completeNotes || completeTarget.notes,
     });
