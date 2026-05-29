@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { Profile } from "@/types/auth";
 
-type UserPayload = Omit<Profile, "id" | "created_at">;
+type UserPayload = Omit<Profile, "id" | "created_at"> & { password?: string };
 
 interface UserFormDialogProps {
   open: boolean;
@@ -27,6 +27,7 @@ const EMPTY: UserPayload = {
   role: "client",
   company: "",
   is_active: true,
+  password: "",
 };
 
 export function UserFormDialog({
@@ -89,6 +90,20 @@ export function UserFormDialog({
               required
             />
           </div>
+
+          {!initialData && (
+            <div className="space-y-2">
+              <Label>Mot de passe</Label>
+              <Input
+                type="password"
+                value={form.password ?? ""}
+                onChange={(e) => set("password", e.target.value)}
+                placeholder="Min. 6 caractères"
+                required
+                minLength={6}
+              />
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label>Rôle</Label>

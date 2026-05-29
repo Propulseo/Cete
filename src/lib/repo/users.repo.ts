@@ -1,112 +1,89 @@
-import { getItem, setItem } from "@/lib/store/storage";
+import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/types/auth";
+import type { Database } from "@/lib/supabase/database.types";
 import { RepoError } from "@/types/repo-error";
+import { createUserAction, deleteUserAction } from "@/app/actions/users";
 
-const KEY = "cete_users";
+type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
+type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"];
 
-const SEED_USERS: Profile[] = [
-  {
-    id: "adm-001",
-    name: "Administrateur CETé",
-    email: "admin@cete.fr",
-    role: "admin",
-    is_active: true,
-    created_at: "2025-01-01",
-  },
-  {
-    id: "cli-12345",
-    name: "Jean Dupont",
-    email: "demo@cete.fr",
-    role: "client",
-    company: "Electricité Pro SA",
-    is_active: true,
-    created_at: "2025-06-15",
-  },
-];
+export type CreateUserPayload = Omit<Profile, "id" | "created_at"> & {
+  password?: string;
+};
 
-function seedIfEmpty(): void {
-  if (!getItem<Profile[]>(KEY)) {
-    setItem(KEY, SEED_USERS);
-  }
+function rowToProfile(r: ProfileRow): Profile {
+  return {
+    id: r.id,
+    email: r.email,
+    name: r.name,
+    role: r.role === "admin" ? "admin" : "client",
+    clientId: r.client_id ?? undefined,
+    company: r.company ?? undefined,
+    phone: r.phone ?? undefined,
+    is_active: r.is_active,
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  };
 }
 
-// TODO Supabase: supabase.from('profiles').select('*').order('created_at', { ascending: false })
 export async function listUsers(): Promise<Profile[]> {
-  try {
-    seedIfEmpty();
-    return getItem<Profile[]>(KEY) ?? [];
-  } catch (error) {
-    console.error("[users.repo] listUsers failed:", error);
-    throw new RepoError("Impossible de charger les utilisateurs", "users", "list");
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) throw new RepoError("Impossible de charger les utilisateurs", "users", "list");
+  return (data ?? []).map(rowToProfile);
 }
 
-// TODO Supabase: supabase.from('profiles').select('*').eq('id', id).single()
 export async function getAppUser(id: string): Promise<Profile | null> {
-  try {
-    const users = await listUsers();
-    return users.find((u) => u.id === id) ?? null;
-  } catch (error) {
-    console.error("[users.repo] getAppUser failed:", error);
-    throw new RepoError("Impossible de charger l'utilisateur", "users", "get");
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase.from("profiles").select("*").eq("id", id).maybeSingle();
+  if (error) throw new RepoError("Impossible de charger l'utilisateur", "users", "get");
+  return data ? rowToProfile(data) : null;
 }
 
-// TODO Supabase: supabase.from('profiles').insert(payload).select().single()
-// Note: en Supabase, la création d'un user passe d'abord par auth.admin.createUser()
-// puis un trigger insère automatiquement le profil dans la table profiles.
-export async function createUser(
-  payload: Omit<Profile, "id" | "created_at">
-): Promise<Profile> {
-  try {
-    const users = await listUsers();
-    const newUser: Profile = {
-      ...payload,
-      id: `usr-${Date.now()}`, // TODO Supabase: UUID auto-généré par auth.users
-      created_at: new Date().toISOString().split("T")[0],
-    };
-    users.unshift(newUser);
-    setItem(KEY, users);
-    return newUser;
-  } catch (error) {
-    console.error("[users.repo] createUser failed:", error);
-    throw new RepoError("Impossible de créer l'utilisateur", "users", "create");
-  }
+// Création via Server Action (Admin API service-role) : auth.admin.createUser +
+// trigger handle_new_user qui crée le profil (role/client_id/company depuis metadata).
+export async function createUser(payload: CreateUserPayload): Promise<Profile> {
+  const { id } = await createUserAction({
+    email: payload.email,
+    password: payload.password && payload.password.length >= 6 ? payload.password : "changeme123",
+    name: payload.name,
+    role: payload.role,
+    clientId: payload.clientId,
+    company: payload.company,
+  });
+  const created = await getAppUser(id);
+  if (!created) throw new RepoError("Profil introuvable après création", "users", "create");
+  return created;
 }
 
-// TODO Supabase: supabase.from('profiles').update(payload).eq('id', id).select().single()
 export async function updateUser(
   id: string,
-  payload: Partial<Omit<Profile, "id" | "created_at">>
+  payload: Partial<Omit<Profile, "id" | "created_at">> & { password?: string },
 ): Promise<Profile | null> {
-  try {
-    const users = await listUsers();
-    const idx = users.findIndex((u) => u.id === id);
-    if (idx === -1) return null;
-    users[idx] = { ...users[idx], ...payload };
-    setItem(KEY, users);
-    return users[idx];
-  } catch (error) {
-    console.error("[users.repo] updateUser failed:", error);
-    throw new RepoError("Impossible de modifier l'utilisateur", "users", "update");
-  }
+  const supabase = createClient();
+  const patch: ProfileUpdate = {};
+  if (payload.name !== undefined) patch.name = payload.name;
+  if (payload.email !== undefined) patch.email = payload.email;
+  if (payload.role !== undefined) patch.role = payload.role;
+  if (payload.clientId !== undefined) patch.client_id = payload.clientId ?? null;
+  if (payload.company !== undefined) patch.company = payload.company ?? null;
+  if (payload.phone !== undefined) patch.phone = payload.phone ?? null;
+  if (payload.is_active !== undefined) patch.is_active = payload.is_active;
+  // payload.password ignoré ici (changement de mot de passe = flux dédié, non couvert).
+  const { data, error } = await supabase
+    .from("profiles")
+    .update(patch)
+    .eq("id", id)
+    .select("*")
+    .maybeSingle();
+  if (error) throw new RepoError("Impossible de modifier l'utilisateur", "users", "update");
+  return data ? rowToProfile(data) : null;
 }
 
-// TODO Supabase: supabase.from('profiles').delete().eq('id', id)
-// Note: en Supabase, supprimer un profil implique aussi auth.admin.deleteUser()
 export async function deleteUser(id: string): Promise<boolean> {
-  try {
-    const users = await listUsers();
-    const filtered = users.filter((u) => u.id !== id);
-    if (filtered.length === users.length) return false;
-    setItem(KEY, filtered);
-    return true;
-  } catch (error) {
-    console.error("[users.repo] deleteUser failed:", error);
-    throw new RepoError("Impossible de supprimer l'utilisateur", "users", "delete");
-  }
-}
-
-export async function resetUsers(): Promise<void> {
-  setItem(KEY, SEED_USERS);
+  await deleteUserAction(id);
+  return true;
 }

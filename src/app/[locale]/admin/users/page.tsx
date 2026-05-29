@@ -13,6 +13,16 @@ import {
   deleteUser,
 } from "@/lib/repo/users.repo";
 import { UserFormDialog } from "@/components/features/admin/UserFormDialog";
+import { AdminPageHeader } from "@/components/features/admin/ui/admin-page-header";
+import { AdminEmptyState } from "@/components/features/admin/ui/admin-empty-state";
+import {
+  AdminTable,
+  AdminThead,
+  AdminTh,
+  AdminTbody,
+  AdminTr,
+  AdminTd,
+} from "@/components/features/admin/ui/admin-table";
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<Profile[]>([]);
@@ -38,7 +48,7 @@ export default function AdminUsersPage() {
     loadData();
   }, [loadData]);
 
-  const handleCreate = async (data: Omit<Profile, "id" | "created_at">) => {
+  const handleCreate = async (data: Omit<Profile, "id" | "created_at"> & { password?: string }) => {
     try {
       const result = await createUser(data);
       setUsers((prev) => [result, ...prev]);
@@ -89,67 +99,66 @@ export default function AdminUsersPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Utilisateurs</h1>
-          <p className="text-muted-foreground">Organisations notées et administrateurs de l&apos;agence</p>
-        </div>
-        <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
-          <Plus className="mr-2 h-4 w-4" />
-          Nouvel utilisateur
-        </Button>
-      </div>
+    <div className="p-4 lg:p-8">
+      <AdminPageHeader
+        title="Utilisateurs"
+        subtitle="Organisations notées et administrateurs de l'agence"
+        actions={
+          <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
+            <Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />
+            Nouvel utilisateur
+          </Button>
+        }
+      />
 
-      <div className="overflow-hidden rounded-lg border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b bg-secondary/50">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Utilisateur</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Email</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Rôle</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Entreprise</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Créé le</th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
+      {users.length === 0 ? (
+        <AdminEmptyState icon={User} title="Aucun utilisateur" />
+      ) : (
+        <AdminTable>
+          <AdminThead>
+            <AdminTr>
+              <AdminTh>Utilisateur</AdminTh>
+              <AdminTh>Email</AdminTh>
+              <AdminTh>Rôle</AdminTh>
+              <AdminTh>Entreprise</AdminTh>
+              <AdminTh>Créé le</AdminTh>
+              <AdminTh className="text-right">Actions</AdminTh>
+            </AdminTr>
+          </AdminThead>
+          <AdminTbody>
             {users.map((u) => (
-              <tr key={u.id} className="hover:bg-secondary/30">
-                <td className="px-4 py-3">
+              <AdminTr key={u.id}>
+                <AdminTd>
                   <div className="flex items-center gap-3">
-                    <div className={`flex h-9 w-9 items-center justify-center rounded-full ${u.role === "admin" ? "bg-accent/20 text-accent" : "bg-primary/10 text-primary"}`}>
-                      {u.role === "admin" ? <Shield className="h-4 w-4" /> : <User className="h-4 w-4" />}
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                      {u.role === "admin" ? <Shield className="h-4 w-4" strokeWidth={1.75} /> : <User className="h-4 w-4" strokeWidth={1.75} />}
                     </div>
                     <span className="font-medium">{u.name}</span>
                   </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{u.email}</td>
-                <td className="px-4 py-3">
+                </AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{u.email}</AdminTd>
+                <AdminTd>
                   <Badge variant={u.role === "admin" ? "default" : "secondary"}>
                     {u.role === "admin" ? "Admin" : "Client"}
                   </Badge>
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{u.company ?? "-"}</td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{u.created_at ?? "-"}</td>
-                <td className="px-4 py-3 text-right">
+                </AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{u.company ?? "-"}</AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{u.created_at ?? "-"}</AdminTd>
+                <AdminTd className="text-right">
                   <div className="flex items-center justify-end gap-1">
                     <Button variant="ghost" size="icon" onClick={() => { setEditing(u); setDialogOpen(true); }}>
-                      <Edit className="h-4 w-4" />
+                      <Edit className="h-4 w-4" strokeWidth={1.75} />
                     </Button>
                     <Button variant="ghost" size="icon" onClick={() => handleDelete(u.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
+                      <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
                     </Button>
                   </div>
-                </td>
-              </tr>
+                </AdminTd>
+              </AdminTr>
             ))}
-          </tbody>
-        </table>
-        {users.length === 0 && (
-          <div className="p-8 text-center text-sm text-muted-foreground">Aucun utilisateur</div>
-        )}
-      </div>
+          </AdminTbody>
+        </AdminTable>
+      )}
 
       <UserFormDialog
         open={dialogOpen}

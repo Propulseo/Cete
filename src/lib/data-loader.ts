@@ -48,13 +48,10 @@ function resolve(locale?: Locale) {
   return data[locale ?? "fr"];
 }
 
+// Contenu vitrine statique (par locale). Plus de lecture localStorage publique
+// (anti-pattern supprimé). NB: l'admin édite les founders en DB (founders.repo) ;
+// l'unification DB↔vitrine (lecture serveur) reste un polish ultérieur.
 export function getFounders(locale?: Locale): Founder[] {
-  if (typeof window !== "undefined") {
-    const stored = localStorage.getItem("cete_founders");
-    if (stored) {
-      return (JSON.parse(stored) as Founder[]).filter((f) => f.visible !== false);
-    }
-  }
   return (resolve(locale).founders as Founder[]).filter((f) => f.visible !== false);
 }
 
