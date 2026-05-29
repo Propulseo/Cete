@@ -1,48 +1,46 @@
-"use client";
-
-import { useState, useEffect, useCallback } from "react";
-import { useParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
-import { getCertificateById } from "@/lib/repo/certificates.repo";
+import { createClient } from "@/lib/supabase/server";
 import type { CertificateData } from "@/types/certificate";
 import { CertificateNotFound } from "@/components/sections/verifier/CertificateNotFound";
 import { CertificateCard } from "@/components/sections/verifier/CertificateCard";
 
-export default function VerifierPage() {
-  const params = useParams();
-  const id = params.id as string;
-  const [cert, setCert] = useState<CertificateData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+// Server Component : lecture publique (anon) via la vue v_certificate_public
+// (uniquement certificats valides + non expirés, colonnes minimales — pas de
+// client_id ni pdf_storage_path). SEO-friendly (rendu serveur).
+export default async function VerifierPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const supabase = await createClient();
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    const data = await getCertificateById(id);
-    if (!data) {
-      setNotFound(true);
-    } else {
-      setCert(data);
-    }
-    setLoading(false);
-  }, [id]);
+  const { data } = await supabase
+    .from("v_certificate_public")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
 
-  useEffect(() => {
-    load();
-  }, [load]);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-[#4DA6D9]" />
-      </div>
-    );
-  }
-
-  if (notFound) {
+  if (!data || !data.id) {
     return <CertificateNotFound id={id} />;
   }
 
-  if (!cert) return null;
+  const cert: CertificateData = {
+    id: data.id,
+    certificateNumber: data.certificate_number ?? "",
+    clientId: "", // non exposé publiquement
+    companyName: data.company_name ?? "",
+    siren: data.siren ?? "",
+    address: data.address ?? "",
+    compositeRating: data.composite_rating ?? "",
+    vigiScore: (data.vigi_score ?? "A") as CertificateData["vigiScore"],
+    vigiScoreTendance: (data.vigi_score_tendance ?? "") as CertificateData["vigiScoreTendance"],
+    subCriteria: (data.sub_criteria ?? {}) as unknown as CertificateData["subCriteria"],
+    evaluationDate: data.evaluation_date ?? "",
+    validityDate: data.validity_date ?? "",
+    expertName: data.expert_name ?? "",
+    status: (data.status ?? "valide") as CertificateData["status"],
+    createdAt: "",
+  };
 
   return <CertificateCard cert={cert} />;
 }
