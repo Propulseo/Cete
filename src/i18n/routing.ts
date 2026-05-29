@@ -46,6 +46,8 @@ export const routing = defineRouting({
     "/admin/team": "/admin/team",
     "/admin/users": "/admin/users",
     "/admin/settings": "/admin/settings",
+    "/admin/clients": "/admin/clients",
+    "/admin/clients/[id]": "/admin/clients/[id]",
   },
 });
 

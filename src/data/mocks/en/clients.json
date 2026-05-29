@@ -1,0 +1,217 @@
+{
+  "clients": [
+    {
+      "id": "cli-001",
+      "slug": "enedis-rhone-alpes",
+      "companyName": "ENEDIS Rhone-Alpes",
+      "legalForm": "SA",
+      "siret": "44460844213579",
+      "vatNumber": "FR82444608442",
+      "sector": "industrie",
+      "headcount": "201-500",
+      "address": {
+        "street": "27 boulevard du 11 Novembre 1918",
+        "postalCode": "69100",
+        "city": "Villeurbanne",
+        "country": "FR"
+      },
+      "contacts": [
+        {
+          "id": "contact-001",
+          "firstName": "Laurent",
+          "lastName": "MARTIN",
+          "role": "[EN] Directeur HSE",
+          "email": "l.martin@enedis.fr",
+          "phone": "+33 4 72 83 10 01",
+          "isPrimary": true
+        },
+        {
+          "id": "contact-002",
+          "firstName": "Sophie",
+          "lastName": "DURAND",
+          "role": "[EN] Responsable Formation TST",
+          "email": "s.durand@enedis.fr",
+          "phone": "+33 4 72 83 10 02",
+          "isPrimary": false
+        },
+        {
+          "id": "contact-003",
+          "firstName": "Thomas",
+          "lastName": "BERNARD",
+          "role": "[EN] Chef de service Exploitation",
+          "email": "t.bernard@enedis.fr",
+          "phone": "+33 4 72 83 10 03",
+          "isPrimary": false
+        }
+      ],
+      "status": "active",
+      "contractStartDate": "2024-09-01",
+      "contractEndDate": "2026-09-01",
+      "internalNotes": "[EN] Client historique, renouvellement en cours de discussion. Tres satisfait du DPS initial.",
+      "createdAt": "2024-07-10T09:00:00Z",
+      "updatedAt": "2026-04-15T14:30:00Z"
+    },
+    {
+      "id": "cli-002",
+      "slug": "centre-hospitalier-lyon-sud",
+      "companyName": "Centre Hospitalier Lyon-Sud",
+      "legalForm": "autre",
+      "siret": "26690018200015",
+      "sector": "medical",
+      "headcount": "501+",
+      "address": {
+        "street": "165 chemin du Grand Revoyet",
+        "postalCode": "69310",
+        "city": "Pierre-Benite",
+        "country": "FR"
+      },
+      "contacts": [
+        {
+          "id": "contact-004",
+          "firstName": "Anne",
+          "lastName": "LEFEVRE",
+          "role": "[EN] Responsable Services Techniques",
+          "email": "a.lefevre@chu-lyon.fr",
+          "phone": "+33 4 78 86 10 01",
+          "isPrimary": true
+        },
+        {
+          "id": "contact-005",
+          "firstName": "Marc",
+          "lastName": "GIRARD",
+          "role": "[EN] Ingenieur Maintenance Electrique",
+          "email": "m.girard@chu-lyon.fr",
+          "phone": "+33 4 78 86 10 02",
+          "isPrimary": false
+        }
+      ],
+      "status": "active",
+      "contractStartDate": "2025-01-15",
+      "internalNotes": "[EN] Tacite reconduction. Environnement sensible : blocs operatoires et reanimation.",
+      "createdAt": "2024-10-20T10:00:00Z",
+      "updatedAt": "2025-09-15T16:00:00Z"
+    },
+    {
+      "id": "cli-003",
+      "slug": "carrefour-logistique-venissieux",
+      "companyName": "Carrefour Supply Chain Venissieux",
+      "legalForm": "SAS",
+      "siret": "67204018753214",
+      "sector": "logistique",
+      "headcount": "51-200",
+      "address": {
+        "street": "ZI des Echarmeaux, 15 avenue Marcel Merieux",
+        "postalCode": "69200",
+        "city": "Venissieux",
+        "country": "FR"
+      },
+      "contacts": [
+        {
+          "id": "contact-006",
+          "firstName": "Philippe",
+          "lastName": "MOREAU",
+          "role": "[EN] Directeur d'exploitation",
+          "email": "p.moreau@carrefour.com",
+          "phone": "+33 4 78 70 10 01",
+          "isPrimary": true
+        },
+        {
+          "id": "contact-007",
+          "firstName": "Isabelle",
+          "lastName": "PETIT",
+          "role": "[EN] Coordinatrice Securite",
+          "email": "i.petit@carrefour.com",
+          "phone": "+33 4 78 70 10 02",
+          "isPrimary": false
+        }
+      ],
+      "status": "active",
+      "contractStartDate": "2025-03-01",
+      "contractEndDate": "2027-03-01",
+      "internalNotes": "[EN] Plateforme logistique avec TGBT et groupes electrogenes.",
+      "createdAt": "2025-01-10T08:30:00Z",
+      "updatedAt": "2026-05-05T11:00:00Z"
+    },
+    {
+      "id": "cli-004",
+      "slug": "nexity-immobilier-grand-lyon",
+      "companyName": "Nexity Immobilier Grand Lyon",
+      "legalForm": "SAS",
+      "siret": "48795814300089",
+      "sector": "immobilier",
+      "headcount": "11-50",
+      "address": {
+        "street": "52 quai Paul Sedallian",
+        "postalCode": "69009",
+        "city": "Lyon",
+        "country": "FR"
+      },
+      "contacts": [
+        {
+          "id": "contact-008",
+          "firstName": "Caroline",
+          "lastName": "ROUX",
+          "role": "[EN] Directrice Technique",
+          "email": "c.roux@nexity.fr",
+          "phone": "+33 4 72 20 10 01",
+          "isPrimary": true
+        },
+        {
+          "id": "contact-009",
+          "firstName": "Julien",
+          "lastName": "FAURE",
+          "role": "[EN] Charge de patrimoine",
+          "email": "j.faure@nexity.fr",
+          "phone": "+33 4 72 20 10 02",
+          "isPrimary": false
+        }
+      ],
+      "status": "onboarding",
+      "contractStartDate": "2026-05-01",
+      "internalNotes": "[EN] Nouveau client en phase d'onboarding.",
+      "createdAt": "2026-03-20T11:00:00Z",
+      "updatedAt": "2026-05-10T09:00:00Z"
+    },
+    {
+      "id": "cli-005",
+      "slug": "mairie-de-villeurbanne",
+      "companyName": "Mairie de Villeurbanne",
+      "legalForm": "autre",
+      "siret": "21690266800019",
+      "sector": "erp_collectif",
+      "headcount": "201-500",
+      "address": {
+        "street": "Place Lazare-Goujon",
+        "postalCode": "69100",
+        "city": "Villeurbanne",
+        "country": "FR"
+      },
+      "contacts": [
+        {
+          "id": "contact-010",
+          "firstName": "Francois",
+          "lastName": "LAMBERT",
+          "role": "[EN] Directeur des Batiments Communaux",
+          "email": "f.lambert@mairie-villeurbanne.fr",
+          "phone": "+33 4 78 03 67 01",
+          "isPrimary": true
+        },
+        {
+          "id": "contact-011",
+          "firstName": "Nathalie",
+          "lastName": "VINCENT",
+          "role": "[EN] Responsable Securite ERP",
+          "email": "n.vincent@mairie-villeurbanne.fr",
+          "phone": "+33 4 78 03 67 02",
+          "isPrimary": false
+        }
+      ],
+      "status": "paused",
+      "contractStartDate": "2024-06-01",
+      "contractEndDate": "2026-06-01",
+      "internalNotes": "[EN] Contrat en pause depuis mars 2026 suite a une reorganisation interne.",
+      "createdAt": "2024-03-15T14:00:00Z",
+      "updatedAt": "2026-03-10T10:00:00Z"
+    }
+  ]
+}

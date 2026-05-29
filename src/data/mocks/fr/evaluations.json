@@ -1,0 +1,115 @@
+{
+  "evaluations": [
+    {
+      "id": "eval-001",
+      "clientId": "cli-001",
+      "siteName": "ENEDIS - Agence Lyon Villeurbanne",
+      "siteAddress": "27 boulevard du 11 Novembre 1918, 69100 Villeurbanne",
+      "visitDate": "2025-03-15",
+      "vigiScore": "B",
+      "omtScore": {
+        "autoEvaluation": "B+",
+        "recommandation": "A-",
+        "gestesMetiers": "B"
+      },
+      "compositeRating": "BAB",
+      "certificateId": "cete-cert-2025-0051-c3d2",
+      "auditorId": "1",
+      "status": "completed",
+      "reportDocumentId": "cdoc-004",
+      "nextEvaluationDue": "2026-03-15",
+      "notes": "Bonne maitrise globale, axes d'amelioration identifies sur les gestes metiers en zone de voisinage.",
+      "createdAt": "2025-02-01T09:00:00Z",
+      "updatedAt": "2025-03-20T16:00:00Z"
+    },
+    {
+      "id": "eval-002",
+      "clientId": "cli-001",
+      "siteName": "ENEDIS - Agence Grenoble",
+      "siteAddress": "8 rue Aristide Berges, 38000 Grenoble",
+      "visitDate": "2026-06-20",
+      "auditorId": "2",
+      "status": "scheduled",
+      "notes": "Premiere evaluation du site Grenoble suite a l'avenant d'extension de perimetre.",
+      "createdAt": "2026-04-10T10:00:00Z",
+      "updatedAt": "2026-04-10T10:00:00Z"
+    },
+    {
+      "id": "eval-003",
+      "clientId": "cli-002",
+      "siteName": "CHU Lyon-Sud - Site principal",
+      "siteAddress": "165 chemin du Grand Revoyet, 69310 Pierre-Benite",
+      "visitDate": "2025-09-10",
+      "vigiScore": "A",
+      "omtScore": {
+        "autoEvaluation": "A",
+        "recommandation": "A",
+        "gestesMetiers": "A-"
+      },
+      "compositeRating": "AAA",
+      "certificateId": "cete-cert-2025-0058-e4f1",
+      "auditorId": "3",
+      "status": "completed",
+      "reportDocumentId": "cdoc-008",
+      "nextEvaluationDue": "2026-09-10",
+      "notes": "Excellent niveau de conformite. Equipe technique tres impliquee. Recommandation triple A confirmee.",
+      "createdAt": "2025-07-15T08:00:00Z",
+      "updatedAt": "2025-09-15T14:00:00Z"
+    },
+    {
+      "id": "eval-004",
+      "clientId": "cli-003",
+      "siteName": "Entrepot Carrefour SC Venissieux",
+      "siteAddress": "ZI des Echarmeaux, 15 avenue Marcel Merieux, 69200 Venissieux",
+      "visitDate": "2026-05-05",
+      "auditorId": "1",
+      "status": "in_progress",
+      "notes": "Visite en cours. TGBT et groupes electrogenes inspectes, reste les zones de stockage frigorifique.",
+      "createdAt": "2026-03-15T09:00:00Z",
+      "updatedAt": "2026-05-05T17:00:00Z"
+    },
+    {
+      "id": "eval-005",
+      "clientId": "cli-005",
+      "siteName": "Mairie de Villeurbanne - ERP principaux",
+      "siteAddress": "Place Lazare-Goujon, 69100 Villeurbanne",
+      "visitDate": "2025-01-15",
+      "vigiScore": "C",
+      "omtScore": {
+        "autoEvaluation": "C+",
+        "recommandation": "C",
+        "gestesMetiers": "B-"
+      },
+      "compositeRating": "CCB",
+      "certificateId": "cete-cert-2025-0045-a1b2",
+      "auditorId": "2",
+      "status": "completed",
+      "reportDocumentId": "cdoc-018",
+      "nextEvaluationDue": "2026-01-15",
+      "notes": "Score C global. Non-conformites identifiees sur les armoires electriques de la salle des fetes et du gymnase. Plan d'action prioritaire transmis.",
+      "createdAt": "2024-11-20T10:00:00Z",
+      "updatedAt": "2025-01-20T15:00:00Z"
+    },
+    {
+      "id": "eval-006",
+      "clientId": "cli-12345",
+      "siteName": "Electricité Pro SA - Siège Lyon",
+      "siteAddress": "12 rue de l'Industrie, 69003 Lyon",
+      "visitDate": "2026-01-15",
+      "vigiScore": "B",
+      "omtScore": {
+        "autoEvaluation": "B+",
+        "recommandation": "A-",
+        "gestesMetiers": "B"
+      },
+      "compositeRating": "BBB",
+      "certificateId": "cete-cert-2026-0042-a7f3",
+      "auditorId": "1",
+      "status": "completed",
+      "nextEvaluationDue": "2028-01-15",
+      "notes": "Evaluation initiale du siege. Bonne maitrise globale ; certificat CETé delivre (valide jusqu'en 2028).",
+      "createdAt": "2026-01-02T09:00:00Z",
+      "updatedAt": "2026-01-15T16:00:00Z"
+    }
+  ]
+}
