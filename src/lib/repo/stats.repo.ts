@@ -1,63 +1,50 @@
+import { createClient } from "@/lib/supabase/client";
 import type { AdminStats } from "@/types/stats";
 import { RepoError } from "@/types/repo-error";
-import { listUsers } from "./users.repo";
-import { listDocuments } from "./documents.repo";
-import { listArticles } from "./articles.repo";
 
-// TODO Supabase: Remplacer par des requêtes count() sur chaque table :
-// const { count: usersCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'client').eq('is_active', true)
-// const { count: docsCount } = await supabase.from('documents').select('*', { count: 'exact', head: true })
-// const { count: articlesCount } = await supabase.from('articles').select('*', { count: 'exact', head: true }).eq('status', 'published')
 export async function getAdminStats(): Promise<AdminStats> {
-  try {
-    const [users, documents, articles] = await Promise.all([
-      listUsers(),
-      listDocuments(),
-      listArticles(),
-    ]);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("v_admin_dashboard_stats")
+    .select("*")
+    .single();
 
-    const activeClients = users.filter(
-      (u) => u.role === "client" && u.is_active
-    ).length;
-    const publishedArticles = articles.filter(
-      (a) => a.status === "published"
-    ).length;
-
-    return {
-      timestamp: new Date().toISOString().split("T")[0],
-      stats: [
-        {
-          id: "stat-1",
-          label: "Organisations notées",
-          value: activeClients,
-          trend: "+12%",
-          icon: "users",
-        },
-        {
-          id: "stat-2",
-          label: "Documents publiés",
-          value: documents.length,
-          trend: "+8%",
-          icon: "check-circle",
-        },
-        {
-          id: "stat-3",
-          label: "Articles publiés",
-          value: publishedArticles,
-          trend: "+5%",
-          icon: "award",
-        },
-        {
-          id: "stat-4",
-          label: "Rating moyen",
-          value: "BB+",
-          trend: "stable",
-          icon: "star",
-        },
-      ],
-    };
-  } catch (error) {
+  if (error) {
     console.error("[stats.repo] getAdminStats failed:", error);
     throw new RepoError("Impossible de charger les statistiques", "stats", "get");
   }
+
+  const activeClients = data?.active_clients ?? 0;
+  const publishedDocuments = data?.published_documents ?? 0;
+  const publishedArticles = data?.published_articles ?? 0;
+
+  return {
+    timestamp: new Date().toISOString().split("T")[0],
+    stats: [
+      {
+        id: "stat-1",
+        label: "Organisations notées",
+        value: activeClients,
+        trend: "",
+        icon: "users",
+      },
+      {
+        id: "stat-2",
+        label: "Documents publiés",
+        value: publishedDocuments,
+        trend: "",
+        icon: "check-circle",
+      },
+      {
+        id: "stat-3",
+        label: "Articles publiés",
+        value: publishedArticles,
+        trend: "",
+        icon: "award",
+      },
+      // NOTE: l'ancien KPI "Rating moyen: BB+" (placeholder factice, hors système CETé)
+      // a été retiré. La notation réelle du portefeuille est rendue par <VigiDistribution>
+      // (répartition A/B/C/D des évaluations complétées) sur le dashboard.
+    ],
+  };
 }

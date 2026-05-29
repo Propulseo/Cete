@@ -1,129 +1,223 @@
-import { getItem, setItem } from "@/lib/store/storage";
-import type { Client } from "@/types/client";
+import { createClient as createSupabaseClient } from "@/lib/supabase/client";
+import type { Database } from "@/lib/supabase/database.types";
+import type {
+  Client,
+  ClientContact,
+  ClientLegalForm,
+  ClientSector,
+  ClientStatus,
+} from "@/types/client";
 import { RepoError } from "@/types/repo-error";
-import seedData from "@/data/mocks/fr/clients.json";
 
-const KEY = "cete_clients";
-const SEED_VERSION_KEY = "cete_clients_v";
-const SEED_VERSION = 2;
+type ClientRow = Database["public"]["Tables"]["clients"]["Row"];
+type ClientContactRow = Database["public"]["Tables"]["client_contacts"]["Row"];
+type ClientInsert = Database["public"]["Tables"]["clients"]["Insert"];
+type ClientUpdate = Database["public"]["Tables"]["clients"]["Update"];
+type ClientContactInsert = Database["public"]["Tables"]["client_contacts"]["Insert"];
 
-function seedIfEmpty(): void {
-  if (!getItem<Client[]>(KEY) || getItem<number>(SEED_VERSION_KEY) !== SEED_VERSION) {
-    setItem(KEY, seedData.clients);
-    setItem(SEED_VERSION_KEY, SEED_VERSION);
-  }
-}
+type ClientRowWithContacts = ClientRow & {
+  client_contacts: ClientContactRow[] | null;
+};
+
+const CLIENT_SELECT = "*, client_contacts(*)";
 
 function toSlug(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
 
-// TODO Supabase: supabase.from('clients').select('*').order('created_at', { ascending: false })
+function rowToContact(r: ClientContactRow): ClientContact {
+  return {
+    id: r.id,
+    firstName: r.first_name,
+    lastName: r.last_name,
+    role: r.role,
+    email: r.email ?? "",
+    phone: r.phone ?? "",
+    isPrimary: r.is_primary,
+  };
+}
+
+function rowToClient(r: ClientRowWithContacts): Client {
+  return {
+    id: r.id,
+    slug: r.slug,
+    companyName: r.company_name,
+    legalForm: r.legal_form as ClientLegalForm,
+    siret: r.siret,
+    vatNumber: r.vat_number ?? undefined,
+    sector: r.sector as ClientSector,
+    headcount: r.headcount ?? undefined,
+    address: {
+      street: r.address_street,
+      postalCode: r.address_postal_code,
+      city: r.address_city,
+      country: r.address_country,
+    },
+    contacts: (r.client_contacts ?? []).map(rowToContact),
+    status: r.status as ClientStatus,
+    contractStartDate: r.contract_start_date ?? "",
+    contractEndDate: r.contract_end_date ?? undefined,
+    internalNotes: r.internal_notes,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+  };
+}
+
 export async function listClients(): Promise<Client[]> {
-  try {
-    seedIfEmpty();
-    return getItem<Client[]>(KEY) ?? [];
-  } catch (error) {
-    console.error("[clients.repo] listClients failed:", error);
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("clients")
+    .select(CLIENT_SELECT)
+    .order("created_at", { ascending: false });
+  if (error) {
     throw new RepoError("Impossible de charger les clients", "clients", "list");
   }
+  return (data ?? []).map((row) => rowToClient(row as ClientRowWithContacts));
 }
 
-// TODO Supabase: supabase.from('clients').select('*').eq('id', id).single()
 export async function getClientById(id: string): Promise<Client | null> {
-  try {
-    const clients = await listClients();
-    return clients.find((c) => c.id === id) ?? null;
-  } catch (error) {
-    console.error("[clients.repo] getClientById failed:", error);
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("clients")
+    .select(CLIENT_SELECT)
+    .eq("id", id)
+    .maybeSingle();
+  if (error) {
     throw new RepoError("Impossible de charger le client", "clients", "get");
   }
+  return data ? rowToClient(data as ClientRowWithContacts) : null;
 }
 
-// TODO Supabase: supabase.from('clients').select('*').eq('slug', slug).single()
 export async function getClientBySlug(slug: string): Promise<Client | null> {
-  try {
-    const clients = await listClients();
-    return clients.find((c) => c.slug === slug) ?? null;
-  } catch (error) {
-    console.error("[clients.repo] getClientBySlug failed:", error);
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("clients")
+    .select(CLIENT_SELECT)
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error) {
     throw new RepoError("Impossible de charger le client", "clients", "getBySlug");
   }
+  return data ? rowToClient(data as ClientRowWithContacts) : null;
 }
 
-// TODO Supabase: supabase.from('clients').insert(payload).select().single()
 export async function createClient(
   payload: Omit<Client, "id" | "slug" | "createdAt" | "updatedAt">
 ): Promise<Client> {
-  try {
-    const clients = await listClients();
-    const now = new Date().toISOString();
-    const newClient: Client = {
-      ...payload,
-      id: `cli-${Date.now()}`,
-      slug: toSlug(payload.companyName),
-      createdAt: now,
-      updatedAt: now,
-    };
-    clients.unshift(newClient);
-    setItem(KEY, clients);
-    return newClient;
-  } catch (error) {
-    console.error("[clients.repo] createClient failed:", error);
+  const supabase = createSupabaseClient();
+
+  const insert: ClientInsert = {
+    company_name: payload.companyName,
+    slug: toSlug(payload.companyName),
+    legal_form: payload.legalForm,
+    siret: payload.siret,
+    vat_number: payload.vatNumber ?? null,
+    sector: payload.sector,
+    headcount: payload.headcount ?? null,
+    address_street: payload.address.street,
+    address_postal_code: payload.address.postalCode,
+    address_city: payload.address.city,
+    address_country: payload.address.country,
+    status: payload.status,
+    contract_start_date: payload.contractStartDate || null,
+    contract_end_date: payload.contractEndDate ?? null,
+    internal_notes: payload.internalNotes,
+  };
+
+  const { data: created, error } = await supabase
+    .from("clients")
+    .insert(insert)
+    .select("id")
+    .single();
+  if (error || !created) {
     throw new RepoError("Impossible de creer le client", "clients", "create");
   }
+
+  if (payload.contacts.length > 0) {
+    const contactRows: ClientContactInsert[] = payload.contacts.map((c) => ({
+      client_id: created.id,
+      first_name: c.firstName,
+      last_name: c.lastName,
+      role: c.role,
+      email: c.email || null,
+      phone: c.phone || null,
+      is_primary: c.isPrimary,
+    }));
+    const { error: contactError } = await supabase
+      .from("client_contacts")
+      .insert(contactRows);
+    if (contactError) {
+      throw new RepoError("Impossible de creer le client", "clients", "create");
+    }
+  }
+
+  const client = await getClientById(created.id);
+  if (!client) {
+    throw new RepoError("Impossible de creer le client", "clients", "create");
+  }
+  return client;
 }
 
-// TODO Supabase: supabase.from('clients').update(payload).eq('id', id).select().single()
 export async function updateClient(
   id: string,
   payload: Partial<Omit<Client, "id" | "slug" | "createdAt">>
 ): Promise<Client | null> {
-  try {
-    const clients = await listClients();
-    const idx = clients.findIndex((c) => c.id === id);
-    if (idx === -1) return null;
-    clients[idx] = {
-      ...clients[idx],
-      ...payload,
-      updatedAt: new Date().toISOString(),
-    };
-    if (payload.companyName) {
-      clients[idx].slug = toSlug(payload.companyName);
-    }
-    setItem(KEY, clients);
-    return clients[idx];
-  } catch (error) {
-    console.error("[clients.repo] updateClient failed:", error);
+  const supabase = createSupabaseClient();
+
+  const update: ClientUpdate = {};
+  if (payload.companyName !== undefined) {
+    update.company_name = payload.companyName;
+    update.slug = toSlug(payload.companyName);
+  }
+  if (payload.legalForm !== undefined) update.legal_form = payload.legalForm;
+  if (payload.siret !== undefined) update.siret = payload.siret;
+  if (payload.vatNumber !== undefined) update.vat_number = payload.vatNumber ?? null;
+  if (payload.sector !== undefined) update.sector = payload.sector;
+  if (payload.headcount !== undefined) update.headcount = payload.headcount ?? null;
+  if (payload.address !== undefined) {
+    update.address_street = payload.address.street;
+    update.address_postal_code = payload.address.postalCode;
+    update.address_city = payload.address.city;
+    update.address_country = payload.address.country;
+  }
+  if (payload.status !== undefined) update.status = payload.status;
+  if (payload.contractStartDate !== undefined) {
+    update.contract_start_date = payload.contractStartDate || null;
+  }
+  if (payload.contractEndDate !== undefined) {
+    update.contract_end_date = payload.contractEndDate ?? null;
+  }
+  if (payload.internalNotes !== undefined) update.internal_notes = payload.internalNotes;
+  update.updated_at = new Date().toISOString();
+
+  const { data: updated, error } = await supabase
+    .from("clients")
+    .update(update)
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) {
     throw new RepoError("Impossible de modifier le client", "clients", "update");
   }
+  if (!updated) return null;
+
+  return getClientById(updated.id);
 }
 
-// TODO Supabase: supabase.from('clients').update({ status: 'archived' }).eq('id', id)
 export async function softArchiveClient(id: string): Promise<Client | null> {
   return updateClient(id, { status: "archived" });
 }
 
-// TODO Supabase: supabase.from('clients').delete().eq('id', id)
 export async function deleteClient(id: string): Promise<boolean> {
-  try {
-    const clients = await listClients();
-    const filtered = clients.filter((c) => c.id !== id);
-    if (filtered.length === clients.length) return false;
-    setItem(KEY, filtered);
-    return true;
-  } catch (error) {
-    console.error("[clients.repo] deleteClient failed:", error);
+  const supabase = createSupabaseClient();
+  const { error } = await supabase.from("clients").delete().eq("id", id);
+  if (error) {
     throw new RepoError("Impossible de supprimer le client", "clients", "delete");
   }
-}
-
-export async function resetClients(): Promise<void> {
-  setItem(KEY, seedData.clients);
-  setItem(SEED_VERSION_KEY, SEED_VERSION);
+  return true;
 }

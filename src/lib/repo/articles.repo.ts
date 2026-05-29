@@ -1,87 +1,117 @@
-import { getItem, setItem } from "@/lib/store/storage";
-import type { Article } from "@/types/article";
+import { createClient } from "@/lib/supabase/client";
+import type { Database } from "@/lib/supabase/database.types";
+import type { Article, ArticleCategory } from "@/types/article";
 import { RepoError } from "@/types/repo-error";
-import seedData from "@/data/mocks/admin_articles.json";
 
-const KEY = "cete_articles";
+type ArticleRow = Database["public"]["Tables"]["articles"]["Row"];
+type ArticleInsert = Database["public"]["Tables"]["articles"]["Insert"];
 
-function seedIfEmpty(): void {
-  if (!getItem<Article[]>(KEY)) {
-    setItem(KEY, seedData.articles);
-  }
+function rowToArticle(r: ArticleRow): Article {
+  return {
+    id: r.id,
+    title: r.title,
+    excerpt: r.excerpt,
+    author: r.author,
+    category: r.category as ArticleCategory,
+    status: r.status as Article["status"],
+    publishedDate: r.published_date,
+    views: r.views,
+    featured: r.featured,
+    videoUrl: r.video_url ?? undefined,
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  };
 }
 
-// TODO Supabase: supabase.from('articles').select('*').order('created_at', { ascending: false })
+function articleToInsert(payload: Omit<Article, "id">): ArticleInsert {
+  return {
+    title: payload.title,
+    excerpt: payload.excerpt,
+    author: payload.author,
+    category: payload.category,
+    status: payload.status,
+    published_date: payload.publishedDate,
+    views: payload.views,
+    featured: payload.featured,
+    video_url: payload.videoUrl ?? null,
+  };
+}
+
 export async function listArticles(): Promise<Article[]> {
-  try {
-    seedIfEmpty();
-    return getItem<Article[]>(KEY) ?? [];
-  } catch (error) {
-    console.error("[articles.repo] listArticles failed:", error);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) {
     throw new RepoError("Impossible de charger les articles", "articles", "list");
   }
+  return (data ?? []).map(rowToArticle);
 }
 
-// TODO Supabase: supabase.from('articles').select('*').eq('id', id).single()
 export async function getArticle(id: string): Promise<Article | null> {
-  try {
-    const articles = await listArticles();
-    return articles.find((a) => a.id === id) ?? null;
-  } catch (error) {
-    console.error("[articles.repo] getArticle failed:", error);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) {
     throw new RepoError("Impossible de charger l'article", "articles", "get");
   }
+  return data ? rowToArticle(data) : null;
 }
 
-// TODO Supabase: supabase.from('articles').insert(payload).select().single()
 export async function createArticle(payload: Omit<Article, "id">): Promise<Article> {
-  try {
-    const articles = await listArticles();
-    const newArticle: Article = {
-      ...payload,
-      id: `art-${Date.now()}`, // TODO Supabase: UUID auto-généré
-    };
-    articles.unshift(newArticle);
-    setItem(KEY, articles);
-    return newArticle;
-  } catch (error) {
-    console.error("[articles.repo] createArticle failed:", error);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .insert(articleToInsert(payload))
+    .select("*")
+    .single();
+  if (error || !data) {
     throw new RepoError("Impossible de créer l'article", "articles", "create");
   }
+  return rowToArticle(data);
 }
 
-// TODO Supabase: supabase.from('articles').update(payload).eq('id', id).select().single()
 export async function updateArticle(
   id: string,
   payload: Partial<Omit<Article, "id">>
 ): Promise<Article | null> {
-  try {
-    const articles = await listArticles();
-    const idx = articles.findIndex((a) => a.id === id);
-    if (idx === -1) return null;
-    articles[idx] = { ...articles[idx], ...payload };
-    setItem(KEY, articles);
-    return articles[idx];
-  } catch (error) {
-    console.error("[articles.repo] updateArticle failed:", error);
+  const supabase = createClient();
+  const patch: Database["public"]["Tables"]["articles"]["Update"] = {};
+  if (payload.title !== undefined) patch.title = payload.title;
+  if (payload.excerpt !== undefined) patch.excerpt = payload.excerpt;
+  if (payload.author !== undefined) patch.author = payload.author;
+  if (payload.category !== undefined) patch.category = payload.category;
+  if (payload.status !== undefined) patch.status = payload.status;
+  if (payload.publishedDate !== undefined) patch.published_date = payload.publishedDate;
+  if (payload.views !== undefined) patch.views = payload.views;
+  if (payload.featured !== undefined) patch.featured = payload.featured;
+  if (payload.videoUrl !== undefined) patch.video_url = payload.videoUrl ?? null;
+
+  const { data, error } = await supabase
+    .from("articles")
+    .update(patch)
+    .eq("id", id)
+    .select("*")
+    .maybeSingle();
+  if (error) {
     throw new RepoError("Impossible de modifier l'article", "articles", "update");
   }
+  return data ? rowToArticle(data) : null;
 }
 
-// TODO Supabase: supabase.from('articles').delete().eq('id', id)
 export async function deleteArticle(id: string): Promise<boolean> {
-  try {
-    const articles = await listArticles();
-    const filtered = articles.filter((a) => a.id !== id);
-    if (filtered.length === articles.length) return false;
-    setItem(KEY, filtered);
-    return true;
-  } catch (error) {
-    console.error("[articles.repo] deleteArticle failed:", error);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .delete()
+    .eq("id", id)
+    .select("id");
+  if (error) {
     throw new RepoError("Impossible de supprimer l'article", "articles", "delete");
   }
-}
-
-export async function resetArticles(): Promise<void> {
-  setItem(KEY, seedData.articles);
+  return (data ?? []).length > 0;
 }

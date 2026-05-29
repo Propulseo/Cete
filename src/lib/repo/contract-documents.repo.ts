@@ -1,115 +1,178 @@
-import { getItem, setItem } from "@/lib/store/storage";
-import type { ContractDocument } from "@/types/client";
+import { createClient } from "@/lib/supabase/client";
+import type {
+  ContractDocument,
+  ContractDocumentStatus,
+  ContractDocumentType,
+} from "@/types/client";
 import { RepoError } from "@/types/repo-error";
-import seedData from "@/data/mocks/fr/contract_documents.json";
+import type { Database } from "@/lib/supabase/database.types";
 
-const KEY = "cete_contract_documents";
-const SEED_VERSION_KEY = "cete_contract_documents_v";
-const SEED_VERSION = 1;
+type ContractDocumentRow =
+  Database["public"]["Tables"]["contract_documents"]["Row"];
+type ContractDocumentInsert =
+  Database["public"]["Tables"]["contract_documents"]["Insert"];
 
-function seedIfEmpty(): void {
-  if (
-    !getItem<ContractDocument[]>(KEY) ||
-    getItem<number>(SEED_VERSION_KEY) !== SEED_VERSION
-  ) {
-    setItem(KEY, seedData.contractDocuments);
-    setItem(SEED_VERSION_KEY, SEED_VERSION);
-  }
+function rowToContractDocument(r: ContractDocumentRow): ContractDocument {
+  return {
+    id: r.id,
+    clientId: r.client_id,
+    type: r.type as ContractDocumentType,
+    title: r.title,
+    version: r.version,
+    fileName: r.file_name,
+    fileSize: r.file_size,
+    mimeType: r.mime_type,
+    uploadedAt: r.uploaded_at,
+    uploadedBy: r.uploaded_by ?? "",
+    status: r.status as ContractDocumentStatus,
+    notes: r.notes ?? undefined,
+  };
 }
 
-// TODO Supabase: supabase.from('contract_documents').select('*').order('uploaded_at', { ascending: false })
+function toInsert(
+  payload: Omit<ContractDocument, "id">
+): ContractDocumentInsert {
+  return {
+    client_id: payload.clientId,
+    type: payload.type,
+    title: payload.title,
+    version: payload.version,
+    file_name: payload.fileName,
+    file_size: payload.fileSize,
+    mime_type: payload.mimeType,
+    uploaded_at: payload.uploadedAt,
+    uploaded_by: payload.uploadedBy || null,
+    status: payload.status,
+    notes: payload.notes ?? null,
+  };
+}
+
+function toUpdate(
+  payload: Partial<Omit<ContractDocument, "id">>
+): Database["public"]["Tables"]["contract_documents"]["Update"] {
+  const update: Database["public"]["Tables"]["contract_documents"]["Update"] = {};
+  if (payload.clientId !== undefined) update.client_id = payload.clientId;
+  if (payload.type !== undefined) update.type = payload.type;
+  if (payload.title !== undefined) update.title = payload.title;
+  if (payload.version !== undefined) update.version = payload.version;
+  if (payload.fileName !== undefined) update.file_name = payload.fileName;
+  if (payload.fileSize !== undefined) update.file_size = payload.fileSize;
+  if (payload.mimeType !== undefined) update.mime_type = payload.mimeType;
+  if (payload.uploadedAt !== undefined) update.uploaded_at = payload.uploadedAt;
+  if (payload.uploadedBy !== undefined)
+    update.uploaded_by = payload.uploadedBy || null;
+  if (payload.status !== undefined) update.status = payload.status;
+  if (payload.notes !== undefined) update.notes = payload.notes ?? null;
+  return update;
+}
+
 export async function listContractDocuments(): Promise<ContractDocument[]> {
-  try {
-    seedIfEmpty();
-    return getItem<ContractDocument[]>(KEY) ?? [];
-  } catch (error) {
-    console.error("[contract-documents.repo] listContractDocuments failed:", error);
-    throw new RepoError("Impossible de charger les documents", "contractDocuments", "list");
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .select("*")
+    .order("uploaded_at", { ascending: false });
+  if (error) {
+    throw new RepoError(
+      "Impossible de charger les documents",
+      "contractDocuments",
+      "list"
+    );
   }
+  return (data ?? []).map(rowToContractDocument);
 }
 
-// TODO Supabase: supabase.from('contract_documents').select('*').eq('client_id', clientId)
 export async function listContractDocumentsByClientId(
   clientId: string
 ): Promise<ContractDocument[]> {
-  try {
-    const docs = await listContractDocuments();
-    return docs.filter((d) => d.clientId === clientId);
-  } catch (error) {
-    console.error("[contract-documents.repo] listByClientId failed:", error);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .select("*")
+    .eq("client_id", clientId)
+    .order("uploaded_at", { ascending: false });
+  if (error) {
     throw new RepoError(
       "Impossible de charger les documents du client",
       "contractDocuments",
       "listByClientId"
     );
   }
+  return (data ?? []).map(rowToContractDocument);
 }
 
-// TODO Supabase: supabase.from('contract_documents').select('*').eq('id', id).single()
 export async function getContractDocument(
   id: string
 ): Promise<ContractDocument | null> {
-  try {
-    const docs = await listContractDocuments();
-    return docs.find((d) => d.id === id) ?? null;
-  } catch (error) {
-    console.error("[contract-documents.repo] getContractDocument failed:", error);
-    throw new RepoError("Impossible de charger le document", "contractDocuments", "get");
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) {
+    throw new RepoError(
+      "Impossible de charger le document",
+      "contractDocuments",
+      "get"
+    );
   }
+  return data ? rowToContractDocument(data) : null;
 }
 
-// TODO Supabase: supabase.from('contract_documents').insert(payload).select().single()
 export async function createContractDocument(
   payload: Omit<ContractDocument, "id">
 ): Promise<ContractDocument> {
-  try {
-    const docs = await listContractDocuments();
-    const newDoc: ContractDocument = {
-      ...payload,
-      id: `cdoc-${Date.now()}`,
-    };
-    docs.unshift(newDoc);
-    setItem(KEY, docs);
-    return newDoc;
-  } catch (error) {
-    console.error("[contract-documents.repo] createContractDocument failed:", error);
-    throw new RepoError("Impossible de creer le document", "contractDocuments", "create");
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .insert(toInsert(payload))
+    .select("*")
+    .single();
+  if (error || !data) {
+    throw new RepoError(
+      "Impossible de creer le document",
+      "contractDocuments",
+      "create"
+    );
   }
+  return rowToContractDocument(data);
 }
 
-// TODO Supabase: supabase.from('contract_documents').update(payload).eq('id', id).select().single()
 export async function updateContractDocument(
   id: string,
   payload: Partial<Omit<ContractDocument, "id">>
 ): Promise<ContractDocument | null> {
-  try {
-    const docs = await listContractDocuments();
-    const idx = docs.findIndex((d) => d.id === id);
-    if (idx === -1) return null;
-    docs[idx] = { ...docs[idx], ...payload };
-    setItem(KEY, docs);
-    return docs[idx];
-  } catch (error) {
-    console.error("[contract-documents.repo] updateContractDocument failed:", error);
-    throw new RepoError("Impossible de modifier le document", "contractDocuments", "update");
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .update(toUpdate(payload))
+    .eq("id", id)
+    .select("*")
+    .maybeSingle();
+  if (error) {
+    throw new RepoError(
+      "Impossible de modifier le document",
+      "contractDocuments",
+      "update"
+    );
   }
+  return data ? rowToContractDocument(data) : null;
 }
 
-// TODO Supabase: supabase.from('contract_documents').delete().eq('id', id)
 export async function deleteContractDocument(id: string): Promise<boolean> {
-  try {
-    const docs = await listContractDocuments();
-    const filtered = docs.filter((d) => d.id !== id);
-    if (filtered.length === docs.length) return false;
-    setItem(KEY, filtered);
-    return true;
-  } catch (error) {
-    console.error("[contract-documents.repo] deleteContractDocument failed:", error);
-    throw new RepoError("Impossible de supprimer le document", "contractDocuments", "delete");
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .delete()
+    .eq("id", id)
+    .select("id");
+  if (error) {
+    throw new RepoError(
+      "Impossible de supprimer le document",
+      "contractDocuments",
+      "delete"
+    );
   }
-}
-
-export async function resetContractDocuments(): Promise<void> {
-  setItem(KEY, seedData.contractDocuments);
-  setItem(SEED_VERSION_KEY, SEED_VERSION);
+  return (data ?? []).length > 0;
 }

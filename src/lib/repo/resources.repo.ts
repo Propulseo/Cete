@@ -1,92 +1,132 @@
-import { getItem, setItem } from "@/lib/store/storage";
-import type { Resource } from "@/types/resource";
+import { createClient } from "@/lib/supabase/client";
+import type { Resource, ResourceCategory, ResourceType } from "@/types/resource";
+import type { AccessType, Visibility } from "@/types/shared";
 import { RepoError } from "@/types/repo-error";
-import seedData from "@/data/mocks/resources.json";
+import type { Tables, TablesInsert, TablesUpdate } from "@/lib/supabase/database.types";
 
-const KEY = "cete_resources";
-const SEED_VERSION_KEY = "cete_resources_v";
-const SEED_VERSION = 2;
+type ResourceRow = Tables<"resources">;
 
-function seedIfEmpty(): void {
-  if (!getItem<Resource[]>(KEY) || getItem<number>(SEED_VERSION_KEY) !== SEED_VERSION) {
-    setItem(KEY, seedData.resources);
-    setItem(SEED_VERSION_KEY, SEED_VERSION);
-  }
+/** Mappe une ligne `resources` (snake_case) vers le type métier `Resource` (camelCase). */
+function rowToResource(r: ResourceRow): Resource {
+  return {
+    id: r.id,
+    title: r.title,
+    description: r.description,
+    category: r.category as ResourceCategory,
+    type: r.type as ResourceType,
+    accessType: r.access_type as AccessType,
+    url: r.url,
+    youtubeId: r.youtube_id ?? undefined,
+    fileSize: r.file_size ?? undefined,
+    source: r.source ?? undefined,
+    publishedDate: r.published_date ?? "",
+    createdAt: r.created_at,
+    visibility: r.visibility as Visibility,
+    assignedClientIds: r.assigned_client_ids,
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  };
 }
 
-// TODO Supabase: supabase.from('resources').select('*').order('published_date', { ascending: false })
+/** Construit l'objet d'insertion snake_case à partir du payload métier. */
+function toInsert(payload: Omit<Resource, "id">): TablesInsert<"resources"> {
+  return {
+    title: payload.title,
+    description: payload.description,
+    category: payload.category,
+    type: payload.type,
+    access_type: payload.accessType,
+    url: payload.url,
+    youtube_id: payload.youtubeId ?? null,
+    file_size: payload.fileSize ?? null,
+    source: payload.source ?? null,
+    published_date: payload.publishedDate || null,
+    visibility: payload.visibility,
+    assigned_client_ids: payload.assignedClientIds,
+  };
+}
+
+/** Construit l'objet de mise à jour snake_case à partir d'un payload partiel. */
+function toUpdate(payload: Partial<Omit<Resource, "id">>): TablesUpdate<"resources"> {
+  const update: TablesUpdate<"resources"> = {};
+  if (payload.title !== undefined) update.title = payload.title;
+  if (payload.description !== undefined) update.description = payload.description;
+  if (payload.category !== undefined) update.category = payload.category;
+  if (payload.type !== undefined) update.type = payload.type;
+  if (payload.accessType !== undefined) update.access_type = payload.accessType;
+  if (payload.url !== undefined) update.url = payload.url;
+  if (payload.youtubeId !== undefined) update.youtube_id = payload.youtubeId ?? null;
+  if (payload.fileSize !== undefined) update.file_size = payload.fileSize ?? null;
+  if (payload.source !== undefined) update.source = payload.source ?? null;
+  if (payload.publishedDate !== undefined) update.published_date = payload.publishedDate || null;
+  if (payload.visibility !== undefined) update.visibility = payload.visibility;
+  if (payload.assignedClientIds !== undefined) update.assigned_client_ids = payload.assignedClientIds;
+  return update;
+}
+
 export async function listResources(): Promise<Resource[]> {
-  try {
-    seedIfEmpty();
-    return getItem<Resource[]>(KEY) ?? [];
-  } catch (error) {
-    console.error("[resources.repo] listResources failed:", error);
-    throw new RepoError("Impossible de charger les ressources", "resources", "list");
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("resources")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) throw new RepoError("Impossible de charger les ressources", "resources", "list");
+  return (data ?? []).map(rowToResource);
 }
 
-// TODO Supabase: supabase.from('resources').select('*').eq('id', id).single()
+// Lecture client : ressources globales OU assignées à ce client (contrat ClientScoped).
+// La RLS filtre déjà la visibilité côté serveur ; on conserve néanmoins le filtre
+// applicatif pour garder un comportement identique et la signature inchangée.
+export async function getVisibleForClient(clientId: string): Promise<Resource[]> {
+  const resources = await listResources();
+  return resources.filter(
+    (r) => r.visibility === "global" || r.assignedClientIds.includes(clientId)
+  );
+}
+
 export async function getResource(id: string): Promise<Resource | null> {
-  try {
-    const resources = await listResources();
-    return resources.find((r) => r.id === id) ?? null;
-  } catch (error) {
-    console.error("[resources.repo] getResource failed:", error);
-    throw new RepoError("Impossible de charger la ressource", "resources", "get");
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("resources")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new RepoError("Impossible de charger la ressource", "resources", "get");
+  return data ? rowToResource(data) : null;
 }
 
-// TODO Supabase: supabase.from('resources').insert(payload).select().single()
-export async function createResource(
-  payload: Omit<Resource, "id">
-): Promise<Resource> {
-  try {
-    const resources = await listResources();
-    const newResource: Resource = {
-      ...payload,
-      id: `res-${Date.now()}`, // TODO Supabase: UUID auto-généré
-    };
-    resources.unshift(newResource);
-    setItem(KEY, resources);
-    return newResource;
-  } catch (error) {
-    console.error("[resources.repo] createResource failed:", error);
-    throw new RepoError("Impossible de créer la ressource", "resources", "create");
-  }
+export async function createResource(payload: Omit<Resource, "id">): Promise<Resource> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("resources")
+    .insert(toInsert(payload))
+    .select("*")
+    .single();
+  if (error || !data) throw new RepoError("Impossible de créer la ressource", "resources", "create");
+  return rowToResource(data);
 }
 
-// TODO Supabase: supabase.from('resources').update(payload).eq('id', id).select().single()
 export async function updateResource(
   id: string,
   payload: Partial<Omit<Resource, "id">>
 ): Promise<Resource | null> {
-  try {
-    const resources = await listResources();
-    const idx = resources.findIndex((r) => r.id === id);
-    if (idx === -1) return null;
-    resources[idx] = { ...resources[idx], ...payload };
-    setItem(KEY, resources);
-    return resources[idx];
-  } catch (error) {
-    console.error("[resources.repo] updateResource failed:", error);
-    throw new RepoError("Impossible de modifier la ressource", "resources", "update");
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("resources")
+    .update(toUpdate(payload))
+    .eq("id", id)
+    .select("*")
+    .maybeSingle();
+  if (error) throw new RepoError("Impossible de modifier la ressource", "resources", "update");
+  return data ? rowToResource(data) : null;
 }
 
-// TODO Supabase: supabase.from('resources').delete().eq('id', id)
 export async function deleteResource(id: string): Promise<boolean> {
-  try {
-    const resources = await listResources();
-    const filtered = resources.filter((r) => r.id !== id);
-    if (filtered.length === resources.length) return false;
-    setItem(KEY, filtered);
-    return true;
-  } catch (error) {
-    console.error("[resources.repo] deleteResource failed:", error);
-    throw new RepoError("Impossible de supprimer la ressource", "resources", "delete");
-  }
-}
-
-export async function resetResources(): Promise<void> {
-  setItem(KEY, seedData.resources);
+  const supabase = createClient();
+  const { error, count } = await supabase
+    .from("resources")
+    .delete({ count: "exact" })
+    .eq("id", id);
+  if (error) throw new RepoError("Impossible de supprimer la ressource", "resources", "delete");
+  return (count ?? 0) > 0;
 }
