@@ -10,6 +10,7 @@ import {
 } from "react";
 import type { Profile } from "@/types";
 import { getUser, login as authLogin, logout as authLogout } from "./auth";
+import { createClient } from "@/lib/supabase/client";
 
 interface AuthContextType {
   user: Profile | null;
@@ -27,8 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async () => {
     try {
-      const u = await getUser();
-      setUser(u);
+      setUser(await getUser());
     } catch {
       setUser(null);
     } finally {
@@ -38,6 +38,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     refresh();
+    // Resynchronise à chaque changement de session (login, logout, refresh token).
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      // Différé : ne pas appeler d'autres méthodes supabase dans le callback (deadlock).
+      setTimeout(() => {
+        refresh();
+      }, 0);
+    });
+    return () => subscription.unsubscribe();
   }, [refresh]);
 
   const login = async (email: string, password: string): Promise<boolean> => {

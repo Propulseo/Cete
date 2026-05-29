@@ -1,84 +1,72 @@
-import type { Profile, AuthCredentials } from "@/types";
+import { createClient } from "@/lib/supabase/client";
+import type { Profile } from "@/types";
 
-const AUTH_KEY = "cete_auth_user";
+/** Mappe une ligne `profiles` (snake_case) vers le type métier `Profile`. */
+function toProfile(row: {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  client_id: string | null;
+  company: string | null;
+  phone: string | null;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}): Profile {
+  return {
+    id: row.id,
+    email: row.email,
+    name: row.name,
+    role: row.role === "admin" ? "admin" : "client",
+    clientId: row.client_id ?? undefined,
+    company: row.company ?? undefined,
+    phone: row.phone ?? undefined,
+    is_active: row.is_active,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  };
+}
 
-const DEMO_CREDENTIALS: AuthCredentials = {
-  email: "demo@cete.fr",
-  password: "Cete2026",
-};
+async function fetchProfile(userId: string): Promise<Profile | null> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return toProfile(data);
+}
 
-const ADMIN_CREDENTIALS: AuthCredentials = {
-  email: "admin@cete.fr",
-  password: "Admin2026",
-};
-
-// TODO Supabase: supabase.auth.signInWithPassword({ email, password })
-// puis supabase.from('profiles').select('*').eq('id', user.id).single()
+/** Connexion email + mot de passe (Supabase Auth). Retourne le profil ou null. */
 export async function login(email: string, password: string): Promise<Profile | null> {
-  if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
-    const user: Profile = {
-      id: "cli-12345",
-      email: DEMO_CREDENTIALS.email,
-      name: "Jean Dupont",
-      role: "client",
-      company: "Electricité Pro SA",
-      is_active: true,
-    };
-    if (typeof window !== "undefined") {
-      localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-    }
-    return user;
-  }
-
-  if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
-    const user: Profile = {
-      id: "adm-001",
-      email: ADMIN_CREDENTIALS.email,
-      name: "Administrateur CETé",
-      role: "admin",
-      is_active: true,
-    };
-    if (typeof window !== "undefined") {
-      localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-    }
-    return user;
-  }
-
-  return null;
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error || !data.user) return null;
+  return fetchProfile(data.user.id);
 }
 
-// TODO Supabase: supabase.auth.signOut()
 export async function logout(): Promise<void> {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem(AUTH_KEY);
-  }
+  await createClient().auth.signOut();
 }
 
-// TODO Supabase: supabase.auth.getUser() + supabase.from('profiles').select('*').eq('id', user.id).single()
+/** Profil de l'utilisateur courant (session) ou null. */
 export async function getUser(): Promise<Profile | null> {
-  if (typeof window === "undefined") return null;
-  const stored = localStorage.getItem(AUTH_KEY);
-  if (!stored) return null;
-  try {
-    return JSON.parse(stored) as Profile;
-  } catch {
-    return null;
-  }
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) return null;
+  return fetchProfile(data.user.id);
 }
 
-// TODO Supabase: basé sur supabase.auth.getUser()
 export async function isAuthenticated(): Promise<boolean> {
   return (await getUser()) !== null;
 }
 
-// TODO Supabase: basé sur le rôle du profil
 export async function isAdmin(): Promise<boolean> {
-  const user = await getUser();
-  return user?.role === "admin";
+  return (await getUser())?.role === "admin";
 }
 
-// TODO Supabase: basé sur le rôle du profil
 export async function isClient(): Promise<boolean> {
-  const user = await getUser();
-  return user?.role === "client";
+  return (await getUser())?.role === "client";
 }

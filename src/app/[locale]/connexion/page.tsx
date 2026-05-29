@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
+import { getUser } from "@/lib/auth";
 import { toast } from "sonner";
 
 function PortailContent() {
@@ -28,9 +29,9 @@ function PortailContent() {
 
       if (success) {
         toast.success("Connexion réussie");
-        // user state is now updated by AuthProvider - read role from email to route immediately
-        const isAdmin = email === "admin@cete.fr";
-        router.push(isAdmin ? "/admin/dashboard" : "/client/dashboard");
+        // Route selon le rôle réel du profil (et non l'email).
+        const u = await getUser();
+        router.push(u?.role === "admin" ? "/admin/dashboard" : "/client/dashboard");
       } else {
         toast.error("Identifiants incorrects", {
           description: "Vérifiez votre email et mot de passe",
@@ -45,7 +46,7 @@ function PortailContent() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] px-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md md:max-w-lg">
         {/* Logo */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 backdrop-blur">
@@ -102,19 +103,19 @@ function PortailContent() {
               <div className="grid gap-2">
                 <button
                   type="button"
-                  onClick={() => { setEmail("demo@cete.fr"); setPassword("Cete2026"); }}
+                  onClick={() => { setEmail("client@cete.fr"); setPassword("password"); }}
                   className="rounded-lg border p-3 text-left transition-colors hover:border-[#4DA6D9]/30 hover:bg-[#4DA6D9]/5"
                 >
                   <p className="text-sm font-medium">Client</p>
-                  <p className="text-xs text-muted-foreground">demo@cete.fr / Cete2026</p>
+                  <p className="text-xs text-muted-foreground">client@cete.fr / password</p>
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setEmail("admin@cete.fr"); setPassword("Admin2026"); }}
+                  onClick={() => { setEmail("admin@cete.fr"); setPassword("password"); }}
                   className="rounded-lg border p-3 text-left transition-colors hover:border-[#E8630A]/30 hover:bg-[#E8630A]/5"
                 >
                   <p className="text-sm font-medium">Administrateur</p>
-                  <p className="text-xs text-muted-foreground">admin@cete.fr / Admin2026</p>
+                  <p className="text-xs text-muted-foreground">admin@cete.fr / password</p>
                 </button>
               </div>
             </div>
