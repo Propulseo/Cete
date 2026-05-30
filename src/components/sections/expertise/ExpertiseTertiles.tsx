@@ -64,11 +64,11 @@ export function ExpertiseTertiles() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {tertileKeys.map((tert) => (
             <div
               key={tert.id}
-              className={`group relative rounded-3xl border-2 ${tert.color.border} p-8 transition-all duration-500 hover:shadow-2xl`}
+              className={`group relative rounded-3xl border-2 ${tert.color.border} p-6 lg:p-8 transition-all duration-500 hover:shadow-2xl`}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className={`w-14 h-14 rounded-2xl ${tert.color.iconBg} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500`}>

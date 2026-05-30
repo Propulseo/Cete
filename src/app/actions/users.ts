@@ -43,6 +43,26 @@ export async function createUserAction(input: {
   return { id: data.user.id };
 }
 
+/**
+ * Met à jour l'email et/ou le mot de passe d'un compte Auth (Admin API, service-role).
+ * Permet à l'admin de redéfinir le mot de passe d'un client et de garder l'email de
+ * connexion synchronisé avec la fiche profil. Sans changement → no-op.
+ */
+export async function updateUserAuthAction(input: {
+  id: string;
+  email?: string;
+  password?: string;
+}): Promise<void> {
+  await assertAdmin();
+  const attrs: { email?: string; password?: string } = {};
+  if (input.email) attrs.email = input.email;
+  if (input.password && input.password.length >= 6) attrs.password = input.password;
+  if (Object.keys(attrs).length === 0) return;
+  const admin = createAdminClient();
+  const { error } = await admin.auth.admin.updateUserById(input.id, attrs);
+  if (error) throw new Error(error.message);
+}
+
 export async function deleteUserAction(id: string): Promise<void> {
   await assertAdmin();
   const admin = createAdminClient();

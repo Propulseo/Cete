@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleLayout, type ArticleMeta } from "@/components/sections/blog/ArticleLayout";
 import { VizActContent } from "@/components/sections/blog/VizActContent";
+import { VideoEmbed } from "@/components/ui/video-embed";
+import { loadArticleBySlug } from "@/lib/vitrine-data";
 
+// Article éditorial sur-mesure (contenu riche). Les autres articles publiés sont
+// servis depuis la DB (excerpt en corps) via loadArticleBySlug.
 const articles: Record<string, ArticleMeta> = {
   "viz-act-tracabilite-intelligente-tst": {
     title: "VIZ-ACT : la traçabilité intelligente ",
@@ -27,19 +31,18 @@ const articles: Record<string, ArticleMeta> = {
 
 const seoKeywords: Record<string, string[]> = {
   "viz-act-tracabilite-intelligente-tst": [
-    "TST",
-    "travaux sous tension",
-    "traçabilité OTST",
-    "NF C 18-510",
-    "habilitation électrique",
-    "VIZ-ACT",
-    "CETé",
+    "TST", "travaux sous tension", "traçabilité OTST", "NF C 18-510",
+    "habilitation électrique", "VIZ-ACT", "CETé",
   ],
 };
 
 const contentMap: Record<string, React.ComponentType> = {
   "viz-act-tracabilite-intelligente-tst": VizActContent,
 };
+
+function initialsOf(name: string): string {
+  return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase() ?? "").join("");
+}
 
 export async function generateMetadata({
   params,
@@ -48,13 +51,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const article = articles[slug];
-  if (!article) return { title: "Article introuvable" };
-
-  return {
-    title: `${article.title}${article.titleHighlight ?? ""} - Blog CETé`,
-    description: article.metaDescription,
-    keywords: seoKeywords[slug],
-  };
+  if (article) {
+    return {
+      title: `${article.title}${article.titleHighlight ?? ""} - Blog CETé`,
+      description: article.metaDescription,
+      keywords: seoKeywords[slug],
+    };
+  }
+  const post = await loadArticleBySlug(slug);
+  if (!post) return { title: "Article introuvable" };
+  return { title: `${post.title} - Blog CETé`, description: post.excerpt };
 }
 
 export function generateStaticParams() {
@@ -67,14 +73,42 @@ export default async function BlogArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = articles[slug];
-  const Content = contentMap[slug];
 
-  if (!article || !Content) notFound();
+  // 1) Article éditorial sur-mesure
+  const bespoke = articles[slug];
+  const Content = contentMap[slug];
+  if (bespoke && Content) {
+    return (
+      <ArticleLayout meta={bespoke}>
+        <Content />
+      </ArticleLayout>
+    );
+  }
+
+  // 2) Article publié depuis la DB (corps = excerpt + vidéo éventuelle)
+  const post = await loadArticleBySlug(slug);
+  if (!post) notFound();
+
+  const meta: ArticleMeta = {
+    title: post.title,
+    metaDescription: post.excerpt,
+    author: { name: post.author, initials: initialsOf(post.author), role: "Expert CETé" },
+    category: post.category,
+    categoryColor: post.categoryColor,
+    publishedDate: post.publishedDate,
+    readTime: post.readTime,
+    imageUrl: post.imageUrl,
+    imageAlt: post.title,
+  };
 
   return (
-    <ArticleLayout meta={article}>
-      <Content />
+    <ArticleLayout meta={meta}>
+      {post.videoUrl && (
+        <div className="mb-8">
+          <VideoEmbed url={post.videoUrl} title={post.title} />
+        </div>
+      )}
+      <p className="text-lg leading-relaxed text-[#4A6580]">{post.excerpt}</p>
     </ArticleLayout>
   );
 }

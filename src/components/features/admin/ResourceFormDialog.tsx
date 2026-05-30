@@ -7,11 +7,25 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { Resource, ResourceCategory, ResourceType, ResourceAccessMode } from "@/types/resource";
+import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
+import { uploadFile, buildStoragePath } from "@/lib/supabase/storage";
+import { listClients } from "@/lib/repo/clients.repo";
+import type { Resource, ResourceCategory, ResourceType } from "@/types/resource";
+import type { AccessType, Visibility } from "@/types/shared";
+import type { Client } from "@/types/client";
+
+function formatBytes(bytes: number): string {
+  if (!bytes) return "";
+  const units = ["o", "Ko", "Mo", "Go"];
+  const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+  return `${(bytes / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
+}
 
 interface ResourceFormDialogProps {
   open: boolean;
@@ -34,9 +48,9 @@ const typeLabels: Record<ResourceType, string> = {
   video: "Vidéo",
 };
 
-const accessModeLabels: Record<ResourceAccessMode, string> = {
-  lecture: "Consultation en ligne",
-  telechargement: "Téléchargement",
+const accessTypeLabels: Record<AccessType, string> = {
+  "view-only": "Consultation en ligne",
+  download: "Téléchargement",
 };
 
 const urlPlaceholders: Record<ResourceType, string> = {
@@ -50,7 +64,9 @@ const EMPTY: Omit<Resource, "id"> = {
   description: "",
   category: "normes",
   type: "pdf",
-  accessMode: "lecture",
+  accessType: "view-only",
+  visibility: "global",
+  assignedClientIds: [],
   url: "",
   youtubeId: undefined,
   fileSize: undefined,
@@ -66,25 +82,58 @@ export function ResourceFormDialog({
   initialData,
 }: ResourceFormDialogProps) {
   const [form, setForm] = useState<Omit<Resource, "id">>(EMPTY);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [file, setFile] = useState<File | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (open) {
+      setFile(null);
       if (initialData) {
         const { id: _, ...rest } = initialData;
         setForm(rest);
       } else {
         setForm(EMPTY);
       }
+      listClients().then(setClients).catch(() => setClients([]));
     }
   }, [open, initialData]);
 
   const set = (key: string, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const toggleClient = (id: string) =>
+    setForm((prev) => ({
+      ...prev,
+      assignedClientIds: prev.assignedClientIds.includes(id)
+        ? prev.assignedClientIds.filter((x) => x !== id)
+        : [...prev.assignedClientIds, id],
+    }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(form);
-    onOpenChange(false);
+    if (form.type === "pdf" && !file && !form.storagePath) {
+      toast.error("Déposez un fichier PDF");
+      return;
+    }
+    setSaving(true);
+    try {
+      let payload = { ...form };
+      if (form.type === "pdf" && file) {
+        const path = await uploadFile(
+          "client-documents",
+          buildStoragePath("global", file.name),
+          file,
+        );
+        payload = { ...payload, storagePath: path, fileSize: formatBytes(file.size), url: "" };
+      }
+      onSubmit(payload);
+      onOpenChange(false);
+    } catch {
+      toast.error("Échec du téléversement du fichier");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const selectClass =
@@ -155,10 +204,10 @@ export function ResourceFormDialog({
             <Label>Mode d&apos;accès client</Label>
             <select
               className={selectClass}
-              value={form.accessMode}
-              onChange={(e) => set("accessMode", e.target.value)}
+              value={form.accessType}
+              onChange={(e) => set("accessType", e.target.value)}
             >
-              {(Object.entries(accessModeLabels) as [ResourceAccessMode, string][]).map(
+              {(Object.entries(accessTypeLabels) as [AccessType, string][]).map(
                 ([value, label]) => (
                   <option key={value} value={value}>
                     {label}
@@ -177,23 +226,29 @@ export function ResourceFormDialog({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label>URL</Label>
-            <Input
-              value={form.url}
-              onChange={(e) => set("url", e.target.value)}
-              placeholder={urlPlaceholders[form.type]}
-              required
-            />
-          </div>
-
-          {form.type === "pdf" && (
+          {form.type === "pdf" ? (
             <div className="space-y-2">
-              <Label>Taille du fichier</Label>
+              <Label>Fichier PDF</Label>
+              <FileUploadField
+                file={file}
+                onFileChange={setFile}
+                currentName={initialData?.storagePath ? `${initialData.title}.pdf` : null}
+                accept="application/pdf"
+                label="Déposer le PDF"
+                disabled={saving}
+              />
+              {form.fileSize && !file && (
+                <p className="text-xs text-muted-foreground">Taille : {form.fileSize}</p>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <Label>URL</Label>
               <Input
-                placeholder="ex: 2.5 MB"
-                value={form.fileSize ?? ""}
-                onChange={(e) => set("fileSize", e.target.value)}
+                value={form.url}
+                onChange={(e) => set("url", e.target.value)}
+                placeholder={urlPlaceholders[form.type]}
+                required
               />
             </div>
           )}
@@ -218,6 +273,43 @@ export function ResourceFormDialog({
             />
           </div>
 
+          <div className="space-y-2">
+            <Label>Visibilité</Label>
+            <select
+              className={selectClass}
+              value={form.visibility}
+              onChange={(e) => {
+                const v = e.target.value as Visibility;
+                setForm((prev) => ({ ...prev, visibility: v, assignedClientIds: v === "global" ? [] : prev.assignedClientIds }));
+              }}
+            >
+              <option value="global">Global (tous les clients)</option>
+              <option value="assigned">Clients spécifiques</option>
+            </select>
+          </div>
+          {form.visibility === "assigned" && (
+            <div className="space-y-2">
+              <Label>Clients destinataires</Label>
+              <div className="max-h-40 space-y-0.5 overflow-y-auto rounded-md border border-input p-2">
+                {clients.length === 0 ? (
+                  <p className="px-1 text-xs text-muted-foreground">Aucune entreprise cliente.</p>
+                ) : (
+                  clients.map((c) => (
+                    <label key={c.id} className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-accent">
+                      <input
+                        type="checkbox"
+                        checked={form.assignedClientIds.includes(c.id)}
+                        onChange={() => toggleClient(c.id)}
+                        className="h-4 w-4 rounded border-input"
+                      />
+                      {c.companyName}
+                    </label>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Date de publication</Label>
@@ -238,10 +330,11 @@ export function ResourceFormDialog({
           </div>
 
           <div className="flex justify-end gap-2 pt-2">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>
               Annuler
             </Button>
-            <Button type="submit">
+            <Button type="submit" disabled={saving}>
+              {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" strokeWidth={1.75} />}
               {initialData ? "Enregistrer" : "Créer"}
             </Button>
           </div>

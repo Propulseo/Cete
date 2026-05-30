@@ -1,17 +1,19 @@
+import type { ClientScoped, AccessType } from "./shared";
+
 export type ResourceCategory = "normes" | "reglementation" | "guides" | "rapports" | "veille";
 
 export type ResourceType = "pdf" | "lien" | "video";
 
-export type ResourceAccessMode = "lecture" | "telechargement";
-
-export interface Resource {
+export interface Resource extends ClientScoped {
   id: string;
   title: string;
   description: string;
   category: ResourceCategory;
   type: ResourceType;
-  accessMode: ResourceAccessMode;
+  accessType: AccessType;
   url: string;
+  /** Chemin de l'objet dans le bucket `client-documents` (ressources PDF déposées). */
+  storagePath?: string;
   youtubeId?: string;
   fileSize?: string;
   source?: string;

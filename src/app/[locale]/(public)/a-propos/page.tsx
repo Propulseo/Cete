@@ -9,6 +9,7 @@ import {
   AboutValues,
   AboutCTA,
 } from "@/components/sections/about";
+import { loadFounders } from "@/lib/vitrine-data";
 
 export default async function AProposPage({
   params,
@@ -17,13 +18,14 @@ export default async function AProposPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const founders = await loadFounders(locale as "fr" | "en");
 
   return (
     <>
       <AboutHero />
       <AboutOriginStory />
       <AboutStats />
-      <AboutFounders />
+      <AboutFounders founders={founders} />
       <AboutWorldMap />
       <AboutGouvernance />
       <AboutValues />

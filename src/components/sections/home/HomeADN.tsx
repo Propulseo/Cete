@@ -26,7 +26,7 @@ export function HomeADN() {
       <div className="absolute inset-0 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] opacity-50" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-8">
             <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#4DA6D9] text-sm font-semibold uppercase tracking-wider">
               {t("badge")}

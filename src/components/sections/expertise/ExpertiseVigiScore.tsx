@@ -44,11 +44,11 @@ export function ExpertiseVigiScore() {
         </div>
 
         {/* 3 critères */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {vigiScoreKeys.map((vigi) => (
             <div
               key={vigi.id}
-              className="group relative p-8 rounded-3xl bg-[#F4F9FD] border border-[#DAEEF8] hover:border-[#4DA6D9]/30 hover:shadow-xl transition-all duration-500"
+              className="group relative p-6 lg:p-8 rounded-3xl bg-[#F4F9FD] border border-[#DAEEF8] hover:border-[#4DA6D9]/30 hover:shadow-xl transition-all duration-500"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-[#4DA6D9] flex items-center justify-center">

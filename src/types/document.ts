@@ -1,11 +1,10 @@
+import type { ClientScoped, AccessType } from "./shared";
+
 export type DocumentCategory = "newsletters" | "capsules" | "guides" | "carnets";
 export type DocumentType = "pdf" | "video";
 export type NotificationType = "veille" | "document" | "info";
 
-export type AccessRights = "all-clients" | "admin-only" | "specific-clients";
-export type AccessType = "view-only" | "download";
-
-export interface ClientDocument {
+export interface ClientDocument extends ClientScoped {
   id: string;
   title: string;
   category: DocumentCategory;
@@ -15,16 +14,15 @@ export interface ClientDocument {
   duration?: string;
   uploadDate: string;
   url?: string;
+  /** Chemin de l'objet dans le bucket `client-documents` (dossier `global/` ou `<client_id>/`). */
+  storagePath?: string;
   youtubeId?: string;
-  visibility: "global" | "client";
-  clientId?: string;
-  accessRights?: AccessRights;
   accessType?: AccessType;
   created_at?: string;
   updated_at?: string;
 }
 
-export interface Notification {
+export interface Notification extends ClientScoped {
   id: string;
   type: NotificationType;
   message: string;

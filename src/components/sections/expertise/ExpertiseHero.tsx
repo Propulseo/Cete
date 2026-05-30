@@ -22,7 +22,7 @@ export function ExpertiseHero() {
             <span className="text-sm font-medium text-[#E8630A]">{t("badge")}</span>
           </div>
 
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] tracking-wide mb-6 animate-slide-up animation-delay-100">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-8xl text-[#1A2940] tracking-wide mb-6 animate-slide-up animation-delay-100">
             {t("heading")}{" "}
             <span className="text-[#E8630A] relative">
               ADN

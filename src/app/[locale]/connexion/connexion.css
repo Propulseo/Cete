@@ -1,0 +1,694 @@
+/* ===========================================================================
+   Portail de connexion CETé — direction "Salle de contrôle" (split-screen).
+   Styles scopés sous .cete-login pour ne rien faire fuiter dans le reste de
+   l'app (le site public, l'admin et le client gardent leurs tokens intacts).
+   Le keyframe "float" est renommé en "cetelogin-float" pour ne pas entrer en
+   conflit avec celui de globals.css.
+   =========================================================================== */
+
+.cete-login {
+  /* Bleu ciel */
+  --sky: #4DA6D9;
+  --sky-light: #87C4E8;
+  --sky-deep: #1A7AB5;
+  --sky-ultra: #0D5A8A;
+  /* Orange TST — accent unique, parcimonieux */
+  --tst: #E8630A;
+  --tst-light: #F59542;
+  --tst-dark: #B84D08;
+  /* Encre marine */
+  --ink: #1A2940;
+  --ink-2: #4A6580;
+  --ink-muted: #8AA5BE;
+  /* Placeholder lisible (>= AA sur fond doux) */
+  --placeholder: #6B86A0;
+  /* Fonds */
+  --white: #FFFFFF;
+  --soft: #F4F9FD;
+  --grad-start: #DAEEF8;
+  /* Bordures / filets */
+  --line: #DAEEF8;
+  --line-2: #E6ECF1;
+  /* Vigi-Score — A vert (meilleur) -> D rouge (à risque) */
+  --vs-a: #22C55E;
+  --vs-b: #7CB342;
+  --vs-c: #F59E0B;
+  --vs-d: #DC2626;
+
+  --serif: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--soft);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.cete-login *,
+.cete-login *::before,
+.cete-login *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.cete-login a { color: inherit; }
+
+/* ============ LAYOUT SHELL ============ */
+.cete-login .shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  min-height: 100vh;
+  background: var(--white);
+}
+
+/* ============ LEFT — PANNEAU MARINE ============ */
+.cete-login .brand {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 12% 8%, rgba(77,166,217,0.20) 0%, rgba(77,166,217,0) 55%),
+    linear-gradient(155deg, #1A2940 0%, #103E62 48%, #0D5A8A 100%);
+  color: #EAF4FB;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2.4rem, 4vw, 4rem);
+  isolation: isolate;
+}
+
+/* Trame réseau électrique en filigrane */
+.cete-login .grid-trace {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* SVG sorti du flux : garde-fou pour qu'il ne puisse jamais dimensionner son
+   parent (sinon son ratio 600x800 le rendrait haut de ~1200px et casserait la
+   mise en page). Conjugué à la règle de spécificité plus bas. */
+.cete-login .grid-trace svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Bulles bleues translucides flottantes */
+.cete-login .bubbles { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.cete-login .bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, rgba(135,196,232,0.16), rgba(77,166,217,0.06) 60%, rgba(77,166,217,0) 72%);
+  border: 1px solid rgba(135,196,232,0.10);
+  animation: cetelogin-float 16s var(--ease) infinite;
+}
+.cete-login .bubble.b1 { width: 380px; height: 380px; top: -90px; right: -110px; animation-duration: 19s; }
+.cete-login .bubble.b2 { width: 220px; height: 220px; bottom: 8%; left: -70px; animation-duration: 22s; animation-delay: -4s; }
+.cete-login .bubble.b3 { width: 130px; height: 130px; top: 40%; right: 14%; animation-duration: 17s; animation-delay: -8s; }
+.cete-login .bubble.b4 { width: 74px; height: 74px; top: 22%; left: 18%; animation-duration: 14s; animation-delay: -2s; }
+.cete-login .bubble.b5 { width: 46px; height: 46px; bottom: 26%; right: 30%; animation-duration: 13s; animation-delay: -6s; }
+
+@keyframes cetelogin-float {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-22px,0); }
+}
+
+.cete-login .brand > * { position: relative; z-index: 1; }
+
+/* Les couches décoratives doivent rester en fond ABSOLU. Spécificité (0,3,0) >
+   `.brand > *` (0,2,0) : sans ça, elles héritent du position:relative ci-dessus,
+   le SVG de la trame réseau repasse en flux (width:100% -> ~1200px de haut via son
+   ratio 600x800) et pousse tout le contenu du panneau hors de l'écran. */
+.cete-login .brand > .grid-trace,
+.cete-login .brand > .bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Wordmark */
+.cete-login .wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--serif);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #fff;
+  line-height: 1;
+}
+.cete-login .topbar { display: flex; align-items: center; gap: 0.85rem; }
+.cete-login .topbar .wordmark { font-size: 1.6rem; }
+.cete-login .wordmark sup {
+  font-size: 0.5em;
+  font-weight: 700;
+  margin-left: 1px;
+  top: -0.05em;
+  position: relative;
+  color: var(--sky-light);
+}
+.cete-login .topbar .mark-rule {
+  height: 26px;
+  width: 1px;
+  background: rgba(218,238,248,0.22);
+}
+.cete-login .topbar .org {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #AFC8DD;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Centre narratif */
+.cete-login .brand-body {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: clamp(2rem, 5vh, 3.5rem) 0;
+  max-width: 460px;
+}
+.cete-login .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--sky-light);
+  margin-bottom: 1.4rem;
+}
+.cete-login .eyebrow .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--vs-a);
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+}
+.cete-login .brand-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(1.85rem, 3vw, 2.55rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+.cete-login .brand-title em {
+  font-style: normal;
+  color: var(--sky-light);
+}
+.cete-login .brand-sub {
+  margin-top: 1.15rem;
+  color: #C6DCEC;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  max-width: 42ch;
+}
+
+/* Sceau Vigi-Score */
+.cete-login .vigi {
+  margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.25rem 1.4rem;
+  background: rgba(13,90,138,0.30);
+  border: 1px solid rgba(135,196,232,0.18);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.cete-login .vigi-scale { display: flex; gap: 6px; }
+.cete-login .vs {
+  width: 38px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 8px;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 1.18rem;
+  color: #0c1a2b;
+  position: relative;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.14), 0 4px 10px rgba(0,0,0,0.22);
+}
+.cete-login .vs[data-g="A"] { background: linear-gradient(180deg, #4ade80, var(--vs-a)); }
+.cete-login .vs[data-g="B"] { background: linear-gradient(180deg, #9ccc65, var(--vs-b)); }
+.cete-login .vs[data-g="C"] { background: linear-gradient(180deg, #fbbf24, var(--vs-c)); }
+.cete-login .vs[data-g="D"] { background: linear-gradient(180deg, #f0746e, var(--vs-d)); color: #fff; }
+.cete-login .vs[data-g="D"]::before {
+  content: ""; position: absolute; inset: 0; border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+}
+.cete-login .vs.is-active {
+  transform: translateY(-5px) scale(1.06);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.14), 0 10px 18px rgba(0,0,0,0.30), 0 0 0 2px rgba(255,255,255,0.65);
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), opacity 0.6s var(--ease);
+}
+.cete-login .vs:not(.is-active) {
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), opacity 0.6s var(--ease);
+  opacity: 0.62;
+}
+.cete-login .vigi-caption {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #BCD4E6;
+}
+.cete-login .vigi-caption strong {
+  display: block;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.15rem;
+}
+
+/* Signaux de confiance */
+.cete-login .trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.6rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(218,238,248,0.12);
+}
+.cete-login .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #C6DCEC;
+  padding: 0.42rem 0.78rem;
+  border: 1px solid rgba(135,196,232,0.20);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.03);
+}
+.cete-login .chip svg { width: 14px; height: 14px; flex: none; color: var(--sky-light); }
+
+/* ============ RIGHT — FORMULAIRE ============ */
+.cete-login .panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  position: relative;
+}
+.cete-login .panel-inner {
+  width: 100%;
+  max-width: 432px;
+  margin: auto;
+  padding: clamp(2.4rem, 4vw, 3.2rem) clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.cete-login .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  margin-bottom: 2.4rem;
+  transition: color 0.2s ease, gap 0.2s var(--ease);
+  border-radius: 6px;
+  padding: 2px 2px;
+}
+.cete-login .back-link svg { width: 16px; height: 16px; transition: transform 0.2s var(--ease); }
+.cete-login .back-link:hover { color: var(--ink); gap: 0.55rem; }
+.cete-login .back-link:hover svg { transform: translateX(-2px); }
+.cete-login .back-link:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 3px; }
+
+.cete-login .form-head { margin-bottom: 2rem; }
+.cete-login .form-head h1 {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 2.4vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.cete-login .form-head h1 .wm-sup {
+  font-size: 0.5em;
+  font-weight: 700;
+  vertical-align: super;
+  color: var(--sky-deep);
+}
+.cete-login .form-head p {
+  margin-top: 0.6rem;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.cete-login form { display: flex; flex-direction: column; gap: 1.15rem; }
+
+.cete-login .field { display: flex; flex-direction: column; gap: 0.4rem; }
+.cete-login .field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+}
+.cete-login .input-wrap { position: relative; display: flex; align-items: center; }
+.cete-login .input-wrap > svg.lead {
+  position: absolute;
+  left: 14px;
+  width: 18px; height: 18px;
+  color: var(--ink-2);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+.cete-login input[type="email"],
+.cete-login input[type="password"],
+.cete-login input[type="text"] {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--soft);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.82rem 0.9rem 0.82rem 2.6rem;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+.cete-login input::placeholder { color: var(--placeholder); opacity: 1; }
+.cete-login input:hover { border-color: #C4DEF0; }
+.cete-login input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--sky);
+  box-shadow: 0 0 0 4px rgba(77,166,217,0.16);
+}
+.cete-login .input-wrap:focus-within > svg.lead { color: var(--sky-deep); }
+
+.cete-login .field.password input { padding-right: 3rem; }
+.cete-login .toggle-pw {
+  position: absolute;
+  right: 8px;
+  display: grid; place-items: center;
+  width: 34px; height: 34px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.cete-login .toggle-pw:hover { color: var(--ink); background: var(--line); }
+.cete-login .toggle-pw:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+.cete-login .toggle-pw svg { width: 18px; height: 18px; }
+
+.cete-login .row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: -0.2rem;
+}
+.cete-login .remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  cursor: pointer;
+  user-select: none;
+}
+.cete-login .remember input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px; height: 17px;
+  border: 1.5px solid #BFD4E5;
+  border-radius: 5px;
+  background: var(--white);
+  display: grid; place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.cete-login .remember input:hover { border-color: var(--sky); }
+.cete-login .remember input:checked {
+  background: var(--sky-deep);
+  border-color: var(--sky-deep);
+}
+.cete-login .remember input:checked::after {
+  content: "";
+  width: 9px; height: 5px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+.cete-login .remember input:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+
+/* L'UNIQUE accent orange : le lien actif "mot de passe oublié" (AA, 5.12:1) */
+.cete-login .forgot {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tst-dark);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.18s ease;
+  border-radius: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.cete-login .forgot::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1.5px;
+  background: var(--tst);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s var(--ease);
+}
+.cete-login .forgot:hover { color: var(--tst); }
+.cete-login .forgot:hover::after { transform: scaleX(1); }
+.cete-login .forgot:focus-visible { outline: 2px solid var(--tst-dark); outline-offset: 3px; }
+
+.cete-login .btn-primary {
+  margin-top: 0.4rem;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.97rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-ultra) 100%);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.92rem 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 6px 18px rgba(13,90,138,0.28);
+  transition: transform 0.16s var(--ease), box-shadow 0.2s ease, filter 0.2s ease;
+}
+.cete-login .btn-primary svg { width: 18px; height: 18px; transition: transform 0.2s var(--ease); }
+.cete-login .btn-primary:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 10px 26px rgba(13,90,138,0.34);
+  transform: translateY(-1px);
+}
+.cete-login .btn-primary:hover svg { transform: translateX(3px); }
+.cete-login .btn-primary:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(13,90,138,0.30); }
+.cete-login .btn-primary:focus-visible { outline: 3px solid rgba(13,90,138,0.65); outline-offset: 2px; }
+.cete-login .btn-primary:disabled { opacity: 0.7; cursor: progress; filter: none; transform: none; }
+
+/* Spinner du bouton pendant la soumission */
+.cete-login .btn-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: cetelogin-spin 0.7s linear infinite;
+}
+@keyframes cetelogin-spin { to { transform: rotate(360deg); } }
+
+/* ============ COMPTES DE DÉMONSTRATION ============ */
+.cete-login .demo {
+  margin-top: 2rem;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: var(--soft);
+  overflow: hidden;
+}
+.cete-login .demo-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.9rem 1.05rem;
+  font-family: var(--sans);
+  text-align: left;
+}
+.cete-login .demo-toggle:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: -2px; border-radius: var(--radius); }
+.cete-login .demo-toggle .dt-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.cete-login .demo-toggle .dt-label svg { width: 16px; height: 16px; color: var(--sky-deep); }
+.cete-login .demo-toggle .chev {
+  width: 18px; height: 18px;
+  color: var(--ink-2);
+  transition: transform 0.25s var(--ease);
+}
+.cete-login .demo.open .demo-toggle .chev { transform: rotate(180deg); }
+
+.cete-login .demo-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s var(--ease);
+}
+.cete-login .demo.open .demo-body { grid-template-rows: 1fr; }
+.cete-login .demo-body-inner { overflow: hidden; }
+.cete-login .demo-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  padding: 0.25rem 1.05rem 1.05rem;
+}
+.cete-login .demo-card {
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 0.9rem;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.16s var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.cete-login .demo-card:hover {
+  border-color: var(--sky);
+  box-shadow: 0 6px 16px rgba(26,122,181,0.12);
+  transform: translateY(-2px);
+}
+.cete-login .demo-card:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+.cete-login .dc-head { display: flex; align-items: center; gap: 0.5rem; }
+.cete-login .dc-badge {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  flex: none;
+}
+.cete-login .dc-badge svg { width: 16px; height: 16px; }
+.cete-login .dc-badge.client { background: rgba(77,166,217,0.14); color: var(--sky-ultra); }
+.cete-login .dc-badge.admin { background: rgba(26,41,64,0.08); color: var(--ink); }
+.cete-login .dc-role {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.cete-login .dc-mail {
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  word-break: break-all;
+  line-height: 1.35;
+}
+.cete-login .dc-fill {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--sky-ultra);
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background 0.18s ease;
+}
+.cete-login .demo-card:hover .dc-fill { background: var(--sky-deep); }
+.cete-login .dc-fill svg { width: 12px; height: 12px; color: #fff; }
+
+.cete-login .legal {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.cete-login .legal a {
+  color: var(--sky-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.cete-login .legal a:hover { color: var(--sky-ultra); }
+.cete-login .legal a:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+
+/* Lecteur d'écran uniquement */
+.cete-login .sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ============ MOBILE — en-tête marine compact ============ */
+.cete-login .mobile-head { display: none; }
+
+@media (max-width: 900px) {
+  .cete-login .shell { grid-template-columns: 1fr; }
+  .cete-login .brand { display: none; }
+  .cete-login .mobile-head {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 120% at 10% 0%, rgba(77,166,217,0.22) 0%, rgba(77,166,217,0) 55%),
+      linear-gradient(135deg, #1A2940 0%, #0D5A8A 100%);
+    color: #fff;
+    padding: 1.6rem clamp(1.4rem, 6vw, 2.4rem) 1.7rem;
+  }
+  .cete-login .mobile-head .bubbles .bubble { animation: none; }
+  .cete-login .mh-row { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .cete-login .mobile-head .wordmark { font-size: 1.5rem; }
+  .cete-login .mh-scale { display: flex; gap: 4px; }
+  .cete-login .mh-scale .vs { width: 26px; height: 32px; font-size: 0.85rem; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.14), 0 3px 7px rgba(0,0,0,0.2); }
+  .cete-login .mh-scale .vs:not(.is-active) { opacity: 0.55; }
+  .cete-login .mh-sub {
+    position: relative; z-index: 1;
+    margin-top: 0.85rem;
+    font-size: 0.86rem;
+    color: #C6DCEC;
+    max-width: 38ch;
+  }
+  .cete-login .mh-trust {
+    position: relative; z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.45rem;
+    margin-top: 1rem;
+  }
+  .cete-login .mh-trust .chip { font-size: 0.68rem; padding: 0.34rem 0.62rem; }
+  .cete-login .panel-inner { margin-top: 0; padding-top: 2rem; }
+  .cete-login .back-link { margin-bottom: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .cete-login .demo-cards { grid-template-columns: 1fr; }
+  .cete-login .row-between { flex-direction: row; flex-wrap: wrap; }
+  .cete-login .mh-trust .chip { font-size: 0.66rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cete-login .bubble,
+  .cete-login .vs,
+  .cete-login .vs.is-active { animation: none !important; transition: none !important; }
+  .cete-login .btn-spinner { animation-duration: 1.4s; }
+}

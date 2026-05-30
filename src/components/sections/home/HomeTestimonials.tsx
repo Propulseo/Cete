@@ -30,9 +30,9 @@ export function HomeTestimonials() {
         <div className="max-w-6xl mx-auto">
           <div className="rounded-3xl overflow-hidden bg-white border border-[#DAEEF8] shadow-xl shadow-[#4DA6D9]/5">
             {/* Video + Pull quote row */}
-            <div className="grid lg:grid-cols-5">
+            <div className="grid md:grid-cols-5">
               {/* Video area - 3/5 */}
-              <div className="lg:col-span-3 relative">
+              <div className="md:col-span-3 relative">
                 <div className="aspect-video bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
                   {/* Subtle grid texture */}
                   <div
@@ -66,10 +66,10 @@ export function HomeTestimonials() {
               </div>
 
               {/* Pull quote - 2/5 */}
-              <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-[#F4F9FD]">
+              <div className="md:col-span-2 p-8 md:p-6 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-[#F4F9FD]">
                 <Quote className="w-14 h-14 text-[#E8630A]/15 mb-4 -scale-x-100" />
 
-                <blockquote className="font-display text-xl lg:text-[1.35rem] xl:text-2xl text-[#1A2940] leading-snug italic mb-8">
+                <blockquote className="font-display text-xl md:text-lg lg:text-[1.35rem] xl:text-2xl text-[#1A2940] leading-snug italic mb-8">
                   {brandify(t("pullQuote"))}
                 </blockquote>
 

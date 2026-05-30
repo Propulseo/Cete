@@ -10,6 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { listClients } from "@/lib/repo/clients.repo";
+import type { Client } from "@/types/client";
 import type { Profile } from "@/types/auth";
 
 type UserPayload = Omit<Profile, "id" | "created_at"> & { password?: string };
@@ -19,60 +21,78 @@ interface UserFormDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: UserPayload) => void;
   initialData?: Profile | null;
+  /** Pré-sélectionne une entreprise (ex. "Ouvrir un accès" depuis la fiche client). */
+  lockedClient?: { id: string; companyName: string } | null;
 }
 
 const EMPTY: UserPayload = {
   name: "",
   email: "",
   role: "client",
+  clientId: undefined,
   company: "",
   is_active: true,
   password: "",
 };
+
+const selectClass =
+  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 
 export function UserFormDialog({
   open,
   onOpenChange,
   onSubmit,
   initialData,
+  lockedClient,
 }: UserFormDialogProps) {
   const [form, setForm] = useState<UserPayload>(EMPTY);
+  const [clients, setClients] = useState<Client[]>([]);
 
   useEffect(() => {
-    if (open) {
-      if (initialData) {
-        setForm({
-          name: initialData.name,
-          email: initialData.email,
-          role: initialData.role,
-          company: initialData.company ?? "",
-          is_active: initialData.is_active,
-        });
-      } else {
-        setForm(EMPTY);
-      }
+    if (!open) return;
+    if (initialData) {
+      setForm({
+        name: initialData.name,
+        email: initialData.email,
+        role: initialData.role,
+        clientId: initialData.clientId,
+        company: initialData.company ?? "",
+        is_active: initialData.is_active,
+        password: "",
+      });
+    } else if (lockedClient) {
+      setForm({ ...EMPTY, role: "client", clientId: lockedClient.id, company: lockedClient.companyName });
+    } else {
+      setForm(EMPTY);
     }
-  }, [open, initialData]);
+    listClients()
+      .then(setClients)
+      .catch(() => setClients([]));
+  }, [open, initialData, lockedClient]);
 
   const set = (key: string, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const isClient = form.role === "client";
     const data: UserPayload = {
       ...form,
-      company: form.role === "client" ? form.company : undefined,
+      clientId: isClient ? form.clientId : undefined,
+      company: isClient ? form.company : undefined,
     };
     onSubmit(data);
     onOpenChange(false);
   };
+
+  const isEdit = !!initialData;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {initialData ? "Modifier l'utilisateur" : "Nouvel utilisateur"}
+            {isEdit ? "Modifier l'utilisateur" : "Nouvel utilisateur"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -91,26 +111,25 @@ export function UserFormDialog({
             />
           </div>
 
-          {!initialData && (
-            <div className="space-y-2">
-              <Label>Mot de passe</Label>
-              <Input
-                type="password"
-                value={form.password ?? ""}
-                onChange={(e) => set("password", e.target.value)}
-                placeholder="Min. 6 caractères"
-                required
-                minLength={6}
-              />
-            </div>
-          )}
+          <div className="space-y-2">
+            <Label>{isEdit ? "Nouveau mot de passe" : "Mot de passe"}</Label>
+            <Input
+              type="password"
+              value={form.password ?? ""}
+              onChange={(e) => set("password", e.target.value)}
+              placeholder={isEdit ? "Laisser vide pour ne pas changer" : "Min. 6 caractères"}
+              required={!isEdit}
+              minLength={6}
+            />
+          </div>
 
           <div className="space-y-2">
             <Label>Rôle</Label>
             <select
-              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
+              className={selectClass}
               value={form.role}
               onChange={(e) => set("role", e.target.value)}
+              disabled={!!lockedClient}
             >
               <option value="client">Client</option>
               <option value="admin">Administrateur</option>
@@ -119,11 +138,31 @@ export function UserFormDialog({
 
           {form.role === "client" && (
             <div className="space-y-2">
-              <Label>Entreprise</Label>
-              <Input
-                value={form.company ?? ""}
-                onChange={(e) => set("company", e.target.value)}
-              />
+              <Label>Entreprise cliente</Label>
+              <select
+                className={selectClass}
+                value={form.clientId ?? ""}
+                onChange={(e) => {
+                  const c = clients.find((x) => x.id === e.target.value);
+                  setForm((prev) => ({
+                    ...prev,
+                    clientId: e.target.value || undefined,
+                    company: c?.companyName ?? "",
+                  }));
+                }}
+                disabled={!!lockedClient}
+                required
+              >
+                <option value="">Choisir une entreprise…</option>
+                {clients.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.companyName}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">
+                Le compte donne accès au portail de cette entreprise.
+              </p>
             </div>
           )}
 
@@ -132,7 +171,7 @@ export function UserFormDialog({
               Annuler
             </Button>
             <Button type="submit">
-              {initialData ? "Enregistrer" : "Créer"}
+              {isEdit ? "Enregistrer" : "Créer"}
             </Button>
           </div>
         </form>

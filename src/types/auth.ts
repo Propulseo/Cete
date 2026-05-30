@@ -4,6 +4,8 @@ export interface Profile {
   email: string;
   name: string;
   role: "admin" | "client";
+  /** FK vers `Client` (distinct de l'id auth). Requis en pratique pour `role === "client"`. */
+  clientId?: string;
   company?: string;
   phone?: string;
   is_active: boolean;

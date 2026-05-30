@@ -5,7 +5,9 @@ import { Video, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { listDocumentsForClient } from "@/lib/repo/documents.repo";
+import { getVisibleForClient } from "@/lib/repo/documents.repo";
+import { PageHeader } from "@/components/shared/page-header";
+import { EmptyState } from "@/components/shared/empty-state";
 import { DocumentCard } from "@/components/features/client/DocumentCard";
 import type { ClientDocument } from "@/types/document";
 
@@ -21,7 +23,7 @@ export default function CapsulesPage() {
     try {
       setLoading(true);
       setError(null);
-      const docs = await listDocumentsForClient(user.id);
+      const docs = await getVisibleForClient(user.clientId ?? user.id);
       setCapsules(docs.filter((d) => d.category === "capsules"));
     } catch (err) {
       setError(err instanceof Error ? err.message : t("states.error"));
@@ -52,24 +54,14 @@ export default function CapsulesPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex items-center gap-3">
-        <div className="rounded-lg bg-purple-100 p-2 text-purple-600">
-          <Video className="h-6 w-6" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">{t("pages.capsulesTitle")}</h1>
-          <p className="text-sm text-muted-foreground">
-            {t("pages.available", { count: capsules.length, item: "capsule" + (capsules.length > 1 ? "s" : "") })}
-          </p>
-        </div>
-      </div>
+    <div className="p-4 lg:p-8">
+      <PageHeader
+        title={t("pages.capsulesTitle")}
+        subtitle={t("pages.available", { count: capsules.length, item: t("categories.capsules") })}
+      />
 
       {capsules.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed bg-white p-12 text-center">
-          <Video className="mb-3 h-10 w-10 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">{t("pages.noCapsules")}</p>
-        </div>
+        <EmptyState icon={Video} title={t("pages.noCapsules")} />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {capsules.map((doc) => (

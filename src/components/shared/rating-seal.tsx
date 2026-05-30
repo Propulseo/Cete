@@ -38,6 +38,15 @@ const TINT: Record<VigiGrade, string> = {
   C: "var(--vigi-c-tint)",
   D: "var(--vigi-d-tint)",
 };
+// Letter/ring/glyph ink. Equals -fill in light mode (small seals render identically), but is
+// brightened in dark mode (globals.css) so the colored letter + the redundant glyph stay
+// legible on the dark tint / dark card instead of being a dark hue on a dark surface.
+const INK: Record<VigiGrade, string> = {
+  A: "var(--vigi-a-ink)",
+  B: "var(--vigi-b-ink)",
+  C: "var(--vigi-c-ink)",
+  D: "var(--vigi-d-ink)",
+};
 
 const SIZE = {
   "inline-sm": "h-[22px] min-w-[22px] px-1 text-[11px] rounded-[5px]",
@@ -50,6 +59,11 @@ type SealSize = keyof typeof SIZE;
 function gradeOf(value: string): VigiGrade {
   const c = value.trim().charAt(0).toUpperCase();
   return (["A", "B", "C", "D"].includes(c) ? c : "D") as VigiGrade;
+}
+
+/** Libellé métier d'une note (ex. "B" → "Des progrès sont attendus"). */
+export function vigiGradeLabel(value: string): string {
+  return GRADE_LABEL[gradeOf(value)];
 }
 
 interface RatingSealProps {
@@ -68,7 +82,7 @@ export function RatingSeal({ value, size = "md", showGlyph, serif, className }: 
   const withGlyph = showGlyph ?? size === "hero";
 
   const style: React.CSSProperties = small
-    ? { backgroundColor: TINT[grade], color: FILL[grade], boxShadow: `inset 0 0 0 1px ${FILL[grade]}` }
+    ? { backgroundColor: TINT[grade], color: INK[grade], boxShadow: `inset 0 0 0 1px ${INK[grade]}` }
     : {
         backgroundColor: FILL[grade],
         color: "var(--vigi-fg, #fff)",
@@ -96,7 +110,7 @@ export function RatingSeal({ value, size = "md", showGlyph, serif, className }: 
         <Glyph
           aria-hidden
           strokeWidth={2}
-          style={{ color: FILL[grade] }}
+          style={{ color: INK[grade] }}
           className={cn(
             "absolute -right-1 -top-1 rounded-full bg-card p-px",
             size === "hero" ? "size-4" : "size-3",
@@ -115,19 +129,28 @@ interface CompositeRatingProps {
   className?: string;
 }
 
-// CompositeRating — the triple-letter compositeRating rendered as three connected
-// seal cells (one colour per 3-C dimension), optionally captioned with the canonical labels.
+// CompositeRating — the triple-letter compositeRating (one colour per 3-C dimension).
+// Two layouts:
+//  • default (labels=false): three connected seal cells — compact, for tables/lists/dashboards.
+//  • labels=true: each dimension as a seal directly ABOVE its canonical label, column-aligned,
+//    so each letter clearly maps to its criterion (used on the certificate "Notation globale").
 export function CompositeRating({ value, labels = false, className }: CompositeRatingProps) {
   const letters = value.trim().toUpperCase().split("").slice(0, 3);
-  return (
-    <div className={cn("inline-flex flex-col gap-1", className)}>
-      <div className="inline-flex overflow-hidden rounded-md ring-1 ring-[var(--admin-line)]">
+
+  if (!labels) {
+    return (
+      <div
+        className={cn(
+          "inline-flex w-fit overflow-hidden rounded-md ring-1 ring-[var(--admin-line)]",
+          className,
+        )}
+      >
         {letters.map((l, i) => {
           const grade = gradeOf(l);
           return (
             <span
               key={i}
-              title={THREE_C[i]}
+              title={`${THREE_C[i]} — ${GRADE_LABEL[grade]}`}
               style={{ backgroundColor: FILL[grade], color: "var(--vigi-fg,#fff)" }}
               className={cn(
                 "flex h-7 w-8 items-center justify-center text-sm font-semibold tabular-nums",
@@ -139,15 +162,32 @@ export function CompositeRating({ value, labels = false, className }: CompositeR
           );
         })}
       </div>
-      {labels && (
-        <div className="grid grid-cols-3 gap-1 text-[9px] uppercase tracking-wide text-muted-foreground">
-          {THREE_C.map((c) => (
-            <span key={c} className="text-center leading-tight">
-              {c}
+    );
+  }
+
+  return (
+    <div className={cn("grid w-fit grid-cols-3 gap-x-2", className)}>
+      {letters.map((l, i) => {
+        const grade = gradeOf(l);
+        return (
+          <div key={i} className="flex flex-col items-center gap-1.5">
+            <span
+              title={`${THREE_C[i]} — ${GRADE_LABEL[grade]}`}
+              style={{
+                backgroundColor: FILL[grade],
+                color: "var(--vigi-fg,#fff)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18)",
+              }}
+              className="flex size-9 items-center justify-center rounded-md text-base font-semibold tabular-nums"
+            >
+              {grade}
             </span>
-          ))}
-        </div>
-      )}
+            <span className="max-w-[5.5rem] text-center text-[9px] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
+              {THREE_C[i]}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }

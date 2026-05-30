@@ -10,6 +10,7 @@ import { listEvaluationsByClientId } from "@/lib/repo/evaluations.repo";
 import { listContractDocumentsByClientId } from "@/lib/repo/contract-documents.repo";
 import type { Evaluation, ContractDocument } from "@/types/client";
 import { RatingSeal, CompositeRating } from "@/components/features/admin/ui/rating-seal";
+import { ClientAccessCard } from "@/components/features/admin/clients/ClientAccessCard";
 
 export default function ClientOverviewPage() {
   const client = useClient();
@@ -93,6 +94,8 @@ export default function ClientOverviewPage() {
           ) : <p className="text-sm text-muted-foreground">{t("noDocs")}</p>}
         </CardContent>
       </Card>
+
+      <ClientAccessCard clientId={client.id} companyName={client.companyName} />
     </div>
   );
 }

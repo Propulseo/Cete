@@ -31,6 +31,7 @@ export const routing = defineRouting({
     },
     "/client": "/client",
     "/client/dashboard": "/client/dashboard",
+    "/client/notation": "/client/notation",
     "/client/profile": "/client/profile",
     "/client/newsletters": "/client/newsletters",
     "/client/capsules": "/client/capsules",

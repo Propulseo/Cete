@@ -5,11 +5,10 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { getFounders } from "@/lib/data-loader";
+import type { Founder } from "@/types/founder";
 
-export function AboutFounders() {
+export function AboutFounders({ founders }: { founders: Founder[] }) {
   const t = useTranslations("about.founders");
-  const founders = getFounders();
 
   return (
     <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
@@ -44,7 +43,7 @@ function FounderCard({
   founder,
   index,
 }: {
-  founder: ReturnType<typeof getFounders>[number];
+  founder: Founder;
   index: number;
 }) {
   const [imgError, setImgError] = useState(false);

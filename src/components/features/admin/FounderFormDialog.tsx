@@ -94,11 +94,11 @@ export function FounderFormDialog({
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <Button variant="outline" onClick={onClose}>
-              <X className="mr-2 h-4 w-4" />
+              <X className="mr-2 h-4 w-4" strokeWidth={1.75} />
               Annuler
             </Button>
             <Button onClick={() => onSave(form)}>
-              <Save className="mr-2 h-4 w-4" />
+              <Save className="mr-2 h-4 w-4" strokeWidth={1.75} />
               Enregistrer
             </Button>
           </div>

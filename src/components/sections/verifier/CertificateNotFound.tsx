@@ -6,7 +6,7 @@ import { BrandName } from "@/components/ui/brand-name";
 export function CertificateNotFound({ id }: { id: string }) {
   return (
     <section className="py-24 bg-white">
-      <div className="container mx-auto px-4 max-w-lg text-center">
+      <div className="container mx-auto px-4 max-w-lg md:max-w-xl text-center">
         <div className="flex h-20 w-20 mx-auto items-center justify-center rounded-full bg-red-100 mb-6">
           <XCircle className="h-10 w-10 text-red-600" />
         </div>

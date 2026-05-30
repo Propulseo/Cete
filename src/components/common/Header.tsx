@@ -29,12 +29,12 @@ export function Header() {
             height={48}
             width={200}
             priority
-            className="h-16 w-auto sm:h-20"
+            className="h-16 w-auto sm:h-20 lg:h-16 xl:h-20"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex ml-28">
+        <nav className="hidden items-center lg:flex lg:gap-4 xl:gap-8 xl:ml-28">
           {navigation.mainNav.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -54,20 +54,20 @@ export function Header() {
         </nav>
 
         {/* CTA Buttons + Language */}
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 lg:flex xl:gap-3">
           <LanguageSwitcher />
           <Button
             asChild
             variant="outline"
             size="sm"
-            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8]"
+            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8] xl:h-11"
           >
             <Link href="/connexion">{t("clientArea")}</Link>
           </Button>
           <Button
             asChild
             size="sm"
-            className="bg-[#E8630A] text-white shadow-sm hover:bg-[#B84D08] hover:shadow-md hover:shadow-[#E8630A]/20 transition-all"
+            className="bg-[#E8630A] text-white shadow-sm hover:bg-[#B84D08] hover:shadow-md hover:shadow-[#E8630A]/20 transition-all xl:h-11"
           >
             <Link href="/contact">{t("requestEvaluation")}</Link>
           </Button>
@@ -75,7 +75,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild className="md:hidden">
+          <SheetTrigger asChild className="lg:hidden">
             <Button variant="ghost" size="icon" className="text-[#1A2940]">
               <Menu className="h-6 w-6" />
               <span className="sr-only">{t("menu")}</span>

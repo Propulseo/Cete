@@ -59,7 +59,7 @@ export function ServicesProcess() {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className="relative mb-8">
               <div className="absolute top-8 left-0 right-0 h-1 bg-[#DAEEF8] rounded-full" />
               <div
@@ -107,7 +107,7 @@ export function ServicesProcess() {
             </div>
           </div>
 
-          <div className="md:hidden space-y-6">
+          <div className="lg:hidden space-y-6">
             {processSteps.map((step, index) => (
               <div
                 key={index}

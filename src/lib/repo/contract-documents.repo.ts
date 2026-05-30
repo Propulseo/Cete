@@ -22,6 +22,7 @@ function rowToContractDocument(r: ContractDocumentRow): ContractDocument {
     fileName: r.file_name,
     fileSize: r.file_size,
     mimeType: r.mime_type,
+    storagePath: r.storage_path ?? undefined,
     uploadedAt: r.uploaded_at,
     uploadedBy: r.uploaded_by ?? "",
     status: r.status as ContractDocumentStatus,
@@ -40,6 +41,7 @@ function toInsert(
     file_name: payload.fileName,
     file_size: payload.fileSize,
     mime_type: payload.mimeType,
+    storage_path: payload.storagePath ?? null,
     uploaded_at: payload.uploadedAt,
     uploaded_by: payload.uploadedBy || null,
     status: payload.status,
@@ -58,6 +60,7 @@ function toUpdate(
   if (payload.fileName !== undefined) update.file_name = payload.fileName;
   if (payload.fileSize !== undefined) update.file_size = payload.fileSize;
   if (payload.mimeType !== undefined) update.mime_type = payload.mimeType;
+  if (payload.storagePath !== undefined) update.storage_path = payload.storagePath ?? null;
   if (payload.uploadedAt !== undefined) update.uploaded_at = payload.uploadedAt;
   if (payload.uploadedBy !== undefined)
     update.uploaded_by = payload.uploadedBy || null;
@@ -99,6 +102,36 @@ export async function listContractDocumentsByClientId(
     );
   }
   return (data ?? []).map(rowToContractDocument);
+}
+
+// Lecture CLIENT : ses propres documents "client-facing" (rapports + contrats signés).
+// La RLS (contract_documents_client_select) filtre déjà côté serveur : le client ne reçoit
+// que ses lignes type ∈ {report,contract,addendum} ET statut ∈ {sent,signed}. On conserve un
+// filtre défensif identique côté client pour ne jamais afficher une ligne hors périmètre.
+const CLIENT_VISIBLE_TYPES: ContractDocumentType[] = ["report", "contract", "addendum"];
+const CLIENT_VISIBLE_STATUSES: ContractDocumentStatus[] = ["sent", "signed"];
+
+export function isClientVisibleContractDocument(d: ContractDocument): boolean {
+  return (
+    CLIENT_VISIBLE_TYPES.includes(d.type) &&
+    CLIENT_VISIBLE_STATUSES.includes(d.status)
+  );
+}
+
+export async function getClientContractDocuments(): Promise<ContractDocument[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("contract_documents")
+    .select("*")
+    .order("uploaded_at", { ascending: false });
+  if (error) {
+    throw new RepoError(
+      "Impossible de charger vos documents",
+      "contractDocuments",
+      "listForClient"
+    );
+  }
+  return (data ?? []).map(rowToContractDocument).filter(isClientVisibleContractDocument);
 }
 
 export async function getContractDocument(

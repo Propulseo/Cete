@@ -26,7 +26,7 @@ export function AboutStats() {
       <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-[#1A2940]/10 blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => {
             const counter = counters[index];
             const Icon = stat.icon;

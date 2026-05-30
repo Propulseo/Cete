@@ -5,11 +5,15 @@ import { Library, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { Resource } from "@/types/resource";
-import { listResources } from "@/lib/repo/resources.repo";
+import { useAuth } from "@/lib/auth-context";
+import { getVisibleForClient } from "@/lib/repo/resources.repo";
+import { PageHeader } from "@/components/shared/page-header";
+import { EmptyState } from "@/components/shared/empty-state";
 import { ResourceCard } from "@/components/sections/resources/ResourceCard";
 import { ResourceLibraryFilters } from "@/components/sections/resources/ResourceLibraryFilters";
 
 export default function ClientResourcesPage() {
+  const { user } = useAuth();
   const t = useTranslations("client");
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,14 +26,14 @@ export default function ClientResourcesPage() {
     try {
       setLoading(true);
       setError(null);
-      const data = await listResources();
+      const data = await getVisibleForClient(user?.clientId ?? user?.id ?? "");
       setResources(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("states.error"));
     } finally {
       setLoading(false);
     }
-  }, [t]);
+  }, [t, user]);
 
   useEffect(() => {
     loadData();
@@ -64,18 +68,14 @@ export default function ClientResourcesPage() {
   });
 
   return (
-    <div className="p-8">
-      <div className="mb-6">
-        <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-          <Library className="h-5 w-5 text-primary" />
-        </div>
-        <h1 className="text-3xl font-bold text-foreground">
-          {t("pages.resourcesTitle")}
-        </h1>
-        <p className="text-muted-foreground">
-          {t("pages.available", { count: filtered.length, item: "ressource" + (filtered.length !== 1 ? "s" : "") })}
-        </p>
-      </div>
+    <div className="p-4 lg:p-8">
+      <PageHeader
+        title={t("pages.resourcesTitle")}
+        subtitle={t("pages.available", {
+          count: filtered.length,
+          item: "ressource" + (filtered.length !== 1 ? "s" : ""),
+        })}
+      />
 
       <ResourceLibraryFilters
         search={search}
@@ -93,10 +93,7 @@ export default function ClientResourcesPage() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-12 text-center">
-          <Library className="mb-3 h-10 w-10 text-muted-foreground" />
-          <p className="text-muted-foreground">{t("pages.noResources")}</p>
-        </div>
+        <EmptyState icon={Library} title={t("pages.noResources")} className="mt-4" />
       )}
     </div>
   );

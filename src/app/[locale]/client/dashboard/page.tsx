@@ -5,11 +5,13 @@ import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { listDocumentsForClient } from "@/lib/repo/documents.repo";
-import { listNotifications } from "@/lib/repo/notifications.repo";
+import { getVisibleForClient as getDocsForClient } from "@/lib/repo/documents.repo";
+import { getVisibleForClient as getNotifsForClient } from "@/lib/repo/notifications.repo";
 import { BrandName } from "@/components/ui/brand-name";
+import { PageHeader } from "@/components/shared/page-header";
 import { DashboardSummary } from "@/components/features/client/DashboardSummary";
-import { CertificateCard } from "@/components/features/client/CertificateCard";
+import { NotationSummaryCard } from "@/components/features/client/NotationSummaryCard";
+import { ClientEvaluationsCard } from "@/components/features/client/ClientEvaluationsCard";
 import { NotificationsTicker } from "@/components/features/client/NotificationsTicker";
 import type { ClientDocument, Notification } from "@/types/document";
 
@@ -26,9 +28,10 @@ export default function ClientDashboardPage() {
     try {
       setLoading(true);
       setError(null);
+      const clientId = user.clientId ?? user.id;
       const [docs, notifs] = await Promise.all([
-        listDocumentsForClient(user.id),
-        listNotifications(),
+        getDocsForClient(clientId),
+        getNotifsForClient(clientId),
       ]);
       setDocuments(docs);
       setNotifications(notifs);
@@ -63,18 +66,19 @@ export default function ClientDashboardPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">
-          {t("dashboard.welcome", { name: user.name })}
-        </h1>
-        <p className="text-muted-foreground">
-          {t("dashboard.description")} <BrandName />
-        </p>
-      </div>
+    <div className="p-4 lg:p-8">
+      <PageHeader
+        title={t("dashboard.welcome", { name: user.name })}
+        subtitle={
+          <>
+            {t("dashboard.description")} <BrandName />
+          </>
+        }
+      />
 
-      <div className="space-y-8">
-        <CertificateCard userName={user.name} companyName={user.company} />
+      <div className="space-y-6">
+        <NotationSummaryCard clientId={user.clientId ?? user.id} />
+        <ClientEvaluationsCard clientId={user.clientId ?? user.id} />
         <DashboardSummary documents={documents} />
         <NotificationsTicker
           notifications={notifications}

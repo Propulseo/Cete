@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Espace CETé — Portail de connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Bleu ciel */
+    --sky: #4DA6D9;
+    --sky-light: #87C4E8;
+    --sky-deep: #1A7AB5;
+    --sky-ultra: #0D5A8A;
+    /* Orange TST */
+    --tst: #E8630A;
+    --tst-light: #F59542;
+    --tst-dark: #B84D08;
+    /* Encre marine */
+    --ink: #1A2940;
+    --ink-2: #4A6580;
+    --ink-muted: #8AA5BE;
+    /* Fonds */
+    --white: #FFFFFF;
+    --soft: #F4F9FD;
+    --grad-start: #DAEEF8;
+    /* Filets */
+    --border: #DAEEF8;
+    --border-2: #E6ECF1;
+    /* Vigi-Score — pastilles claires, glyphe encre marine (contraste AA) */
+    --vigi-a: #22C55E; /* A — vert (meilleur) */
+    --vigi-b: #0DA66E; /* B — vert intermédiaire (remplace l'ex-lime hors token) */
+    --vigi-c: #E8630A; /* C — orange TST (token de marque) */
+    --vigi-d: #EF4444; /* D — rouge (pire) */
+
+    --radius: 22px;
+    --radius-sm: 12px;
+    --shadow-card: 0 24px 60px -20px rgba(13, 90, 138, 0.28), 0 8px 24px -12px rgba(26, 41, 64, 0.12);
+    --glow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 0 40px -8px rgba(77, 166, 217, 0.35);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(140% 120% at 18% 0%, #DAEEF8 0%, #EDF6FB 46%, #FFFFFF 100%);
+    /* background-attachment:fixed retiré — saccade/ignoré sur iOS Safari */
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Bulles décoratives ---------- */
+  .bubbles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(135,196,232,0.15), rgba(77,166,217,0.06) 60%, rgba(77,166,217,0) 72%);
+    border: 1px solid rgba(77, 166, 217, 0.08);
+    will-change: transform;
+  }
+  /* 3 bulles statiques (structure) + 3 animées seulement (charge compositing allégée) */
+  .b1 { width: 420px; height: 420px; top: -120px; left: -90px; animation: float 24s ease-in-out infinite; }
+  .b2 { width: 280px; height: 280px; top: 12%; right: -70px; }
+  .b3 { width: 180px; height: 180px; bottom: 8%; left: 6%; animation: float 20s ease-in-out infinite; animation-delay: -8s; }
+  .b4 { width: 120px; height: 120px; top: 26%; left: 14%; opacity: .8; }
+  .b5 { width: 340px; height: 340px; bottom: -140px; right: 8%; animation: float 28s ease-in-out infinite; animation-delay: -6s; }
+  .b6 { width: 90px; height: 90px; top: 64%; right: 22%; opacity: .7; }
+
+  @keyframes float {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(24px, -30px) scale(1.04); }
+    66%  { transform: translate(-16px, 20px) scale(0.98); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  /* ---------- Layout ---------- */
+  .shell {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 28px;
+    overflow-y: auto;
+  }
+  /* Viewport court / paysage mobile : ancrer en haut + autoriser le défilement */
+  @media (max-height: 760px) {
+    .shell { justify-content: flex-start; }
+  }
+
+  /* ---------- Carte verre ---------- */
+  .card {
+    width: 100%;
+    max-width: 452px;
+    background: rgba(255, 255, 255, 0.66);
+    backdrop-filter: blur(16px) saturate(135%);
+    -webkit-backdrop-filter: blur(16px) saturate(135%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card), var(--glow);
+    padding: 38px 40px 30px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardIn 0.9s var(--ease) 0.05s forwards;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    padding: 1px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.9), rgba(135,196,232,0.18) 40%, rgba(255,255,255,0) 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* staggered children */
+  .stg { opacity: 0; transform: translateY(12px); animation: stgIn 0.6s var(--ease) forwards; }
+  @keyframes stgIn { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: .30s; } .d2 { animation-delay: .38s; } .d3 { animation-delay: .46s; }
+  .d4 { animation-delay: .54s; } .d5 { animation-delay: .62s; } .d6 { animation-delay: .70s; }
+  .d7 { animation-delay: .78s; } .d8 { animation-delay: .86s; } .d9 { animation-delay: .94s; }
+
+  /* ---------- Marque (lockup compact : sceau + wordmark + Vigi en bloc discret) ---------- */
+  .brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+  .lockup { display: inline-flex; align-items: center; gap: 13px; }
+  .seal {
+    width: 42px; height: 42px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(150deg, var(--sky-light), var(--sky-deep));
+    box-shadow: 0 8px 20px -8px rgba(26, 122, 181, 0.6), 0 0 0 1px rgba(255,255,255,0.5) inset;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .seal svg { width: 22px; height: 22px; }
+  .lockup-text { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+
+  /* Wordmark unifié : CET + é exposant, tout en encre/bleu profond, é jamais orange */
+  .mark {
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-size: 25px;
+    letter-spacing: -0.4px;
+    color: var(--sky-ultra);
+    line-height: 1;
+  }
+  .mark sup {
+    font-size: 0.5em;
+    font-weight: 900;
+    margin-left: 0.5px;
+    top: -0.62em;
+    color: var(--sky-deep);
+  }
+  .eyebrow {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    line-height: 1.2;
+  }
+
+  /* ---------- Vigi-Score badge (glyphe encre marine sur pastille claire — AA) ---------- */
+  .vigi {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 9px 5px 12px;
+    border-radius: 999px;
+    background: rgba(244, 249, 253, 0.8);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px -4px rgba(13,90,138,0.18);
+  }
+  .vigi-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-2); }
+  .vigi-grades { display: inline-flex; gap: 4px; }
+  .grade {
+    width: 19px; height: 19px;
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    color: var(--ink);
+    background: #fff;
+    font-family: "Inter", sans-serif;
+    box-shadow: 0 1px 3px -1px rgba(26,41,64,0.28);
+    border: 1.5px solid var(--vigi-a);
+    position: relative;
+  }
+  /* Liseré coloré porteur du sens (A→D) + glyphe encre marine lisible */
+  .grade.ga { border-color: var(--vigi-a); }
+  .grade.gb { border-color: var(--vigi-b); }
+  .grade.gc { border-color: var(--vigi-c); }
+  .grade.gd { border-color: var(--vigi-d); }
+  /* point de couleur en pied pour renforcer l'échelle sans nuire à la lisibilité du glyphe */
+  .grade::after {
+    content: ""; position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%);
+    width: 9px; height: 3px; border-radius: 2px;
+  }
+  .grade.ga::after { background: var(--vigi-a); }
+  .grade.gb::after { background: var(--vigi-b); }
+  .grade.gc::after { background: var(--vigi-c); }
+  .grade.gd::after { background: var(--vigi-d); }
+
+  /* ---------- Titres (h1 dominant) ---------- */
+  .heading { text-align: center; margin: 24px 0 24px; }
+  .heading h1 {
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+    line-height: 1.22;
+  }
+  .heading h1 sup {
+    font-size: 0.5em;
+    top: -0.62em;
+    color: var(--sky-deep);
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+  }
+  .heading p {
+    margin-top: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  /* ---------- Form ---------- */
+  form { display: flex; flex-direction: column; gap: 18px; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.1px;
+  }
+  .input-wrap { position: relative; display: flex; align-items: center; }
+  .input-wrap .lead {
+    position: absolute; left: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink-2);
+    pointer-events: none;
+    transition: color 0.2s var(--ease);
+  }
+  .input-wrap .lead svg { width: 17px; height: 17px; }
+  input[type="email"], input[type="password"], input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px 13px 42px;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+    outline: none;
+  }
+  /* Placeholder porté à #4A6580 (>= AA) */
+  input::placeholder { color: var(--ink-2); opacity: 1; }
+  input:hover { border-color: var(--sky-light); }
+  input:focus {
+    border-color: var(--sky-deep);
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 0 0 3px rgba(26, 122, 181, 0.25);
+  }
+  .input-wrap:focus-within .lead { color: var(--sky-deep); }
+
+  .pw-toggle {
+    position: absolute; right: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    border: none; border-radius: 8px; background: transparent;
+    color: var(--ink-2); cursor: pointer;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .pw-toggle:hover { color: var(--sky-deep); background: rgba(77,166,217,0.1); }
+  .pw-toggle:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+  .pw-toggle svg { width: 18px; height: 18px; }
+  .pw-toggle .eye-off { display: none; }
+  .pw-toggle.on .eye { display: none; }
+  .pw-toggle.on .eye-off { display: block; }
+  input[type="password"], input.pw { padding-right: 46px; }
+
+  .row-aux { display: flex; justify-content: flex-end; margin-top: -4px; }
+  .link {
+    font-size: 12.5px; font-weight: 600;
+    color: var(--sky-deep); text-decoration: none;
+    transition: color 0.18s var(--ease);
+    border-radius: 5px;
+    padding: 2px 3px;
+  }
+  .link:hover { color: var(--sky-ultra); text-decoration: underline; text-underline-offset: 3px; }
+  /* outline plus épais + offset accru pour rester visible près du bord de carte */
+  .link:focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 4px; }
+
+  /* ---------- Bouton primaire (orange foncé, AA sur toute la surface) ---------- */
+  .btn-primary {
+    position: relative;
+    width: 100%;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 15px 18px;
+    cursor: pointer;
+    /* Dégradé resserré sur les teintes foncées : E8630A -> B84D08 -> #9A3F06 (texte blanc >= 4,5 partout) */
+    background: linear-gradient(135deg, var(--tst) 0%, var(--tst-dark) 60%, #8F3B05 100%);
+    box-shadow: 0 12px 24px -10px rgba(184, 77, 8, 0.6), 0 0 0 1px rgba(255,255,255,0.16) inset;
+    transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease), filter 0.2s var(--ease);
+    overflow: hidden;
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  }
+  .btn-primary::after {
+    content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.32), transparent);
+    transform: skewX(-18deg); transition: none;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 32px -10px rgba(184, 77, 8, 0.7), 0 0 0 1px rgba(255,255,255,0.2) inset; filter: brightness(1.04); }
+  .btn-primary:hover::after { animation: sheen 0.9s var(--ease); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:focus-visible { outline: 3px solid var(--tst-dark); outline-offset: 3px; }
+  .btn-primary svg { width: 18px; height: 18px; }
+  @keyframes sheen { from { left: -120%; } to { left: 130%; } }
+
+  /* ---------- Séparateur ---------- */
+  .sep { display: flex; align-items: center; gap: 14px; margin: 4px 0 0; }
+  .sep::before, .sep::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+  .sep span { font-size: 11.5px; font-weight: 600; letter-spacing: 0.3px; color: var(--ink-2); }
+
+  /* ---------- Comptes démo (repliable) ---------- */
+  .demo { border: 1px solid var(--border); border-radius: 14px; background: rgba(244, 249, 253, 0.6); overflow: hidden; }
+  .demo-summary {
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; cursor: pointer;
+    padding: 13px 16px;
+    font-size: 13px; font-weight: 600; color: var(--ink);
+    user-select: none;
+    transition: background 0.2s var(--ease);
+  }
+  .demo-summary::-webkit-details-marker { display: none; }
+  .demo-summary:hover { background: rgba(218, 238, 248, 0.5); }
+  .demo-summary:focus-visible { outline: 3px solid var(--sky-deep); outline-offset: -3px; border-radius: 12px; }
+  .demo[open] .demo-summary { background: rgba(218, 238, 248, 0.45); }
+  .demo-summary .left { display: inline-flex; align-items: center; gap: 9px; }
+  .demo-summary .left svg { width: 16px; height: 16px; color: var(--sky-deep); }
+  .chev { transition: transform 0.3s var(--ease); color: var(--ink-2); display: inline-flex; }
+  .chev svg { width: 16px; height: 16px; }
+  .demo[open] .chev { transform: rotate(180deg); }
+  .demo-body { padding: 6px 14px 16px; display: grid; gap: 10px; }
+  .demo[open] .demo-body { animation: stgIn 0.45s var(--ease); }
+
+  .demo-card {
+    width: 100%; text-align: left;
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.82);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 11px 13px;
+    cursor: pointer; font-family: inherit;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .demo-card:hover { border-color: var(--sky-deep); box-shadow: 0 8px 18px -10px rgba(26,122,181,0.4); transform: translateY(-1px); background: #fff; }
+  .demo-card:focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; }
+  .demo-ic {
+    flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center; color: #fff;
+  }
+  .demo-ic.client { background: linear-gradient(150deg, var(--sky-light), var(--sky-deep)); }
+  .demo-ic.admin { background: linear-gradient(150deg, var(--sky-deep), var(--ink)); }
+  .demo-ic svg { width: 19px; height: 19px; }
+  .demo-meta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .demo-role { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .demo-mail { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .demo-go {
+    margin-left: auto; flex: 0 0 auto;
+    font-size: 11px; font-weight: 700; color: var(--sky-deep);
+    display: inline-flex; align-items: center; gap: 4px;
+    opacity: 0; transform: translateX(-4px);
+    transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .demo-go svg { width: 13px; height: 13px; }
+  .demo-card:hover .demo-go, .demo-card:focus-visible .demo-go { opacity: 1; transform: translateX(0); }
+
+  /* ---------- Pied de carte ---------- */
+  .card-foot { margin-top: 22px; text-align: center; }
+  .back {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 600; color: var(--ink-2);
+    text-decoration: none; padding: 6px 6px; border-radius: 6px;
+    transition: color 0.18s var(--ease), gap 0.18s var(--ease);
+  }
+  .back svg { width: 15px; height: 15px; transition: transform 0.2s var(--ease); }
+  .back:hover { color: var(--sky-deep); }
+  .back:hover svg { transform: translateX(-3px); }
+  .back:focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 3px; }
+
+  /* ---------- Footer page ---------- */
+  .page-foot {
+    position: relative; z-index: 1;
+    text-align: center; padding: 6px 20px 26px;
+    font-size: 12px; color: var(--ink-2);
+    opacity: 0; animation: stgIn 0.8s var(--ease) 1s forwards;
+  }
+  .page-foot strong { color: var(--ink); font-weight: 700; }
+  .page-foot strong sup { font-size: 0.62em; top: -0.5em; color: var(--sky-deep); }
+  .page-foot .dot { margin: 0 7px; opacity: 0.55; }
+
+  /* ---------- Toast confirmation ---------- */
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 30px);
+    z-index: 20;
+    background: rgba(26, 41, 64, 0.95);
+    color: #fff; font-size: 13px; font-weight: 500;
+    padding: 11px 18px; border-radius: 12px;
+    box-shadow: 0 18px 40px -14px rgba(13,90,138,0.6);
+    display: inline-flex; align-items: center; gap: 9px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    backdrop-filter: blur(10px);
+    max-width: calc(100vw - 32px);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast svg { width: 16px; height: 16px; color: var(--sky-light); flex: 0 0 auto; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 520px) {
+    .card { padding: 30px 22px 24px; border-radius: 18px; }
+    .heading h1 { font-size: 24px; }
+    .heading { margin: 22px 0 22px; }
+    .shell { padding: 26px 16px 20px; }
+    .mark { font-size: 23px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .stg, .card, .page-foot { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+  <!-- Bulles décoratives bleues (aria-hidden) -->
+  <div class="bubbles" aria-hidden="true">
+    <span class="bubble b1"></span>
+    <span class="bubble b2"></span>
+    <span class="bubble b3"></span>
+    <span class="bubble b4"></span>
+    <span class="bubble b5"></span>
+    <span class="bubble b6"></span>
+  </div>
+
+  <main class="shell">
+    <section class="card" aria-labelledby="portail-titre">
+
+      <!-- Marque : lockup compact sceau + wordmark + Vigi (bloc discret) -->
+      <div class="brand stg d1">
+        <div class="lockup">
+          <span class="seal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/>
+              <path d="m9.5 12 1.8 1.8 3.5-3.6"/>
+            </svg>
+          </span>
+          <span class="lockup-text">
+            <span class="mark">CET<sup>é</sup></span>
+            <span class="eyebrow">Consortium Experts Techniques Électricité</span>
+          </span>
+        </div>
+        <div class="vigi" role="img" aria-label="Échelle de notation Vigi-Score, de A (meilleur) à D (le plus à risque)">
+          <span class="vigi-label" aria-hidden="true">Vigi-Score</span>
+          <span class="vigi-grades" aria-hidden="true">
+            <span class="grade ga">A</span>
+            <span class="grade gb">B</span>
+            <span class="grade gc">C</span>
+            <span class="grade gd">D</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Titre dominant -->
+      <div class="heading stg d2">
+        <h1 id="portail-titre">Bienvenue sur votre Espace CET<sup>é</sup></h1>
+        <p>Accédez à votre notation et vos ressources en toute sécurité.</p>
+      </div>
+
+      <!-- Formulaire -->
+      <form id="login-form" novalidate>
+        <div class="field stg d3">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <span class="lead" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </span>
+            <input type="email" id="email" name="email" placeholder="votre@email.fr"
+                   autocomplete="email" required />
+          </div>
+        </div>
+
+        <div class="field stg d4">
+          <label for="password">Mot de passe</label>
+          <div class="input-wrap">
+            <span class="lead" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="11" width="16" height="9" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="password" name="password" class="pw" placeholder="••••••••"
+                   autocomplete="current-password" required />
+            <button type="button" class="pw-toggle" id="pw-toggle"
+                    aria-label="Afficher le mot de passe" aria-pressed="false">
+              <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10.7 6.2A9.8 9.8 0 0 1 12 6c6.5 0 10 7 10 7a16 16 0 0 1-2.6 3.3"/>
+                <path d="M6.2 6.6A16 16 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 4.3-1"/>
+                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+                <path d="m2 2 20 20"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="row-aux stg d5">
+          <a href="#" class="link">Mot de passe oublié ?</a>
+        </div>
+
+        <button type="submit" class="btn-primary stg d6">
+          Se connecter
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Séparateur -->
+      <div class="sep stg d7" style="margin-top:22px;"><span>ou essayez une démonstration</span></div>
+
+      <!-- Comptes démo repliables -->
+      <details class="demo stg d7" style="margin-top:14px;">
+        <summary class="demo-summary">
+          <span class="left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/><path d="M12 8h.01"/><path d="M11 12h1v4h1"/>
+            </svg>
+            Comptes de démonstration
+          </span>
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="demo-body">
+          <button type="button" class="demo-card" data-email="client@cete.fr" data-password="password" data-role="Client">
+            <span class="demo-ic client" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            </span>
+            <span class="demo-meta">
+              <span class="demo-role">Client</span>
+              <span class="demo-mail">client@cete.fr</span>
+            </span>
+            <span class="demo-go" aria-hidden="true">Remplir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </span>
+          </button>
+
+          <button type="button" class="demo-card" data-email="admin@cete.fr" data-password="password" data-role="Administrateur">
+            <span class="demo-ic admin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg>
+            </span>
+            <span class="demo-meta">
+              <span class="demo-role">Administrateur</span>
+              <span class="demo-mail">admin@cete.fr</span>
+            </span>
+            <span class="demo-go" aria-hidden="true">Remplir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </span>
+          </button>
+        </div>
+      </details>
+
+      <!-- Pied de carte -->
+      <div class="card-foot stg d8">
+        <a href="#" class="back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>
+          Retour au site
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <strong>CET<sup>é</sup></strong> — Agence indépendante de notation du risque électrique
+    <span class="dot">•</span> Connexion sécurisée
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toast-text">Identifiants pré-remplis.</span>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // --- Toggle mot de passe ---
+      var pwInput = document.getElementById("password");
+      var pwToggle = document.getElementById("pw-toggle");
+      pwToggle.addEventListener("click", function () {
+        var show = pwInput.type === "password";
+        pwInput.type = show ? "text" : "password";
+        pwToggle.classList.toggle("on", show);
+        pwToggle.setAttribute("aria-pressed", String(show));
+        pwToggle.setAttribute("aria-label", show ? "Masquer le mot de passe" : "Afficher le mot de passe");
+        pwInput.focus({ preventScroll: true });
+      });
+
+      // --- Toast helper ---
+      var toast = document.getElementById("toast");
+      var toastText = document.getElementById("toast-text");
+      var toastTimer = null;
+      function showToast(msg) {
+        toastText.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2600);
+      }
+
+      // --- Comptes démo : remplissage réel ---
+      var emailInput = document.getElementById("email");
+      document.querySelectorAll(".demo-card").forEach(function (card) {
+        card.addEventListener("click", function () {
+          emailInput.value = card.getAttribute("data-email");
+          pwInput.value = card.getAttribute("data-password");
+          showToast("Compte " + card.getAttribute("data-role") + " pré-rempli — prêt à se connecter.");
+          emailInput.focus({ preventScroll: true });
+          emailInput.setSelectionRange(emailInput.value.length, emailInput.value.length);
+        });
+      });
+
+      // --- Soumission (démo) ---
+      var form = document.getElementById("login-form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!emailInput.value || !pwInput.value) {
+          showToast("Veuillez renseigner votre email et votre mot de passe.");
+          (emailInput.value ? pwInput : emailInput).focus();
+          return;
+        }
+        showToast("Connexion en cours…");
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Building2, FolderOpen, ClipboardCheck } from "lucide-react";
+import { LayoutDashboard, Building2, FolderOpen, ClipboardCheck, Share2 } from "lucide-react";
 
 interface ClientTabNavProps {
   clientId: string;
@@ -18,6 +18,7 @@ export function ClientTabNav({ clientId }: ClientTabNavProps) {
     { label: t("overview"), href: base, icon: LayoutDashboard, exact: true },
     { label: t("company"), href: `${base}/societe`, icon: Building2, exact: false },
     { label: t("documents"), href: `${base}/documents`, icon: FolderOpen, exact: false },
+    { label: "Espace client", href: `${base}/espace`, icon: Share2, exact: false },
     { label: t("evaluations"), href: `${base}/evaluations`, icon: ClipboardCheck, exact: false },
   ];
 

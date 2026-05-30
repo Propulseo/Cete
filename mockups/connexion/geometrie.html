@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Espace CETé — Portail de connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* Bleu ciel */
+    --blue:#4DA6D9; --blue-light:#87C4E8; --blue-deep:#1A7AB5; --blue-ultra:#0D5A8A;
+    /* Orange TST */
+    --orange:#E8630A; --orange-light:#F59542; --orange-dark:#B84D08;
+    /* Encre marine */
+    --ink:#1A2940; --ink-2:#4A6580; --ink-muted:#8AA5BE;
+    /* Fonds */
+    --white:#FFFFFF; --soft:#F4F9FD; --grad-start:#DAEEF8;
+    /* Bordures / filets */
+    --line:#DAEEF8; --line-2:#E6ECF1;
+    /* Vigi-Score */
+    --vs-a:#22C55E; --vs-b:#84CC16; --vs-c:#F59E0B; --vs-d:#EF4444;
+
+    --shadow-card:0 1px 0 rgba(26,41,64,.02), 0 24px 60px -24px rgba(13,90,138,.28), 0 2px 8px rgba(26,41,64,.05);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    /* Anneau de focus à double contraste (AA) */
+    --focus-ring:0 0 0 2px var(--white), 0 0 0 4px var(--blue-ultra);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--soft);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ===== Wordmark ===== */
+  .wordmark{
+    font-family:'Merriweather',serif;
+    font-weight:900;
+    letter-spacing:-.01em;
+    line-height:1;
+    color:var(--ink);
+    display:inline-block;
+  }
+  .wordmark sup{
+    font-size:.52em;
+    font-weight:700;
+    top:-.62em;
+    margin-left:.03em;
+  }
+
+  /* ===== Stage / grille architecturale ===== */
+  .stage{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:minmax(360px,460px) 1fr;
+    background:
+      linear-gradient(180deg,var(--white) 0%,var(--soft) 60%,var(--white) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  /* fines lignes de structure sur tout le canevas */
+  .stage::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(26,41,64,.028) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26,41,64,.028) 1px, transparent 1px);
+    background-size:96px 96px;
+    pointer-events:none;
+    mask-image:radial-gradient(140% 120% at 70% 40%, #000 35%, transparent 92%);
+    -webkit-mask-image:radial-gradient(140% 120% at 70% 40%, #000 35%, transparent 92%);
+  }
+
+  /* ============================================================
+     BANDE VERTICALE DE MARQUE (gauche)
+     ============================================================ */
+  .band{
+    position:relative;
+    background:
+      linear-gradient(165deg,var(--blue-ultra) 0%, var(--blue-deep) 52%, #0a4a73 100%);
+    color:var(--white);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:46px 42px 40px;
+    isolation:isolate;
+  }
+  /* cercles concentriques — le motif bulle devenu système précis */
+  .rings{
+    position:absolute;
+    right:-260px; top:50%;
+    width:760px; height:760px;
+    transform:translateY(-50%);
+    pointer-events:none;
+    z-index:0;
+    opacity:.9;
+  }
+  .rings circle{fill:none;}
+  .band-grid{
+    position:absolute; inset:0; z-index:0;
+    background-image:
+      linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:100% 38px;
+    mask-image:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);
+  }
+  .band > *{position:relative; z-index:2;}
+
+  .band-top{display:flex; align-items:center; gap:14px;}
+  .band-mark{
+    font-family:'Merriweather',serif; font-weight:900;
+    font-size:30px; line-height:1; color:#fff;
+  }
+  .band-mark sup{font-size:.52em; top:-.62em; font-weight:700; color:#fff;}
+  .band-tag{
+    font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--blue-light); font-weight:600;
+    padding-left:14px; margin-left:2px;
+    border-left:1px solid rgba(135,196,232,.4);
+  }
+
+  .band-core{max-width:300px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:9px;
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--blue-light); font-weight:600; margin-bottom:22px;
+  }
+  /* Filet bleu (l'orange est réservé au repère central des cercles) */
+  .eyebrow::before{
+    content:""; width:26px; height:1px; background:var(--blue-light); display:inline-block;
+  }
+  .band-core h1{
+    font-family:'Merriweather',serif; font-weight:700;
+    font-size:30px; line-height:1.24; margin:0 0 16px; color:#fff;
+    letter-spacing:-.01em;
+  }
+  .band-core p{
+    font-size:14px; line-height:1.65; color:#cfe6f6; margin:0;
+    font-weight:300; max-width:270px;
+  }
+
+  /* Échelle Vigi-Score verticale graduée (règle de marque) */
+  .vigi{
+    display:flex; align-items:flex-end; gap:20px;
+  }
+  .vigi-label{
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--blue-light); font-weight:600;
+    padding:4px 0;
+  }
+  .vigi-scale{display:flex; flex-direction:column; gap:7px;}
+  .vigi-row{display:flex; align-items:center; gap:11px;}
+  .vigi-grade{
+    width:32px; height:32px; border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Merriweather',serif; font-weight:900; font-size:15px;
+    color:#fff; position:relative;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.18), 0 6px 14px -6px rgba(0,0,0,.5);
+  }
+  .vigi-tick{
+    height:1px; background:rgba(255,255,255,.22);
+    flex:1; min-width:34px; position:relative;
+  }
+  .vigi-tick::after{
+    content:""; position:absolute; right:0; top:-2px;
+    width:1px; height:5px; background:rgba(255,255,255,.4);
+  }
+  .g-a{background:linear-gradient(135deg,#2fd66c,var(--vs-a));}
+  .g-b{background:linear-gradient(135deg,#a0e23a,var(--vs-b));}
+  .g-c{background:linear-gradient(135deg,#ffb73d,var(--vs-c));}
+  .g-d{background:linear-gradient(135deg,#ff6b6b,var(--vs-d));}
+  .vigi-cap{
+    font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:#bcd9ef; font-weight:500; margin-left:2px;
+  }
+
+  /* Version compacte horizontale — affichée uniquement en mobile/tablette */
+  .vigi-compact{
+    display:none;
+    align-items:center; gap:12px;
+  }
+  .vigi-compact .vc-label{
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--blue-light); font-weight:600; white-space:nowrap;
+  }
+  .vigi-compact .vc-grades{display:flex; align-items:center; gap:6px;}
+  .vc-grade{
+    width:28px; height:28px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Merriweather',serif; font-weight:900; font-size:13px;
+    color:#fff;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.18), 0 4px 10px -5px rgba(0,0,0,.5);
+  }
+
+  /* ============================================================
+     PANNEAU FORMULAIRE (droite)
+     ============================================================ */
+  .panel{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    padding:48px 40px;
+    z-index:1;
+  }
+  /* grand cercle concentrique décoratif côté droit (écho du système) */
+  .panel-rings{
+    position:absolute; left:-200px; bottom:-200px;
+    width:560px; height:560px; z-index:0; pointer-events:none;
+    opacity:.55;
+  }
+  .panel-rings circle{fill:none; stroke:var(--blue); }
+
+  .card-wrap{
+    position:relative; z-index:2;
+    width:100%; max-width:440px;
+  }
+
+  /* coin technique / index */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:30px;
+  }
+  .topbar .ref{
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--ink-2); font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .topbar .ref .dot{width:6px;height:6px;border-radius:50%;background:var(--vs-a);box-shadow:0 0 0 3px rgba(34,197,94,.16);}
+  .link-back{
+    font-size:13px; color:var(--ink-2); text-decoration:none; font-weight:500;
+    display:inline-flex; align-items:center; gap:6px; transition:color .2s var(--ease);
+    border-radius:6px; padding:5px 4px;
+  }
+  .link-back svg{transition:transform .25s var(--ease);}
+  .link-back:hover{color:var(--blue-deep);}
+  .link-back:hover svg{transform:translateX(-3px);}
+  .link-back:focus-visible{outline:none; box-shadow:var(--focus-ring);}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow-card);
+    padding:34px 38px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  /* filet supérieur de marque (bleu uniquement — l'orange reste l'unique point focal des cercles) */
+  .card::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:3px;
+    background:linear-gradient(90deg,var(--blue-ultra),var(--blue),var(--blue-light));
+  }
+
+  /* En-tête de carte : wordmark formé + tag */
+  .card-mark{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:22px;
+  }
+  .card-mark .wordmark{font-size:26px;}
+  .card-mark .wordmark sup{color:var(--blue-deep);}
+  .card-mark .ct-tag{
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink-2); font-weight:600;
+    padding-left:12px; border-left:1px solid var(--line);
+  }
+
+  .card-head{margin-bottom:26px;}
+  .card-head h2{
+    font-family:'Merriweather',serif; font-weight:700;
+    font-size:23px; margin:0 0 8px; color:var(--ink); letter-spacing:-.01em;
+  }
+  .card-head p{
+    font-size:13.5px; line-height:1.55; color:var(--ink-2); margin:0;
+  }
+
+  /* champs */
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block; font-size:11.5px; font-weight:600; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-2); margin-bottom:8px;
+  }
+  .control{position:relative;}
+  .control svg.lead{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    color:var(--ink-muted); pointer-events:none; transition:color .2s var(--ease);
+  }
+  .input{
+    width:100%; height:50px;
+    border:1px solid var(--line);
+    background:var(--soft);
+    border-radius:11px;
+    padding:0 16px 0 42px;
+    font-family:'Inter',sans-serif; font-size:14.5px; color:var(--ink);
+    transition:border-color .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+    outline:none;
+  }
+  .input::placeholder{color:var(--ink-muted); font-weight:400;}
+  .input:hover{border-color:var(--blue-light);}
+  .input:focus{
+    border-color:var(--blue-deep);
+    background:var(--white);
+    box-shadow:0 0 0 4px rgba(13,90,138,.20);
+  }
+  .control:focus-within svg.lead{color:var(--blue-deep);}
+  .field.pw .input{padding-right:50px;}
+
+  .toggle{
+    position:absolute; right:8px; top:50%; transform:translateY(-50%);
+    width:36px; height:36px; border:none; background:transparent;
+    border-radius:8px; cursor:pointer; color:var(--ink-2);
+    display:flex; align-items:center; justify-content:center;
+    transition:color .2s var(--ease), background .2s var(--ease);
+  }
+  .toggle:hover{color:var(--blue-deep); background:var(--soft);}
+  .toggle:focus-visible{outline:none; box-shadow:var(--focus-ring);}
+
+  .row-aux{
+    display:flex; justify-content:flex-end; margin:-4px 0 22px;
+  }
+  .link-forgot{
+    font-size:13px; color:var(--blue-ultra); text-decoration:none; font-weight:600;
+    border-radius:6px; padding:3px 2px; transition:color .2s var(--ease);
+  }
+  .link-forgot:hover{color:var(--blue-deep); text-decoration:underline; text-underline-offset:3px;}
+  .link-forgot:focus-visible{outline:none; box-shadow:var(--focus-ring);}
+
+  .btn-primary{
+    width:100%; height:52px;
+    border:none; cursor:pointer;
+    border-radius:11px;
+    background:linear-gradient(180deg,var(--blue-deep),var(--blue-ultra));
+    color:#fff; font-family:'Inter',sans-serif; font-size:15px; font-weight:600;
+    letter-spacing:.01em;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 12px 24px -10px rgba(13,90,138,.6), inset 0 1px 0 rgba(255,255,255,.18);
+    transition:transform .18s var(--ease), box-shadow .2s var(--ease), filter .2s var(--ease);
+    position:relative; overflow:hidden;
+  }
+  .btn-primary svg{transition:transform .25s var(--ease);}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 18px 32px -10px rgba(13,90,138,.66), inset 0 1px 0 rgba(255,255,255,.22);}
+  .btn-primary:hover svg{transform:translateX(4px);}
+  .btn-primary:active{transform:translateY(0);}
+  .btn-primary:focus-visible{outline:none; box-shadow:var(--focus-ring), 0 12px 24px -10px rgba(13,90,138,.6);}
+  .btn-primary[data-loading="true"]{pointer-events:none; opacity:.85;}
+
+  /* ===== Comptes de démonstration ===== */
+  .demo{margin-top:24px;}
+  .demo-toggle{
+    width:100%; background:var(--soft); border:1px solid var(--line);
+    border-radius:11px; padding:13px 16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:'Inter',sans-serif; color:var(--ink); font-size:13px; font-weight:600;
+    transition:border-color .2s var(--ease), background .2s var(--ease);
+  }
+  .demo-toggle:hover{border-color:var(--blue-light); background:#eef6fc;}
+  .demo-toggle:focus-visible{outline:none; box-shadow:var(--focus-ring);}
+  .demo-toggle .lbl{display:flex; align-items:center; gap:10px; letter-spacing:.02em;}
+  .demo-toggle .lbl svg{color:var(--blue-deep);}
+  .chev{transition:transform .3s var(--ease); color:var(--ink-2);}
+  .demo.open .chev{transform:rotate(180deg);}
+
+  .demo-body{
+    display:grid; grid-template-rows:0fr;
+    transition:grid-template-rows .38s var(--ease);
+  }
+  .demo-body > div{overflow:hidden;}
+  .demo.open .demo-body{grid-template-rows:1fr;}
+  .demo-cards{
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; padding-top:12px;
+  }
+  .demo-card{
+    text-align:left; background:var(--white); border:1px solid var(--line);
+    border-radius:11px; padding:14px 14px 13px; cursor:pointer;
+    transition:transform .18s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
+    position:relative; font-family:'Inter',sans-serif;
+  }
+  .demo-card:hover{transform:translateY(-2px); border-color:var(--blue-deep); box-shadow:0 14px 26px -14px rgba(13,90,138,.4);}
+  .demo-card:focus-visible{outline:none; box-shadow:var(--focus-ring);}
+  .demo-card .role{
+    display:flex; align-items:center; gap:8px;
+    font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); margin-bottom:8px;
+  }
+  /* Badges de rôle NEUTRES — aucune sémantique Vigi-Score (pas de code couleur A–D) */
+  .demo-card .badge{
+    width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-family:'Inter',sans-serif;font-weight:700;font-size:11px;
+    background:var(--soft); color:var(--blue-ultra);
+    border:1px solid var(--blue-light);
+  }
+  .demo-card .mail{font-size:12.5px; color:var(--ink-2); font-weight:500; word-break:break-all;}
+  .demo-card .pw{font-size:12px; color:var(--ink-2); margin-top:3px; font-family:'Inter',sans-serif;}
+  .demo-card .pw code{font-family:'Inter',sans-serif; font-weight:600; color:var(--ink);}
+  .demo-card .fill{
+    margin-top:10px; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--blue-ultra); font-weight:600; display:flex; align-items:center; gap:5px;
+  }
+  .demo-card .fill svg{transition:transform .25s var(--ease);}
+  .demo-card:hover .fill svg{transform:translateX(3px);}
+
+  /* pied */
+  .footnote{
+    text-align:center; margin-top:24px;
+    font-size:12px; color:var(--ink-2); line-height:1.6;
+  }
+  .footnote strong{color:var(--ink); font-weight:600;}
+
+  /* ===== entrée animée ===== */
+  @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+  .anim{opacity:0; animation:rise .7s var(--ease) forwards;}
+  .a1{animation-delay:.05s;} .a2{animation-delay:.13s;} .a3{animation-delay:.21s;}
+  .a4{animation-delay:.29s;} .a5{animation-delay:.37s;} .a6{animation-delay:.45s;}
+
+  .band-core,.band-top,.vigi{opacity:0; animation:rise .8s var(--ease) forwards;}
+  .band-top{animation-delay:.1s;} .band-core{animation-delay:.24s;} .vigi{animation-delay:.4s;}
+
+  /* ===== Responsive ===== */
+  @media (max-width:900px){
+    .stage{grid-template-columns:1fr;}
+    .band{
+      flex-direction:row; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:16px 20px;
+      padding:22px 26px; min-height:auto;
+    }
+    .band-core{display:none;}
+    .band-grid{display:none;}
+    .rings{right:-360px; top:50%; width:460px; height:460px; opacity:.7;}
+    /* L'échelle verticale cède la place à sa version compacte horizontale :
+       l'actif de marque reste présent sur le viewport le plus fréquent */
+    .vigi{display:none;}
+    .vigi-compact{display:flex;}
+    .panel{padding:34px 22px 48px;}
+    .panel-rings{display:none;}
+  }
+  @media (max-width:560px){
+    .band{padding:18px 20px;}
+    .vigi-compact{flex-basis:100%; justify-content:flex-start;}
+  }
+  @media (max-width:480px){
+    .card{padding:28px 22px 24px;}
+    .card-mark .wordmark{font-size:23px;}
+    .demo-cards{grid-template-columns:1fr;}
+    .topbar .ref{display:none;}
+  }
+  @media (max-width:360px){
+    .vigi-compact .vc-label{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important;}
+    .anim,.band-core,.band-top,.vigi{opacity:1 !important;}
+  }
+</style>
+</head>
+<body>
+  <main class="stage">
+
+    <!-- ===================== BANDE DE MARQUE ===================== -->
+    <aside class="band" aria-label="Présentation CETé">
+      <div class="band-grid" aria-hidden="true"></div>
+      <!-- cercles concentriques (système graphique) — l'UNIQUE point orange est le repère central -->
+      <svg class="rings" viewBox="0 0 760 760" aria-hidden="true">
+        <g stroke="rgba(135,196,232,0.22)" stroke-width="1">
+          <circle cx="380" cy="380" r="90"/>
+          <circle cx="380" cy="380" r="150"/>
+          <circle cx="380" cy="380" r="215"/>
+          <circle cx="380" cy="380" r="285" stroke="rgba(135,196,232,0.16)"/>
+          <circle cx="380" cy="380" r="360" stroke="rgba(135,196,232,0.10)"/>
+        </g>
+        <circle cx="380" cy="380" r="46" fill="rgba(77,166,217,0.10)" stroke="rgba(135,196,232,0.30)"/>
+        <circle cx="380" cy="380" r="6" fill="#E8630A"/>
+        <!-- repères radiaux -->
+        <g stroke="rgba(135,196,232,0.25)" stroke-width="1">
+          <line x1="380" y1="20" x2="380" y2="58"/>
+          <line x1="380" y1="702" x2="380" y2="740"/>
+          <line x1="20" y1="380" x2="58" y2="380"/>
+          <line x1="702" y1="380" x2="740" y2="380"/>
+        </g>
+      </svg>
+
+      <div class="band-top">
+        <span class="band-mark">CET<sup>é</sup></span>
+        <span class="band-tag">Notation</span>
+      </div>
+
+      <div class="band-core">
+        <span class="eyebrow">Espace privé</span>
+        <h1>Le portail de votre notation du risque électrique.</h1>
+        <p>Accédez à votre Vigi-Score, vos rapports d'expertise et l'ensemble de vos ressources documentaires, en toute confidentialité.</p>
+      </div>
+
+      <!-- Échelle Vigi-Score verticale graduée (desktop) -->
+      <div class="vigi" aria-label="Échelle de notation Vigi-Score, de A (meilleur) à D (à risque)">
+        <span class="vigi-label">Échelle Vigi-Score</span>
+        <div class="vigi-scale">
+          <div class="vigi-row"><span class="vigi-grade g-a">A</span><span class="vigi-tick" aria-hidden="true"></span><span class="vigi-cap">Maîtrisé</span></div>
+          <div class="vigi-row"><span class="vigi-grade g-b">B</span><span class="vigi-tick" aria-hidden="true"></span><span class="vigi-cap">Surveillé</span></div>
+          <div class="vigi-row"><span class="vigi-grade g-c">C</span><span class="vigi-tick" aria-hidden="true"></span><span class="vigi-cap">Vigilance</span></div>
+          <div class="vigi-row"><span class="vigi-grade g-d">D</span><span class="vigi-tick" aria-hidden="true"></span><span class="vigi-cap">À risque</span></div>
+        </div>
+      </div>
+
+      <!-- Échelle Vigi-Score compacte horizontale (mobile / tablette) -->
+      <div class="vigi-compact" aria-label="Échelle de notation Vigi-Score, de A (meilleur) à D (à risque)">
+        <span class="vc-label">Vigi-Score</span>
+        <div class="vc-grades" aria-hidden="true">
+          <span class="vc-grade g-a">A</span>
+          <span class="vc-grade g-b">B</span>
+          <span class="vc-grade g-c">C</span>
+          <span class="vc-grade g-d">D</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===================== FORMULAIRE ===================== -->
+    <section class="panel" aria-label="Connexion au portail">
+      <svg class="panel-rings" viewBox="0 0 560 560" aria-hidden="true">
+        <g stroke-width="1" opacity=".4">
+          <circle cx="280" cy="280" r="120" stroke="var(--blue-light)"/>
+          <circle cx="280" cy="280" r="190" stroke="var(--blue-light)"/>
+          <circle cx="280" cy="280" r="260" stroke="var(--line)"/>
+        </g>
+      </svg>
+
+      <div class="card-wrap">
+        <div class="topbar anim a1">
+          <span class="ref"><span class="dot" aria-hidden="true"></span>Portail sécurisé</span>
+          <a class="link-back" href="#" aria-label="Retour au site public CETé">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Retour au site
+          </a>
+        </div>
+
+        <div class="card anim a2">
+          <!-- Wordmark formé en tête de carte (renforce l'identité, surtout en mobile) -->
+          <div class="card-mark">
+            <span class="wordmark">CET<sup>é</sup></span>
+            <span class="ct-tag">Espace CETé</span>
+          </div>
+
+          <div class="card-head">
+            <h2>Connexion à votre espace</h2>
+            <p>Accédez à votre notation et vos ressources. Saisissez vos identifiants pour continuer.</p>
+          </div>
+
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="email">Email</label>
+              <div class="control">
+                <svg class="lead" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                <input class="input" type="email" id="email" name="email" placeholder="votre@email.fr" autocomplete="email" required />
+              </div>
+            </div>
+
+            <div class="field pw">
+              <label for="password">Mot de passe</label>
+              <div class="control">
+                <svg class="lead" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <input class="input" type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+                <button type="button" class="toggle" id="pwToggle" aria-label="Afficher le mot de passe" aria-pressed="false">
+                  <svg id="eyeIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="row-aux">
+              <a class="link-forgot" href="#">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="btn-primary" id="submitBtn">
+              <span id="submitLabel">Se connecter</span>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </form>
+
+          <!-- Comptes de démonstration -->
+          <div class="demo" id="demo">
+            <button type="button" class="demo-toggle" id="demoToggle" aria-expanded="false" aria-controls="demoBody">
+              <span class="lbl">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6"/><path d="M12 9v6"/><circle cx="12" cy="12" r="9"/></svg>
+                Comptes de démonstration
+              </span>
+              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="demo-body" id="demoBody" role="region" aria-label="Identifiants de démonstration">
+              <div>
+                <div class="demo-cards">
+                  <button type="button" class="demo-card" data-email="client@cete.fr" data-pw="password">
+                    <span class="role"><span class="badge" aria-hidden="true">CL</span>Client</span>
+                    <span class="mail">client@cete.fr</span>
+                    <span class="pw">Mot de passe : <code>password</code></span>
+                    <span class="fill">Remplir
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </span>
+                  </button>
+                  <button type="button" class="demo-card" data-email="admin@cete.fr" data-pw="password">
+                    <span class="role"><span class="badge" aria-hidden="true">AD</span>Administrateur</span>
+                    <span class="mail">admin@cete.fr</span>
+                    <span class="pw">Mot de passe : <code>password</code></span>
+                    <span class="fill">Remplir
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="footnote anim a4">Connexion chiffrée · <strong>CETé</strong> — Consortium Experts Techniques Électricité</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      // Toggle mot de passe
+      var pw = document.getElementById('password');
+      var toggle = document.getElementById('pwToggle');
+      var eye = document.getElementById('eyeIcon');
+      var EYE = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+      var EYE_OFF = '<path d="M10.7 5.1A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3.2 4.1"/><path d="M6.6 6.6A18 18 0 0 0 2 12s3.5 7 10 7a10.4 10.4 0 0 0 4.9-1.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M2 2l20 20"/>';
+      toggle.addEventListener('click', function(){
+        var show = pw.type === 'password';
+        pw.type = show ? 'text' : 'password';
+        eye.innerHTML = show ? EYE_OFF : EYE;
+        toggle.setAttribute('aria-pressed', String(show));
+        toggle.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+        pw.focus();
+      });
+
+      // Comptes démo (repliable)
+      var demo = document.getElementById('demo');
+      var demoToggle = document.getElementById('demoToggle');
+      demoToggle.addEventListener('click', function(){
+        var open = demo.classList.toggle('open');
+        demoToggle.setAttribute('aria-expanded', String(open));
+      });
+
+      // Remplissage rapide
+      var email = document.getElementById('email');
+      document.querySelectorAll('.demo-card').forEach(function(card){
+        card.addEventListener('click', function(){
+          email.value = card.getAttribute('data-email');
+          pw.value = card.getAttribute('data-pw');
+          // léger feedback visuel
+          [email, pw].forEach(function(el){
+            el.style.transition = 'box-shadow .25s ease, border-color .25s ease';
+            el.style.borderColor = '#1A7AB5';
+            el.style.boxShadow = '0 0 0 4px rgba(13,90,138,.20)';
+            setTimeout(function(){ el.style.boxShadow=''; el.style.borderColor=''; }, 700);
+          });
+          email.focus();
+        });
+      });
+
+      // Soumission (démo — pas de back-end)
+      var form = document.getElementById('loginForm');
+      var btn = document.getElementById('submitBtn');
+      var label = document.getElementById('submitLabel');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(!email.value || !pw.value){
+          if(!email.value){ email.focus(); } else { pw.focus(); }
+          return;
+        }
+        btn.setAttribute('data-loading','true');
+        btn.setAttribute('aria-busy','true');
+        label.textContent = 'Connexion…';
+      });
+    })();
+  </script>
+</body>
+</html>

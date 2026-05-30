@@ -36,8 +36,13 @@ export async function getSettings(): Promise<ContactInfo> {
 
 export async function updateSettings(payload: Partial<ContactInfo>): Promise<ContactInfo> {
   const supabase = createClient();
+  // Lecture préalable pour préserver l'EN des champs jsonb (company, business_hours).
+  const { data: cur } = await supabase.from("settings").select("*").eq("id", 1).maybeSingle();
   const patch: SettingsUpdate = {};
-  if (payload.company !== undefined) patch.company = { fr: payload.company, en: payload.company };
+  if (payload.company !== undefined) {
+    const en = (cur?.company as Partial<I18n<string>> | null)?.en ?? payload.company;
+    patch.company = { fr: payload.company, en };
+  }
   if (payload.address !== undefined) patch.address = payload.address;
   if (payload.city !== undefined) patch.city = payload.city;
   if (payload.country !== undefined) patch.country = payload.country;
@@ -45,9 +50,10 @@ export async function updateSettings(payload: Partial<ContactInfo>): Promise<Con
   if (payload.email !== undefined) patch.email = payload.email;
   if (payload.website !== undefined) patch.website = payload.website;
   if (payload.businessHours !== undefined) {
+    const en = (cur?.business_hours as Partial<I18n<BusinessHours>> | null)?.en ?? payload.businessHours;
     patch.business_hours = {
       fr: payload.businessHours,
-      en: payload.businessHours,
+      en,
     } as unknown as SettingsUpdate["business_hours"];
   }
   if (payload.maps !== undefined) {

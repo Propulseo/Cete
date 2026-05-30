@@ -107,7 +107,7 @@ export function CertificateCard({ cert }: { cert: CertificateData }) {
               <InfoBlock label="Entreprise certifiée" value={cert.companyName} />
               <InfoBlock label={<>Notation <BrandName /> ADN</>}>
                 <span className="inline-block rounded-lg bg-yellow-100 px-3 py-1 font-bold text-yellow-700 text-xl">
-                  {cert.rating}
+                  {cert.compositeRating}
                 </span>
               </InfoBlock>
               <InfoBlock label="Vigi-Score">
@@ -145,12 +145,12 @@ export function CertificateCard({ cert }: { cert: CertificateData }) {
                   score={cert.subCriteria.autoEvaluation}
                 />
                 <SubScore
-                  label="Exigences métier"
-                  score={cert.subCriteria.maitriseExigences}
+                  label="Recommandation & Amélioration"
+                  score={cert.subCriteria.recommandation}
                 />
                 <SubScore
-                  label="Maîtrise opérationnelle"
-                  score={cert.subCriteria.maitriseOperationnelle}
+                  label="Gestes Métiers"
+                  score={cert.subCriteria.gestesMetiers}
                 />
               </div>
             </div>

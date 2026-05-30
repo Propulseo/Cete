@@ -14,6 +14,7 @@ import {
 import { DocumentFormDialog } from "@/components/features/admin/DocumentFormDialog";
 import { AdminDocumentFilters } from "@/components/features/admin/AdminDocumentFilters";
 import { AdminDocumentTable } from "@/components/features/admin/AdminDocumentTable";
+import { AdminPageHeader } from "@/components/features/admin/ui/admin-page-header";
 
 export default function AdminDocumentsPage() {
   const [docs, setDocs] = useState<ClientDocument[]>([]);
@@ -66,6 +67,7 @@ export default function AdminDocumentsPage() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Supprimer ce document ? Cette action est définitive.")) return;
     try {
       await deleteDocument(id);
       setDocs((prev) => prev.filter((d) => d.id !== id));
@@ -100,17 +102,17 @@ export default function AdminDocumentsPage() {
   });
 
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Documents</h1>
-          <p className="text-muted-foreground">Publications et ressources diffusées aux organisations notées</p>
-        </div>
-        <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
-          <Plus className="mr-2 h-4 w-4" />
-          Ajouter
-        </Button>
-      </div>
+    <div className="p-4 lg:p-8">
+      <AdminPageHeader
+        title="Documents"
+        subtitle="Publications et ressources diffusées aux organisations notées"
+        actions={
+          <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
+            <Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />
+            Ajouter
+          </Button>
+        }
+      />
 
       <AdminDocumentFilters
         search={search}

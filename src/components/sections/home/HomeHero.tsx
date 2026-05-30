@@ -44,7 +44,7 @@ export function HomeHero() {
 
       {/* Main content */}
       <div className="relative z-10 container mx-auto px-6 lg:px-8 pt-20 pb-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[70vh]">
           {/* Left content */}
           <div className="space-y-8">
             {/* Badge */}
@@ -57,14 +57,14 @@ export function HomeHero() {
 
             {/* Main headline */}
             <h1 className="opacity-0 animate-slide-up animation-delay-100">
-              <span className="block font-display text-5xl md:text-7xl lg:text-8xl text-[#1A2940] leading-[0.9] tracking-tight">
+              <span className="block font-display text-5xl md:text-6xl lg:text-8xl text-[#1A2940] leading-[0.9] tracking-tight">
                 {t("titleLine1")}
               </span>
-              <span className="block font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
+              <span className="block font-display text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tight">
                 <span className="text-[#1A2940]">{t("titleLine2")} </span>
                 <span className="text-[#E8630A]">{t("titleLine3")}</span>
               </span>
-              <span className="block font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight text-gradient-accent">
+              <span className="block font-display text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tight text-gradient-accent">
                 {t("titleLine4")}
               </span>
             </h1>
@@ -128,11 +128,11 @@ export function HomeHero() {
           </div>
 
           {/* Right content - Rating visualization */}
-          <div className="relative hidden lg:flex items-center justify-center opacity-0 animate-scale-in animation-delay-300 min-h-[520px] -mt-16">
+          <div className="relative hidden md:flex items-center justify-center opacity-0 animate-scale-in animation-delay-300 mx-auto md:w-[400px] md:h-[400px] lg:w-auto lg:h-auto lg:mx-0 lg:min-h-[520px] lg:-mt-16">
             {/* Outer ring */}
-            <div className="absolute w-[500px] h-[500px] rounded-full border border-[#4DA6D9]/10 animate-rotate-slow" />
-            <div className="absolute w-[420px] h-[420px] rounded-full border border-[#4DA6D9]/5" />
-            <div className="absolute w-[340px] h-[340px] rounded-full border border-[#4DA6D9]/20" />
+            <div className="absolute w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] rounded-full border border-[#4DA6D9]/10 animate-rotate-slow" />
+            <div className="absolute w-[295px] h-[295px] lg:w-[420px] lg:h-[420px] rounded-full border border-[#4DA6D9]/5" />
+            <div className="absolute w-[240px] h-[240px] lg:w-[340px] lg:h-[340px] rounded-full border border-[#4DA6D9]/20" />
 
             {/* Rating badges - 4 niveaux individuels A/B/C/D */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2">
@@ -157,9 +157,9 @@ export function HomeHero() {
             </div>
 
             {/* Center element - Vigi-Score */}
-            <div className="relative z-10 flex flex-col items-center justify-center w-64 h-64 rounded-full bg-gradient-to-br from-[#4DA6D9] to-[#1A7AB5] shadow-2xl shadow-[#4DA6D9]/30 animate-pulse-glow">
+            <div className="relative z-10 flex flex-col items-center justify-center w-44 h-44 lg:w-64 lg:h-64 rounded-full bg-gradient-to-br from-[#4DA6D9] to-[#1A7AB5] shadow-2xl shadow-[#4DA6D9]/30 animate-pulse-glow">
               <span className="text-sm text-white/80 font-medium uppercase tracking-wider mb-1">{t("vigiScore")}</span>
-              <span className="font-display text-5xl text-white mb-1">AAA</span>
+              <span className="font-display text-3xl lg:text-5xl text-white mb-1">AAA</span>
               <span className="text-xs text-white/60 font-medium">{t("tripleA")}</span>
             </div>
           </div>

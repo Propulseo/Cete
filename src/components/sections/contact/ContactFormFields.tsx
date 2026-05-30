@@ -148,7 +148,7 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
                 type="checkbox"
                 checked={field.value}
                 onChange={field.onChange}
-                className="mt-1 h-4 w-4 rounded border-[#DAEEF8]"
+                className="mt-1 h-5 w-5 rounded border-[#DAEEF8]"
               />
             </FormControl>
             <div className="space-y-1 leading-none">

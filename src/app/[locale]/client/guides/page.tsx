@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { BookOpen, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { listDocumentsForClient } from "@/lib/repo/documents.repo";
+import { getVisibleForClient } from "@/lib/repo/documents.repo";
+import { PageHeader } from "@/components/shared/page-header";
 import { DocumentsList } from "@/components/features/client/DocumentsList";
 import type { ClientDocument } from "@/types/document";
 
@@ -21,7 +22,7 @@ export default function GuidesPage() {
     try {
       setLoading(true);
       setError(null);
-      const docs = await listDocumentsForClient(user.id);
+      const docs = await getVisibleForClient(user.clientId ?? user.id);
       setGuides(docs.filter((d) => d.category === "guides"));
     } catch (err) {
       setError(err instanceof Error ? err.message : t("states.error"));
@@ -52,18 +53,11 @@ export default function GuidesPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex items-center gap-3">
-        <div className="rounded-lg bg-green-100 p-2 text-green-600">
-          <BookOpen className="h-6 w-6" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">{t("pages.guidesTitle")}</h1>
-          <p className="text-sm text-muted-foreground">
-            {t("pages.available", { count: guides.length, item: "guide" + (guides.length > 1 ? "s" : "") })}
-          </p>
-        </div>
-      </div>
+    <div className="p-4 lg:p-8">
+      <PageHeader
+        title={t("pages.guidesTitle")}
+        subtitle={t("pages.available", { count: guides.length, item: t("categories.guides") })}
+      />
 
       <DocumentsList documents={guides} />
     </div>

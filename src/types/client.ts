@@ -73,6 +73,8 @@ export interface ContractDocument {
   fileName: string;
   fileSize: number;
   mimeType: string;
+  /** Chemin de l'objet dans le bucket `contract-documents` (NULL si pas de fichier). */
+  storagePath?: string;
   uploadedAt: string;
   uploadedBy: string;
   status: ContractDocumentStatus;

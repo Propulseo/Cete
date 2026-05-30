@@ -14,6 +14,7 @@ import {
 import { ResourceFormDialog } from "@/components/features/admin/ResourceFormDialog";
 import { AdminResourceFilters } from "@/components/features/admin/AdminResourceFilters";
 import { AdminResourceTable } from "@/components/features/admin/AdminResourceTable";
+import { AdminPageHeader } from "@/components/features/admin/ui/admin-page-header";
 
 export default function AdminResourcesPage() {
   const [resources, setResources] = useState<Resource[]>([]);
@@ -66,6 +67,7 @@ export default function AdminResourcesPage() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Supprimer cette ressource ? Cette action est définitive.")) return;
     try {
       await deleteResource(id);
       setResources((prev) => prev.filter((r) => r.id !== id));
@@ -104,17 +106,17 @@ export default function AdminResourcesPage() {
   });
 
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Ressources</h1>
-          <p className="text-muted-foreground">Bibliothèque technique et réglementaire</p>
-        </div>
-        <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
-          <Plus className="mr-2 h-4 w-4" />
-          Ajouter une ressource
-        </Button>
-      </div>
+    <div className="p-4 lg:p-8">
+      <AdminPageHeader
+        title="Ressources"
+        subtitle="Bibliothèque technique et réglementaire"
+        actions={
+          <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
+            <Plus className="mr-2 h-4 w-4" />
+            Ajouter une ressource
+          </Button>
+        }
+      />
 
       <AdminResourceFilters
         search={search}

@@ -126,7 +126,7 @@ export async function generateCertificatePDF(
   let ry = 58;
 
   // Rating box
-  const [rr, rg, rb] = getRatingColor(cert.rating);
+  const [rr, rg, rb] = getRatingColor(cert.compositeRating);
   doc.setFillColor(255, 255, 255);
   doc.roundedRect(RX, ry, 75, 48, 4, 4, "F");
   doc.setDrawColor(rr, rg, rb);
@@ -145,7 +145,7 @@ export async function generateCertificatePDF(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(32);
   doc.setTextColor(rr, rg, rb);
-  doc.text(cert.rating, RX + 37.5, ry + 35, { align: "center" });
+  doc.text(cert.compositeRating, RX + 37.5, ry + 35, { align: "center" });
 
   // Label
   doc.setFontSize(7);
@@ -190,8 +190,8 @@ export async function generateCertificatePDF(
 
   const criteria = [
     ["Capacité d'auto-évaluation", cert.subCriteria.autoEvaluation],
-    ["Maîtrise des exigences métier", cert.subCriteria.maitriseExigences],
-    ["Maîtrise opérationnelle", cert.subCriteria.maitriseOperationnelle],
+    ["Recommandation & Amélioration", cert.subCriteria.recommandation],
+    ["Gestes Métiers", cert.subCriteria.gestesMetiers],
   ];
 
   doc.setFont("helvetica", "normal");

@@ -2,11 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { Building2 } from "lucide-react";
-import { getOrganizations } from "@/lib/data-loader";
 
-export function HomeOrganizations() {
+export function HomeOrganizations({ organizations }: { organizations: string[] }) {
   const t = useTranslations("home.organizations");
-  const organizations = getOrganizations();
 
   return (
     <section className="py-24 bg-white relative overflow-hidden">

@@ -27,7 +27,7 @@ export function ContactTrust() {
   return (
     <section className="border-y border-[#DAEEF8] bg-[#F4F9FD] py-16">
       <div className="container mx-auto px-4">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-6 lg:gap-8 md:grid-cols-3">
           {trustItems.map((item) => (
             <div key={item.title} className="flex items-start gap-4 text-center md:flex-col md:items-center">
               <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#4DA6D9]/10">

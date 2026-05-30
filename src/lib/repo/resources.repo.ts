@@ -16,6 +16,7 @@ function rowToResource(r: ResourceRow): Resource {
     type: r.type as ResourceType,
     accessType: r.access_type as AccessType,
     url: r.url,
+    storagePath: r.storage_path ?? undefined,
     youtubeId: r.youtube_id ?? undefined,
     fileSize: r.file_size ?? undefined,
     source: r.source ?? undefined,
@@ -37,6 +38,7 @@ function toInsert(payload: Omit<Resource, "id">): TablesInsert<"resources"> {
     type: payload.type,
     access_type: payload.accessType,
     url: payload.url,
+    storage_path: payload.storagePath ?? null,
     youtube_id: payload.youtubeId ?? null,
     file_size: payload.fileSize ?? null,
     source: payload.source ?? null,
@@ -55,6 +57,7 @@ function toUpdate(payload: Partial<Omit<Resource, "id">>): TablesUpdate<"resourc
   if (payload.type !== undefined) update.type = payload.type;
   if (payload.accessType !== undefined) update.access_type = payload.accessType;
   if (payload.url !== undefined) update.url = payload.url;
+  if (payload.storagePath !== undefined) update.storage_path = payload.storagePath ?? null;
   if (payload.youtubeId !== undefined) update.youtube_id = payload.youtubeId ?? null;
   if (payload.fileSize !== undefined) update.file_size = payload.fileSize ?? null;
   if (payload.source !== undefined) update.source = payload.source ?? null;

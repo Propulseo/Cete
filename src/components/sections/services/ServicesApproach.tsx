@@ -45,11 +45,11 @@ export function ServicesApproach() {
           <div className="w-24 h-1.5 bg-[#E8630A] mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {approaches.map((approach, index) => (
             <div
               key={index}
-              className={`group relative ${index === 1 ? 'md:mt-16' : index === 2 ? 'md:mt-32' : ''}`}
+              className={`group relative ${index === 1 ? 'lg:mt-16' : index === 2 ? 'lg:mt-32' : ''}`}
             >
               <div className="font-display text-8xl text-[#DAEEF8] group-hover:text-[#E8630A]/20 transition-colors duration-500 absolute -top-10 -left-4">
                 {approach.number}

@@ -6,15 +6,17 @@ import { RepoError } from "@/types/repo-error";
 type FounderRow = Database["public"]["Tables"]["founders"]["Row"];
 type FounderUpdate = Database["public"]["Tables"]["founders"]["Update"];
 
-// Champs traduits stockés en jsonb {fr,en}. L'admin édite en une seule langue
-// (affichage FR) ; à l'écriture on duplique la valeur sur fr ET en (limitation
-// assumée tant que le FounderFormDialog n'a pas d'édition bilingue).
+// Champs traduits stockés en jsonb {fr,en}. L'admin édite en FR ; à l'écriture on
+// PRÉSERVE la valeur EN existante (merge) au lieu de l'écraser — plus de perte de
+// données silencieuse. (Édition EN dédiée = amélioration future.)
 type I18nStr = { fr: string; en: string };
 type I18nArr = { fr: string[]; en: string[] };
 const pickStr = (j: unknown): string => (j as Partial<I18nStr> | null)?.fr ?? "";
 const pickArr = (j: unknown): string[] => (j as Partial<I18nArr> | null)?.fr ?? [];
-const both = (v: string): I18nStr => ({ fr: v, en: v });
-const bothArr = (v: string[]): I18nArr => ({ fr: v, en: v });
+const enStr = (j: unknown): string | undefined => (j as Partial<I18nStr> | null)?.en;
+const enArr = (j: unknown): string[] | undefined => (j as Partial<I18nArr> | null)?.en;
+const mergeStr = (current: unknown, fr: string): I18nStr => ({ fr, en: enStr(current) ?? fr });
+const mergeArr = (current: unknown, fr: string[]): I18nArr => ({ fr, en: enArr(current) ?? fr });
 
 function rowToFounder(r: FounderRow): Founder {
   return {
@@ -50,16 +52,18 @@ export async function updateFounder(
   updates: Partial<Founder>,
 ): Promise<Founder | null> {
   const supabase = createClient();
+  // Lecture préalable pour préserver les valeurs EN existantes des champs jsonb.
+  const { data: cur } = await supabase.from("founders").select("*").eq("id", id).maybeSingle();
   const patch: FounderUpdate = {};
   if (updates.name !== undefined) patch.name = updates.name;
-  if (updates.role !== undefined) patch.role = both(updates.role);
-  if (updates.bio !== undefined) patch.bio = both(updates.bio);
-  if (updates.specialties !== undefined) patch.specialties = bothArr(updates.specialties);
+  if (updates.role !== undefined) patch.role = mergeStr(cur?.role, updates.role);
+  if (updates.bio !== undefined) patch.bio = mergeStr(cur?.bio, updates.bio);
+  if (updates.specialties !== undefined) patch.specialties = mergeArr(cur?.specialties, updates.specialties);
   if (updates.imageUrl !== undefined) patch.image_url = updates.imageUrl;
   if (updates.imagePosition !== undefined) patch.image_position = updates.imagePosition ?? null;
   if (updates.visible !== undefined) patch.visible = updates.visible;
-  if (updates.formerOrg !== undefined) patch.former_org = updates.formerOrg ? both(updates.formerOrg) : null;
-  if (updates.currentEntity !== undefined) patch.current_entity = updates.currentEntity ? both(updates.currentEntity) : null;
+  if (updates.formerOrg !== undefined) patch.former_org = updates.formerOrg ? mergeStr(cur?.former_org, updates.formerOrg) : null;
+  if (updates.currentEntity !== undefined) patch.current_entity = updates.currentEntity ? mergeStr(cur?.current_entity, updates.currentEntity) : null;
   const { data, error } = await supabase
     .from("founders")
     .update(patch)

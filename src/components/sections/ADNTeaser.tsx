@@ -24,7 +24,7 @@ export function ADNTeaser() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-12 md:grid-cols-2 md:items-center">
           {/* Content */}
           <div>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, Shield, User, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Shield, User, Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -58,7 +58,7 @@ export default function AdminUsersPage() {
     }
   };
 
-  const handleUpdate = async (data: Omit<Profile, "id" | "created_at">) => {
+  const handleUpdate = async (data: Omit<Profile, "id" | "created_at"> & { password?: string }) => {
     if (!editing) return;
     try {
       const result = await updateUser(editing.id, data);
@@ -72,6 +72,7 @@ export default function AdminUsersPage() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Supprimer ce compte ? L'utilisateur perdra l'accès. Action définitive.")) return;
     try {
       await deleteUser(id);
       setUsers((prev) => prev.filter((u) => u.id !== id));
@@ -142,7 +143,16 @@ export default function AdminUsersPage() {
                     {u.role === "admin" ? "Admin" : "Client"}
                   </Badge>
                 </AdminTd>
-                <AdminTd className="text-sm text-muted-foreground">{u.company ?? "-"}</AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">
+                  {u.role === "client" && !u.clientId ? (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-urgent" title="Ce compte client n'est rattaché à aucune entreprise : il ne verra aucun document ni notation. Rattachez-le via la fiche client (« Ouvrir un accès ») ou en modifiant le compte.">
+                      <AlertTriangle className="h-3.5 w-3.5" strokeWidth={1.75} />
+                      Non rattaché
+                    </span>
+                  ) : (
+                    u.company ?? "-"
+                  )}
+                </AdminTd>
                 <AdminTd className="text-sm text-muted-foreground">{u.created_at ?? "-"}</AdminTd>
                 <AdminTd className="text-right">
                   <div className="flex items-center justify-end gap-1">

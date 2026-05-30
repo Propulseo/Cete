@@ -34,7 +34,7 @@ export function ExpertiseCertificate() {
           <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
           {/* Certificate mockup */}
           <div className="relative flex justify-center">
             <div className="relative w-full max-w-md">

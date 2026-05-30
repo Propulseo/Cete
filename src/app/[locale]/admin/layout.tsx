@@ -1,39 +1,34 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
-import {
-  LayoutDashboard,
-  FileText,
-  FolderOpen,
-  Users,
-  Settings,
-  LogOut,
-  Zap,
-  Library,
-  Building2,
-  UserCircle,
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { Source_Serif_4 } from "next/font/google";
+import { Menu } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import { BrandName } from "@/components/ui/brand-name";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { AdminSidebar } from "@/components/features/admin/AdminSidebar";
 
-const sidebarItems = [
-  { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { label: "Blog", href: "/admin/blog", icon: FileText },
-  { label: "Documents", href: "/admin/documents", icon: FolderOpen },
-  { label: "Ressources", href: "/admin/ressources", icon: Library },
-  { label: "Organisations", href: "/admin/organizations", icon: Building2 },
-  { label: "Équipe", href: "/admin/team", icon: UserCircle },
-  { label: "Utilisateurs", href: "/admin/users", icon: Users },
-  { label: "Paramètres", href: "/admin/settings", icon: Settings },
-];
+// Source Serif 4 — institutional display serif, scoped to the admin theme only
+// (the public site keeps Merriweather). Exposed as --font-source-serif and consumed
+// by the .font-serif-display utility / --font-serif-display token.
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+// Shared scope classes applied to the in-flow wrapper AND to the portalled mobile Sheet,
+// so admin tokens + the serif font reach the drawer even though it renders in a portal.
+const adminScope = `admin-theme ${sourceSerif.variable}`;
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
-  const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && (!user || user.role !== "admin")) {
@@ -48,7 +43,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className={`${adminScope} flex min-h-screen items-center justify-center bg-background`}>
         <div className="text-muted-foreground">Chargement...</div>
       </div>
     );
@@ -56,64 +51,54 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   if (!user || user.role !== "admin") return null;
 
+  const sidebarUser = { name: user.name, email: user.email };
+
   return (
-    <div className="flex min-h-screen">
-      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-primary text-primary-foreground">
-        <div className="flex h-full flex-col">
-          <div className="flex h-16 items-center gap-2 border-b border-white/10 px-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-              <Zap className="h-5 w-5 text-accent" />
-            </div>
-            <span className="text-lg font-bold"><BrandName /> Admin</span>
-          </div>
+    <div className={`${adminScope} flex min-h-screen bg-background text-foreground`}>
+      {/* Desktop sidebar */}
+      <div className="hidden lg:block">
+        <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)]">
+          <AdminSidebar user={sidebarUser} onLogout={handleLogout} />
+        </aside>
+      </div>
 
-          <nav className="flex-1 space-y-1 px-4 py-4">
-            {sidebarItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "bg-white/10 text-white"
-                      : "text-white/70 hover:bg-white/5 hover:text-white"
-                  }`}
-                >
-                  <item.icon className="h-5 w-5" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+      {/* Tablet/mobile drawer (portalled — carries the admin scope explicitly) */}
+      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+        <SheetContent
+          side="left"
+          className={`${adminScope} w-64 border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)] p-0`}
+        >
+          <AdminSidebar user={sidebarUser} onLogout={handleLogout} onNavigate={() => setSidebarOpen(false)} />
+        </SheetContent>
+      </Sheet>
 
-          <div className="border-t border-white/10 p-4">
-            <div className="mb-3 text-sm">
-              <p className="font-medium">{user.name}</p>
-              <p className="text-white/50">{user.email}</p>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start text-white/70 hover:bg-white/5 hover:text-white"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
-            </Button>
-          </div>
+      <main className="flex-1 lg:ml-64">
+        <div className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-[var(--admin-line)] bg-card px-4 lg:hidden">
+          <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
+            <Menu className="h-5 w-5" />
+          </Button>
+          <span className="inline-flex dark:rounded-md dark:bg-[#F4F9FD] dark:px-2 dark:py-1">
+            <Image
+              src="/assets/brand/logo-cete-adn.png"
+              alt="CETé — Agence de notation"
+              width={120}
+              height={28}
+              className="h-7 w-auto"
+            />
+          </span>
         </div>
-      </aside>
-
-      <main className="ml-64 flex-1 bg-secondary">{children}</main>
+        {children}
+      </main>
     </div>
   );
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <AdminLayoutContent>{children}</AdminLayoutContent>
-    </AuthProvider>
+    <ThemeProvider bodyClass={adminScope}>
+      <AuthProvider>
+        <AdminLayoutContent>{children}</AdminLayoutContent>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

@@ -4,24 +4,23 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ClipboardList, MessageSquare } from "lucide-react";
-import { getContactInfo } from "@/lib/data-loader";
+import type { ContactInfo } from "@/types/contact";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { EvaluationForm } from "@/components/sections/EvaluationForm";
 import { ContactSidebar } from "@/components/sections/contact/ContactSidebar";
 
 type TabId = "evaluation" | "contact";
 
-export function ContactMain() {
+export function ContactMain({ contact }: { contact: ContactInfo }) {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("type") === "contact" ? "contact" : "evaluation";
 
-  return <ContactMainInner initialTab={initialTab} />;
+  return <ContactMainInner initialTab={initialTab} contact={contact} />;
 }
 
-function ContactMainInner({ initialTab }: { initialTab: TabId }) {
+function ContactMainInner({ initialTab, contact }: { initialTab: TabId; contact: ContactInfo }) {
   const t = useTranslations("contact.main");
   const [activeTab, setActiveTab] = useState<TabId>(initialTab);
-  const contact = getContactInfo();
 
   const tabs = [
     { id: "evaluation" as const, label: t("tabEvaluation"), icon: ClipboardList },
@@ -54,7 +53,7 @@ function ContactMainInner({ initialTab }: { initialTab: TabId }) {
           </div>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid gap-12 md:grid-cols-2">
           <div>
             {activeTab === "evaluation" ? <EvaluationForm /> : <ContactForm />}
           </div>

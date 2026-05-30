@@ -18,9 +18,9 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
         </div>
 
         <Link href={`/blog/${post.slug}`} className="group block">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Media - 7 columns */}
-            <div className="lg:col-span-7">
+            <div className="md:col-span-7">
               {post.videoUrl ? (
                 <VideoEmbed url={post.videoUrl} title={post.title} />
               ) : (
@@ -38,7 +38,7 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
             </div>
 
             {/* Content - 5 columns */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="md:col-span-5 space-y-6">
               <div className="flex items-center gap-3">
                 <span
                   className={`inline-block w-2.5 h-2.5 rounded-full ${post.categoryColor}`}

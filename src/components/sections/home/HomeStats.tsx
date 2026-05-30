@@ -27,11 +27,11 @@ export function HomeStats() {
           <p className="text-center text-xs text-[#8AA5BE] font-medium uppercase tracking-widest mb-4">
             {t("title")}
           </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-[#DAEEF8]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-[#DAEEF8]">
             {stats.map((stat, index) => {
               const counter = counters[index];
               return (
-                <div key={stat.key} ref={counter.ref} className="text-center lg:px-6">
+                <div key={stat.key} ref={counter.ref} className="text-center md:px-6">
                   <div className="font-display text-3xl md:text-4xl text-[#1A2940] leading-none">
                     {counter.count.toLocaleString("fr-FR")}
                     <span className="text-[#E8630A]">{stat.suffix}</span>

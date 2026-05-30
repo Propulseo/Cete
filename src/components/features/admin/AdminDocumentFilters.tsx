@@ -30,17 +30,17 @@ export function AdminDocumentFilters({
   return (
     <div className="mb-4 flex flex-wrap gap-3">
       <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.75} />
         <Input className="pl-9" placeholder="Rechercher..." value={search} onChange={(e) => onSearchChange(e.target.value)} />
       </div>
-      <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={filterCat} onChange={(e) => onFilterCatChange(e.target.value)}>
+      <select className="h-9 rounded-md border border-input bg-card px-3 text-sm text-foreground" value={filterCat} onChange={(e) => onFilterCatChange(e.target.value)}>
         <option value="">Toutes catégories</option>
         {Object.entries(categoryLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
       </select>
-      <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={filterVis} onChange={(e) => onFilterVisChange(e.target.value)}>
+      <select className="h-9 rounded-md border border-input bg-card px-3 text-sm text-foreground" value={filterVis} onChange={(e) => onFilterVisChange(e.target.value)}>
         <option value="">Toute visibilité</option>
         <option value="global">Global</option>
-        <option value="client">Client</option>
+        <option value="assigned">Assigné</option>
       </select>
     </div>
   );

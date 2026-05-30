@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Eye, EyeOff, Pencil, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { AdminPageHeader } from "@/components/features/admin/ui/admin-page-header";
+import { StatusBadge } from "@/components/features/admin/ui/status-badge";
 import { FounderFormDialog } from "@/components/features/admin/FounderFormDialog";
 import {
   listAllFounders,
@@ -50,19 +51,17 @@ export default function AdminTeamPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Équipe</h1>
-        <p className="text-muted-foreground">
-          Gérez la visibilité et les informations des co-fondateurs
-        </p>
-      </div>
+    <div className="p-4 lg:p-8">
+      <AdminPageHeader
+        title="Équipe"
+        subtitle="Gérez la visibilité et les informations des co-fondateurs"
+      />
 
       <div className="grid gap-4">
         {founders.map((founder) => (
           <Card key={founder.id}>
             <CardContent className="flex items-center gap-6 p-6">
-              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] text-white font-display text-xl">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-serif-display text-xl">
                 {founder.name.split(" ").map((n) => n[0]).join("")}
               </div>
 
@@ -72,9 +71,9 @@ export default function AdminTeamPage() {
                     {founder.name}
                   </h3>
                   {founder.visible !== false ? (
-                    <Badge className="bg-green-100 text-green-700">Visible</Badge>
+                    <StatusBadge tone="pos">Visible</StatusBadge>
                   ) : (
-                    <Badge className="bg-red-100 text-red-700">Masqué</Badge>
+                    <StatusBadge tone="neutral">Masqué</StatusBadge>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground">{founder.role}</p>
@@ -93,18 +92,18 @@ export default function AdminTeamPage() {
                   onClick={() => handleToggle(founder.id)}
                   className={
                     founder.visible !== false
-                      ? "border-green-300 text-green-700 hover:bg-green-50"
-                      : "border-red-300 text-red-700 hover:bg-red-50"
+                      ? "text-admin-pos hover:bg-muted"
+                      : "text-muted-foreground hover:bg-muted"
                   }
                 >
                   {founder.visible !== false ? (
                     <>
-                      <Eye className="mr-2 h-4 w-4" />
+                      <Eye className="mr-2 h-4 w-4" strokeWidth={1.75} />
                       Visible
                     </>
                   ) : (
                     <>
-                      <EyeOff className="mr-2 h-4 w-4" />
+                      <EyeOff className="mr-2 h-4 w-4" strokeWidth={1.75} />
                       Masqué
                     </>
                   )}
@@ -114,7 +113,7 @@ export default function AdminTeamPage() {
                   size="sm"
                   onClick={() => setEditing(founder)}
                 >
-                  <Pencil className="mr-2 h-4 w-4" />
+                  <Pencil className="mr-2 h-4 w-4" strokeWidth={1.75} />
                   Modifier
                 </Button>
               </div>

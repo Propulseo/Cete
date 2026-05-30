@@ -6,16 +6,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getFounders } from "@/lib/data-loader";
+import type { Founder } from "@/types/founder";
 
-export function HomeFounders() {
+export function HomeFounders({ founders }: { founders: Founder[] }) {
   const t = useTranslations("home.founders");
-  const founders = getFounders();
 
   return (
     <section className="py-24 bg-white relative">
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="grid grid-cols-2 gap-4">
             {founders.map((founder) => (
               <FounderTile key={founder.id} founder={founder} />
@@ -57,11 +56,7 @@ export function HomeFounders() {
   );
 }
 
-function FounderTile({
-  founder,
-}: {
-  founder: ReturnType<typeof getFounders>[number];
-}) {
+function FounderTile({ founder }: { founder: Founder }) {
   const t = useTranslations("home.founders");
   const [imgError, setImgError] = useState(false);
   const initials = founder.name

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Plus, Edit, Trash2, Star, Loader2, Video } from "lucide-react";
+import { Plus, Edit, Trash2, Star, Loader2, Video, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -13,6 +13,17 @@ import {
   deleteArticle,
 } from "@/lib/repo/articles.repo";
 import { ArticleFormDialog } from "@/components/features/admin/ArticleFormDialog";
+import { AdminPageHeader } from "@/components/features/admin/ui/admin-page-header";
+import { StatusBadge } from "@/components/features/admin/ui/status-badge";
+import { AdminEmptyState } from "@/components/features/admin/ui/admin-empty-state";
+import {
+  AdminTable,
+  AdminThead,
+  AdminTh,
+  AdminTbody,
+  AdminTr,
+  AdminTd,
+} from "@/components/features/admin/ui/admin-table";
 
 export default function AdminBlogPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -62,6 +73,7 @@ export default function AdminBlogPage() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Supprimer cet article ? Cette action est définitive.")) return;
     try {
       await deleteArticle(id);
       setArticles((prev) => prev.filter((a) => a.id !== id));
@@ -89,69 +101,68 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Blog</h1>
-          <p className="text-muted-foreground">Articles de veille réglementaire et retours terrain</p>
-        </div>
-        <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
-          <Plus className="mr-2 h-4 w-4" />
-          Nouvel article
-        </Button>
-      </div>
+    <div className="p-4 lg:p-8">
+      <AdminPageHeader
+        title="Blog"
+        subtitle="Articles de veille réglementaire et retours terrain"
+        actions={
+          <Button onClick={() => { setEditing(null); setDialogOpen(true); }}>
+            <Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />
+            Nouvel article
+          </Button>
+        }
+      />
 
-      <div className="overflow-hidden rounded-lg border bg-white">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b bg-secondary/50">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Titre</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Auteur</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Catégorie</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Statut</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Vues</th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
+      {articles.length === 0 ? (
+        <AdminEmptyState icon={Newspaper} title="Aucun article" />
+      ) : (
+        <AdminTable>
+          <AdminThead>
+            <AdminTr>
+              <AdminTh>Titre</AdminTh>
+              <AdminTh>Auteur</AdminTh>
+              <AdminTh>Catégorie</AdminTh>
+              <AdminTh>Statut</AdminTh>
+              <AdminTh>Vues</AdminTh>
+              <AdminTh className="text-right">Actions</AdminTh>
+            </AdminTr>
+          </AdminThead>
+          <AdminTbody>
             {articles.map((article) => (
-              <tr key={article.id} className="hover:bg-secondary/30">
-                <td className="px-4 py-3">
+              <AdminTr key={article.id}>
+                <AdminTd>
                   <div className="flex items-center gap-2">
                     <div>
                       <p className="font-medium text-foreground">{article.title}</p>
                       <p className="text-xs text-muted-foreground">{article.publishedDate || "Non publié"}</p>
                     </div>
-                    {article.videoUrl && <Video className="h-4 w-4 text-[#4DA6D9]" />}
-                    {article.featured && <Star className="h-4 w-4 fill-accent text-accent" />}
+                    {article.videoUrl && <Video className="h-4 w-4 text-primary" strokeWidth={1.75} />}
+                    {article.featured && <Star className="h-4 w-4 fill-accent text-accent" strokeWidth={1.75} />}
                   </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{article.author}</td>
-                <td className="px-4 py-3"><Badge variant="secondary">{article.category}</Badge></td>
-                <td className="px-4 py-3">
-                  <Badge variant={article.status === "published" ? "default" : "outline"}>
+                </AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{article.author}</AdminTd>
+                <AdminTd><Badge variant="secondary">{article.category}</Badge></AdminTd>
+                <AdminTd>
+                  <StatusBadge status={article.status}>
                     {article.status === "published" ? "Publié" : "Brouillon"}
-                  </Badge>
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{article.views}</td>
-                <td className="px-4 py-3 text-right">
+                  </StatusBadge>
+                </AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{article.views}</AdminTd>
+                <AdminTd className="text-right">
                   <div className="flex items-center justify-end gap-1">
                     <Button variant="ghost" size="icon" onClick={() => { setEditing(article); setDialogOpen(true); }}>
-                      <Edit className="h-4 w-4" />
+                      <Edit className="h-4 w-4" strokeWidth={1.75} />
                     </Button>
                     <Button variant="ghost" size="icon" onClick={() => handleDelete(article.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
+                      <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
                     </Button>
                   </div>
-                </td>
-              </tr>
+                </AdminTd>
+              </AdminTr>
             ))}
-          </tbody>
-        </table>
-        {articles.length === 0 && (
-          <div className="p-8 text-center text-sm text-muted-foreground">Aucun article</div>
-        )}
-      </div>
+          </AdminTbody>
+        </AdminTable>
+      )}
 
       <ArticleFormDialog
         open={dialogOpen}

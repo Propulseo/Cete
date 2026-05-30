@@ -1,20 +1,46 @@
 "use client";
 
 import { useCallback } from "react";
-import { Download, FileText, Eye, Lock } from "lucide-react";
+import { Download, FileText, Video, Eye, Lock } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import {
+  DataTable,
+  DataThead,
+  DataTh,
+  DataTbody,
+  DataTr,
+  DataTd,
+} from "@/components/shared/data-table";
+import { EmptyState } from "@/components/shared/empty-state";
+import { getSignedUrl } from "@/lib/supabase/storage";
 import type { ClientDocument } from "@/types/document";
 
 interface DocumentsListProps {
   documents: ClientDocument[];
 }
 
+/** Résout l'URL téléchargeable : objet Storage (URL signée) sinon `url` legacy. */
+async function resolveDocUrl(doc: ClientDocument): Promise<string | null> {
+  if (doc.storagePath) {
+    try {
+      return await getSignedUrl("client-documents", doc.storagePath);
+    } catch {
+      return null;
+    }
+  }
+  return doc.url ?? null;
+}
+
 function ViewOnlyViewer({ doc, viewBtnLabel, viewOnlyTitle, popupError }: { doc: ClientDocument; viewBtnLabel: string; viewOnlyTitle: string; popupError: string }) {
-  const handleView = useCallback(() => {
-    const url = doc.url ?? "#";
+  const handleView = useCallback(async () => {
+    const url = await resolveDocUrl(doc);
+    if (!url) {
+      toast.error("Fichier indisponible");
+      return;
+    }
     const viewer = window.open("", "_blank", "noopener,noreferrer");
     if (!viewer) {
       toast.error(popupError);
@@ -67,106 +93,95 @@ export function DocumentsList({ documents }: DocumentsListProps) {
   const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
 
   if (documents.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed bg-white p-12 text-center">
-        <FileText className="mb-3 h-10 w-10 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">{t("empty")}</p>
-      </div>
-    );
+    return <EmptyState icon={FileText} title={t("empty")} />;
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border bg-white">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b bg-secondary/50">
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              {t("headerDocument")}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              {t("headerType")}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              {t("headerSize")}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              {t("headerDate")}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-              {t("headerRights")}
-            </th>
-            <th className="px-6 py-3 text-right text-xs font-medium uppercase text-muted-foreground">
-              {t("headerAction")}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y">
-          {documents.map((doc) => {
-            const canDownload = doc.accessType === "download";
+    <DataTable>
+      <DataThead>
+        <tr>
+          <DataTh>{t("headerDocument")}</DataTh>
+          <DataTh>{t("headerType")}</DataTh>
+          <DataTh className="hidden lg:table-cell">{t("headerSize")}</DataTh>
+          <DataTh>{t("headerDate")}</DataTh>
+          <DataTh className="hidden lg:table-cell">{t("headerRights")}</DataTh>
+          <DataTh className="text-right">{t("headerAction")}</DataTh>
+        </tr>
+      </DataThead>
+      <DataTbody>
+        {documents.map((doc) => {
+          const canDownload = doc.accessType === "download";
+          const Icon = doc.type === "video" ? Video : FileText;
 
-            return (
-              <tr key={doc.id} className="transition-colors hover:bg-secondary/30">
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
-                      <FileText className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">{doc.title}</p>
-                      <p className="text-xs text-muted-foreground line-clamp-1">
-                        {doc.description}
-                      </p>
-                    </div>
+          return (
+            <DataTr key={doc.id}>
+              <DataTd>
+                <div className="flex items-center gap-3">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <Icon className="size-4" strokeWidth={1.75} />
                   </div>
-                </td>
-                <td className="px-6 py-4">
-                  <Badge variant="outline">{doc.type}</Badge>
-                </td>
-                <td className="px-6 py-4 text-sm text-muted-foreground">
-                  {doc.fileSize ?? "-"}
-                </td>
-                <td className="px-6 py-4 text-sm text-muted-foreground">
-                  {new Date(doc.uploadDate).toLocaleDateString(dateLocale, {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </td>
-                <td className="px-6 py-4">
-                  {canDownload ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
-                      <Download className="h-3 w-3" />
-                      {t("downloadAccess")}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
-                      <Lock className="h-3 w-3" />
-                      {t("viewOnly")}
-                    </span>
-                  )}
-                </td>
-                <td className="px-6 py-4 text-right">
-                  {canDownload ? (
-                    <Button size="sm" variant="outline" asChild>
-                      <a href={doc.url ?? "#"} download>
-                        <Download className="mr-2 h-4 w-4" />
-                        {t("downloadBtn")}
-                      </a>
-                    </Button>
-                  ) : (
-                    <ViewOnlyViewer
-                      doc={doc}
-                      viewBtnLabel={t("viewBtn")}
-                      viewOnlyTitle={t("viewOnlyTitle")}
-                      popupError={t("popupError")}
-                    />
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                  <div className="min-w-0">
+                    <p className="font-medium text-foreground line-clamp-1">{doc.title}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-1">{doc.description}</p>
+                  </div>
+                </div>
+              </DataTd>
+              <DataTd>
+                <Badge variant="outline">{doc.type}</Badge>
+              </DataTd>
+              <DataTd className="hidden lg:table-cell text-sm text-muted-foreground">
+                {doc.fileSize ?? "-"}
+              </DataTd>
+              <DataTd className="text-sm tabular-nums text-muted-foreground">
+                {new Date(doc.uploadDate).toLocaleDateString(dateLocale, {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </DataTd>
+              <DataTd className="hidden lg:table-cell">
+                {canDownload ? (
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-pos">
+                    <Download className="size-3" strokeWidth={1.75} />
+                    {t("downloadAccess")}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-urgent">
+                    <Lock className="size-3" strokeWidth={1.75} />
+                    {t("viewOnly")}
+                  </span>
+                )}
+              </DataTd>
+              <DataTd className="text-right">
+                {canDownload ? (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      const url = await resolveDocUrl(doc);
+                      if (!url) {
+                        toast.error("Fichier indisponible");
+                        return;
+                      }
+                      window.open(url, "_blank", "noopener");
+                    }}
+                  >
+                    <Download className="mr-2 size-4" />
+                    {t("downloadBtn")}
+                  </Button>
+                ) : (
+                  <ViewOnlyViewer
+                    doc={doc}
+                    viewBtnLabel={t("viewBtn")}
+                    viewOnlyTitle={t("viewOnlyTitle")}
+                    popupError={t("popupError")}
+                  />
+                )}
+              </DataTd>
+            </DataTr>
+          );
+        })}
+      </DataTbody>
+    </DataTable>
   );
 }

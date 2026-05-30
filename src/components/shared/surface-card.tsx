@@ -10,7 +10,7 @@ export function SurfaceCard({ className, ...props }: React.ComponentProps<"div">
       data-slot="surface-card"
       className={cn(
         "rounded-[10px] border border-[var(--admin-line)] bg-card text-card-foreground",
-        "shadow-[0_1px_2px_rgba(26,41,64,0.04)]",
+        "shadow-[var(--surface-shadow)]",
         className,
       )}
       {...props}

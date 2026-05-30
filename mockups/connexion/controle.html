@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Espace CETé — Portail de connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Bleu ciel */
+    --sky: #4DA6D9;
+    --sky-light: #87C4E8;
+    --sky-deep: #1A7AB5;
+    --sky-ultra: #0D5A8A;
+    /* Orange TST — accent unique, parcimonieux */
+    --tst: #E8630A;
+    --tst-light: #F59542;
+    --tst-dark: #B84D08;
+    /* Encre marine */
+    --ink: #1A2940;
+    --ink-2: #4A6580;
+    --ink-muted: #8AA5BE;
+    /* Placeholder lisible (>= AA sur fond doux) */
+    --placeholder: #6B86A0;
+    /* Fonds */
+    --white: #FFFFFF;
+    --soft: #F4F9FD;
+    --grad-start: #DAEEF8;
+    /* Bordures / filets */
+    --line: #DAEEF8;
+    --line-2: #E6ECF1;
+    /* Vigi-Score — A vert (meilleur) -> D rouge (à risque) */
+    --vs-a: #22C55E;
+    --vs-b: #7CB342;   /* vert-jaune adouci, moins saturé que le lime */
+    --vs-c: #F59E0B;
+    --vs-d: #DC2626;   /* rouge assombri pour la lisibilité */
+
+    --serif: "Merriweather", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+
+    --radius: 14px;
+    --radius-sm: 10px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--soft);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+  }
+
+  a { color: inherit; }
+
+  /* ============ LAYOUT SHELL ============ */
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    min-height: 100vh;
+    background: var(--white);
+  }
+
+  /* ============ LEFT — PANNEAU MARINE ============ */
+  .brand {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 12% 8%, rgba(77,166,217,0.20) 0%, rgba(77,166,217,0) 55%),
+      linear-gradient(155deg, #1A2940 0%, #103E62 48%, #0D5A8A 100%);
+    color: #EAF4FB;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(2.4rem, 4vw, 4rem);
+    isolation: isolate;
+  }
+
+  /* Trame réseau électrique en filigrane */
+  .grid-trace {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .grid-trace svg { width: 100%; height: 100%; }
+
+  /* Bulles bleues translucides flottantes */
+  .bubbles { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, rgba(135,196,232,0.16), rgba(77,166,217,0.06) 60%, rgba(77,166,217,0) 72%);
+    border: 1px solid rgba(135,196,232,0.10);
+    animation: float 16s var(--ease) infinite;
+  }
+  .bubble.b1 { width: 380px; height: 380px; top: -90px; right: -110px; animation-duration: 19s; }
+  .bubble.b2 { width: 220px; height: 220px; bottom: 8%; left: -70px; animation-duration: 22s; animation-delay: -4s; }
+  .bubble.b3 { width: 130px; height: 130px; top: 40%; right: 14%; animation-duration: 17s; animation-delay: -8s; }
+  .bubble.b4 { width: 74px; height: 74px; top: 22%; left: 18%; animation-duration: 14s; animation-delay: -2s; }
+  .bubble.b5 { width: 46px; height: 46px; bottom: 26%; right: 30%; animation-duration: 13s; animation-delay: -6s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0,0,0); }
+    50% { transform: translate3d(0,-22px,0); }
+  }
+
+  .brand > * { position: relative; z-index: 1; }
+
+  /* Wordmark */
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--serif);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: #fff;
+    line-height: 1;
+  }
+  .topbar { display: flex; align-items: center; gap: 0.85rem; }
+  .topbar .wordmark { font-size: 1.6rem; }
+  .wordmark sup {
+    font-size: 0.5em;
+    font-weight: 700;
+    margin-left: 1px;
+    top: -0.05em;
+    position: relative;
+    color: var(--sky-light);
+  }
+  .topbar .mark-rule {
+    height: 26px;
+    width: 1px;
+    background: rgba(218,238,248,0.22);
+  }
+  .topbar .org {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #AFC8DD; /* lisible sur marine */
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  /* Centre narratif */
+  .brand-body {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: clamp(2rem, 5vh, 3.5rem) 0;
+    max-width: 460px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky-light);
+    margin-bottom: 1.4rem;
+  }
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--vs-a);
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+  }
+  /* Titre de marque : élément stylisé, PAS un vrai titre de page (le h1 est dans le formulaire) */
+  .brand-title {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(1.85rem, 3vw, 2.55rem);
+    line-height: 1.16;
+    letter-spacing: -0.015em;
+    color: #fff;
+  }
+  .brand-title em {
+    font-style: normal;
+    color: var(--sky-light);
+  }
+  .brand-sub {
+    margin-top: 1.15rem;
+    color: #C6DCEC;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    max-width: 42ch;
+  }
+
+  /* Sceau Vigi-Score */
+  .vigi {
+    margin-top: 2.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 1.25rem 1.4rem;
+    background: rgba(13,90,138,0.30);
+    border: 1px solid rgba(135,196,232,0.18);
+    border-radius: var(--radius);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .vigi-scale {
+    display: flex;
+    gap: 6px;
+  }
+  .vs {
+    width: 38px; height: 46px;
+    display: grid; place-items: center;
+    border-radius: 8px;
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 1.18rem;
+    color: #0c1a2b; /* encre très foncée — lisible sur A/B/C/D */
+    position: relative;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.14), 0 4px 10px rgba(0,0,0,0.22);
+  }
+  .vs[data-g="A"] { background: linear-gradient(180deg, #4ade80, var(--vs-a)); }
+  .vs[data-g="B"] { background: linear-gradient(180deg, #9ccc65, var(--vs-b)); }
+  .vs[data-g="C"] { background: linear-gradient(180deg, #fbbf24, var(--vs-c)); }
+  /* D : rouge assombri + texte foncé pour rester lisible (AA) */
+  .vs[data-g="D"] { background: linear-gradient(180deg, #f0746e, var(--vs-d)); color: #fff; }
+  .vs[data-g="D"]::before {
+    content: ""; position: absolute; inset: 0; border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  /* Pointeur initial qui glisse une fois puis se fige sur A */
+  .vs.is-active {
+    transform: translateY(-5px) scale(1.06);
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.14), 0 10px 18px rgba(0,0,0,0.30), 0 0 0 2px rgba(255,255,255,0.65);
+    transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), opacity 0.6s var(--ease);
+  }
+  .vs:not(.is-active) {
+    transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), opacity 0.6s var(--ease);
+    opacity: 0.62;
+  }
+  .vigi-caption {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #BCD4E6;
+  }
+  .vigi-caption strong {
+    display: block;
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin-bottom: 0.15rem;
+  }
+
+  /* Signaux de confiance — bas du panneau */
+  .trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 0.6rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(218,238,248,0.12);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #C6DCEC;
+    padding: 0.42rem 0.78rem;
+    border: 1px solid rgba(135,196,232,0.20);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.03);
+  }
+  .chip svg { width: 14px; height: 14px; flex: none; color: var(--sky-light); }
+
+  /* ============ RIGHT — FORMULAIRE ============ */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    position: relative;
+  }
+  .panel-inner {
+    width: 100%;
+    max-width: 432px;
+    margin: auto;
+    padding: clamp(2.4rem, 4vw, 3.2rem) clamp(1.4rem, 4vw, 2.4rem);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-decoration: none;
+    margin-bottom: 2.4rem;
+    transition: color 0.2s ease, gap 0.2s var(--ease);
+    border-radius: 6px;
+    padding: 2px 2px;
+  }
+  .back-link svg { width: 16px; height: 16px; transition: transform 0.2s var(--ease); }
+  .back-link:hover { color: var(--ink); gap: 0.55rem; }
+  .back-link:hover svg { transform: translateX(-2px); }
+  .back-link:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 3px; }
+
+  .form-head { margin-bottom: 2rem; }
+  .form-head h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 2.4vw, 1.9rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .form-head h1 .wm-sup {
+    font-size: 0.5em;
+    font-weight: 700;
+    vertical-align: super;
+    color: var(--sky-deep);
+  }
+  .form-head p {
+    margin-top: 0.6rem;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  form { display: flex; flex-direction: column; gap: 1.15rem; }
+
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.005em;
+  }
+  .input-wrap { position: relative; display: flex; align-items: center; }
+  .input-wrap > svg.lead {
+    position: absolute;
+    left: 14px;
+    width: 18px; height: 18px;
+    color: var(--ink-2);
+    pointer-events: none;
+    transition: color 0.2s ease;
+  }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--soft);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0.82rem 0.9rem 0.82rem 2.6rem;
+    transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  }
+  input::placeholder { color: var(--placeholder); opacity: 1; }
+  input:hover { border-color: #C4DEF0; }
+  input:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--sky);
+    box-shadow: 0 0 0 4px rgba(77,166,217,0.16);
+  }
+  .input-wrap:focus-within > svg.lead { color: var(--sky-deep); }
+
+  /* champ mot de passe : padding droit pour le toggle */
+  .field.password input { padding-right: 3rem; }
+  .toggle-pw {
+    position: absolute;
+    right: 8px;
+    display: grid; place-items: center;
+    width: 34px; height: 34px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease;
+  }
+  .toggle-pw:hover { color: var(--ink); background: var(--line); }
+  .toggle-pw:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+  .toggle-pw svg { width: 18px; height: 18px; }
+
+  .row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: -0.2rem;
+  }
+  .remember {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    cursor: pointer;
+    user-select: none;
+  }
+  .remember input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 17px; height: 17px;
+    border: 1.5px solid #BFD4E5;
+    border-radius: 5px;
+    background: var(--white);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .remember input:hover { border-color: var(--sky); }
+  .remember input:checked {
+    background: var(--sky-deep);
+    border-color: var(--sky-deep);
+  }
+  .remember input:checked::after {
+    content: "";
+    width: 9px; height: 5px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-1px);
+  }
+  .remember input:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+
+  /* L'UNIQUE accent orange : le lien actif "mot de passe oublié" — #B84D08 par défaut (AA, 5.12:1) */
+  .forgot {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--tst-dark);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.18s ease;
+    border-radius: 5px;
+  }
+  .forgot::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 1.5px;
+    background: var(--tst);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s var(--ease);
+  }
+  .forgot:hover { color: var(--tst); }
+  .forgot:hover::after { transform: scaleX(1); }
+  .forgot:focus-visible { outline: 2px solid var(--tst-dark); outline-offset: 3px; }
+
+  .btn-primary {
+    margin-top: 0.4rem;
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 0.97rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #fff;
+    background: linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-ultra) 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.92rem 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    box-shadow: 0 6px 18px rgba(13,90,138,0.28);
+    transition: transform 0.16s var(--ease), box-shadow 0.2s ease, filter 0.2s ease;
+  }
+  .btn-primary svg { width: 18px; height: 18px; transition: transform 0.2s var(--ease); }
+  .btn-primary:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 10px 26px rgba(13,90,138,0.34);
+    transform: translateY(-1px);
+  }
+  .btn-primary:hover svg { transform: translateX(3px); }
+  .btn-primary:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(13,90,138,0.30); }
+  .btn-primary:focus-visible { outline: 3px solid rgba(13,90,138,0.65); outline-offset: 2px; }
+
+  /* ============ COMPTES DE DÉMONSTRATION ============ */
+  .demo {
+    margin-top: 2rem;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius);
+    background: var(--soft);
+    overflow: hidden;
+  }
+  .demo-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.9rem 1.05rem;
+    font-family: var(--sans);
+    text-align: left;
+  }
+  .demo-toggle:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: -2px; border-radius: var(--radius); }
+  .demo-toggle .dt-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .demo-toggle .dt-label svg { width: 16px; height: 16px; color: var(--sky-deep); }
+  .demo-toggle .chev {
+    width: 18px; height: 18px;
+    color: var(--ink-2);
+    transition: transform 0.25s var(--ease);
+  }
+  .demo.open .demo-toggle .chev { transform: rotate(180deg); }
+
+  .demo-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s var(--ease);
+  }
+  .demo.open .demo-body { grid-template-rows: 1fr; }
+  .demo-body-inner { overflow: hidden; }
+  .demo-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    padding: 0.25rem 1.05rem 1.05rem;
+  }
+  .demo-card {
+    text-align: left;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 0.9rem;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.16s var(--ease);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .demo-card:hover {
+    border-color: var(--sky);
+    box-shadow: 0 6px 16px rgba(26,122,181,0.12);
+    transform: translateY(-2px);
+  }
+  .demo-card:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+  .dc-head { display: flex; align-items: center; gap: 0.5rem; }
+  .dc-badge {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: grid; place-items: center;
+    flex: none;
+  }
+  .dc-badge svg { width: 16px; height: 16px; }
+  .dc-badge.client { background: rgba(77,166,217,0.14); color: var(--sky-ultra); }
+  .dc-badge.admin { background: rgba(26,41,64,0.08); color: var(--ink); }
+  .dc-role {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .dc-mail {
+    font-size: 0.72rem;
+    color: var(--ink-2);
+    font-family: var(--sans);
+    word-break: break-all;
+    line-height: 1.35;
+  }
+  /* Pastille "Remplir" : texte verrouillé sur fond plein bleu profond (blanc sur #1A7AB5 = 4.6:1, AA grand texte/UI) */
+  .dc-fill {
+    margin-top: auto;
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--sky-ultra);
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background 0.18s ease;
+  }
+  .demo-card:hover .dc-fill { background: var(--sky-deep); }
+  .dc-fill svg { width: 12px; height: 12px; color: #fff; }
+
+  .legal {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.76rem;
+    color: var(--ink-2); /* 6.06:1 sur blanc */
+    line-height: 1.6;
+  }
+  .legal a {
+    color: var(--sky-deep); /* #1A7AB5 — lien lisible AA */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+  .legal a:hover { color: var(--sky-ultra); }
+  .legal a:focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 2px; }
+
+  /* ============ MOBILE — en-tête marine compact ============ */
+  .mobile-head { display: none; }
+
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .brand { display: none; }
+    .mobile-head {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(120% 120% at 10% 0%, rgba(77,166,217,0.22) 0%, rgba(77,166,217,0) 55%),
+        linear-gradient(135deg, #1A2940 0%, #0D5A8A 100%);
+      color: #fff;
+      padding: 1.6rem clamp(1.4rem, 6vw, 2.4rem) 1.7rem;
+    }
+    .mobile-head .bubbles .bubble { animation: none; }
+    .mh-row { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .mobile-head .wordmark { font-size: 1.5rem; }
+    .mh-scale { display: flex; gap: 4px; }
+    .mh-scale .vs { width: 26px; height: 32px; font-size: 0.85rem; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.14), 0 3px 7px rgba(0,0,0,0.2); }
+    .mh-scale .vs:not(.is-active) { opacity: 0.55; }
+    .mh-sub {
+      position: relative; z-index: 1;
+      margin-top: 0.85rem;
+      font-size: 0.86rem;
+      color: #C6DCEC;
+      max-width: 38ch;
+    }
+    /* Signaux de confiance reportés sur mobile */
+    .mh-trust {
+      position: relative; z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.45rem;
+      margin-top: 1rem;
+    }
+    .mh-trust .chip { font-size: 0.68rem; padding: 0.34rem 0.62rem; }
+    .panel-inner { margin-top: 0; padding-top: 2rem; }
+    .back-link { margin-bottom: 1.6rem; }
+  }
+
+  @media (max-width: 480px) {
+    .demo-cards { grid-template-columns: 1fr; }
+    .row-between { flex-direction: row; flex-wrap: wrap; }
+    .mh-trust .chip { font-size: 0.66rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bubble, .vs, .vs.is-active { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="shell">
+
+    <!-- ============ PANNEAU MARQUE (gauche) ============ -->
+    <section class="brand" aria-label="Présentation du Consortium Experts Techniques Électricité">
+      <!-- Trame réseau électrique en filigrane -->
+      <div class="grid-trace" aria-hidden="true">
+        <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" fill="none">
+          <g stroke="#87C4E8" stroke-width="1" opacity="0.16">
+            <path d="M-20 120 H180 V300 H360 V160 H620" />
+            <path d="M-20 520 H120 V420 H300 V620 H520 V480 H620" />
+            <path d="M80 -20 V200 H260 V40" />
+            <path d="M420 -20 V140 H540 V340 H620" />
+            <path d="M-20 700 H200 V560 H400 V740 H620" />
+          </g>
+          <g fill="#87C4E8" opacity="0.5">
+            <circle cx="180" cy="120" r="3.5" /><circle cx="180" cy="300" r="3.5" />
+            <circle cx="360" cy="300" r="3.5" /><circle cx="360" cy="160" r="3.5" />
+            <circle cx="120" cy="520" r="3.5" /><circle cx="120" cy="420" r="3.5" />
+            <circle cx="300" cy="420" r="3.5" /><circle cx="300" cy="620" r="3.5" />
+            <circle cx="520" cy="620" r="3.5" /><circle cx="520" cy="480" r="3.5" />
+            <circle cx="260" cy="200" r="3.5" /><circle cx="540" cy="140" r="3.5" />
+            <circle cx="540" cy="340" r="3.5" /><circle cx="400" cy="560" r="3.5" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Bulles bleues translucides -->
+      <div class="bubbles" aria-hidden="true">
+        <span class="bubble b1"></span>
+        <span class="bubble b2"></span>
+        <span class="bubble b3"></span>
+        <span class="bubble b4"></span>
+        <span class="bubble b5"></span>
+      </div>
+
+      <!-- Topbar : wordmark + organisme -->
+      <header class="topbar">
+        <span class="wordmark" role="img" aria-label="CETé">CET<sup aria-hidden="true">é</sup></span>
+        <span class="mark-rule" aria-hidden="true"></span>
+        <span class="org">Consortium Experts<br/>Techniques Électricité</span>
+      </header>
+
+      <!-- Narratif central : titre de marque stylisé (pas un titre de page) -->
+      <div class="brand-body">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Organisme indépendant de notation</p>
+        <p class="brand-title">La notation du risque électrique,<br/><em>en toute indépendance.</em></p>
+        <p class="brand-sub">Votre portail d'accès aux notations Vigi-Score, rapports d'expertise et ressources de votre consortium.</p>
+
+        <!-- Sceau Vigi-Score -->
+        <div class="vigi" role="img" aria-label="Échelle de notation Vigi-Score, de A (meilleur) à D (à risque)">
+          <div class="vigi-scale" id="vigiScale" aria-hidden="true">
+            <span class="vs is-active" data-g="A">A</span>
+            <span class="vs" data-g="B">B</span>
+            <span class="vs" data-g="C">C</span>
+            <span class="vs" data-g="D">D</span>
+          </div>
+          <div class="vigi-caption">
+            <strong>Échelle Vigi-Score</strong>
+            Notation A · B · C · D du niveau de maîtrise du risque.
+          </div>
+        </div>
+      </div>
+
+      <!-- Signaux de confiance -->
+      <footer class="trust">
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Organisme indépendant
+        </span>
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+          Notation A · B · C · D
+        </span>
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Accès sécurisé
+        </span>
+      </footer>
+    </section>
+
+    <!-- ============ PANNEAU FORMULAIRE (droite) ============ -->
+    <section class="panel" aria-label="Connexion à l'Espace CETé">
+
+      <!-- En-tête marine compact (mobile uniquement) — masqué aux lecteurs d'écran pour éviter
+           la duplication du wordmark / des contenus déjà présents sur desktop -->
+      <div class="mobile-head" aria-hidden="true">
+        <div class="bubbles"><span class="bubble b1"></span><span class="bubble b3"></span></div>
+        <div class="mh-row">
+          <span class="wordmark">CET<sup>é</sup></span>
+          <span class="mh-scale">
+            <span class="vs is-active" data-g="A">A</span>
+            <span class="vs" data-g="B">B</span>
+            <span class="vs" data-g="C">C</span>
+            <span class="vs" data-g="D">D</span>
+          </span>
+        </div>
+        <p class="mh-sub">Organisme indépendant de notation du risque électrique.</p>
+        <!-- Signaux de confiance reportés sur mobile -->
+        <div class="mh-trust">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Organisme indépendant
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+            Notation A · B · C · D
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Accès sécurisé
+          </span>
+        </div>
+      </div>
+
+      <div class="panel-inner">
+        <a class="back-link" href="#" aria-label="Retour au site public">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          Retour au site
+        </a>
+
+        <div class="form-head">
+          <h1>Espace <span aria-hidden="true">CET<span class="wm-sup">é</span></span><span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">CETé</span></h1>
+          <p>Accédez à votre notation et vos ressources.</p>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="input-wrap">
+              <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="field password">
+            <label for="password">Mot de passe</label>
+            <div class="input-wrap">
+              <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+              <button type="button" class="toggle-pw" id="togglePw" aria-label="Afficher le mot de passe" aria-pressed="false">
+                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="row-between">
+            <label class="remember" for="remember">
+              <input type="checkbox" id="remember" name="remember" />
+              Se souvenir de moi
+            </label>
+            <a class="forgot" href="#">Mot de passe oublié ?</a>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            Se connecter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+
+        <!-- Comptes de démonstration (repliable) -->
+        <div class="demo" id="demo">
+          <button type="button" class="demo-toggle" id="demoToggle" aria-expanded="false" aria-controls="demoBody">
+            <span class="dt-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              Comptes de démonstration
+            </span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="demo-body" id="demoBody" role="region" aria-label="Identifiants de démonstration">
+            <div class="demo-body-inner">
+              <div class="demo-cards">
+                <button type="button" class="demo-card" data-email="client@cete.fr" data-pw="password" aria-label="Pré-remplir le compte client : client@cete.fr">
+                  <span class="dc-head">
+                    <span class="dc-badge client" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <span class="dc-role">Client</span>
+                  </span>
+                  <span class="dc-mail">client@cete.fr</span>
+                  <span class="dc-fill" aria-hidden="true">Remplir
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                  </span>
+                </button>
+
+                <button type="button" class="demo-card" data-email="admin@cete.fr" data-pw="password" aria-label="Pré-remplir le compte administrateur : admin@cete.fr">
+                  <span class="dc-head">
+                    <span class="dc-badge admin" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <span class="dc-role">Administrateur</span>
+                  </span>
+                  <span class="dc-mail">admin@cete.fr</span>
+                  <span class="dc-fill" aria-hidden="true">Remplir
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="legal">
+          En vous connectant, vous acceptez nos <a href="#">conditions d'utilisation</a> et notre <a href="#">politique de confidentialité</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // — Toggle afficher / masquer le mot de passe —
+    (function () {
+      var btn = document.getElementById('togglePw');
+      var input = document.getElementById('password');
+      var icon = document.getElementById('eyeIcon');
+      var EYE = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
+      var EYE_OFF = '<path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 8 10 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M6.61 6.61A18.45 18.45 0 0 0 2 12s3.5 8 10 8a9.12 9.12 0 0 0 5.39-1.61"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><path d="m2 2 20 20"/>';
+      btn.addEventListener('click', function () {
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+        btn.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+        icon.innerHTML = show ? EYE_OFF : EYE;
+        input.focus();
+      });
+    })();
+
+    // — Comptes de démonstration : repli / dépli —
+    (function () {
+      var demo = document.getElementById('demo');
+      var toggle = document.getElementById('demoToggle');
+      toggle.addEventListener('click', function () {
+        var open = demo.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+
+    // — Boutons démo : remplissage réel des champs —
+    (function () {
+      var cards = document.querySelectorAll('.demo-card');
+      var email = document.getElementById('email');
+      var pw = document.getElementById('password');
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          email.value = card.getAttribute('data-email');
+          pw.value = card.getAttribute('data-pw');
+          // Légère confirmation visuelle sur le champ email
+          email.focus();
+          email.style.transition = 'box-shadow .25s ease';
+          email.style.boxShadow = '0 0 0 4px rgba(77,166,217,0.22)';
+          setTimeout(function () { email.style.boxShadow = ''; }, 650);
+        });
+      });
+    })();
+
+    // — Sceau Vigi-Score : un seul cycle d'introduction, puis se fige sur 'A' (autorité tranquille) —
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return; // déjà figé sur A par le markup
+      var scales = document.querySelectorAll('#vigiScale, .mh-scale');
+      // Parcours d'introduction A -> D -> retour, puis stabilisation définitive sur A (index 0)
+      var sequence = [1, 2, 3, 2, 1, 0];
+      var step = 0;
+      function setActive(idx) {
+        scales.forEach(function (scale) {
+          var items = scale.querySelectorAll('.vs');
+          items.forEach(function (el, k) {
+            el.classList.toggle('is-active', k === idx);
+          });
+        });
+      }
+      var timer = setInterval(function () {
+        setActive(sequence[step]);
+        step += 1;
+        if (step >= sequence.length) {
+          clearInterval(timer); // on s'arrête : plus de mouvement perpétuel
+        }
+      }, 900);
+    })();
+
+    // — Soumission : empêche le rechargement (démo statique) —
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</body>
+</html>

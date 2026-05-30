@@ -117,6 +117,7 @@ export function ArticleFormDialog({
                 value={form.category}
                 onChange={(e) => set("category", e.target.value)}
               >
+                <option value="Expertise">Expertise</option>
                 <option value="Sécurité">Sécurité</option>
                 <option value="Réglementation">Réglementation</option>
                 <option value="Formation">Formation</option>
@@ -143,7 +144,7 @@ export function ArticleFormDialog({
                 id="featured"
                 checked={form.featured}
                 onChange={(e) => set("featured", e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300"
+                className="h-4 w-4 rounded border-input"
               />
               <Label htmlFor="featured">Article à la une</Label>
             </div>

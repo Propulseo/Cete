@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/types/auth";
 import type { Database } from "@/lib/supabase/database.types";
 import { RepoError } from "@/types/repo-error";
-import { createUserAction, deleteUserAction } from "@/app/actions/users";
+import { createUserAction, deleteUserAction, updateUserAuthAction } from "@/app/actions/users";
 
 type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"];
@@ -72,7 +72,13 @@ export async function updateUser(
   if (payload.company !== undefined) patch.company = payload.company ?? null;
   if (payload.phone !== undefined) patch.phone = payload.phone ?? null;
   if (payload.is_active !== undefined) patch.is_active = payload.is_active;
-  // payload.password ignoré ici (changement de mot de passe = flux dédié, non couvert).
+
+  // Email/mot de passe → compte Auth (Admin API service-role) pour rester synchronisé
+  // avec l'email de connexion et permettre la redéfinition du mot de passe par l'admin.
+  if ((payload.password && payload.password.length >= 6) || payload.email !== undefined) {
+    await updateUserAuthAction({ id, email: payload.email, password: payload.password });
+  }
+
   const { data, error } = await supabase
     .from("profiles")
     .update(patch)

@@ -23,7 +23,7 @@ export function KpiTile({ label, value, trend, icon: Icon, className }: KpiTileP
     <div
       className={cn(
         "flex flex-col gap-2 rounded-[10px] border border-[var(--admin-line)] bg-card px-5 py-4",
-        "shadow-[0_1px_2px_rgba(26,41,64,0.04)]",
+        "shadow-[var(--surface-shadow)]",
         className,
       )}
     >

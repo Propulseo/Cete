@@ -2,9 +2,14 @@
 
 import { AlertCircle, Bell, CheckCircle } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  SurfaceCard,
+  SurfaceCardHeader,
+  SurfaceCardTitle,
+  SurfaceCardContent,
+} from "@/components/shared/surface-card";
 import type { Notification } from "@/types/document";
 import { markAsRead } from "@/lib/repo/notifications.repo";
 
@@ -30,31 +35,31 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
   };
 
   return (
-    <Card>
-      <CardHeader className="flex-row items-center gap-2 pb-4">
-        <Bell className="h-5 w-5 text-accent" />
-        <CardTitle className="text-lg">{t("title")}</CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <div className="divide-y">
+    <SurfaceCard>
+      <SurfaceCardHeader>
+        <SurfaceCardTitle className="flex items-center gap-2">
+          <Bell className="size-4 text-muted-foreground" strokeWidth={1.75} />
+          {t("title")}
+        </SurfaceCardTitle>
+      </SurfaceCardHeader>
+      <SurfaceCardContent className="p-0">
+        <ul className="divide-y divide-[var(--admin-line)]">
           {notifications.map((notif) => (
-            <div
+            <li
               key={notif.id}
-              className={`flex items-start gap-3 px-6 py-3 ${
-                !notif.read ? "bg-accent/5" : ""
-              }`}
+              className={`flex items-start gap-3 px-5 py-3 ${!notif.read ? "bg-accent" : ""}`}
             >
               {notif.read ? (
-                <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <CheckCircle className="mt-0.5 size-4 shrink-0 text-muted-foreground" strokeWidth={1.75} />
               ) : (
-                <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                <AlertCircle className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={1.75} />
               )}
-              <div className="flex-1">
-                <p className={`text-sm ${!notif.read ? "font-medium" : "text-muted-foreground"}`}>
+              <div className="min-w-0 flex-1">
+                <p className={`text-sm ${!notif.read ? "font-medium text-foreground" : "text-muted-foreground"}`}>
                   {notif.message}
                 </p>
                 <div className="mt-1 flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs tabular-nums text-muted-foreground">
                     {new Date(notif.date).toLocaleDateString(dateLocale, {
                       day: "numeric",
                       month: "long",
@@ -78,10 +83,10 @@ export function NotificationsTicker({ notifications, onMarkAsRead }: Notificatio
                   {t("markRead")}
                 </Button>
               )}
-            </div>
+            </li>
           ))}
-        </div>
-      </CardContent>
-    </Card>
+        </ul>
+      </SurfaceCardContent>
+    </SurfaceCard>
   );
 }

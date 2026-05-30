@@ -4,13 +4,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* Dark variant is SCOPED to the admin & client areas only: a `dark:` utility activates
+   solely inside .admin-theme / .client-theme (under the `.dark` class next-themes puts on
+   <html>). The public showcase site carries no theme-scope class, so it never receives any
+   `dark:` styling even if the `.dark` class lingers on <html> after leaving admin/client. */
+@custom-variant dark (&:is(.dark .admin-theme *, .dark .client-theme *, .admin-theme.dark *, .client-theme.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-display: var(--font-merriweather);
+  --font-serif-display: var(--font-source-serif), Georgia, serif;
 
   /* CETé Brand Colors - New Sky Blue + Orange TST */
   --color-cete-primary: #4DA6D9;
@@ -26,11 +31,25 @@
   --color-cete-text-secondary: #4A6580;
   --color-cete-text-muted: #8AA5BE;
 
-  /* Vigi-Score Notation Levels */
+  /* Vigi-Score Notation Levels (raw brand hues) */
   --color-vigi-a: #22C55E;
   --color-vigi-b: #A3E635;
   --color-vigi-c: #F97316;
   --color-vigi-d: #EF4444;
+
+  /* Admin redesign — Vigi solid fills (AA, white text) + semantics.
+     Fallbacks keep utilities valid outside .admin-theme (portable). */
+  --color-vigi-a-fill: var(--vigi-a-fill, #15803D);
+  --color-vigi-b-fill: var(--vigi-b-fill, #A16207);
+  --color-vigi-c-fill: var(--vigi-c-fill, #C2410C);
+  --color-vigi-d-fill: var(--vigi-d-fill, #B91C1C);
+  --color-admin-pos: var(--admin-pos, #15803D);
+  --color-admin-neg: var(--admin-neg, #B91C1C);
+  --color-admin-stable: var(--admin-stable, #8AA5BE);
+  --color-admin-urgent: var(--admin-urgent, #E8630A);
+  --color-admin-sidebar: var(--admin-sidebar, #FCFCFD);
+  --color-admin-line: var(--admin-line, #E6ECF1);
+  --color-admin-ink: var(--admin-blue-ink, #1A7AB5);
 
   /* Sidebar */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -134,38 +153,226 @@
   --font-inter: 'Inter', system-ui, sans-serif;
 }
 
-.dark {
-  --background: #0f1210;
-  --foreground: #f0f1ef;
-  --card: #1a1d1a;
-  --card-foreground: #f0f1ef;
-  --popover: #1a1d1a;
-  --popover-foreground: #f0f1ef;
+/* NOTE — the former unscoped `.dark { … }` block was REMOVED for public isolation.
+   Dark mode is defined ONLY under the scoped selectors `.dark .admin-theme` /
+   `.dark .client-theme` (below). An unscoped `.dark` block would re-skin the public
+   showcase site whenever the `.dark` class lingers on <html> after leaving admin/client.
+   The public site (`:root`) therefore has no dark variant by design. */
+
+/* ===== ADMIN THEME (scoped) — institutional rating-agency redesign =====
+   Applied via the .admin-theme class on the admin layout wrapper.
+   Overrides shadcn semantic tokens for /admin/* ONLY; the public site
+   and client area keep their :root values untouched. */
+.admin-theme {
+  /* Canvas & surfaces — cool-paper; cards lift by luminance, not heavy borders */
+  --background: #F8F9FB;
+  --foreground: #1A2940;
+  --card: #FFFFFF;
+  --card-foreground: #1A2940;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A2940;
+
+  /* Muted / secondary / hover wash (no orange in admin chrome) */
+  --muted: #EEF2F6;
+  --muted-foreground: #4A6580;
+  --secondary: #F1F4F8;
+  --secondary-foreground: #1A2940;
+  --accent: #EAF1F6;
+  --accent-foreground: #1A2940;
+
+  /* Primary accent = INK blue (legible on light surfaces) */
+  --primary: #1A7AB5;
+  --primary-foreground: #FFFFFF;
+
+  /* Borders / hairlines / focus */
+  --border: #E6ECF1;
+  --input: #E6ECF1;
+  --ring: #1A7AB5;
+  --destructive: #B91C1C;
+
+  /* Serif display (admin only) */
+  --font-serif-display: var(--font-source-serif), Georgia, serif;
+
+  /* Additive admin tokens */
+  --admin-sidebar: #FCFCFD;
+  --admin-sidebar-hover: #EAF1F6;
+  --admin-line: #E6ECF1;
+  --admin-blue-ink: #1A7AB5;
+  --admin-blue-fill: #4DA6D9;
+  --admin-blue-link: #0D5A8A;
+  --admin-pos: #15803D;
+  --admin-neg: #B91C1C;
+  --admin-stable: #8AA5BE;
+  --admin-urgent: #E8630A;
+
+  /* Vigi-Score solid fills (white text, AA at large/bold) */
+  --vigi-a-fill: #15803D;
+  --vigi-b-fill: #A16207;
+  --vigi-c-fill: #C2410C;
+  --vigi-d-fill: #B91C1C;
+  --vigi-fg: #FFFFFF;
+  /* raw brand hues — legend dots / thin rules only, NEVER under text */
+  --vigi-a-raw: #22C55E;
+  --vigi-b-raw: #A3E635;
+  --vigi-c-raw: #F97316;
+  --vigi-d-raw: #EF4444;
+  /* 12% tints — small inline seals (letter in -fill on tint) */
+  --vigi-a-tint: rgba(21, 128, 61, 0.12);
+  --vigi-b-tint: rgba(161, 98, 7, 0.12);
+  --vigi-c-tint: rgba(194, 65, 12, 0.12);
+  --vigi-d-tint: rgba(185, 28, 11, 0.12);
+
+  /* Small-seal letter/glyph ink (= -fill in light, brightened in dark) */
+  --vigi-a-ink: #15803D;
+  --vigi-b-ink: #A16207;
+  --vigi-c-ink: #C2410C;
+  --vigi-d-ink: #B91C1C;
+
+  /* Elevation token for true surfaces (SurfaceCard / KPITile) */
+  --surface-shadow: 0 1px 2px rgba(26, 41, 64, 0.04);
+}
+
+/* ===== CLIENT THEME (scoped) — aligned on the admin rating-agency design system =====
+   Applied via the .client-theme class on the client layout wrapper. Mirrors the admin
+   token set (decision STY-1: duplicated rather than shared, so admin stays byte-identical
+   and the client area can evolve independently). Public site (:root) stays untouched. */
+.client-theme {
+  --background: #F8F9FB;
+  --foreground: #1A2940;
+  --card: #FFFFFF;
+  --card-foreground: #1A2940;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A2940;
+
+  --muted: #EEF2F6;
+  --muted-foreground: #4A6580;
+  --secondary: #F1F4F8;
+  --secondary-foreground: #1A2940;
+  --accent: #EAF1F6;
+  --accent-foreground: #1A2940;
+
+  --primary: #1A7AB5;
+  --primary-foreground: #FFFFFF;
+
+  --border: #E6ECF1;
+  --input: #E6ECF1;
+  --ring: #1A7AB5;
+  --destructive: #B91C1C;
+
+  --font-serif-display: var(--font-source-serif), Georgia, serif;
+
+  /* Reuse the --admin-* names so shared components resolve identically in both scopes */
+  --admin-sidebar: #FCFCFD;
+  --admin-sidebar-hover: #EAF1F6;
+  --admin-line: #E6ECF1;
+  --admin-blue-ink: #1A7AB5;
+  --admin-blue-fill: #4DA6D9;
+  --admin-blue-link: #0D5A8A;
+  --admin-pos: #15803D;
+  --admin-neg: #B91C1C;
+  --admin-stable: #8AA5BE;
+  --admin-urgent: #E8630A;
+
+  --vigi-a-fill: #15803D;
+  --vigi-b-fill: #A16207;
+  --vigi-c-fill: #C2410C;
+  --vigi-d-fill: #B91C1C;
+  --vigi-fg: #FFFFFF;
+  --vigi-a-raw: #22C55E;
+  --vigi-b-raw: #A3E635;
+  --vigi-c-raw: #F97316;
+  --vigi-d-raw: #EF4444;
+  --vigi-a-tint: rgba(21, 128, 61, 0.12);
+  --vigi-b-tint: rgba(161, 98, 7, 0.12);
+  --vigi-c-tint: rgba(194, 65, 12, 0.12);
+  --vigi-d-tint: rgba(185, 28, 11, 0.12);
+
+  /* Small-seal letter/glyph ink (= -fill in light, brightened in dark) */
+  --vigi-a-ink: #15803D;
+  --vigi-b-ink: #A16207;
+  --vigi-c-ink: #C2410C;
+  --vigi-d-ink: #B91C1C;
+
+  /* Elevation token for true surfaces (SurfaceCard / KPITile) */
+  --surface-shadow: 0 1px 2px rgba(26, 41, 64, 0.04);
+}
+
+/* ===== DARK MODE (scoped — admin AND client) =====
+   Single block for both scopes (tokens are identical, like the light scopes). Applied when
+   next-themes puts `.dark` on <html> AND the element is inside .admin-theme / .client-theme
+   (the layout wrapper + the body mirror set by ThemeProvider). The public site never matches.
+   Palette validated WCAG AA — see docs/dark-mode-audit.md §3-§4. */
+.dark .admin-theme,
+.dark .client-theme,
+.admin-theme.dark,
+.client-theme.dark {
+  /* Surfaces & text — navy-black canvas, planes lift by luminance (bg < sidebar < card) */
+  --background: #0E141B;
+  --foreground: #E7EDF3;
+  --card: #131B24;
+  --card-foreground: #E7EDF3;
+  --popover: #131B24;
+  --popover-foreground: #E7EDF3;
+  --muted: #1A242E;
+  --muted-foreground: #9DB0C2;
+  --secondary: #1A242E;
+  --secondary-foreground: #E7EDF3;
+  --accent: #1C2A37;
+  --accent-foreground: #E7EDF3;
+
+  /* Accent blue brightened for dark legibility; primary-foreground = ink (white fails on #4DA6D9) */
   --primary: #4DA6D9;
-  --primary-foreground: #ffffff;
-  --secondary: #252825;
-  --secondary-foreground: #f0f1ef;
-  --muted: #252825;
-  --muted-foreground: #999;
-  --accent: #E8630A;
-  --accent-foreground: #ffffff;
-  --destructive: #dc3545;
-  --border: #333;
-  --input: #333;
+  --primary-foreground: #08111A;
+
+  /* Borders / focus / destructive (brightened red: white-text AA + plane separation) */
+  --border: #243240;
+  --input: #243240;
   --ring: #4DA6D9;
+  --destructive: #DC2626;
+
+  /* Charts (hand-made SVG sparklines mostly read --admin-blue-* / --vigi-*; defined for hygiene) */
   --chart-1: #4DA6D9;
-  --chart-2: #E8630A;
-  --chart-3: #1A7AB5;
-  --chart-4: #dc3545;
-  --chart-5: #8AA5BE;
-  --sidebar: #0f1210;
-  --sidebar-foreground: #f0f1ef;
-  --sidebar-primary: #4DA6D9;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a1d1a;
-  --sidebar-accent-foreground: #f0f1ef;
-  --sidebar-border: #333;
-  --sidebar-ring: #4DA6D9;
+  --chart-2: #87C4E8;
+  --chart-3: #F59542;
+  --chart-4: #E8630A;
+  --chart-5: #9DB0C2;
+
+  /* Elevation — a 4% navy shadow is invisible on dark; use a real drop shadow */
+  --surface-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+
+  /* Additive admin/client tokens */
+  --admin-sidebar: #111921;
+  --admin-sidebar-hover: #1C2A37;
+  --admin-line: #243240;
+  --admin-blue-ink: #4DA6D9;
+  --admin-blue-fill: #4DA6D9;
+  --admin-blue-link: #87C4E8;
+  --admin-pos: #4ADE80;
+  --admin-neg: #F87171;
+  --admin-stable: #8AA5BE;
+  --admin-urgent: #F59542;
+
+  /* Vigi-Score — fills keep white text (A/B/C carried, D brightened to #DC2626) */
+  --vigi-fg: #FFFFFF;
+  --vigi-a-fill: #15803D;
+  --vigi-b-fill: #A16207;
+  --vigi-c-fill: #C2410C;
+  --vigi-d-fill: #DC2626;
+  /* raw hues — legend dots / thin rules (bright, read fine on dark) */
+  --vigi-a-raw: #22C55E;
+  --vigi-b-raw: #A3E635;
+  --vigi-c-raw: #F97316;
+  --vigi-d-raw: #EF4444;
+  /* small-seal letter/glyph ink — brightened so it reads on the dark tint */
+  --vigi-a-ink: #4ADE80;
+  --vigi-b-ink: #FBBF24;
+  --vigi-c-ink: #FB923C;
+  --vigi-d-ink: #F87171;
+  /* tints raised to 18% of the bright hue so the small-seal chip stays perceptible on a dark card */
+  --vigi-a-tint: rgba(74, 222, 128, 0.18);
+  --vigi-b-tint: rgba(251, 191, 36, 0.18);
+  --vigi-c-tint: rgba(251, 146, 60, 0.18);
+  --vigi-d-tint: rgba(248, 113, 113, 0.18);
 }
 
 @layer base {
@@ -181,7 +388,9 @@
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
-    color: #1A2940;
+    /* Token, not a hardcode: identical (#1A2940) for the public :root, but lets headings
+       turn light in admin/client dark mode instead of staying invisible navy-on-navy. */
+    color: var(--foreground);
   }
 }
 
@@ -267,6 +476,12 @@
 
   .font-body {
     font-family: var(--font-inter);
+  }
+
+  /* Admin serif display (Source Serif 4) — scoped via --font-serif-display */
+  .font-serif-display {
+    font-family: var(--font-serif-display, Georgia, serif);
+    font-optical-sizing: auto;
   }
 
   /* Brand color utilities */

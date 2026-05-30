@@ -6,6 +6,7 @@ import {
   ContactMain,
   ContactTrust,
 } from "@/components/sections/contact";
+import { loadContactInfo } from "@/lib/vitrine-data";
 
 export async function generateMetadata({
   params,
@@ -27,12 +28,13 @@ export default async function ContactPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const contact = await loadContactInfo(locale as "fr" | "en");
 
   return (
     <>
       <ContactHero />
       <Suspense>
-        <ContactMain />
+        <ContactMain contact={contact} />
       </Suspense>
       <ContactTrust />
     </>

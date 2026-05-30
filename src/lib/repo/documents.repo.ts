@@ -20,6 +20,7 @@ function rowToDocument(r: DocumentRow): ClientDocument {
     duration: r.duration ?? undefined,
     uploadDate: r.upload_date,
     url: r.url ?? undefined,
+    storagePath: r.storage_path ?? undefined,
     youtubeId: r.youtube_id ?? undefined,
     accessType: (r.access_type as AccessType | null) ?? undefined,
     visibility: r.visibility as Visibility,
@@ -42,6 +43,7 @@ function documentToRow(
   if (payload.duration !== undefined) row.duration = payload.duration ?? null;
   if (payload.uploadDate !== undefined) row.upload_date = payload.uploadDate;
   if (payload.url !== undefined) row.url = payload.url ?? null;
+  if (payload.storagePath !== undefined) row.storage_path = payload.storagePath ?? null;
   if (payload.youtubeId !== undefined) row.youtube_id = payload.youtubeId ?? null;
   if (payload.accessType !== undefined) row.access_type = payload.accessType ?? null;
   if (payload.visibility !== undefined) row.visibility = payload.visibility;
@@ -83,6 +85,24 @@ export async function getVisibleForClient(
   }
 }
 
+// Documents PUBLIÉS spécifiquement pour un client (assigned_client_ids contient son id).
+// Usage admin : gérer, depuis le dossier, ce que ce client voit dans son portail.
+export async function listAssignedToClient(clientId: string): Promise<ClientDocument[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("client_documents")
+      .select("*")
+      .contains("assigned_client_ids", [clientId])
+      .order("upload_date", { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map(rowToDocument);
+  } catch (error) {
+    console.error("[documents.repo] listAssignedToClient failed:", error);
+    throw new RepoError("Impossible de charger les documents du client", "documents", "listAssigned");
+  }
+}
+
 export async function getDocument(id: string): Promise<ClientDocument | null> {
   try {
     const supabase = createClient();
@@ -113,6 +133,7 @@ export async function createDocument(
       duration: payload.duration ?? null,
       upload_date: payload.uploadDate,
       url: payload.url ?? null,
+      storage_path: payload.storagePath ?? null,
       youtube_id: payload.youtubeId ?? null,
       access_type: payload.accessType ?? null,
       visibility: payload.visibility,

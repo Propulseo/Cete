@@ -2,9 +2,23 @@
 
 import { FileText, ExternalLink, Video, Download, Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { getSignedUrl } from "@/lib/supabase/storage";
 import type { Resource, ResourceCategory, ResourceType } from "@/types/resource";
+
+/** URL ouvrable : objet Storage (URL signée) sinon `url` (lien externe). */
+async function resolveResourceUrl(res: Resource): Promise<string | null> {
+  if (res.storagePath) {
+    try {
+      return await getSignedUrl("client-documents", res.storagePath);
+    } catch {
+      return null;
+    }
+  }
+  return res.url || null;
+}
 
 const categoryKeyMap: Record<ResourceCategory, string> = {
   normes: "categoryNormes",
@@ -62,21 +76,30 @@ export function ResourceCard({ res }: { res: Resource }) {
               <span className="text-xs text-muted-foreground">{res.fileSize}</span>
             )}
           </div>
-          {res.accessMode === "telechargement" ? (
-            <Button variant="outline" size="sm" asChild>
-              <a href={res.url} download>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={async () => {
+              const url = await resolveResourceUrl(res);
+              if (!url) {
+                toast.error("Ressource indisponible");
+                return;
+              }
+              window.open(url, "_blank", "noopener,noreferrer");
+            }}
+          >
+            {res.accessType === "download" ? (
+              <>
                 <Download className="mr-1.5 h-3.5 w-3.5" />
                 {t("download")}
-              </a>
-            </Button>
-          ) : (
-            <Button variant="outline" size="sm" asChild>
-              <a href={res.url} target="_blank" rel="noopener noreferrer">
+              </>
+            ) : (
+              <>
                 <Eye className="mr-1.5 h-3.5 w-3.5" />
                 {t("view")}
-              </a>
-            </Button>
-          )}
+              </>
+            )}
+          </Button>
         </div>
       </div>
     </div>

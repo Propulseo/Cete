@@ -10,6 +10,7 @@ import {
   HomeFounders,
   HomeCTA,
 } from "@/components/sections/home";
+import { loadFounders, loadOrganizations } from "@/lib/vitrine-data";
 
 export default async function HomePage({
   params,
@@ -18,16 +19,20 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const [founders, organizations] = await Promise.all([
+    loadFounders(locale as "fr" | "en"),
+    loadOrganizations(),
+  ]);
 
   return (
     <>
       <HomeHero />
       <HomeStats />
-      <HomeFounders />
+      <HomeFounders founders={founders} />
       <HomeServices />
       <HomePillars />
       <HomeADN />
-      <HomeOrganizations />
+      <HomeOrganizations organizations={organizations} />
       <HomeTestimonials />
       <HomeCTA />
     </>

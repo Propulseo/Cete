@@ -9,41 +9,25 @@ import {
   Download,
   Play,
   ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { ClientDocument } from "@/types/document";
+import { KpiTile } from "@/components/shared/kpi-tile";
+import {
+  SurfaceCard,
+  SurfaceCardHeader,
+  SurfaceCardTitle,
+  SurfaceCardContent,
+} from "@/components/shared/surface-card";
+import type { ClientDocument, DocumentCategory } from "@/types/document";
 
-const categoryMeta: Record<
-  string,
-  { icon: React.ReactNode; color: string; href: string; key: string }
-> = {
-  newsletters: {
-    icon: <FileText className="h-5 w-5" />,
-    color: "bg-blue-100 text-blue-600",
-    href: "/client/newsletters",
-    key: "newsletters",
-  },
-  capsules: {
-    icon: <Video className="h-5 w-5" />,
-    color: "bg-purple-100 text-purple-600",
-    href: "/client/capsules",
-    key: "capsules",
-  },
-  guides: {
-    icon: <BookOpen className="h-5 w-5" />,
-    color: "bg-green-100 text-green-600",
-    href: "/client/guides",
-    key: "guides",
-  },
-  carnets: {
-    icon: <ClipboardList className="h-5 w-5" />,
-    color: "bg-orange-100 text-orange-600",
-    href: "/client/carnets",
-    key: "carnets",
-  },
+const categoryMeta: Record<DocumentCategory, { icon: LucideIcon; href: string; key: string }> = {
+  newsletters: { icon: FileText, href: "/client/newsletters", key: "newsletters" },
+  capsules: { icon: Video, href: "/client/capsules", key: "capsules" },
+  guides: { icon: BookOpen, href: "/client/guides", key: "guides" },
+  carnets: { icon: ClipboardList, href: "/client/carnets", key: "carnets" },
 };
 
 interface DashboardSummaryProps {
@@ -67,7 +51,7 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
       acc[doc.category] = (acc[doc.category] || 0) + 1;
       return acc;
     },
-    {} as Record<string, number>
+    {} as Record<string, number>,
   );
 
   const recentDocs = [...documents]
@@ -75,85 +59,73 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
     .slice(0, 5);
 
   return (
-    <div className="space-y-8">
-      {/* Stats Grid */}
+    <div className="space-y-6">
+      {/* Category stats — ledger tiles */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Object.entries(categoryMeta).map(([key, config]) => (
-          <Link key={key} href={config.href}>
-            <Card className="transition-shadow hover:shadow-md">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className={`rounded-lg p-2 ${config.color}`}>
-                    {config.icon}
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">{countByCategory[key] || 0}</div>
-                    <p className="text-sm text-muted-foreground">
-                      {t(`categories.${config.key}` as Parameters<typeof t>[0])}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+        {(Object.entries(categoryMeta) as [DocumentCategory, (typeof categoryMeta)[DocumentCategory]][]).map(
+          ([key, config]) => (
+            <Link key={key} href={config.href} className="block transition-transform hover:-translate-y-0.5">
+              <KpiTile
+                label={t(`categories.${config.key}` as Parameters<typeof t>[0])}
+                value={countByCategory[key] || 0}
+                icon={config.icon}
+              />
+            </Link>
+          ),
+        )}
       </div>
 
-      {/* Recent Documents */}
-      <Card>
-        <CardHeader className="flex-row items-center justify-between pb-4">
-          <CardTitle className="text-lg">{t("dashboard.recentPublications")}</CardTitle>
-          <Badge variant="secondary">{t("dashboard.totalCount", { count: documents.length })}</Badge>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="divide-y">
+      {/* Recent publications */}
+      <SurfaceCard>
+        <SurfaceCardHeader>
+          <SurfaceCardTitle>{t("dashboard.recentPublications")}</SurfaceCardTitle>
+          <Badge variant="secondary" className="tabular-nums">
+            {t("dashboard.totalCount", { count: documents.length })}
+          </Badge>
+        </SurfaceCardHeader>
+        <SurfaceCardContent className="p-0">
+          <ul className="divide-y divide-[var(--admin-line)]">
             {recentDocs.map((doc) => {
               const config = categoryMeta[doc.category];
+              const Icon = doc.type === "video" ? Video : FileText;
               return (
-                <div
+                <li
                   key={doc.id}
-                  className="flex items-center gap-4 px-6 py-3 transition-colors hover:bg-secondary/30"
+                  className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-[var(--admin-sidebar-hover)]"
                 >
-                  <div className={`rounded-lg p-2 ${config?.color}`}>
-                    {doc.type === "video" ? (
-                      <Video className="h-4 w-4" />
-                    ) : (
-                      <FileText className="h-4 w-4" />
-                    )}
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <Icon className="size-4" strokeWidth={1.75} />
                   </div>
-                  <div className="flex-1 overflow-hidden">
+                  <div className="min-w-0 flex-1">
                     <p className="truncate font-medium text-foreground">{doc.title}</p>
                     <p className="text-xs text-muted-foreground">
-                      {config ? t(`categories.${config.key}` as Parameters<typeof t>[0]) : ""} · {doc.type === "pdf" ? doc.fileSize : doc.duration}
+                      {config ? t(`categories.${config.key}` as Parameters<typeof t>[0]) : ""} ·{" "}
+                      {doc.type === "pdf" ? doc.fileSize : doc.duration}
                     </p>
                   </div>
-                  <span className="flex-shrink-0 text-xs text-muted-foreground">
+                  <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
                     {new Date(doc.uploadDate).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
                       day: "numeric",
                       month: "short",
                     })}
                   </span>
                   <Button size="sm" variant="ghost" onClick={() => handleDocAction(doc)}>
-                    {doc.type === "video" ? (
-                      <Play className="h-4 w-4" />
-                    ) : (
-                      <Download className="h-4 w-4" />
-                    )}
+                    {doc.type === "video" ? <Play className="size-4" /> : <Download className="size-4" />}
                   </Button>
-                </div>
+                </li>
               );
             })}
-          </div>
-          <div className="border-t p-4 text-center">
+          </ul>
+          <div className="border-t border-[var(--admin-line)] p-3 text-center">
             <Button variant="link" size="sm" asChild>
               <Link href="/client/newsletters">
                 {t("dashboard.viewAll")}
-                <ArrowRight className="ml-1 h-4 w-4" />
+                <ArrowRight className="ml-1 size-4" />
               </Link>
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </SurfaceCardContent>
+      </SurfaceCard>
     </div>
   );
 }

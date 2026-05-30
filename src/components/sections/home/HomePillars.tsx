@@ -34,7 +34,7 @@ export function HomePillars() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {pillars.map((pillar, index) => {
             const Icon = icons[pillar.icon as keyof typeof icons] || Zap;
             const bgColor = colors[pillar.color as keyof typeof colors] || colors.blue;
@@ -42,7 +42,7 @@ export function HomePillars() {
             return (
               <Link key={pillar.id} href="/expertise" className="block">
                 <div className="group relative">
-                  <div className="relative h-full p-8 rounded-3xl bg-white border border-[#DAEEF8] hover:border-transparent hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                  <div className="relative h-full p-6 lg:p-8 rounded-3xl bg-white border border-[#DAEEF8] hover:border-transparent hover:shadow-2xl transition-all duration-500 overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                     <div className="relative z-10">

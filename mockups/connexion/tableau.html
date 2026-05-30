@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portail CETé — Connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* Bleus */
+    --sky:#4DA6D9; --sky-light:#87C4E8; --deep:#1A7AB5; --ultra:#0D5A8A;
+    /* Orange TST (accent UNIQUE) */
+    --tst:#E8630A; --tst-light:#F59542; --tst-dark:#B84D08; --tst-deep:#D5570A;
+    /* Encre marine */
+    --ink:#1A2940; --ink-2:#4A6580; --ink-muted:#8AA5BE;
+    /* Fonds dark */
+    --canvas:#0E141B; --canvas-2:#111A24; --panel:#15202C;
+    /* Lignes */
+    --line:rgba(218,238,248,0.10); --line-strong:rgba(135,196,232,0.22);
+    /* Texte clair (dark mode) */
+    --txt:#EAF3FB; --txt-2:#A9C2D6;
+    /* libellés porteurs d'info — remontés a >=6:1 */
+    --txt-muted:#8AA5BE;
+    /* décoratif pur uniquement (filets, séparateurs) */
+    --txt-faint:#6E899F;
+    /* Vigi-Score — la puce C sort de la famille TST (ambre distinct) */
+    --vA:#22C55E; --vB:#A3D955; --vC:#E0A93E; --vD:#EF4444;
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:var(--canvas);
+    color:var(--txt);
+    min-height:100vh;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ===== FOND ÉNERGIE ===== */
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .bg-grad{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(1100px 700px at 78% -8%, rgba(26,122,181,0.28), transparent 60%),
+      radial-gradient(900px 620px at 8% 108%, rgba(13,90,138,0.32), transparent 58%),
+      linear-gradient(160deg,#0E141B 0%,#101A24 45%,#0C1219 100%);
+  }
+  /* Bulles bleues translucides en profondeur */
+  .bubble{position:absolute;border-radius:50%;filter:blur(0.5px)}
+  .b1{width:520px;height:520px;top:-180px;right:-140px;
+      background:radial-gradient(circle at 32% 30%,rgba(77,166,217,0.15),rgba(77,166,217,0.04) 62%,transparent 72%);
+      animation:drift 26s ease-in-out infinite}
+  .b2{width:360px;height:360px;bottom:-120px;left:-90px;
+      background:radial-gradient(circle at 40% 40%,rgba(77,166,217,0.12),rgba(77,166,217,0.03) 60%,transparent 70%);
+      animation:drift 32s ease-in-out infinite reverse}
+  .b3{width:200px;height:200px;top:42%;left:14%;
+      background:radial-gradient(circle at 40% 40%,rgba(135,196,232,0.10),transparent 68%);
+      animation:drift 22s ease-in-out infinite}
+  .ring{position:absolute;border-radius:50%;border:1px solid rgba(77,166,217,0.10)}
+  .r1{width:680px;height:680px;top:-260px;right:-220px}
+  .r2{width:440px;height:440px;bottom:-200px;left:-160px;border-color:rgba(77,166,217,0.07)}
+  @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(26px,-22px)}}
+
+  /* Circuit / tension animé */
+  .circuit{position:absolute;inset:0;width:100%;height:100%}
+  .trace{fill:none;stroke:rgba(135,196,232,0.16);stroke-width:1}
+  .node{fill:rgba(135,196,232,0.22)}
+  .pulse{
+    fill:none;stroke:var(--sky);stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-dasharray:14 460;
+    filter:drop-shadow(0 0 5px rgba(77,166,217,0.7));
+    animation:flow 7s linear infinite;
+  }
+  .pulse.d2{stroke:var(--sky-light);animation-duration:9.5s;animation-delay:-3s;stroke-dasharray:10 520}
+  .pulse.d3{stroke:var(--deep);animation-duration:11s;animation-delay:-6s;stroke-dasharray:8 580}
+  @keyframes flow{to{stroke-dashoffset:-474}}
+
+  /* ===== SHELL ===== */
+  .shell{
+    position:relative;z-index:2;
+    flex:1;
+    display:flex;align-items:center;justify-content:center;
+    padding:40px 22px;
+  }
+
+  /* ===== CARTE RÉTRO-ÉCLAIRÉE ===== */
+  .card-wrap{width:100%;max-width:452px;position:relative}
+  /* halo rétro-éclairage */
+  .card-wrap::before{
+    content:"";position:absolute;inset:-1px;border-radius:calc(var(--radius) + 3px);
+    background:linear-gradient(155deg,rgba(135,196,232,0.55),rgba(26,122,181,0.10) 40%,transparent 60%,rgba(77,166,217,0.30));
+    filter:blur(0.5px);opacity:.9;z-index:-1;
+  }
+  .card-wrap::after{
+    content:"";position:absolute;inset:-22px;border-radius:34px;z-index:-2;
+    background:radial-gradient(60% 55% at 50% 18%,rgba(77,166,217,0.20),transparent 70%);
+    filter:blur(16px);
+  }
+  .card{
+    position:relative;
+    background:
+      linear-gradient(180deg,rgba(31,46,62,0.92),rgba(17,26,36,0.96));
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius);
+    padding:38px 38px 30px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.05) inset,
+      0 40px 90px -30px rgba(0,0,0,0.75),
+      0 0 0 1px rgba(0,0,0,0.25);
+    backdrop-filter:blur(8px);
+    overflow:hidden;
+  }
+  /* filet lumineux supérieur */
+  .card-edge{
+    position:absolute;top:0;left:18%;right:18%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--sky),var(--sky-light),transparent);
+    box-shadow:0 0 12px rgba(77,166,217,0.6);
+  }
+
+  /* ===== EN-TÊTE MARQUE ===== */
+  .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:26px}
+  .brand-id{display:flex;align-items:center;gap:13px}
+  .logo{
+    width:46px;height:46px;border-radius:13px;flex-shrink:0;
+    background:linear-gradient(150deg,#15212E,#0C141C);
+    border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    box-shadow:0 0 0 1px rgba(77,166,217,0.10) inset, 0 6px 16px -8px rgba(0,0,0,0.8);
+  }
+  .logo svg{display:block}
+  .wordmark{
+    font-family:'Merriweather',serif;font-weight:900;
+    font-size:25px;letter-spacing:-0.01em;color:var(--txt);line-height:1;
+  }
+  .wordmark sup{
+    font-size:0.5em;font-weight:700;color:var(--sky-light);
+    top:-0.62em;margin-left:1px;letter-spacing:0;
+  }
+  .brand-sub{
+    font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--txt-muted);font-weight:600;margin-top:5px;
+  }
+  /* indicateur EN LIGNE — point bleu/vert discret (l'orange reste réservé a l'action) */
+  .status{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--sky-light);
+    padding:6px 11px;border-radius:999px;
+    border:1px solid rgba(135,196,232,0.28);
+    background:rgba(77,166,217,0.08);
+  }
+  .status .dot{
+    width:7px;height:7px;border-radius:50%;background:#34D17A;
+    box-shadow:0 0 0 0 rgba(52,209,122,0.55), 0 0 6px rgba(52,209,122,0.7);
+    animation:online 2.8s ease-out infinite;
+  }
+  @keyframes online{0%{box-shadow:0 0 0 0 rgba(52,209,122,0.55),0 0 6px rgba(52,209,122,0.7)}70%{box-shadow:0 0 0 6px rgba(52,209,122,0),0 0 6px rgba(52,209,122,0.7)}100%{box-shadow:0 0 0 0 rgba(52,209,122,0),0 0 6px rgba(52,209,122,0.7)}}
+
+  /* ===== TITRES ===== */
+  .heading{margin-bottom:24px}
+  .heading h1{
+    font-family:'Merriweather',serif;font-weight:700;
+    font-size:25px;line-height:1.18;color:var(--txt);letter-spacing:-0.01em;
+  }
+  .heading p{font-size:14px;color:var(--txt-2);margin-top:9px;max-width:36ch}
+
+  /* ===== FORMULAIRE ===== */
+  form{display:flex;flex-direction:column;gap:17px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field > label{
+    font-size:12.5px;font-weight:600;color:var(--txt-2);
+    letter-spacing:0.02em;
+  }
+  .input-wrap{position:relative;display:flex;align-items:center}
+  .input-wrap .lead{
+    position:absolute;left:14px;display:flex;color:var(--ink-muted);pointer-events:none;
+    transition:color .2s ease;
+  }
+  input[type="email"],input[type="password"],input[type="text"]{
+    width:100%;
+    font-family:inherit;font-size:14.5px;color:var(--txt);
+    background:rgba(8,13,18,0.6);
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:13px 14px 13px 42px;
+    transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+  }
+  .field.pw input{padding-right:46px}
+  input::placeholder{color:var(--txt-muted)}
+  input:hover{border-color:var(--line-strong)}
+  input:focus{
+    outline:none;
+    border-color:var(--sky);
+    background:rgba(8,13,18,0.85);
+    box-shadow:0 0 0 3px rgba(77,166,217,0.22), 0 0 18px -4px rgba(77,166,217,0.45) inset;
+  }
+  input:focus + .lead,.input-wrap:focus-within .lead{color:var(--sky)}
+
+  .toggle{
+    position:absolute;right:8px;
+    background:transparent;border:none;cursor:pointer;
+    width:32px;height:32px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-muted);transition:color .2s,background .2s;
+  }
+  .toggle:hover{color:var(--sky-light);background:rgba(77,166,217,0.10)}
+  .toggle:focus-visible{outline:2px solid var(--sky);outline-offset:2px;color:var(--sky-light)}
+
+  /* ligne "Rester connecté" + "Mot de passe oublié ?" — éléments freres, hors du label */
+  .field.pw .field-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:2px;
+  }
+  .field.pw .field-foot .forgot{font-weight:500}
+
+  .row{display:flex;align-items:center;gap:12px;margin-top:-3px}
+  .remember{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--txt-2);user-select:none}
+  .remember input{position:absolute;opacity:0;width:0;height:0}
+  .box{
+    width:17px;height:17px;border-radius:5px;border:1px solid var(--line-strong);
+    background:rgba(8,13,18,0.6);display:flex;align-items:center;justify-content:center;
+    transition:all .18s ease;flex-shrink:0;
+  }
+  .box svg{opacity:0;transform:scale(.6);transition:all .18s ease;color:#0E141B}
+  .remember input:checked + .box{background:var(--sky);border-color:var(--sky)}
+  .remember input:checked + .box svg{opacity:1;transform:scale(1)}
+  .remember input:focus-visible + .box{outline:2px solid var(--sky);outline-offset:2px}
+
+  .link{
+    color:var(--sky-light);text-decoration:none;font-size:13px;font-weight:500;
+    transition:color .2s;border-radius:4px;
+  }
+  .link:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+  .link:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+
+  /* Bouton primaire — UNIQUE accent orange sous tension (foncé pour AA) */
+  .btn{
+    margin-top:6px;
+    position:relative;
+    font-family:inherit;font-size:15px;font-weight:700;letter-spacing:0.01em;
+    color:#fff;cursor:pointer;
+    border:none;border-radius:12px;padding:14px 20px;
+    background:linear-gradient(180deg,var(--tst) 0%,var(--tst-deep) 52%,var(--tst-dark) 100%);
+    box-shadow:
+      0 0 0 1px rgba(232,99,10,0.55),
+      0 10px 26px -10px rgba(232,99,10,0.65),
+      0 1px 0 rgba(255,255,255,0.22) inset;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    transition:transform .15s ease,box-shadow .2s ease,filter .2s ease,opacity .2s ease;
+    overflow:hidden;
+  }
+  .btn .btn-label{
+    display:inline-flex;align-items:center;gap:10px;
+    text-shadow:0 1px 1px rgba(0,0,0,0.45);
+  }
+  .btn::after{
+    content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,0.35),transparent);
+    transform:skewX(-18deg);transition:left .6s ease;
+  }
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.05);
+    box-shadow:0 0 0 1px rgba(232,99,10,0.7),0 14px 30px -10px rgba(232,99,10,0.8),0 1px 0 rgba(255,255,255,0.28) inset}
+  .btn:hover::after{left:140%}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:2px solid var(--tst-light);outline-offset:3px}
+  .btn svg{transition:transform .2s ease}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn[aria-busy="true"]{cursor:progress;opacity:.92}
+  .btn[aria-busy="true"]::after{display:none}
+  .btn[aria-busy="true"]:hover{transform:none;filter:none}
+  /* spinner CSS de chargement */
+  .spinner{
+    width:16px;height:16px;border-radius:50%;
+    border:2px solid rgba(255,255,255,0.35);
+    border-top-color:#fff;
+    animation:spin .7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* séparateur */
+  .sep{display:flex;align-items:center;gap:14px;margin:22px 0 4px;color:var(--txt-muted);font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  .sep::before,.sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+  /* ===== DÉMO (repliable) ===== */
+  .demo{border:1px solid var(--line);border-radius:14px;background:rgba(8,13,18,0.4);overflow:hidden;transition:border-color .2s}
+  .demo:hover{border-color:var(--line-strong)}
+  .demo-head{
+    width:100%;background:transparent;border:none;cursor:pointer;color:var(--txt-2);
+    font-family:inherit;font-size:13px;font-weight:600;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:14px 16px;text-align:left;transition:color .2s;
+  }
+  .demo-head:hover{color:var(--txt)}
+  .demo-head:focus-visible{outline:2px solid var(--sky);outline-offset:-2px;border-radius:14px}
+  .demo-head .lbl{display:flex;align-items:center;gap:9px}
+  .demo-head .chev{transition:transform .3s ease;color:var(--ink-muted)}
+  .demo[data-open="true"] .demo-head .chev{transform:rotate(180deg)}
+  .demo-body{
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease;
+  }
+  .demo[data-open="true"] .demo-body{grid-template-rows:1fr}
+  .demo-body-inner{overflow:hidden}
+  .demo-cards{display:flex;flex-direction:column;gap:9px;padding:2px 14px 14px}
+  .demo-card{
+    width:100%;text-align:left;cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;gap:13px;
+    padding:11px 13px;border-radius:11px;
+    background:rgba(21,32,44,0.7);border:1px solid var(--line);
+    transition:border-color .2s,background .2s,transform .12s;
+  }
+  .demo-card:hover{border-color:var(--sky);background:rgba(26,38,52,0.9);transform:translateY(-1px)}
+  .demo-card:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+  .demo-card:active{transform:translateY(0)}
+  .grade{
+    width:34px;height:34px;border-radius:9px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Merriweather',serif;font-weight:900;font-size:16px;color:#0B1118;
+    box-shadow:0 4px 12px -4px rgba(0,0,0,0.6);
+  }
+  .grade.a{background:linear-gradient(150deg,var(--vA),#16a34a)}
+  .grade.b{background:linear-gradient(150deg,var(--vB),#84cc16);color:#0B1118}
+  .dc-text{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+  .dc-role{font-size:12.5px;font-weight:600;color:var(--txt)}
+  .dc-mail{font-size:11.5px;color:var(--txt-2);font-family:'Inter';letter-spacing:0.01em}
+  .dc-fill{font-size:11px;color:var(--sky-light);font-weight:600;display:flex;align-items:center;gap:5px;opacity:0;transition:opacity .2s;flex-shrink:0}
+  .demo-card:hover .dc-fill,.demo-card:focus-visible .dc-fill{opacity:1}
+
+  /* ===== VIGI-SCORE rail (signature) ===== */
+  .vigi{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .vigi-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--txt-muted);font-weight:600;white-space:nowrap}
+  .vigi-scale{display:flex;gap:5px;flex:1}
+  .vchip{
+    flex:1;height:7px;border-radius:3px;position:relative;
+  }
+  .vchip.a{background:var(--vA)} .vchip.b{background:var(--vB)}
+  .vchip.c{background:var(--vC)} .vchip.d{background:var(--vD)}
+  .vchip span{
+    position:absolute;top:-17px;left:50%;transform:translateX(-50%);
+    font-size:9.5px;font-weight:700;font-family:'Inter';color:var(--txt-muted);
+  }
+
+  /* ===== PIED ===== */
+  .foot{
+    position:relative;z-index:2;text-align:center;padding:18px 22px 30px;
+    color:var(--txt-faint);font-size:11.5px;
+  }
+  .foot .legal{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;color:var(--txt-faint)}
+  .foot .sepdot{margin:0 9px;opacity:.5}
+
+  /* lien "Retour au site" — affordance bouton-fantome, présence renforcée */
+  .back-site{
+    display:inline-flex;align-items:center;gap:8px;
+    margin:0 auto 14px;
+    font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.01em;
+    color:var(--txt-2);text-decoration:none;
+    padding:9px 16px;border-radius:999px;
+    border:1px solid var(--line-strong);
+    background:rgba(8,13,18,0.4);
+    transition:color .2s,border-color .2s,background .2s,transform .15s;
+  }
+  .back-site svg{transition:transform .2s ease}
+  .back-site:hover{color:var(--txt);border-color:var(--sky);background:rgba(77,166,217,0.10)}
+  .back-site:hover svg{transform:translateX(-3px)}
+  .back-site:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:480px){
+    .card{padding:30px 22px 24px}
+    .heading h1{font-size:22px}
+    .wordmark{font-size:23px}
+    .demo-head{padding:13px 14px}
+    .b1{width:360px;height:360px}
+    .brand{flex-wrap:wrap}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+  <!-- FOND ÉNERGIE -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grad"></div>
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <svg class="circuit" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path class="trace" d="M0,140 H320 L380,200 H640 L700,140 H980 L1040,200 H1440" />
+      <path class="trace" d="M0,760 H260 L320,700 H600 L660,760 H1000 L1060,700 H1440" />
+      <path class="trace" d="M210,0 V120 L270,180 V420 L210,480 V900" />
+      <path class="trace" d="M1230,0 V160 L1170,220 V520 L1230,580 V900" />
+      <circle class="node" cx="380" cy="200" r="3.5"/>
+      <circle class="node" cx="700" cy="140" r="3.5"/>
+      <circle class="node" cx="1040" cy="200" r="3.5"/>
+      <circle class="node" cx="320" cy="700" r="3.5"/>
+      <circle class="node" cx="660" cy="760" r="3.5"/>
+      <circle class="node" cx="270" cy="180" r="3.5"/>
+      <circle class="node" cx="1170" cy="220" r="3.5"/>
+      <path class="pulse"    d="M0,140 H320 L380,200 H640 L700,140 H980 L1040,200 H1440" />
+      <path class="pulse d2" d="M0,760 H260 L320,700 H600 L660,760 H1000 L1060,700 H1440" />
+      <path class="pulse d3" d="M210,0 V120 L270,180 V420 L210,480 V900" />
+    </svg>
+  </div>
+
+  <!-- CONTENU -->
+  <main class="shell">
+    <div class="card-wrap">
+      <div class="card">
+        <div class="card-edge" aria-hidden="true"></div>
+
+        <!-- MARQUE (emplacement de marque UNIQUE et fort) -->
+        <div class="brand">
+          <div class="brand-id">
+            <div class="logo" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4DA6D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2 L4 14 H11 L10 22 L20 9 H12 Z" fill="rgba(77,166,217,0.12)"/>
+              </svg>
+            </div>
+            <div>
+              <div class="wordmark">CET<sup>é</sup></div>
+              <div class="brand-sub">Agence de notation</div>
+            </div>
+          </div>
+          <span class="status" role="status" aria-label="Système en ligne">
+            <span class="dot" aria-hidden="true"></span>En ligne
+          </span>
+        </div>
+
+        <!-- TITRE (sans redondance de marque) -->
+        <div class="heading">
+          <h1>Portail client</h1>
+          <p>Accédez à votre notation et vos ressources. Connexion sécurisée à votre tableau de contrôle.</p>
+        </div>
+
+        <!-- FORMULAIRE -->
+        <form id="loginForm" novalidate autocomplete="on">
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="input-wrap">
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" autocomplete="email" required aria-required="true" />
+              <span class="lead" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="field pw">
+            <label for="password">Mot de passe</label>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required aria-required="true" />
+              <span class="lead" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                </svg>
+              </span>
+              <button type="button" class="toggle" id="togglePw" aria-label="Afficher le mot de passe" aria-pressed="false" aria-controls="password">
+                <svg id="eye" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <!-- "Rester connecté" + "Mot de passe oublié ?" : freres, hors du label -->
+            <div class="field-foot">
+              <label class="remember">
+                <input type="checkbox" id="remember" />
+                <span class="box" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Rester connecté
+              </label>
+              <a class="link forgot" href="#" id="forgot">Mot de passe oublié&nbsp;?</a>
+            </div>
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">
+            <span class="btn-label" id="btnLabel">
+              Se connecter
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </button>
+        </form>
+
+        <div class="sep">Comptes</div>
+
+        <!-- DÉMO -->
+        <div class="demo" id="demo" data-open="false">
+          <button type="button" class="demo-head" id="demoToggle" aria-expanded="false" aria-controls="demoBody">
+            <span class="lbl">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              Comptes de démonstration
+            </span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="demo-body" id="demoBody" role="region" aria-label="Identifiants de démonstration">
+            <div class="demo-body-inner">
+              <div class="demo-cards">
+                <button type="button" class="demo-card" data-email="client@cete.fr" data-pw="password" aria-label="Remplir avec le compte client : client@cete.fr">
+                  <span class="grade a" aria-hidden="true">A</span>
+                  <span class="dc-text">
+                    <span class="dc-role">Client</span>
+                    <span class="dc-mail">client@cete.fr</span>
+                  </span>
+                  <span class="dc-fill" aria-hidden="true">Remplir
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </span>
+                </button>
+                <button type="button" class="demo-card" data-email="admin@cete.fr" data-pw="password" aria-label="Remplir avec le compte administrateur : admin@cete.fr">
+                  <span class="grade b" aria-hidden="true">B</span>
+                  <span class="dc-text">
+                    <span class="dc-role">Administrateur</span>
+                    <span class="dc-mail">admin@cete.fr</span>
+                  </span>
+                  <span class="dc-fill" aria-hidden="true">Remplir
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIGI-SCORE signature -->
+        <div class="vigi" aria-hidden="true">
+          <span class="vigi-label">Vigi-Score</span>
+          <div class="vigi-scale">
+            <div class="vchip a"><span>A</span></div>
+            <div class="vchip b"><span>B</span></div>
+            <div class="vchip c"><span>C</span></div>
+            <div class="vchip d"><span>D</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- PIED -->
+  <footer class="foot">
+    <a href="#" id="backSite" class="back-site">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Retour au site
+    </a>
+    <div class="legal">
+      Consortium Experts Techniques Électricité
+      <span class="sepdot" aria-hidden="true">•</span>
+      Connexion chiffrée
+    </div>
+  </footer>
+
+<script>
+  (function(){
+    var pw = document.getElementById('password');
+    var emailEl = document.getElementById('email');
+    var toggle = document.getElementById('togglePw');
+    var eye = document.getElementById('eye');
+    var open = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+    var off  = '<path d="M9.9 4.2A10.9 10.9 0 0 1 12 4c6.5 0 10 7 10 7a18 18 0 0 1-2.2 3.2"/><path d="M6.6 6.6A18 18 0 0 0 2 11s3.5 7 10 7a10.9 10.9 0 0 0 4.6-1"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/><path d="m2 2 20 20"/>';
+
+    // Toggle mot de passe
+    toggle.addEventListener('click', function(){
+      var show = pw.type === 'password';
+      pw.type = show ? 'text' : 'password';
+      eye.innerHTML = show ? off : open;
+      toggle.setAttribute('aria-pressed', show ? 'true' : 'false');
+      toggle.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+      pw.focus();
+    });
+
+    // Démo : pré-remplissage réel
+    document.querySelectorAll('.demo-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        emailEl.value = card.dataset.email;
+        pw.value = card.dataset.pw;
+        emailEl.dispatchEvent(new Event('input', {bubbles:true}));
+        pw.dispatchEvent(new Event('input', {bubbles:true}));
+        var btn = document.getElementById('submitBtn');
+        btn.style.transition = 'none';
+        btn.style.boxShadow = '0 0 0 2px rgba(245,149,66,0.9), 0 14px 30px -10px rgba(232,99,10,0.9)';
+        setTimeout(function(){ btn.style.transition=''; btn.style.boxShadow=''; }, 420);
+        pw.focus();
+      });
+    });
+
+    // Démo repliable
+    var demo = document.getElementById('demo');
+    var demoToggle = document.getElementById('demoToggle');
+    demoToggle.addEventListener('click', function(){
+      var isOpen = demo.getAttribute('data-open') === 'true';
+      demo.setAttribute('data-open', String(!isOpen));
+      demoToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // Soumission (démo) — conserve le markup du bouton, spinner + aria-busy, restauration
+    var btnLabelHTML = document.getElementById('btnLabel').innerHTML;
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!emailEl.value || !pw.value){
+        (emailEl.value ? pw : emailEl).focus();
+        return;
+      }
+      var btn = document.getElementById('submitBtn');
+      var label = document.getElementById('btnLabel');
+      if(btn.getAttribute('aria-busy') === 'true') return;
+      btn.setAttribute('aria-busy','true');
+      btn.disabled = true;
+      label.innerHTML = '<span class="spinner" aria-hidden="true"></span>Connexion en cours…';
+
+      // Simulation : restauration de l'état en cas d'echec (démo, pas de backend)
+      setTimeout(function(){
+        btn.removeAttribute('aria-busy');
+        btn.disabled = false;
+        label.innerHTML = btnLabelHTML;
+      }, 2200);
+    });
+
+    // Liens démo (no-op)
+    ['forgot','backSite'].forEach(function(id){
+      document.getElementById(id).addEventListener('click', function(e){ e.preventDefault(); });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,10 +1,12 @@
 "use client";
 
-import { Play, Clock, Video } from "lucide-react";
+import { Play, Clock, Video, FileText } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SurfaceCard } from "@/components/shared/surface-card";
+import { getSignedUrl } from "@/lib/supabase/storage";
 import type { ClientDocument } from "@/types/document";
 
 interface DocumentCardProps {
@@ -15,37 +17,46 @@ export function DocumentCard({ document }: DocumentCardProps) {
   const t = useTranslations("client.documents");
   const locale = useLocale();
   const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
+  const isVideo = document.type === "video";
+  const ThumbIcon = isVideo ? Video : FileText;
 
-  const handleView = () => {
-    if (document.type === "video" && document.youtubeId) {
+  const handleView = async () => {
+    if (isVideo && document.youtubeId) {
       window.open(`https://www.youtube.com/watch?v=${document.youtubeId}`, "_blank");
-    } else if (document.url) {
-      window.open(document.url, "_blank");
+      return;
     }
+    const url = document.storagePath
+      ? await getSignedUrl("client-documents", document.storagePath).catch(() => null)
+      : document.url ?? null;
+    if (!url) {
+      toast.error("Document indisponible");
+      return;
+    }
+    window.open(url, "_blank", "noopener");
   };
 
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-md">
-      {/* Thumbnail placeholder */}
-      <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-sm">
-          <Video className="h-7 w-7 text-primary" />
+    <SurfaceCard className="flex flex-col overflow-hidden transition-shadow hover:shadow-[0_2px_8px_rgba(26,41,64,0.08)]">
+      {/* Thumbnail */}
+      <div className="relative flex h-36 items-center justify-center border-b border-[var(--admin-line)] bg-muted">
+        <div className="flex size-12 items-center justify-center rounded-full bg-card text-primary shadow-sm">
+          <ThumbIcon className="size-6" strokeWidth={1.75} />
         </div>
-        <Badge className="absolute right-3 top-3 bg-black/60 text-white hover:bg-black/60">
-          <Clock className="mr-1 h-3 w-3" />
-          {document.duration}
-        </Badge>
+        {isVideo && document.duration && (
+          <Badge variant="secondary" className="absolute right-3 top-3 gap-1 tabular-nums">
+            <Clock className="size-3" strokeWidth={1.75} />
+            {document.duration}
+          </Badge>
+        )}
       </div>
 
-      <CardContent className="p-4">
-        <h3 className="mb-1 font-semibold text-foreground line-clamp-2">
-          {document.title}
-        </h3>
-        <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="mb-1 font-medium text-foreground line-clamp-2">{document.title}</h3>
+        <p className="mb-4 flex-1 text-sm text-muted-foreground line-clamp-2">
           {document.description}
         </p>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">
+          <span className="text-xs tabular-nums text-muted-foreground">
             {new Date(document.uploadDate).toLocaleDateString(dateLocale, {
               day: "numeric",
               month: "short",
@@ -53,11 +64,11 @@ export function DocumentCard({ document }: DocumentCardProps) {
             })}
           </span>
           <Button size="sm" onClick={handleView}>
-            <Play className="mr-2 h-4 w-4" />
+            <Play className="mr-2 size-4" />
             {t("playBtn")}
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </SurfaceCard>
   );
 }
