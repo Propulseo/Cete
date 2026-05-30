@@ -31,25 +31,33 @@ interface NavItem {
   icon: LucideIcon;
 }
 
+// Navigation regroupée par registre métier :
+//  • (épinglé) Dashboard — vue d'ensemble
+//  • Opérationnel — gestion des clients et de leurs livrables
+//  • Contenu du site — tout ce qui nourrit la vitrine / l'espace client
+//  • Administration — accès, équipe et réglages système
 const navGroups: { title: string; items: NavItem[] }[] = [
   {
-    title: "Pilotage",
+    title: "",
+    items: [{ label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard }],
+  },
+  {
+    title: "Opérationnel",
     items: [
-      { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
       { label: "Clients", href: "/admin/clients", icon: Briefcase },
+      { label: "Documents", href: "/admin/documents", icon: FolderOpen },
+    ],
+  },
+  {
+    title: "Contenu du site",
+    items: [
+      { label: "Blog", href: "/admin/blog", icon: FileText },
+      { label: "Ressources", href: "/admin/ressources", icon: Library },
       { label: "Organisations", href: "/admin/organizations", icon: Building2 },
     ],
   },
   {
-    title: "Contenu",
-    items: [
-      { label: "Blog", href: "/admin/blog", icon: FileText },
-      { label: "Documents", href: "/admin/documents", icon: FolderOpen },
-      { label: "Ressources", href: "/admin/ressources", icon: Library },
-    ],
-  },
-  {
-    title: "Compte",
+    title: "Administration",
     items: [
       { label: "Équipe", href: "/admin/team", icon: UserCircle },
       { label: "Utilisateurs", href: "/admin/users", icon: Users },
@@ -96,10 +104,12 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
       {/* Grouped navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-3">
         {navGroups.map((group) => (
-          <div key={group.title} className="mb-1">
-            <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
-              {group.title}
-            </p>
+          <div key={group.title || group.items[0].href} className="mb-1">
+            {group.title && (
+              <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
+                {group.title}
+              </p>
+            )}
             <div className="space-y-0.5">
               {group.items.map((item) => {
                 const isActive =
