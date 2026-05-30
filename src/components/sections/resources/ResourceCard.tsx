@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getSignedUrl } from "@/lib/supabase/storage";
+import { openSecureViewer } from "@/lib/secure-viewer";
 import type { Resource, ResourceCategory, ResourceType } from "@/types/resource";
 
 /** URL ouvrable : objet Storage (URL signée) sinon `url` (lien externe). */
@@ -26,6 +27,7 @@ const categoryKeyMap: Record<ResourceCategory, string> = {
   guides: "categoryGuides",
   rapports: "categoryRapports",
   veille: "categoryVeille",
+  partenaires: "categoryPartenaires",
 };
 
 const typeConfig: Record<ResourceType, { icon: typeof FileText; color: string }> = {
@@ -85,7 +87,15 @@ export function ResourceCard({ res }: { res: Resource }) {
                 toast.error("Ressource indisponible");
                 return;
               }
-              window.open(url, "_blank", "noopener,noreferrer");
+              // Seuls les PDF restreints passent par la visionneuse lecture seule ;
+              // liens externes et vidéos s'ouvrent normalement.
+              if (res.type === "pdf" && res.accessType !== "download") {
+                if (!openSecureViewer(url, { title: res.title, badge: t("viewOnly") })) {
+                  toast.error(t("popupError"));
+                }
+              } else {
+                window.open(url, "_blank", "noopener,noreferrer");
+              }
             }}
           >
             {res.accessType === "download" ? (

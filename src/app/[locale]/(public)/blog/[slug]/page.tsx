@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleLayout, type ArticleMeta } from "@/components/sections/blog/ArticleLayout";
 import { VizActContent } from "@/components/sections/blog/VizActContent";
+import { ArticleBody } from "@/components/sections/blog/ArticleBody";
 import { VideoEmbed } from "@/components/ui/video-embed";
 import { loadArticleBySlug } from "@/lib/vitrine-data";
 
@@ -60,7 +61,10 @@ export async function generateMetadata({
   }
   const post = await loadArticleBySlug(slug);
   if (!post) return { title: "Article introuvable" };
-  return { title: `${post.title} - Blog CETé`, description: post.excerpt };
+  return {
+    title: `${post.title} - Blog CETé`,
+    description: post.metaDescription || post.excerpt,
+  };
 }
 
 export function generateStaticParams() {
@@ -91,14 +95,18 @@ export default async function BlogArticlePage({
 
   const meta: ArticleMeta = {
     title: post.title,
-    metaDescription: post.excerpt,
-    author: { name: post.author, initials: initialsOf(post.author), role: "Expert CETé" },
+    metaDescription: post.metaDescription || post.excerpt,
+    author: {
+      name: post.author,
+      initials: initialsOf(post.author),
+      role: post.authorRole || "Expert CETé",
+    },
     category: post.category,
     categoryColor: post.categoryColor,
     publishedDate: post.publishedDate,
     readTime: post.readTime,
     imageUrl: post.imageUrl,
-    imageAlt: post.title,
+    imageAlt: post.imageAlt ?? post.title,
   };
 
   return (
@@ -108,7 +116,17 @@ export default async function BlogArticlePage({
           <VideoEmbed url={post.videoUrl} title={post.title} />
         </div>
       )}
-      <p className="text-lg leading-relaxed text-[#4A6580]">{post.excerpt}</p>
+      {/* Chapô = résumé en accroche */}
+      <p className="mb-10 border-l-4 border-[#E8630A] pl-5 text-xl font-medium leading-relaxed text-[#1A2940]">
+        {post.excerpt}
+      </p>
+      {post.content ? (
+        <ArticleBody content={post.content} />
+      ) : (
+        <p className="text-lg leading-relaxed text-[#4A6580]">
+          Le contenu détaillé de cet article sera publié prochainement.
+        </p>
+      )}
     </ArticleLayout>
   );
 }

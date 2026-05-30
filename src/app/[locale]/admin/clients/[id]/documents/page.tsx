@@ -1,24 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Archive, FileText, Download, Loader2, Eye, EyeOff, Info } from "lucide-react";
+import { Plus, Edit, Trash2, Archive, FileText, Download, Eye, EyeOff, Info, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import { useClient } from "@/components/features/admin/clients/ClientContext";
 import { StatusBadge } from "@/components/features/admin/ui/status-badge";
 import { AdminEmptyState } from "@/components/features/admin/ui/admin-empty-state";
-import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
-import { listContractDocumentsByClientId, createContractDocument, updateContractDocument, deleteContractDocument, isClientVisibleContractDocument } from "@/lib/repo/contract-documents.repo";
-import { uploadFile, getSignedUrl, deleteFile, buildStoragePath } from "@/lib/supabase/storage";
+import { ContractDocumentDialog } from "@/components/features/admin/clients/ContractDocumentDialog";
+import { listContractDocumentsByClientId, updateContractDocument, deleteContractDocument, isClientVisibleContractDocument } from "@/lib/repo/contract-documents.repo";
+import { getSignedUrl, deleteFile } from "@/lib/supabase/storage";
 import type { ContractDocument, ContractDocumentType, ContractDocumentStatus } from "@/types/client";
 
-const selectClass = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 const DOC_TYPES: ContractDocumentType[] = ["offer", "quote", "contract", "addendum", "resource", "report", "other"];
 const DOC_STATUSES: ContractDocumentStatus[] = ["draft", "sent", "signed", "archived"];
 
@@ -36,14 +31,6 @@ export default function ClientDocumentsPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editDoc, setEditDoc] = useState<ContractDocument | null>(null);
-  const [title, setTitle] = useState("");
-  const [docType, setDocType] = useState<ContractDocumentType>("contract");
-  const [fileName, setFileName] = useState("");
-  const [fileSize, setFileSize] = useState(0);
-  const [file, setFile] = useState<File | null>(null);
-  const [docStatus, setDocStatus] = useState<ContractDocumentStatus>("draft");
-  const [docNotes, setDocNotes] = useState("");
-  const [saving, setSaving] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
@@ -55,55 +42,12 @@ export default function ClientDocumentsPage() {
   }, [client.id, refreshKey]);
 
   const reload = () => setRefreshKey((k) => k + 1);
-
   const fmtDate = (d: string) => new Date(d).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
-
   const filtered = docs.filter((d) => (!typeFilter || d.type === typeFilter) && (!statusFilter || d.status === statusFilter));
 
   const openForm = (doc?: ContractDocument) => {
-    setFile(null);
-    if (doc) {
-      setEditDoc(doc); setTitle(doc.title); setDocType(doc.type); setFileName(doc.fileName); setFileSize(doc.fileSize); setDocStatus(doc.status); setDocNotes(doc.notes ?? "");
-    } else {
-      setEditDoc(null); setTitle(""); setDocType("contract"); setFileName(""); setFileSize(0); setDocStatus("draft"); setDocNotes("");
-    }
+    setEditDoc(doc ?? null);
     setFormOpen(true);
-  };
-
-  const handleSave = async () => {
-    if (!title.trim()) { toast.error("Le titre est requis"); return; }
-    setSaving(true);
-    try {
-      if (editDoc) {
-        // Remplacement de fichier optionnel en édition.
-        let patch: Partial<ContractDocument> = { title, type: docType, status: docStatus, notes: docNotes || undefined };
-        if (file) {
-          const path = await uploadFile("contract-documents", buildStoragePath(client.id, file.name), file);
-          patch = { ...patch, storagePath: path, fileName: file.name, fileSize: file.size, mimeType: file.type || "application/pdf", version: editDoc.version + 1 };
-        }
-        await updateContractDocument(editDoc.id, patch);
-      } else {
-        let storagePath: string | undefined;
-        let name = "";
-        let size = 0;
-        let mime = "application/pdf";
-        if (file) {
-          storagePath = await uploadFile("contract-documents", buildStoragePath(client.id, file.name), file);
-          name = file.name; size = file.size; mime = file.type || "application/pdf";
-        }
-        await createContractDocument({
-          clientId: client.id, type: docType, title, version: 1, fileName: name, fileSize: size,
-          mimeType: mime, storagePath, uploadedAt: new Date().toISOString(), uploadedBy: "", status: docStatus, notes: docNotes || undefined,
-        });
-      }
-      setFormOpen(false);
-      reload();
-      toast.success(editDoc ? "Document mis à jour" : "Document ajouté");
-    } catch {
-      toast.error("Échec de l'enregistrement du document");
-    } finally {
-      setSaving(false);
-    }
   };
 
   const handleDownload = async (d: ContractDocument) => {
@@ -137,11 +81,11 @@ export default function ClientDocumentsPage() {
       </div>
 
       <div className="mb-4 flex gap-3">
-        <select className={`h-9 rounded-md border border-input bg-transparent px-3 text-sm`} value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
           <option value="">{t("allTypes")}</option>
           {DOC_TYPES.map((dt) => <option key={dt} value={dt}>{t(`types.${dt}`)}</option>)}
         </select>
-        <select className={`h-9 rounded-md border border-input bg-transparent px-3 text-sm`} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
           <option value="">{t("allStatuses")}</option>
           {DOC_STATUSES.map((ds) => <option key={ds} value={ds}>{t(`statuses.${ds}`)}</option>)}
         </select>
@@ -172,15 +116,28 @@ export default function ClientDocumentsPage() {
                 <td className="px-4 py-3 text-sm text-muted-foreground">v{d.version}</td>
                 <td className="px-4 py-3"><StatusBadge status={d.status}>{t(`statuses.${d.status}`)}</StatusBadge></td>
                 <td className="px-4 py-3">
-                  {isClientVisibleContractDocument(d) ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-pos">
-                      <Eye className="h-3.5 w-3.5" strokeWidth={1.75} />{t("visibleClient")}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
-                      <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} />{t("internalOnly")}
-                    </span>
-                  )}
+                  <div className="flex flex-col gap-1">
+                    {isClientVisibleContractDocument(d) ? (
+                      <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-pos">
+                        <Eye className="h-3.5 w-3.5" strokeWidth={1.75} />{t("visibleClient")}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
+                        <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} />{t("internalOnly")}
+                      </span>
+                    )}
+                    {isClientVisibleContractDocument(d) && (
+                      d.accessType === "view-only" ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] text-admin-urgent">
+                          <Lock className="h-3 w-3" strokeWidth={1.75} />Lecture seule
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                          <Download className="h-3 w-3" strokeWidth={1.75} />Téléchargeable
+                        </span>
+                      )
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-sm text-muted-foreground">{fmtDate(d.uploadedAt)}</td>
                 <td className="px-4 py-3 text-sm text-muted-foreground">{fmtSize(d.fileSize)}</td>
@@ -203,37 +160,13 @@ export default function ClientDocumentsPage() {
       </div>
       )}
 
-      <Dialog open={formOpen} onOpenChange={setFormOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader><DialogTitle>{editDoc ? t("editMeta") : t("upload")}</DialogTitle></DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2"><Label>{t("formTitle")}</Label><Input value={title} onChange={(e) => setTitle(e.target.value)} /></div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2"><Label>{t("formType")}</Label><select className={selectClass} value={docType} onChange={(e) => setDocType(e.target.value as ContractDocumentType)}>{DOC_TYPES.map((dt) => <option key={dt} value={dt}>{t(`types.${dt}`)}</option>)}</select></div>
-              <div className="space-y-2"><Label>{t("formStatus")}</Label><select className={selectClass} value={docStatus} onChange={(e) => setDocStatus(e.target.value as ContractDocumentStatus)}>{DOC_STATUSES.map((ds) => <option key={ds} value={ds}>{t(`statuses.${ds}`)}</option>)}</select></div>
-            </div>
-            <div className="space-y-2">
-              <Label>{t("formFile")}</Label>
-              <FileUploadField
-                file={file}
-                onFileChange={setFile}
-                currentName={editDoc && editDoc.storagePath ? editDoc.fileName : null}
-                accept="application/pdf,image/*"
-                label="Déposer un PDF"
-                disabled={saving}
-              />
-            </div>
-            <div className="space-y-2"><Label>{t("formNotes")}</Label><Textarea rows={2} value={docNotes} onChange={(e) => setDocNotes(e.target.value)} /></div>
-            <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" onClick={() => setFormOpen(false)} disabled={saving}>Annuler</Button>
-              <Button onClick={handleSave} disabled={saving}>
-                {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" strokeWidth={1.75} />}
-                {editDoc ? "Enregistrer" : "Ajouter"}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ContractDocumentDialog
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        editDoc={editDoc}
+        clientId={client.id}
+        onSaved={reload}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { ClientScoped, AccessType } from "./shared";
 
-export type ResourceCategory = "normes" | "reglementation" | "guides" | "rapports" | "veille";
+export type ResourceCategory = "normes" | "reglementation" | "guides" | "rapports" | "veille" | "partenaires";
 
 export type ResourceType = "pdf" | "lien" | "video";
 

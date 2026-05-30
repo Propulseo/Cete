@@ -4,6 +4,7 @@
       "logoAlt": "CETé ADN - Independent Electrical Risk Rating Agency",
       "logoAriaLabel": "Back to CETé homepage",
       "clientArea": "Client Area",
+      "login": "Log in",
       "requestEvaluation": "Request an Assessment",
       "menu": "Menu"
     },
@@ -781,6 +782,8 @@
       "categoryGuides": "Technical Guides",
       "categoryRapports": "Reports",
       "categoryVeille": "Regulatory Watch",
+      "categoryPartenaires": "Partners",
+      "partnersTitle": "Reference & partner sites",
       "typePdf": "PDF",
       "typeLien": "Link",
       "typeVideo": "Video",
@@ -788,7 +791,9 @@
       "allCategories": "All categories",
       "allTypes": "All types",
       "download": "Download",
-      "view": "View"
+      "view": "View",
+      "viewOnly": "View only",
+      "popupError": "Unable to open document. Please allow pop-ups."
     },
     "documents": {
       "headerDocument": "Document",
@@ -818,6 +823,9 @@
       "colAction": "Action",
       "download": "Download",
       "fileUnavailable": "File unavailable",
+      "view": "View",
+      "viewOnly": "View only",
+      "popupError": "Unable to open document. Please allow pop-ups.",
       "types": {
         "report": "Report",
         "contract": "Contract",

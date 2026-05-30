@@ -19,12 +19,19 @@ export type Database = {
       articles: {
         Row: {
           author: string
+          author_role: string | null
           category: string
+          content: string | null
+          cover_alt: string | null
+          cover_image: string | null
           created_at: string
           excerpt: string
           featured: boolean
           id: string
+          meta_description: string | null
           published_date: string | null
+          read_minutes: number | null
+          slug: string | null
           status: string
           title: string
           updated_at: string
@@ -33,12 +40,19 @@ export type Database = {
         }
         Insert: {
           author: string
+          author_role?: string | null
           category: string
+          content?: string | null
+          cover_alt?: string | null
+          cover_image?: string | null
           created_at?: string
           excerpt: string
           featured?: boolean
           id?: string
+          meta_description?: string | null
           published_date?: string | null
+          read_minutes?: number | null
+          slug?: string | null
           status?: string
           title: string
           updated_at?: string
@@ -47,12 +61,19 @@ export type Database = {
         }
         Update: {
           author?: string
+          author_role?: string | null
           category?: string
+          content?: string | null
+          cover_alt?: string | null
+          cover_image?: string | null
           created_at?: string
           excerpt?: string
           featured?: boolean
           id?: string
+          meta_description?: string | null
           published_date?: string | null
+          read_minutes?: number | null
+          slug?: string | null
           status?: string
           title?: string
           updated_at?: string
@@ -295,6 +316,7 @@ export type Database = {
       }
       contract_documents: {
         Row: {
+          access_type: string
           client_id: string
           file_name: string
           file_size: number
@@ -310,6 +332,7 @@ export type Database = {
           version: number
         }
         Insert: {
+          access_type?: string
           client_id: string
           file_name: string
           file_size?: number
@@ -325,6 +348,7 @@ export type Database = {
           version?: number
         }
         Update: {
+          access_type?: string
           client_id?: string
           file_name?: string
           file_size?: number

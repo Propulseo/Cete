@@ -43,6 +43,23 @@ export default function ResetPasswordPage() {
     setSaving(true);
     try {
       const supabase = createClient();
+      // Défense en profondeur : un compte désactivé après l'envoi du lien ne doit
+      // pas pouvoir finaliser le reset. On bloque uniquement si explicitement inactif.
+      const { data: auth } = await supabase.auth.getUser();
+      if (auth.user) {
+        const { data: prof } = await supabase
+          .from("profiles")
+          .select("is_active")
+          .eq("id", auth.user.id)
+          .maybeSingle();
+        if (prof && prof.is_active === false) {
+          toast.error("Ce compte est désactivé", {
+            description: "Contactez CETé pour réactiver votre accès.",
+          });
+          setSaving(false);
+          return;
+        }
+      }
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
       toast.success("Mot de passe réinitialisé");

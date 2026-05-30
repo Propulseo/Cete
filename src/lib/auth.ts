@@ -44,7 +44,13 @@ export async function login(email: string, password: string): Promise<Profile | 
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error || !data.user) return null;
-  return fetchProfile(data.user.id);
+  const profile = await fetchProfile(data.user.id);
+  // Un compte sans profil ou DÉSACTIVÉ n'a aucun accès : on referme la session.
+  if (!profile || !profile.is_active) {
+    await supabase.auth.signOut();
+    return null;
+  }
+  return profile;
 }
 
 export async function logout(): Promise<void> {
@@ -56,7 +62,10 @@ export async function getUser(): Promise<Profile | null> {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data.user) return null;
-  return fetchProfile(data.user.id);
+  const profile = await fetchProfile(data.user.id);
+  // Session orpheline ou compte désactivé → traité comme non connecté.
+  if (!profile || !profile.is_active) return null;
+  return profile;
 }
 
 export async function isAuthenticated(): Promise<boolean> {

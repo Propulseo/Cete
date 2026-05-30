@@ -27,7 +27,7 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-[#1A2940]/10 ring-1 ring-[#DAEEF8]/50">
                   <Image
                     src={post.imageUrl}
-                    alt={post.title}
+                    alt={post.imageAlt ?? post.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700"

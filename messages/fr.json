@@ -4,6 +4,7 @@
       "logoAlt": "CETé ADN - Agence de Notation du Risque Électrique",
       "logoAriaLabel": "Retour à l'accueil CETé",
       "clientArea": "Espace Client",
+      "login": "Connexion",
       "requestEvaluation": "Demander une évaluation",
       "menu": "Menu"
     },
@@ -781,6 +782,8 @@
       "categoryGuides": "Guides techniques",
       "categoryRapports": "Rapports",
       "categoryVeille": "Veille réglementaire",
+      "categoryPartenaires": "Partenaires",
+      "partnersTitle": "Sites de référence & partenaires",
       "typePdf": "PDF",
       "typeLien": "Lien",
       "typeVideo": "Vidéo",
@@ -788,7 +791,9 @@
       "allCategories": "Toutes catégories",
       "allTypes": "Tous types",
       "download": "Télécharger",
-      "view": "Consulter"
+      "view": "Consulter",
+      "viewOnly": "Lecture seule",
+      "popupError": "Impossible d'ouvrir le document. Autorisez les pop-ups."
     },
     "documents": {
       "headerDocument": "Document",
@@ -818,6 +823,9 @@
       "colAction": "Action",
       "download": "Télécharger",
       "fileUnavailable": "Fichier indisponible",
+      "view": "Consulter",
+      "viewOnly": "Lecture seule",
+      "popupError": "Impossible d'ouvrir le document. Autorisez les pop-ups.",
       "types": {
         "report": "Rapport",
         "contract": "Contrat",

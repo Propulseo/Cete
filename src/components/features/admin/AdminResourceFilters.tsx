@@ -10,6 +10,7 @@ const categoryLabels: Record<ResourceCategory, string> = {
   guides: "Guides techniques",
   rapports: "Rapports",
   veille: "Veille réglementaire",
+  partenaires: "Partenaires",
 };
 
 const typeLabels: Record<ResourceType, string> = {

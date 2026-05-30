@@ -11,6 +11,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ResourceCard } from "@/components/sections/resources/ResourceCard";
 import { ResourceLibraryFilters } from "@/components/sections/resources/ResourceLibraryFilters";
+import { ReferenceSites } from "@/components/sections/resources/ReferenceSites";
 
 export default function ClientResourcesPage() {
   const { user } = useAuth();
@@ -56,7 +57,12 @@ export default function ClientResourcesPage() {
     );
   }
 
+  // Les sites de référence / partenaires ont leur propre section ; on les sort
+  // de la bibliothèque documentaire (et de ses filtres).
+  const partners = resources.filter((r) => r.category === "partenaires");
+
   const filtered = resources.filter((r) => {
+    if (r.category === "partenaires") return false;
     if (search) {
       const q = search.toLowerCase();
       if (!r.title.toLowerCase().includes(q) && !r.description.toLowerCase().includes(q))
@@ -76,6 +82,8 @@ export default function ClientResourcesPage() {
           item: "ressource" + (filtered.length !== 1 ? "s" : ""),
         })}
       />
+
+      <ReferenceSites title={t("resources.partnersTitle")} sites={partners} />
 
       <ResourceLibraryFilters
         search={search}

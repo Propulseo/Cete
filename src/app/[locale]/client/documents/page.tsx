@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Download, FileText, FileSignature, FileCheck2, Loader2 } from "lucide-react";
+import { Download, FileText, FileSignature, FileCheck2, Loader2, Eye, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/auth-context";
 import { getClientContractDocuments } from "@/lib/repo/contract-documents.repo";
 import { getSignedUrl } from "@/lib/supabase/storage";
+import { openSecureViewer } from "@/lib/secure-viewer";
 import { PageHeader } from "@/components/shared/page-header";
 import { EmptyState } from "@/components/shared/empty-state";
 import {
@@ -65,6 +66,9 @@ export default function ClientDocumentsPage() {
     loadData();
   }, [loadData]);
 
+  // 'view-only' restreint à la consultation ; tout autre cas (download / hérité) reste téléchargeable.
+  const canDownload = (d: ContractDocument) => d.accessType !== "view-only";
+
   const handleDownload = async (d: ContractDocument) => {
     if (!d.storagePath) {
       toast.error(t("fileUnavailable"));
@@ -73,6 +77,21 @@ export default function ClientDocumentsPage() {
     try {
       const url = await getSignedUrl("contract-documents", d.storagePath);
       window.open(url, "_blank", "noopener");
+    } catch {
+      toast.error(t("fileUnavailable"));
+    }
+  };
+
+  const handleView = async (d: ContractDocument) => {
+    if (!d.storagePath) {
+      toast.error(t("fileUnavailable"));
+      return;
+    }
+    try {
+      const url = await getSignedUrl("contract-documents", d.storagePath);
+      if (!openSecureViewer(url, { title: d.title, badge: t("viewOnly") })) {
+        toast.error(t("popupError"));
+      }
     } catch {
       toast.error(t("fileUnavailable"));
     }
@@ -130,6 +149,12 @@ export default function ClientDocumentsPage() {
                       <div className="min-w-0">
                         <p className="font-medium text-foreground line-clamp-1">{d.title}</p>
                         {d.notes && <p className="text-xs text-muted-foreground line-clamp-1">{d.notes}</p>}
+                        {!canDownload(d) && (
+                          <span className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-admin-urgent">
+                            <Lock className="size-3" strokeWidth={1.75} />
+                            {t("viewOnly")}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </DataTd>
@@ -143,15 +168,28 @@ export default function ClientDocumentsPage() {
                     {fmtSize(d.fileSize)}
                   </DataTd>
                   <DataTd className="text-right">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDownload(d)}
-                      disabled={!d.storagePath}
-                    >
-                      <Download className="mr-2 size-4" />
-                      {t("download")}
-                    </Button>
+                    {canDownload(d) ? (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleDownload(d)}
+                        disabled={!d.storagePath}
+                      >
+                        <Download className="mr-2 size-4" />
+                        {t("download")}
+                      </Button>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleView(d)}
+                        disabled={!d.storagePath}
+                        title={t("viewOnly")}
+                      >
+                        <Eye className="mr-2 size-4" />
+                        {t("view")}
+                      </Button>
+                    )}
                   </DataTd>
                 </DataTr>
               );

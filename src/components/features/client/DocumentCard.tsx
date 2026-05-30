@@ -1,12 +1,13 @@
 "use client";
 
-import { Play, Clock, Video, FileText } from "lucide-react";
+import { Play, Clock, Video, FileText, Download, Eye } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SurfaceCard } from "@/components/shared/surface-card";
 import { getSignedUrl } from "@/lib/supabase/storage";
+import { openSecureViewer } from "@/lib/secure-viewer";
 import type { ClientDocument } from "@/types/document";
 
 interface DocumentCardProps {
@@ -19,6 +20,9 @@ export function DocumentCard({ document }: DocumentCardProps) {
   const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
   const isVideo = document.type === "video";
   const ThumbIcon = isVideo ? Video : FileText;
+  // Vidéos toujours ouvrables ; PDF : 'download' téléchargeable, sinon lecture seule.
+  const canDownload = isVideo || document.accessType === "download";
+  const ActionIcon = isVideo ? Play : canDownload ? Download : Eye;
 
   const handleView = async () => {
     if (isVideo && document.youtubeId) {
@@ -32,7 +36,11 @@ export function DocumentCard({ document }: DocumentCardProps) {
       toast.error("Document indisponible");
       return;
     }
-    window.open(url, "_blank", "noopener");
+    if (canDownload) {
+      window.open(url, "_blank", "noopener");
+    } else if (!openSecureViewer(url, { title: document.title, badge: t("viewOnlyTitle") })) {
+      toast.error(t("popupError"));
+    }
   };
 
   return (
@@ -64,7 +72,7 @@ export function DocumentCard({ document }: DocumentCardProps) {
             })}
           </span>
           <Button size="sm" onClick={handleView}>
-            <Play className="mr-2 size-4" />
+            <ActionIcon className="mr-2 size-4" />
             {t("playBtn")}
           </Button>
         </div>

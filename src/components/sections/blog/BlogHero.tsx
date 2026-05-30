@@ -1,6 +1,6 @@
 import { Zap } from "lucide-react";
 
-export function BlogHero() {
+export function BlogHero({ count }: { count?: number }) {
   return (
     <section className="relative py-24 md:py-32 bg-[#1A2940] overflow-hidden">
       {/* Gradient overlays */}
@@ -44,6 +44,12 @@ export function BlogHero() {
             Réglementation, retours d&apos;expérience et bonnes pratiques :
             nos experts décryptent l&apos;actualité du risque électrique.
           </p>
+
+          {typeof count === "number" && count > 0 && (
+            <p className="mt-8 text-sm text-white/40 opacity-0 animate-slide-up animation-delay-300">
+              {count} article{count > 1 ? "s" : ""} publié{count > 1 ? "s" : ""}
+            </p>
+          )}
         </div>
       </div>
 

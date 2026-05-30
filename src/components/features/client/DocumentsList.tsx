@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import { Download, FileText, Video, Eye, Lock } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -16,6 +15,7 @@ import {
 } from "@/components/shared/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { getSignedUrl } from "@/lib/supabase/storage";
+import { openSecureViewer } from "@/lib/secure-viewer";
 import type { ClientDocument } from "@/types/document";
 
 interface DocumentsListProps {
@@ -32,59 +32,6 @@ async function resolveDocUrl(doc: ClientDocument): Promise<string | null> {
     }
   }
   return doc.url ?? null;
-}
-
-function ViewOnlyViewer({ doc, viewBtnLabel, viewOnlyTitle, popupError }: { doc: ClientDocument; viewBtnLabel: string; viewOnlyTitle: string; popupError: string }) {
-  const handleView = useCallback(async () => {
-    const url = await resolveDocUrl(doc);
-    if (!url) {
-      toast.error("Fichier indisponible");
-      return;
-    }
-    const viewer = window.open("", "_blank", "noopener,noreferrer");
-    if (!viewer) {
-      toast.error(popupError);
-      return;
-    }
-    viewer.document.write(`<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8"/>
-  <title>${doc.title} - ${viewOnlyTitle}</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #1A2940; overflow: hidden; }
-    .bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #0D5A8A; color: #fff; font-family: system-ui, sans-serif; font-size: 13px; }
-    .bar .badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.15); padding: 2px 10px; border-radius: 999px; font-size: 11px; }
-    iframe { width: 100%; height: calc(100vh - 40px); border: none; }
-    @media print { body * { display: none !important; } }
-  </style>
-  <script>
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
-        e.preventDefault();
-      }
-    });
-    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-  </script>
-</head>
-<body>
-  <div class="bar">
-    <span>${doc.title}</span>
-    <span class="badge">${viewOnlyTitle}</span>
-  </div>
-  <iframe src="${url}#toolbar=0&navpanes=0" title="${doc.title}"></iframe>
-</body>
-</html>`);
-    viewer.document.close();
-  }, [doc, viewOnlyTitle, popupError]);
-
-  return (
-    <Button size="sm" variant="outline" onClick={handleView}>
-      <Eye className="mr-2 h-4 w-4" />
-      {viewBtnLabel}
-    </Button>
-  );
 }
 
 export function DocumentsList({ documents }: DocumentsListProps) {
@@ -170,12 +117,23 @@ export function DocumentsList({ documents }: DocumentsListProps) {
                     {t("downloadBtn")}
                   </Button>
                 ) : (
-                  <ViewOnlyViewer
-                    doc={doc}
-                    viewBtnLabel={t("viewBtn")}
-                    viewOnlyTitle={t("viewOnlyTitle")}
-                    popupError={t("popupError")}
-                  />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      const url = await resolveDocUrl(doc);
+                      if (!url) {
+                        toast.error("Fichier indisponible");
+                        return;
+                      }
+                      if (!openSecureViewer(url, { title: doc.title, badge: t("viewOnlyTitle") })) {
+                        toast.error(t("popupError"));
+                      }
+                    }}
+                  >
+                    <Eye className="mr-2 size-4" />
+                    {t("viewBtn")}
+                  </Button>
                 )}
               </DataTd>
             </DataTr>

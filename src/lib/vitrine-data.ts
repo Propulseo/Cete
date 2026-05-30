@@ -8,6 +8,7 @@ import type { Founder } from "@/types/founder";
 import type { ContactInfo, BusinessHours } from "@/types/contact";
 import type { Article } from "@/types/article";
 import type { BlogPost } from "@/types/blog";
+import type { Database } from "@/lib/supabase/database.types";
 
 // Lectures vitrine côté SERVEUR de la source de vérité DB (founders/settings que
 // l'admin édite), traduites selon la locale. Frontière §6 de la migration : la
@@ -135,17 +136,48 @@ function estimateReadTime(text: string): string {
 
 function articleToBlogPost(a: Article): BlogPost {
   return {
-    slug: articleSlug(a.title),
+    slug: a.slug || articleSlug(a.title),
     title: a.title,
     excerpt: a.excerpt,
+    content: a.content,
     author: a.author,
+    authorRole: a.authorRole,
     category: a.category,
     categoryColor: CATEGORY_COLOR[a.category] ?? "bg-[#4DA6D9]",
     publishedDate: a.publishedDate ?? a.created_at ?? "",
-    readTime: estimateReadTime(a.excerpt),
-    imageUrl: CATEGORY_IMG[a.category] ?? CATEGORY_IMG.Expertise,
+    readTime: a.readMinutes
+      ? `${a.readMinutes} min`
+      : estimateReadTime(a.content || a.excerpt),
+    imageUrl: a.coverImage || CATEGORY_IMG[a.category] || CATEGORY_IMG.Expertise,
+    imageAlt: a.coverAlt,
+    metaDescription: a.metaDescription,
     featured: a.featured,
     videoUrl: a.videoUrl,
+  };
+}
+
+type ArticleRow = Database["public"]["Tables"]["articles"]["Row"];
+
+function rowToArticle(r: ArticleRow): Article {
+  return {
+    id: r.id,
+    title: r.title,
+    slug: r.slug || articleSlug(r.title),
+    excerpt: r.excerpt,
+    content: r.content ?? undefined,
+    author: r.author,
+    authorRole: r.author_role ?? undefined,
+    category: r.category as Article["category"],
+    status: r.status as Article["status"],
+    publishedDate: r.published_date,
+    views: r.views,
+    featured: r.featured,
+    videoUrl: r.video_url ?? undefined,
+    coverImage: r.cover_image ?? undefined,
+    coverAlt: r.cover_alt ?? undefined,
+    metaDescription: r.meta_description ?? undefined,
+    readMinutes: r.read_minutes ?? undefined,
+    created_at: r.created_at,
   };
 }
 
@@ -159,14 +191,7 @@ export async function loadPublishedArticles(): Promise<BlogPost[]> {
       .eq("status", "published")
       .order("published_date", { ascending: false, nullsFirst: false });
     if (error || !data) throw error ?? new Error("no articles");
-    return data.map((r) =>
-      articleToBlogPost({
-        id: r.id, title: r.title, excerpt: r.excerpt, author: r.author,
-        category: r.category as Article["category"], status: r.status as Article["status"],
-        publishedDate: r.published_date, views: r.views, featured: r.featured,
-        videoUrl: r.video_url ?? undefined, created_at: r.created_at,
-      }),
-    );
+    return data.map((r) => articleToBlogPost(rowToArticle(r)));
   } catch {
     return [];
   }
@@ -189,7 +214,7 @@ export async function loadOrganizations(): Promise<string[]> {
   }
 }
 
-/** Article publié correspondant à un slug (slugify du titre), au format BlogPost. */
+/** Article publié correspondant à un slug (stocké, fallback slugify du titre). */
 export async function loadArticleBySlug(slug: string): Promise<BlogPost | null> {
   try {
     const supabase = await createClient();
@@ -198,14 +223,11 @@ export async function loadArticleBySlug(slug: string): Promise<BlogPost | null> 
       .select("*")
       .eq("status", "published");
     if (error || !data) return null;
-    const row = data.find((r) => articleSlug(r.title) === slug);
+    const row =
+      data.find((r) => r.slug === slug) ??
+      data.find((r) => articleSlug(r.title) === slug);
     if (!row) return null;
-    return articleToBlogPost({
-      id: row.id, title: row.title, excerpt: row.excerpt, author: row.author,
-      category: row.category as Article["category"], status: row.status as Article["status"],
-      publishedDate: row.published_date, views: row.views, featured: row.featured,
-      videoUrl: row.video_url ?? undefined, created_at: row.created_at,
-    });
+    return articleToBlogPost(rowToArticle(row));
   } catch {
     return null;
   }

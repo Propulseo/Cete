@@ -4,6 +4,7 @@ import type {
   ContractDocumentStatus,
   ContractDocumentType,
 } from "@/types/client";
+import type { AccessType } from "@/types/shared";
 import { RepoError } from "@/types/repo-error";
 import type { Database } from "@/lib/supabase/database.types";
 
@@ -27,6 +28,7 @@ function rowToContractDocument(r: ContractDocumentRow): ContractDocument {
     uploadedBy: r.uploaded_by ?? "",
     status: r.status as ContractDocumentStatus,
     notes: r.notes ?? undefined,
+    accessType: (r.access_type as AccessType | null) ?? undefined,
   };
 }
 
@@ -46,6 +48,7 @@ function toInsert(
     uploaded_by: payload.uploadedBy || null,
     status: payload.status,
     notes: payload.notes ?? null,
+    access_type: payload.accessType ?? "download",
   };
 }
 
@@ -66,6 +69,7 @@ function toUpdate(
     update.uploaded_by = payload.uploadedBy || null;
   if (payload.status !== undefined) update.status = payload.status;
   if (payload.notes !== undefined) update.notes = payload.notes ?? null;
+  if (payload.accessType !== undefined) update.access_type = payload.accessType ?? "download";
   return update;
 }
 

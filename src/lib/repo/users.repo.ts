@@ -66,7 +66,9 @@ export async function updateUser(
   const supabase = createClient();
   const patch: ProfileUpdate = {};
   if (payload.name !== undefined) patch.name = payload.name;
-  if (payload.email !== undefined) patch.email = payload.email;
+  // Email toujours en minuscules : GoTrue normalise côté Auth, on garde `profiles`
+  // aligné pour que la recherche par email (ex. reset de mot de passe) matche.
+  if (payload.email !== undefined) patch.email = payload.email.trim().toLowerCase();
   if (payload.role !== undefined) patch.role = payload.role;
   if (payload.clientId !== undefined) patch.client_id = payload.clientId ?? null;
   if (payload.company !== undefined) patch.company = payload.company ?? null;

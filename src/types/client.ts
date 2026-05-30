@@ -1,6 +1,6 @@
 // ── Client Management Types ──────────────────────────────────────────
 
-import type { ThreeCScore } from "./shared";
+import type { ThreeCScore, AccessType } from "./shared";
 
 export type ClientLegalForm = "SAS" | "SARL" | "SA" | "EURL" | "SCI" | "autre";
 
@@ -79,6 +79,9 @@ export interface ContractDocument {
   uploadedBy: string;
   status: ContractDocumentStatus;
   notes?: string;
+  /** Mode d'accès côté client. `download` (défaut) = consulter + télécharger + imprimer ;
+   *  `view-only` = consultation seule (téléchargement/impression bridés côté UX). */
+  accessType?: AccessType;
 }
 
 // ── Evaluations ──────────────────────────────────────────────────────

@@ -4,7 +4,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
 import type { Pathnames } from "@/i18n/routing";
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { LogIn, Menu } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -16,6 +16,9 @@ export function Header() {
   const locale = useLocale() as "fr" | "en";
   const [isOpen, setIsOpen] = useState(false);
   const navigation = getNavigation(locale);
+  // Le bouton "Demander une évaluation" couvre déjà le besoin : on retire
+  // le lien Contact de la navigation du header (il reste présent dans le footer).
+  const mainNav = navigation.mainNav.filter((item) => item.href !== "/contact");
   const pathname = usePathname();
 
   return (
@@ -35,7 +38,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center lg:flex lg:gap-4 xl:gap-8 xl:ml-28">
-          {navigation.mainNav.map((item) => {
+          {mainNav.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -59,10 +62,13 @@ export function Header() {
           <Button
             asChild
             variant="outline"
-            size="sm"
-            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8] xl:h-11"
+            size="icon"
+            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8] xl:h-11 xl:w-11"
           >
-            <Link href="/connexion">{t("clientArea")}</Link>
+            <Link href="/connexion" title={t("login")} aria-label={t("login")}>
+              <LogIn className="h-5 w-5" />
+              <span className="sr-only">{t("login")}</span>
+            </Link>
           </Button>
           <Button
             asChild
@@ -83,7 +89,7 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col gap-4 pt-8">
-              {navigation.mainNav.map((item) => {
+              {mainNav.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <Link
@@ -112,8 +118,13 @@ export function Header() {
                   variant="outline"
                   className="border-[#4DA6D9]/30 text-[#4DA6D9]"
                 >
-                  <Link href="/connexion" onClick={() => setIsOpen(false)}>
-                    {t("clientArea")}
+                  <Link
+                    href="/connexion"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    {t("login")}
                   </Link>
                 </Button>
                 <Button

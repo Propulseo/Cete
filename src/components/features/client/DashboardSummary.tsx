@@ -8,12 +8,16 @@ import {
   ClipboardList,
   Download,
   Play,
+  Eye,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { getSignedUrl } from "@/lib/supabase/storage";
+import { openSecureViewer } from "@/lib/secure-viewer";
 import { KpiTile } from "@/components/shared/kpi-tile";
 import {
   SurfaceCard,
@@ -34,16 +38,28 @@ interface DashboardSummaryProps {
   documents: ClientDocument[];
 }
 
-function handleDocAction(doc: ClientDocument) {
+async function handleDocAction(doc: ClientDocument, viewOnlyTitle: string, popupError: string) {
   if (doc.type === "video" && doc.youtubeId) {
     window.open(`https://www.youtube.com/watch?v=${doc.youtubeId}`, "_blank");
-  } else if (doc.url) {
-    window.open(doc.url, "_blank");
+    return;
+  }
+  const url = doc.storagePath
+    ? await getSignedUrl("client-documents", doc.storagePath).catch(() => null)
+    : doc.url ?? null;
+  if (!url) {
+    toast.error("Document indisponible");
+    return;
+  }
+  if (doc.accessType === "download") {
+    window.open(url, "_blank", "noopener");
+  } else if (!openSecureViewer(url, { title: doc.title, badge: viewOnlyTitle })) {
+    toast.error(popupError);
   }
 }
 
 export function DashboardSummary({ documents }: DashboardSummaryProps) {
   const t = useTranslations("client");
+  const tDoc = useTranslations("client.documents");
   const locale = useLocale();
 
   const countByCategory = documents.reduce(
@@ -109,8 +125,18 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
                       month: "short",
                     })}
                   </span>
-                  <Button size="sm" variant="ghost" onClick={() => handleDocAction(doc)}>
-                    {doc.type === "video" ? <Play className="size-4" /> : <Download className="size-4" />}
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => handleDocAction(doc, tDoc("viewOnlyTitle"), tDoc("popupError"))}
+                  >
+                    {doc.type === "video" ? (
+                      <Play className="size-4" />
+                    ) : doc.accessType === "download" ? (
+                      <Download className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
                   </Button>
                 </li>
               );

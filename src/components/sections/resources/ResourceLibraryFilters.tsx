@@ -11,6 +11,8 @@ const categoryKeys: Record<ResourceCategory, string> = {
   guides: "categoryGuides",
   rapports: "categoryRapports",
   veille: "categoryVeille",
+  // 'partenaires' n'apparaît pas dans ce filtre : ces liens ont leur propre section.
+  partenaires: "categoryPartenaires",
 };
 
 const typeKeys: Record<ResourceType, string> = {
@@ -55,9 +57,11 @@ export function ResourceLibraryFilters({
         onChange={(e) => onFilterCatChange(e.target.value)}
       >
         <option value="">{t("allCategories")}</option>
-        {(Object.entries(categoryKeys) as [ResourceCategory, string][]).map(([k, tKey]) => (
-          <option key={k} value={k}>{t(tKey as Parameters<typeof t>[0])}</option>
-        ))}
+        {(Object.entries(categoryKeys) as [ResourceCategory, string][])
+          .filter(([k]) => k !== "partenaires")
+          .map(([k, tKey]) => (
+            <option key={k} value={k}>{t(tKey as Parameters<typeof t>[0])}</option>
+          ))}
       </select>
       <select
         className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
   BlogHero,
   BlogFeatured,
-  BlogGrid,
+  BlogFilter,
   BlogCTA,
 } from "@/components/sections/blog";
 import { loadPublishedArticles } from "@/lib/vitrine-data";
@@ -20,9 +20,9 @@ export default async function BlogPage() {
 
   return (
     <>
-      <BlogHero />
+      <BlogHero count={posts.length} />
       {featured && <BlogFeatured post={featured} />}
-      {others.length > 0 && <BlogGrid posts={others} />}
+      {others.length > 0 && <BlogFilter posts={others} />}
       <BlogCTA />
     </>
   );

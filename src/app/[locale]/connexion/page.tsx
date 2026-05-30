@@ -7,7 +7,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { getUser } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/client";
+import { requestPasswordResetAction } from "@/app/actions/auth";
 import { LoginBrandPanel } from "@/components/sections/connexion/LoginBrandPanel";
 import { LoginMobileHead } from "@/components/sections/connexion/LoginMobileHead";
 import { DemoAccounts } from "@/components/sections/connexion/DemoAccounts";
@@ -40,19 +40,25 @@ function PortailContent() {
   const { login } = useAuth();
 
   const handleForgot = async () => {
-    if (!email) {
+    const value = email.trim();
+    if (!value) {
       toast.error("Saisissez d'abord votre email");
       return;
     }
     try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/${locale}/reset-password`,
-      });
-      if (error) throw error;
-      toast.success("Lien de réinitialisation envoyé", {
-        description: "Consultez votre boîte email.",
-      });
+      // Côté serveur : seuls les comptes déjà inscrits ET actifs reçoivent un lien.
+      // On ne passe que la locale ; l'URL de retour est construite côté serveur.
+      const { ok } = await requestPasswordResetAction(value, locale);
+      if (ok) {
+        toast.success("Lien de réinitialisation envoyé", {
+          description: "Consultez votre boîte email.",
+        });
+      } else {
+        toast.error("Aucun compte actif associé à cette adresse", {
+          description:
+            "La réinitialisation est réservée aux comptes existants. Contactez CETé si besoin.",
+        });
+      }
     } catch {
       toast.error("Impossible d'envoyer le lien de réinitialisation");
     }
