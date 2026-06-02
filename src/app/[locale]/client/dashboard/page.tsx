@@ -6,20 +6,17 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { getVisibleForClient as getDocsForClient } from "@/lib/repo/documents.repo";
-import { getVisibleForClient as getNotifsForClient } from "@/lib/repo/notifications.repo";
 import { BrandName } from "@/components/ui/brand-name";
 import { PageHeader } from "@/components/shared/page-header";
 import { DashboardSummary } from "@/components/features/client/DashboardSummary";
 import { NotationSummaryCard } from "@/components/features/client/NotationSummaryCard";
 import { ClientEvaluationsCard } from "@/components/features/client/ClientEvaluationsCard";
-import { NotificationsTicker } from "@/components/features/client/NotificationsTicker";
-import type { ClientDocument, Notification } from "@/types/document";
+import type { ClientDocument } from "@/types/document";
 
 export default function ClientDashboardPage() {
   const { user } = useAuth();
   const t = useTranslations("client");
   const [documents, setDocuments] = useState<ClientDocument[]>([]);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,12 +26,8 @@ export default function ClientDashboardPage() {
       setLoading(true);
       setError(null);
       const clientId = user.clientId ?? user.id;
-      const [docs, notifs] = await Promise.all([
-        getDocsForClient(clientId),
-        getNotifsForClient(clientId),
-      ]);
+      const docs = await getDocsForClient(clientId);
       setDocuments(docs);
-      setNotifications(notifs);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("states.error"));
     } finally {
@@ -80,14 +73,6 @@ export default function ClientDashboardPage() {
         <NotationSummaryCard clientId={user.clientId ?? user.id} />
         <ClientEvaluationsCard clientId={user.clientId ?? user.id} />
         <DashboardSummary documents={documents} />
-        <NotificationsTicker
-          notifications={notifications}
-          onMarkAsRead={(id) =>
-            setNotifications((prev) =>
-              prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-            )
-          }
-        />
       </div>
     </div>
   );

@@ -707,8 +707,6 @@
       "carnets": "Carnets d'appui",
       "resources": "Ressources",
       "profile": "Mon profil",
-      "notifications": "Notifications",
-      "unread": "{count} non lue(s)",
       "logout": "Déconnexion"
     },
     "states": {
@@ -856,11 +854,6 @@
       "operational": "Opéra : {value}",
       "qrCode": "QR code unique : ",
       "downloadCert": "Télécharger mon certificat"
-    },
-    "notifications": {
-      "title": "Veille réglementaire",
-      "new": "Nouveau",
-      "markRead": "Marquer lu"
     }
   },
   "admin": {

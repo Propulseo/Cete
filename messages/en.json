@@ -707,8 +707,6 @@
       "carnets": "Support Notebooks",
       "resources": "Resources",
       "profile": "My Profile",
-      "notifications": "Notifications",
-      "unread": "{count} unread",
       "logout": "Log out"
     },
     "states": {
@@ -856,11 +854,6 @@
       "operational": "Operational: {value}",
       "qrCode": "Unique QR code: ",
       "downloadCert": "Download my certificate"
-    },
-    "notifications": {
-      "title": "Regulatory Watch",
-      "new": "New",
-      "markRead": "Mark as read"
     }
   },
   "admin": {

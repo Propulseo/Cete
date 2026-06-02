@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { Source_Serif_4 } from "next/font/google";
 import { Menu } from "lucide-react";
@@ -29,16 +29,18 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const isLoggingOut = useRef(false);
 
   useEffect(() => {
-    if (!isLoading && (!user || user.role !== "admin")) {
+    if (!isLoading && (!user || user.role !== "admin") && !isLoggingOut.current) {
       router.push("/connexion");
     }
   }, [user, isLoading, router]);
 
   const handleLogout = async () => {
+    isLoggingOut.current = true;
     await logout();
-    router.push("/connexion");
+    router.replace("/");
   };
 
   if (isLoading) {
@@ -77,13 +79,13 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="inline-flex dark:rounded-md dark:bg-[#F4F9FD] dark:px-2 dark:py-1">
+          <span className="inline-flex">
             <Image
               src="/assets/brand/logo-cete-adn.png"
               alt="CETé — Agence de notation"
               width={120}
               height={28}
-              className="h-7 w-auto"
+              className="h-7 w-auto dark:brightness-0 dark:invert"
             />
           </span>
         </div>

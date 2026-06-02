@@ -8,7 +8,6 @@ import { Source_Serif_4 } from "next/font/google";
 import { Menu, Building2 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { getUnreadCountForClient } from "@/lib/repo/notifications.repo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -31,7 +30,6 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
   const t = useTranslations("client");
-  const [unreadCount, setUnreadCount] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isLoggingOut = useRef(false);
 
@@ -40,14 +38,6 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
       router.push("/connexion");
     }
   }, [user, isLoading, router]);
-
-  useEffect(() => {
-    if (user) {
-      getUnreadCountForClient(user.clientId ?? user.id)
-        .then(setUnreadCount)
-        .catch(() => setUnreadCount(0));
-    }
-  }, [user]);
 
   const handleLogout = async () => {
     isLoggingOut.current = true;
@@ -75,7 +65,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <div className="hidden lg:block">
         <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)]">
-          <ClientSidebar user={user} unreadCount={unreadCount} onLogout={handleLogout} />
+          <ClientSidebar user={user} onLogout={handleLogout} />
         </aside>
       </div>
 
@@ -87,7 +77,6 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
         >
           <ClientSidebar
             user={user}
-            unreadCount={unreadCount}
             onLogout={handleLogout}
             onNavigate={() => setSidebarOpen(false)}
           />
@@ -99,13 +88,13 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="inline-flex dark:rounded-md dark:bg-[#F4F9FD] dark:px-2 dark:py-1">
+          <span className="inline-flex">
             <Image
               src="/assets/brand/logo-cete-adn.png"
               alt="CETé — Agence de notation"
               width={120}
               height={28}
-              className="h-7 w-auto"
+              className="h-7 w-auto dark:brightness-0 dark:invert"
             />
           </span>
         </div>

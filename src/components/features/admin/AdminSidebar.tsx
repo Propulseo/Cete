@@ -86,17 +86,18 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
 
   return (
     <div className="flex h-full flex-col">
-      {/* Brand masthead — in dark mode the PNG sits on a light plaque (L2) so its dark
-          baseline "Consortium…" stays legible on the dark rail. */}
+      {/* Brand masthead — logo détouré : en mode sombre le PNG est inversé en blanc
+          monochrome (même traitement que le footer du site) pour rester lisible sur le
+          rail sombre, sans plaque. En clair il garde ses couleurs. */}
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
-        <span className="inline-flex dark:rounded-md dark:bg-[#F4F9FD] dark:px-2 dark:py-1.5">
+        <span className="inline-flex">
           <Image
             src="/assets/brand/logo-cete-adn.png"
             alt="CETé — Agence de notation"
             width={160}
             height={40}
             priority
-            className="h-8 w-auto"
+            className="h-8 w-auto dark:brightness-0 dark:invert"
           />
         </span>
       </div>

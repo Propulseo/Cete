@@ -62,11 +62,11 @@ begin
     (
       'Denis VUILLOZ',
       $j${"fr":"Co-fondateur - Notation & Analyse","en":"Co-founder - Rating & Analysis"}$j$::jsonb,
-      $j${"fr":"20 ans en analyse de risques et systèmes de notation. Concepteur de l'échelle AAA-DDD et de la méthodologie Vigi-Score.","en":"20 years in risk analysis and rating systems. Designer of the AAA-DDD scale and the Vigi-Score methodology."}$j$::jsonb,
+      $j${"fr":"Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT - Concepteur de l'échelle de notation AAA-DDD - Méthodologie Vigi-Score - Ingénierie pédagogique appliquée à la sécurité","en":"Former graduate of EDF Distribution trade schools, Former SERECT Expert - Designer of the AAA-DDD rating scale - Vigi-Score methodology - Safety-focused instructional engineering"}$j$::jsonb,
       $j${"fr":["Méthodologie de notation","Analyse de risques","Échelle AAA-DDD"],"en":["Rating methodology","Risk analysis","AAA-DDD scale"]}$j$::jsonb,
       $j${"fr":"Ancien Expert SERECT","en":"Former SERECT Expert"}$j$::jsonb,
       $j${"fr":"","en":""}$j$::jsonb,
-      '/assets/founders/denis.jpg', null, false
+      '/assets/founders/denis.jpg', null, true
     );
   end if;
 end

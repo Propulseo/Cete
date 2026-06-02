@@ -20,6 +20,7 @@ const interventionZones = [
   { name: "Cameroun", lat: 3.87, lng: 11.52, primary: false },
   { name: "Madagascar", lat: -18.88, lng: 47.51, primary: false },
   { name: "La Réunion", lat: -21.12, lng: 55.53, primary: false },
+  { name: "Chine", lat: 39.9, lng: 116.4, primary: false },
 ];
 
 export function AboutWorldMap() {
@@ -120,7 +121,7 @@ function LeafletMap() {
         crossOrigin=""
       />
       <MapContainer
-        center={[30, 10]}
+        center={[28, 55]}
         zoom={3}
         scrollWheelZoom={false}
         style={{ height: 500, width: "100%" }}

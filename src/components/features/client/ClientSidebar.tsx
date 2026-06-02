@@ -19,12 +19,10 @@ import {
   ClipboardList,
   Library,
   UserCircle,
-  Bell,
   LogOut,
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/auth";
@@ -96,28 +94,28 @@ function initialsOf(name: string): string {
 
 interface ClientSidebarProps {
   user: Profile;
-  unreadCount: number;
   onLogout: () => void;
   onNavigate?: () => void;
 }
 
-export function ClientSidebar({ user, unreadCount, onLogout, onNavigate }: ClientSidebarProps) {
+export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps) {
   const pathname = usePathname();
   const t = useTranslations("client.sidebar");
 
   return (
     <div className="flex h-full flex-col">
-      {/* Brand masthead — in dark mode the PNG sits on a light plaque (L2) so its dark
-          baseline "Consortium…" stays legible on the dark rail. */}
+      {/* Brand masthead — logo détouré : en mode sombre le PNG est inversé en blanc
+          monochrome (même traitement que le footer du site) pour rester lisible sur le
+          rail sombre, sans plaque. En clair il garde ses couleurs. */}
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
-        <span className="inline-flex dark:rounded-md dark:bg-[#F4F9FD] dark:px-2 dark:py-1.5">
+        <span className="inline-flex">
           <Image
             src="/assets/brand/logo-cete-adn.png"
             alt="CETé — Agence de notation"
             width={160}
             height={40}
             priority
-            className="h-8 w-auto"
+            className="h-8 w-auto dark:brightness-0 dark:invert"
           />
         </span>
       </div>
@@ -164,20 +162,6 @@ export function ClientSidebar({ user, unreadCount, onLogout, onNavigate }: Clien
           </div>
         ))}
       </nav>
-
-      {/* Notifications */}
-      {unreadCount > 0 && (
-        <div className="border-t border-[var(--admin-line)] p-3">
-          <div className="flex items-center gap-2.5 rounded-md bg-accent px-3 py-2.5">
-            <Bell className="size-4 shrink-0 text-primary" strokeWidth={1.75} />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-foreground">{t("notifications")}</p>
-              <p className="truncate text-xs text-muted-foreground">{t("unread", { count: unreadCount })}</p>
-            </div>
-            <Badge variant="secondary" className="tabular-nums">{unreadCount}</Badge>
-          </div>
-        </div>
-      )}
 
       {/* Account */}
       <div className="border-t border-[var(--admin-line)] p-3">
