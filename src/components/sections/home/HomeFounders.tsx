@@ -84,10 +84,12 @@ function FounderTile({ founder }: { founder: Founder }) {
             </span>
           </div>
         )}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-          <div className="font-semibold text-white">{founder.name}</div>
-          <div className="text-sm text-white/70">{founder.role}</div>
-        </div>
+      </div>
+      {/* Nom et rôle sous la photo : les portraits n'ont pas tous du buste sous le
+          menton, un bandeau superposé retombait sur certains visages. */}
+      <div className="mt-2 px-1">
+        <div className="font-semibold text-[#1A2940] text-sm">{founder.name}</div>
+        <div className="text-xs text-[#4A6580]">{founder.role}</div>
       </div>
     </Link>
   );

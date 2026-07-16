@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 const ACCOUNTS = [
   {
-    role: "Client",
+    roleKey: "roleClient" as const,
     email: "client@cete.fr",
     badge: "client" as const,
-    label: "Pré-remplir le compte client : client@cete.fr",
+    ariaKey: "fillClientAria" as const,
     icon: (
       <>
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -16,10 +17,10 @@ const ACCOUNTS = [
     ),
   },
   {
-    role: "Administrateur",
+    roleKey: "roleAdmin" as const,
     email: "admin@cete.fr",
     badge: "admin" as const,
-    label: "Pré-remplir le compte administrateur : admin@cete.fr",
+    ariaKey: "fillAdminAria" as const,
     icon: (
       <>
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -41,6 +42,7 @@ const Arrow = () => (
 /** Comptes de démonstration repliables. `onFill` injecte les identifiants dans le formulaire. */
 export function DemoAccounts({ onFill }: { onFill: (email: string, password: string) => void }) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("connexion.demo");
 
   return (
     <div className={`demo${open ? " open" : ""}`}>
@@ -57,14 +59,14 @@ export function DemoAccounts({ onFill }: { onFill: (email: string, password: str
             <path d="M12 16v-4" />
             <path d="M12 8h.01" />
           </svg>
-          Comptes de démonstration
+          {t("toggle")}
         </span>
         <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
 
-      <div className="demo-body" id="demoBody" role="region" aria-label="Identifiants de démonstration">
+      <div className="demo-body" id="demoBody" role="region" aria-label={t("regionAria")}>
         <div className="demo-body-inner">
           <div className="demo-cards">
             {ACCOUNTS.map((acc) => (
@@ -72,7 +74,7 @@ export function DemoAccounts({ onFill }: { onFill: (email: string, password: str
                 key={acc.email}
                 type="button"
                 className="demo-card"
-                aria-label={acc.label}
+                aria-label={t(acc.ariaKey)}
                 onClick={() => onFill(acc.email, DEMO_PASSWORD)}
               >
                 <span className="dc-head">
@@ -81,11 +83,11 @@ export function DemoAccounts({ onFill }: { onFill: (email: string, password: str
                       {acc.icon}
                     </svg>
                   </span>
-                  <span className="dc-role">{acc.role}</span>
+                  <span className="dc-role">{t(acc.roleKey)}</span>
                 </span>
                 <span className="dc-mail">{acc.email}</span>
                 <span className="dc-fill" aria-hidden="true">
-                  Remplir
+                  {t("fill")}
                   <Arrow />
                 </span>
               </button>

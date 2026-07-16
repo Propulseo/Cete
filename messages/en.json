@@ -288,29 +288,32 @@
       "vulnerabilityDescription": "Residual risk exposure when vigilance is insufficient.",
       "ncHeading": "What triggers a",
       "ncHeadingHighlight": "D rating",
-      "ncDescription": "Three categories of major non-conformities can result in a D rating on one or more criteria.",
+      "ncDescription": "A few examples of major non-conformities that can result in a D rating on one or more criteria.",
       "nc0": {
         "title": "AuDiMaT",
         "items": {
-          "0": "Missing or invalid work authorizations",
-          "1": "Non-compliant electrical qualifications",
-          "2": "Personal protective equipment not verified or expired"
+          "0": "Self-assessment feedback not returned",
+          "1": "Poor knowledge of the domain framework"
         }
       },
       "nc1": {
         "title": "Organizational",
         "items": {
-          "0": "Missing documented lockout/tagout procedures",
-          "1": "Lack of traceability for Live Working interventions",
-          "2": "Prevention plan incomplete or not updated"
+          "0": "Operator not trained or not retrained",
+          "1": "Operator not qualified for the installation or voltage domain concerned by the worksite",
+          "2": "No P2S safety briefings"
         }
       },
       "nc2": {
         "title": "Operational",
+        "intro": "Any non-conformity that could have irreversible bodily consequences in the event of equipment or human failure:",
         "items": {
-          "0": "Non-compliance with safety distances in real situations",
-          "1": "Use of non-compliant tools in the field",
-          "2": "No voltage absence verification before intervention"
+          "0": "Suitable work clothing not provided",
+          "1": "Deliberate deviation observed: failure to wear suitable work clothing, helmet with face shield or live-working gloves",
+          "2": "Failure to respect fundamental trade practices",
+          "3": "No voltage absence testing (VAT), earthing or short-circuiting",
+          "4": "Missing trade tools",
+          "5": "Work started without authorization (client company order, prevention plan, access authorization, work order…)"
         }
       }
     },
@@ -648,6 +651,95 @@
       "weekdays": "Mon-Fri",
       "weekendClosed": "Sat-Sun: Closed",
       "mapPlaceholder": "Google Maps"
+    }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog - Insights & Analysis",
+      "description": "Regulation, field experience and best practices: our experts decode the latest developments in electrical risk."
+    },
+    "hero": {
+      "badge": "Insights & Perspectives",
+      "headingStart": "INSIGHTS",
+      "headingEnd": "ANALYSIS",
+      "description": "Regulation, field experience and best practices: our experts decode the latest developments in electrical risk.",
+      "count": "{count, plural, one {# published article} other {# published articles}}"
+    },
+    "featured": {
+      "label": "Featured",
+      "readArticle": "Read the article"
+    },
+    "filter": {
+      "all": "All",
+      "latest": "Latest articles",
+      "empty": "No articles in this category yet."
+    },
+    "cta": {
+      "heading": "STAY INFORMED",
+      "description": "Get our analysis and insights delivered straight to your inbox. Expert monitoring of electrical risk.",
+      "subscribe": "Subscribe to the newsletter"
+    },
+    "article": {
+      "back": "Back to blog",
+      "backToArticles": "Back to articles",
+      "authorLabel": "Author",
+      "defaultRole": "CETé Expert",
+      "comingSoon": "The full content of this article will be published soon.",
+      "notFound": "Article not found"
+    }
+  },
+  "connexion": {
+    "backToSite": "Back to site",
+    "backToSiteAria": "Back to the public site",
+    "heading": "Client Area",
+    "subtitle": "Access your rating and your resources.",
+    "sectionAria": "Client Area",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "passwordLabel": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "submit": "Sign in",
+    "submitLoading": "Signing in…",
+    "legal": "By signing in, you accept our <terms>terms of use</terms> and our <privacy>privacy policy</privacy>.",
+    "toast": {
+      "emailFirst": "Enter your email first",
+      "resetSent": "Reset link sent",
+      "resetSentDesc": "Check your inbox.",
+      "resetNoAccount": "No active account is linked to this address",
+      "resetNoAccountDesc": "Password reset is reserved for existing accounts. Contact CETé if needed.",
+      "resetError": "Unable to send the reset link",
+      "loginSuccess": "Signed in successfully",
+      "loginInvalid": "Incorrect credentials",
+      "loginInvalidDesc": "Check your email and password",
+      "loginError": "Sign-in error"
+    },
+    "demo": {
+      "toggle": "Demo accounts",
+      "regionAria": "Demo credentials",
+      "roleClient": "Client",
+      "roleAdmin": "Administrator",
+      "fillClientAria": "Pre-fill the client account: client@cete.fr",
+      "fillAdminAria": "Pre-fill the administrator account: admin@cete.fr",
+      "fill": "Fill"
+    },
+    "brand": {
+      "panelAria": "Presentation of the Consortium Experts Techniques Électricité",
+      "eyebrow": "Independent rating body",
+      "titleLine1": "Electrical risk rating,",
+      "titleLine2": "in complete independence.",
+      "sub": "Your gateway to Vigi-Score ratings, expert reports and resources from your consortium.",
+      "vigiAria": "Vigi-Score rating scale, from A (best) to D (at risk)",
+      "vigiTitle": "Vigi-Score scale",
+      "vigiCaption": "A · B · C · D rating of the risk-control level.",
+      "mobileSub": "Independent electrical risk rating body."
+    },
+    "trust": {
+      "independent": "Independent body",
+      "rating": "A · B · C · D rating",
+      "secure": "Secure access"
     }
   },
   "shared": {

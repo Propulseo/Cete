@@ -1,13 +1,12 @@
 "use client";
 
 // ClientSidebar — inner content of the light recessive rail, aligned on the admin design
-// system (no more dominant sky-blue block). Brand = real PNG logo on the light rail; the
+// system (no more dominant sky-blue block). Brand = SVG logo on the light rail; the
 // active item is marked by a 3px ink-blue left ledge + darkened label (blue as a precise
 // accent, never a surface fill). Rendered inside the desktop fixed <aside> and the mobile
 // <Sheet>, both provided by the client layout (which carries the .client-theme scope).
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
   LayoutDashboard,
@@ -104,15 +103,15 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
 
   return (
     <div className="flex h-full flex-col">
-      {/* Brand masthead — logo détouré : en mode sombre le PNG est inversé en blanc
+      {/* Brand masthead — logo détouré (SVG) : en mode sombre il est inversé en blanc
           monochrome (même traitement que le footer du site) pour rester lisible sur le
           rail sombre, sans plaque. En clair il garde ses couleurs. */}
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
         <span className="inline-flex">
           <Image
-            src="/assets/brand/logo-cete-adn.png"
+            src="/assets/brand/logo-cete.svg"
             alt="CETé — Agence de notation"
-            width={160}
+            width={69}
             height={40}
             priority
             className="h-8 w-auto dark:brightness-0 dark:invert"
@@ -135,7 +134,7 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={item.href as "/"}
                     onClick={onNavigate}
                     className={cn(
                       "group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",

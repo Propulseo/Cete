@@ -33,9 +33,10 @@
   {
     "id": "4",
     "name": "Denis VUILLOZ",
-    "role": "Co-founder - Rating & Analysis",
-    "bio": "Former graduate of EDF Distribution trade schools, Former SERECT Expert - Designer of the AAA-DDD rating scale - Vigi-Score methodology - Safety-focused instructional engineering",
+    "role": "Co-founder - Live-Line Work & Electrical Risk Expert",
+    "bio": "",
     "imageUrl": "/assets/founders/denis.jpg",
+    "imagePosition": "65% 62%",
     "specialties": ["Rating methodology", "Risk analysis", "AAA-DDD scale"],
     "formerOrg": "Former SERECT Expert",
     "currentEntity": ""

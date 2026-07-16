@@ -1,9 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, useRouter } from "@/i18n/navigation";
 import { toast } from "sonner";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { getUser } from "@/lib/auth";
@@ -37,12 +36,13 @@ function PortailContent() {
   const emailRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("connexion");
   const { login } = useAuth();
 
   const handleForgot = async () => {
     const value = email.trim();
     if (!value) {
-      toast.error("Saisissez d'abord votre email");
+      toast.error(t("toast.emailFirst"));
       return;
     }
     try {
@@ -50,17 +50,16 @@ function PortailContent() {
       // On ne passe que la locale ; l'URL de retour est construite côté serveur.
       const { ok } = await requestPasswordResetAction(value, locale);
       if (ok) {
-        toast.success("Lien de réinitialisation envoyé", {
-          description: "Consultez votre boîte email.",
+        toast.success(t("toast.resetSent"), {
+          description: t("toast.resetSentDesc"),
         });
       } else {
-        toast.error("Aucun compte actif associé à cette adresse", {
-          description:
-            "La réinitialisation est réservée aux comptes existants. Contactez CETé si besoin.",
+        toast.error(t("toast.resetNoAccount"), {
+          description: t("toast.resetNoAccountDesc"),
         });
       }
     } catch {
-      toast.error("Impossible d'envoyer le lien de réinitialisation");
+      toast.error(t("toast.resetError"));
     }
   };
 
@@ -70,17 +69,18 @@ function PortailContent() {
     try {
       const success = await login(email, password);
       if (success) {
-        toast.success("Connexion réussie");
-        // Route selon le rôle réel du profil (et non l'email).
+        toast.success(t("toast.loginSuccess"));
+        // Route selon le rôle réel du profil (et non l'email). Le router i18n
+        // conserve la locale courante dans l'URL de destination.
         const u = await getUser();
         router.push(u?.role === "admin" ? "/admin/dashboard" : "/client/dashboard");
       } else {
-        toast.error("Identifiants incorrects", {
-          description: "Vérifiez votre email et mot de passe",
+        toast.error(t("toast.loginInvalid"), {
+          description: t("toast.loginInvalidDesc"),
         });
       }
     } catch {
-      toast.error("Erreur de connexion");
+      toast.error(t("toast.loginError"));
     } finally {
       setIsLoading(false);
     }
@@ -97,32 +97,26 @@ function PortailContent() {
       <main className="shell">
         <LoginBrandPanel />
 
-        <section className="panel" aria-label="Connexion à l'Espace CETé">
+        <section className="panel" aria-label={t("sectionAria")}>
           <LoginMobileHead />
 
           <div className="panel-inner">
-            <Link className="back-link" href="/" aria-label="Retour au site public">
+            <Link className="back-link" href="/" aria-label={t("backToSiteAria")}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M19 12H5" />
                 <path d="M12 19l-7-7 7-7" />
               </svg>
-              Retour au site
+              {t("backToSite")}
             </Link>
 
             <div className="form-head">
-              <h1>
-                Espace{" "}
-                <span aria-hidden="true">
-                  CET<span className="wm-sup">é</span>
-                </span>
-                <span className="sr-only">CETé</span>
-              </h1>
-              <p>Accédez à votre notation et vos ressources.</p>
+              <h1>{t("heading")}</h1>
+              <p>{t("subtitle")}</p>
             </div>
 
             <form onSubmit={handleSubmit} noValidate>
               <div className="field">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{t("emailLabel")}</label>
                 <div className="input-wrap">
                   <svg className="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -133,7 +127,7 @@ function PortailContent() {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="votre@email.fr"
+                    placeholder={t("emailPlaceholder")}
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -144,7 +138,7 @@ function PortailContent() {
               </div>
 
               <div className="field password">
-                <label htmlFor="password">Mot de passe</label>
+                <label htmlFor="password">{t("passwordLabel")}</label>
                 <div className="input-wrap">
                   <svg className="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="3" y="11" width="18" height="11" rx="2" />
@@ -165,7 +159,7 @@ function PortailContent() {
                     className="toggle-pw"
                     aria-controls="password"
                     aria-pressed={showPassword}
-                    aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                    aria-label={showPassword ? t("hidePassword") : t("showPassword")}
                     onClick={() => setShowPassword((v) => !v)}
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -184,10 +178,10 @@ function PortailContent() {
                     checked={remember}
                     onChange={(e) => setRemember(e.target.checked)}
                   />
-                  Se souvenir de moi
+                  {t("remember")}
                 </label>
                 <button type="button" className="forgot" onClick={handleForgot}>
-                  Mot de passe oublié ?
+                  {t("forgot")}
                 </button>
               </div>
 
@@ -195,11 +189,11 @@ function PortailContent() {
                 {isLoading ? (
                   <>
                     <span className="btn-spinner" aria-hidden="true" />
-                    Connexion en cours…
+                    {t("submitLoading")}
                   </>
                 ) : (
                   <>
-                    Se connecter
+                    {t("submit")}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M5 12h14" />
                       <path d="M12 5l7 7-7 7" />
@@ -212,10 +206,11 @@ function PortailContent() {
             <DemoAccounts onFill={fillDemo} />
 
             <p className="legal">
-              En vous connectant, vous acceptez nos{" "}
               {/* TODO: lier aux pages légales réelles quand elles existeront */}
-              <a href="#">conditions d&apos;utilisation</a> et notre{" "}
-              <a href="#">politique de confidentialité</a>.
+              {t.rich("legal", {
+                terms: (chunks) => <a href="#">{chunks}</a>,
+                privacy: (chunks) => <a href="#">{chunks}</a>,
+              })}
             </p>
           </div>
         </section>

@@ -22,18 +22,23 @@ export type Database = {
           author_role: string | null
           category: string
           content: string | null
+          content_en: string | null
           cover_alt: string | null
+          cover_alt_en: string | null
           cover_image: string | null
           created_at: string
           excerpt: string
+          excerpt_en: string | null
           featured: boolean
           id: string
           meta_description: string | null
+          meta_description_en: string | null
           published_date: string | null
           read_minutes: number | null
           slug: string | null
           status: string
           title: string
+          title_en: string | null
           updated_at: string
           video_url: string | null
           views: number
@@ -43,18 +48,23 @@ export type Database = {
           author_role?: string | null
           category: string
           content?: string | null
+          content_en?: string | null
           cover_alt?: string | null
+          cover_alt_en?: string | null
           cover_image?: string | null
           created_at?: string
           excerpt: string
+          excerpt_en?: string | null
           featured?: boolean
           id?: string
           meta_description?: string | null
+          meta_description_en?: string | null
           published_date?: string | null
           read_minutes?: number | null
           slug?: string | null
           status?: string
           title: string
+          title_en?: string | null
           updated_at?: string
           video_url?: string | null
           views?: number
@@ -64,18 +74,23 @@ export type Database = {
           author_role?: string | null
           category?: string
           content?: string | null
+          content_en?: string | null
           cover_alt?: string | null
+          cover_alt_en?: string | null
           cover_image?: string | null
           created_at?: string
           excerpt?: string
+          excerpt_en?: string | null
           featured?: boolean
           id?: string
           meta_description?: string | null
+          meta_description_en?: string | null
           published_date?: string | null
           read_minutes?: number | null
           slug?: string | null
           status?: string
           title?: string
+          title_en?: string | null
           updated_at?: string
           video_url?: string | null
           views?: number

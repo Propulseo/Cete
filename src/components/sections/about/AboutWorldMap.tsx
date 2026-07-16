@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Globe } from "lucide-react";
+import { brandify } from "@/components/ui/brand-name";
 
 const interventionZones = [
   { name: "France métropolitaine", lat: 46.6, lng: 2.2, primary: true },
@@ -45,7 +46,7 @@ export function AboutWorldMap() {
             {t("heading")}
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            {t("description")}
+            {brandify(t("description"))}
           </p>
         </div>
 

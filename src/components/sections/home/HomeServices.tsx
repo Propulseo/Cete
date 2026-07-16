@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Zap, CheckCircle, Star, Award, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,8 @@ const icons: Record<string, typeof Zap> = {
 
 export function HomeServices() {
   const t = useTranslations("home.services");
-  const services = getPillarServices();
+  const locale = useLocale() as "fr" | "en";
+  const services = getPillarServices(locale);
 
   return (
     <section className="py-24 bg-white relative">

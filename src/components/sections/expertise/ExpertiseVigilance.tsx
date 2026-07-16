@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 const ncKeys = [
-  { key: "nc0", itemCount: 3 },
-  { key: "nc1", itemCount: 3 },
-  { key: "nc2", itemCount: 3 },
+  { key: "nc0", itemCount: 2, hasIntro: false },
+  { key: "nc1", itemCount: 3, hasIntro: false },
+  { key: "nc2", itemCount: 6, hasIntro: true },
 ];
 
-function Accordion({ title, items }: { title: string; items: string[] }) {
+function Accordion({ title, intro, items }: { title: string; intro?: string; items: string[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border border-[#DAEEF8] rounded-2xl overflow-hidden bg-white">
@@ -25,14 +25,19 @@ function Accordion({ title, items }: { title: string; items: string[] }) {
         <ChevronDown className={`w-5 h-5 text-[#8AA5BE] transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <ul className="px-5 pb-5 space-y-2">
-          {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-sm text-[#4A6580]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] mt-1.5 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
+        <div className="px-5 pb-5">
+          {intro && (
+            <p className="text-sm text-[#1A2940] font-medium mb-3">{intro}</p>
+          )}
+          <ul className="space-y-2">
+            {items.map((item, i) => (
+              <li key={i} className="flex items-start gap-2.5 text-sm text-[#4A6580]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] mt-1.5 flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
@@ -126,6 +131,7 @@ export function ExpertiseVigilance() {
                 <Accordion
                   key={nc.key}
                   title={t(`${nc.key}.title`)}
+                  intro={nc.hasIntro ? t(`${nc.key}.intro`) : undefined}
                   items={Array.from({ length: nc.itemCount }, (_, i) => t(`${nc.key}.items.${i}`))}
                 />
               ))}

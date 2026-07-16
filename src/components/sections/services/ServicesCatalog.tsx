@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Users, Zap, HardHat, BookOpen, Sparkles, ArrowRight, CheckCircle, ArrowUpRight } from "lucide-react";
 import { getConseilServices } from "@/lib/data-loader";
@@ -14,7 +14,8 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function ServicesCatalog() {
   const t = useTranslations("services.catalog");
-  const conseilServices = getConseilServices();
+  const locale = useLocale() as "fr" | "en";
+  const conseilServices = getConseilServices(locale);
 
   return (
     <section className="py-32 bg-[#F4F9FD] relative overflow-hidden">

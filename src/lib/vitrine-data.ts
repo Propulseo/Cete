@@ -129,28 +129,46 @@ const CATEGORY_IMG: Record<string, string> = {
   Innovation: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
 };
 
+/** Libellé de catégorie affiché sur la vitrine EN (la valeur stockée reste FR). */
+const CATEGORY_LABEL_EN: Record<string, string> = {
+  Expertise: "Expertise",
+  Formation: "Training",
+  Réglementation: "Regulation",
+  Sécurité: "Safety",
+  Innovation: "Innovation",
+};
+
 function estimateReadTime(text: string): string {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return `${Math.max(2, Math.ceil(words / 180))} min`;
 }
 
-function articleToBlogPost(a: Article): BlogPost {
+/**
+ * Projette un article DB en BlogPost déjà résolu dans la langue demandée :
+ * champs *_en si renseignés, sinon fallback français. La catégorie stockée
+ * (FR) reste la clé pour couleur/visuel ; seul son libellé est traduit.
+ */
+function articleToBlogPost(a: Article, locale: Locale = "fr"): BlogPost {
+  const en = locale === "en";
+  const title = (en && a.titleEn) || a.title;
+  const excerpt = (en && a.excerptEn) || a.excerpt;
+  const content = (en && a.contentEn) || a.content;
   return {
     slug: a.slug || articleSlug(a.title),
-    title: a.title,
-    excerpt: a.excerpt,
-    content: a.content,
+    title,
+    excerpt,
+    content,
     author: a.author,
     authorRole: a.authorRole,
-    category: a.category,
+    category: en ? CATEGORY_LABEL_EN[a.category] ?? a.category : a.category,
     categoryColor: CATEGORY_COLOR[a.category] ?? "bg-[#4DA6D9]",
     publishedDate: a.publishedDate ?? a.created_at ?? "",
     readTime: a.readMinutes
       ? `${a.readMinutes} min`
-      : estimateReadTime(a.content || a.excerpt),
+      : estimateReadTime(content || excerpt),
     imageUrl: a.coverImage || CATEGORY_IMG[a.category] || CATEGORY_IMG.Expertise,
-    imageAlt: a.coverAlt,
-    metaDescription: a.metaDescription,
+    imageAlt: (en && a.coverAltEn) || a.coverAlt,
+    metaDescription: (en && (a.metaDescriptionEn || a.excerptEn)) || a.metaDescription,
     featured: a.featured,
     videoUrl: a.videoUrl,
   };
@@ -165,6 +183,11 @@ function rowToArticle(r: ArticleRow): Article {
     slug: r.slug || articleSlug(r.title),
     excerpt: r.excerpt,
     content: r.content ?? undefined,
+    titleEn: r.title_en ?? undefined,
+    excerptEn: r.excerpt_en ?? undefined,
+    contentEn: r.content_en ?? undefined,
+    metaDescriptionEn: r.meta_description_en ?? undefined,
+    coverAltEn: r.cover_alt_en ?? undefined,
     author: r.author,
     authorRole: r.author_role ?? undefined,
     category: r.category as Article["category"],
@@ -181,8 +204,8 @@ function rowToArticle(r: ArticleRow): Article {
   };
 }
 
-/** Articles publiés pour la vitrine (par date desc). */
-export async function loadPublishedArticles(): Promise<BlogPost[]> {
+/** Articles publiés pour la vitrine (par date desc), résolus dans la locale. */
+export async function loadPublishedArticles(locale: Locale = "fr"): Promise<BlogPost[]> {
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -191,7 +214,7 @@ export async function loadPublishedArticles(): Promise<BlogPost[]> {
       .eq("status", "published")
       .order("published_date", { ascending: false, nullsFirst: false });
     if (error || !data) throw error ?? new Error("no articles");
-    return data.map((r) => articleToBlogPost(rowToArticle(r)));
+    return data.map((r) => articleToBlogPost(rowToArticle(r), locale));
   } catch {
     return [];
   }
@@ -215,7 +238,10 @@ export async function loadOrganizations(): Promise<string[]> {
 }
 
 /** Article publié correspondant à un slug (stocké, fallback slugify du titre). */
-export async function loadArticleBySlug(slug: string): Promise<BlogPost | null> {
+export async function loadArticleBySlug(
+  slug: string,
+  locale: Locale = "fr",
+): Promise<BlogPost | null> {
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -227,7 +253,7 @@ export async function loadArticleBySlug(slug: string): Promise<BlogPost | null> 
       data.find((r) => r.slug === slug) ??
       data.find((r) => articleSlug(r.title) === slug);
     if (!row) return null;
-    return articleToBlogPost(rowToArticle(row));
+    return articleToBlogPost(rowToArticle(row), locale);
   } catch {
     return null;
   }

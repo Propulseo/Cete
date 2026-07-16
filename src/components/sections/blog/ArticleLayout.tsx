@@ -1,6 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { BlogCTA } from "@/components/sections/blog";
 
@@ -25,6 +26,8 @@ export function ArticleLayout({
   meta: ArticleMeta;
   children: React.ReactNode;
 }) {
+  const t = useTranslations("blog.article");
+  const locale = useLocale();
   return (
     <>
       {/* Hero */}
@@ -47,7 +50,7 @@ export function ArticleLayout({
             className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm">Retour au blog</span>
+            <span className="text-sm">{t("back")}</span>
           </Link>
 
           <div className="max-w-4xl">
@@ -82,11 +85,10 @@ export function ArticleLayout({
                 <p className="text-white font-semibold">{meta.author.name}</p>
                 <p className="text-white/40 text-sm flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
-                  {new Date(meta.publishedDate).toLocaleDateString("fr-FR", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  {new Date(meta.publishedDate).toLocaleDateString(
+                    locale === "en" ? "en-GB" : "fr-FR",
+                    { day: "numeric", month: "long", year: "numeric" },
+                  )}
                 </p>
               </div>
             </div>
@@ -133,7 +135,9 @@ export function ArticleLayout({
                   {meta.author.initials}
                 </div>
                 <div>
-                  <p className="text-xs text-[#4A6580] uppercase tracking-wider mb-1">Auteur</p>
+                  <p className="text-xs text-[#4A6580] uppercase tracking-wider mb-1">
+                    {t("authorLabel")}
+                  </p>
                   <p className="font-display text-lg text-[#1A2940] mb-1">{meta.author.name}</p>
                   <p className="text-sm text-[#4A6580] leading-relaxed">{meta.author.role}</p>
                 </div>
@@ -149,7 +153,7 @@ export function ArticleLayout({
               >
                 <Link href="/blog">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Retour aux articles
+                  {t("backToArticles")}
                 </Link>
               </Button>
             </div>

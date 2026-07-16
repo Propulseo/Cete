@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Zap, KeyRound, Loader2 } from "lucide-react";
 import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
@@ -14,7 +13,6 @@ import { toast } from "sonner";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const locale = useLocale();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [saving, setSaving] = useState(false);
@@ -63,7 +61,7 @@ export default function ResetPasswordPage() {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
       toast.success("Mot de passe réinitialisé");
-      router.push(`/${locale}/connexion`);
+      router.push("/connexion");
     } catch {
       toast.error("Lien expiré ou invalide — redemandez un lien de réinitialisation");
     } finally {

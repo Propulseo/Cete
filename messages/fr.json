@@ -138,7 +138,7 @@
   "about": {
     "hero": {
       "badge": "Agence de notation indépendante",
-      "heading": "QUI SOMMES-<accent>NOUS</accent>?",
+      "heading": "QUI SOMMES-<accent>NOUS</accent> ?",
       "subtitle": "De <serect>SERECT</serect> à <cete>CET</cete> - 20 ans de terrain, une agence de notation.",
       "description": "Quatre experts indépendants ont fondé CETé pour objectiver la maîtrise du risque électrique avec un système de notation structuré et transparent."
     },
@@ -146,7 +146,7 @@
       "badge": "Notre Histoire",
       "heading": "LE CONSORTIUM CET<sup>é</sup>",
       "narrative1": "En 1962, <strong>SERECT</strong> est créé pour promouvoir et développer les TST en France. En 2000, EDF généralise les audits TST dans les unités EDF sur une périodicité de 4 ans. L'année 2008 voit le début des visites d'entreprises prestataires du distributeur ERDF. ENEDIS généralise les audits terrain chez leurs entreprises prestataires en 2014.",
-      "narrative2": "En 2019, des anciens experts de SERECT fondent leur société d'expertise conseils et crée un observatoire international de la Maîtrise du risque électrique. Ils font le constat d'un manque : <strong>aucun système de notation indépendant</strong> n'existait.",
+      "narrative2": "En 2019, des anciens experts de SERECT fondent leur société d'expertise conseils et créent un observatoire international de la Maîtrise du risque électrique. Ils font le constat d'un manque : <strong>aucun système de notation indépendant</strong> n'existait.",
       "narrative3": "En 2026, ils créent <strong>CET<sup>é</sup></strong> une Agence de notation totalement indépendante avec l'ambition de devenir l'agence de notation de référence du risque électrique en France et à l'international et d'être un influenceur reconnu de partage des bonnes pratiques de la prévention des risques électriques.",
       "motto": "Indépendance. Objectivité. Transparence.",
       "statsYears": "Années d'expertise",
@@ -288,29 +288,32 @@
       "vulnerabilityDescription": "Exposition résiduelle aux risques lorsque la vigilance est insuffisante.",
       "ncHeading": "Ce qui déclenche une note",
       "ncHeadingHighlight": "D",
-      "ncDescription": "Trois catégories de non-conformités majeures peuvent entraîner une note D sur un ou plusieurs critères.",
+      "ncDescription": "Quelques exemples de non-conformités majeures pouvant entraîner une note D sur un ou plusieurs critères.",
       "nc0": {
         "title": "AuDiMaT",
         "items": {
-          "0": "Absence ou invalidité des autorisations de travail",
-          "1": "Non-conformité des habilitations électriques",
-          "2": "Matériel de protection individuelle non vérifié ou périmé"
+          "0": "Absence du retour de l'auto-évaluation",
+          "1": "Cadre du domaine méconnu"
         }
       },
       "nc1": {
         "title": "Organisationnel",
         "items": {
-          "0": "Absence de procédures de consignation documentées",
-          "1": "Défaut de traçabilité des interventions TST",
-          "2": "Plan de prévention incomplet ou non mis à jour"
+          "0": "Opérateur non formé ou recyclé",
+          "1": "Opérateur non habilité à l'ouvrage ou domaine de tension concerné par le chantier",
+          "2": "Absence d'animation P2S"
         }
       },
       "nc2": {
         "title": "Opérationnel",
+        "intro": "Toute non-conformité pouvant avoir des conséquences corporelles irréversibles en cas de défaillance du matériel ou humaine :",
         "items": {
-          "0": "Non-respect des distances de sécurité en situation réelle",
-          "1": "Utilisation d'outillage non conforme sur le terrain",
-          "2": "Absence de vérification d'absence de tension avant intervention"
+          "0": "Absence de dotation de vêtement de travail adapté",
+          "1": "Écart volontaire observé pour le non port de vêtement de travail adapté, de casque à écran facial, de gants TST",
+          "2": "Non-respect de gestes métiers fondamentaux",
+          "3": "Absence de VAT, MALT CC",
+          "4": "Absence d'outils métiers",
+          "5": "Chantier commencé sans autorisation (commande de l'entreprise utilisatrice, plan de prévention, autorisation d'accès, ordre de travail…)"
         }
       }
     },
@@ -648,6 +651,95 @@
       "weekdays": "Lun-Ven",
       "weekendClosed": "Sam-Dim : Fermé",
       "mapPlaceholder": "Carte Google Maps"
+    }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog - Décryptages & Analyses",
+      "description": "Réglementation, retours d'expérience et bonnes pratiques : nos experts décryptent l'actualité du risque électrique."
+    },
+    "hero": {
+      "badge": "Analyses & Perspectives",
+      "headingStart": "DÉCRYPTAGES",
+      "headingEnd": "ANALYSES",
+      "description": "Réglementation, retours d'expérience et bonnes pratiques : nos experts décryptent l'actualité du risque électrique.",
+      "count": "{count, plural, one {# article publié} other {# articles publiés}}"
+    },
+    "featured": {
+      "label": "À la une",
+      "readArticle": "Lire l'article"
+    },
+    "filter": {
+      "all": "Tous",
+      "latest": "Derniers articles",
+      "empty": "Aucun article dans cette catégorie pour le moment."
+    },
+    "cta": {
+      "heading": "RESTEZ INFORMÉ",
+      "description": "Recevez nos analyses et décryptages directement dans votre boîte mail. Une veille experte sur le risque électrique.",
+      "subscribe": "S'inscrire à la newsletter"
+    },
+    "article": {
+      "back": "Retour au blog",
+      "backToArticles": "Retour aux articles",
+      "authorLabel": "Auteur",
+      "defaultRole": "Expert CETé",
+      "comingSoon": "Le contenu détaillé de cet article sera publié prochainement.",
+      "notFound": "Article introuvable"
+    }
+  },
+  "connexion": {
+    "backToSite": "Retour au site",
+    "backToSiteAria": "Retour au site public",
+    "heading": "Espace Client",
+    "subtitle": "Accédez à votre notation et vos ressources.",
+    "sectionAria": "Espace Client",
+    "emailLabel": "Email",
+    "emailPlaceholder": "votre@email.fr",
+    "passwordLabel": "Mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "remember": "Se souvenir de moi",
+    "forgot": "Mot de passe oublié ?",
+    "submit": "Se connecter",
+    "submitLoading": "Connexion en cours…",
+    "legal": "En vous connectant, vous acceptez nos <terms>conditions d'utilisation</terms> et notre <privacy>politique de confidentialité</privacy>.",
+    "toast": {
+      "emailFirst": "Saisissez d'abord votre email",
+      "resetSent": "Lien de réinitialisation envoyé",
+      "resetSentDesc": "Consultez votre boîte email.",
+      "resetNoAccount": "Aucun compte actif associé à cette adresse",
+      "resetNoAccountDesc": "La réinitialisation est réservée aux comptes existants. Contactez CETé si besoin.",
+      "resetError": "Impossible d'envoyer le lien de réinitialisation",
+      "loginSuccess": "Connexion réussie",
+      "loginInvalid": "Identifiants incorrects",
+      "loginInvalidDesc": "Vérifiez votre email et mot de passe",
+      "loginError": "Erreur de connexion"
+    },
+    "demo": {
+      "toggle": "Comptes de démonstration",
+      "regionAria": "Identifiants de démonstration",
+      "roleClient": "Client",
+      "roleAdmin": "Administrateur",
+      "fillClientAria": "Pré-remplir le compte client : client@cete.fr",
+      "fillAdminAria": "Pré-remplir le compte administrateur : admin@cete.fr",
+      "fill": "Remplir"
+    },
+    "brand": {
+      "panelAria": "Présentation du Consortium Experts Techniques Électricité",
+      "eyebrow": "Organisme indépendant de notation",
+      "titleLine1": "La notation du risque électrique,",
+      "titleLine2": "en toute indépendance.",
+      "sub": "Votre portail d'accès aux notations Vigi-Score, rapports d'expertise et ressources de votre consortium.",
+      "vigiAria": "Échelle de notation Vigi-Score, de A (meilleur) à D (à risque)",
+      "vigiTitle": "Échelle Vigi-Score",
+      "vigiCaption": "Notation A · B · C · D du niveau de maîtrise du risque.",
+      "mobileSub": "Organisme indépendant de notation du risque électrique."
+    },
+    "trust": {
+      "independent": "Organisme indépendant",
+      "rating": "Notation A · B · C · D",
+      "secure": "Accès sécurisé"
     }
   },
   "shared": {

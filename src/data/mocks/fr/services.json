@@ -17,7 +17,7 @@
       "Abonnement newsletter pendant la durée de certification"
     ],
     "icon": "clipboard-check",
-    "imageUrl": "/images/services/dps.jpg"
+    "imageUrl": ""
   },
   {
     "id": "exp-save",
@@ -34,7 +34,7 @@
       "Accompagnement au plan d'actions de progrès"
     ],
     "icon": "shield-alert",
-    "imageUrl": "/images/services/save.jpg"
+    "imageUrl": "/images/services/save.png"
   },
   {
     "id": "srv-campus",
@@ -52,7 +52,7 @@
       "Coaching pour l'agrément d'un Organisme de formation"
     ],
     "icon": "graduation-cap",
-    "imageUrl": "/images/services/campus-cpf.jpg"
+    "imageUrl": "/images/services/campus-cpf.png"
   },
   {
     "id": "srv-pass-vip",
@@ -73,7 +73,7 @@
       "Éligibilité aux outils partenaires : Viz-Act, VISA, Vi.T.A.L, VESTA, VISU…"
     ],
     "icon": "crown",
-    "imageUrl": "/images/services/pass-vip.jpg"
+    "imageUrl": "/images/services/pass-serenite-vip.png"
   },
   {
     "id": "exp-vigi",
@@ -89,7 +89,7 @@
       "Réévaluation annuelle ou trimestrielle"
     ],
     "icon": "star",
-    "imageUrl": "/images/services/vigi-score.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-mgr",
@@ -105,7 +105,7 @@
       "Livrable : feuille de route vers le AAA"
     ],
     "icon": "users",
-    "imageUrl": "/images/services/coaching-mgr.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-tst",
@@ -121,7 +121,7 @@
       "Livrable : plan de montée en compétence"
     ],
     "icon": "zap",
-    "imageUrl": "/images/services/coaching-tst.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-encad",
@@ -137,7 +137,7 @@
       "Livrable : grille d'autocontrôle chantier"
     ],
     "icon": "hard-hat",
-    "imageUrl": "/images/services/coaching-encad.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-form-orgs",
@@ -153,6 +153,6 @@
       "Livrable : kit formateur et supports de cours"
     ],
     "icon": "book-open",
-    "imageUrl": "/images/services/coaching-orgs.jpg"
+    "imageUrl": ""
   }
 ]

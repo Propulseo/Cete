@@ -1,12 +1,16 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { VigiScale } from "./VigiScale";
 import { TrustChips } from "./login-trust";
 
 /**
  * En-tête marine compact, visible uniquement < 900px (le panneau marque desktop
  * est alors masqué). `aria-hidden` pour ne pas dupliquer la marque auprès des
- * lecteurs d'écran : le contexte est porté par le <h1> « Espace CETé » du formulaire.
+ * lecteurs d'écran : le contexte est porté par le <h1> « Espace Client » du formulaire.
  */
 export function LoginMobileHead() {
+  const t = useTranslations("connexion.brand");
   return (
     <div className="mobile-head" aria-hidden="true">
       <div className="bubbles">
@@ -19,9 +23,7 @@ export function LoginMobileHead() {
         </span>
         <VigiScale className="mh-scale" />
       </div>
-      <p className="mh-sub">
-        Organisme indépendant de notation du risque électrique.
-      </p>
+      <p className="mh-sub">{t("mobileSub")}</p>
       <div className="mh-trust">
         <TrustChips />
       </div>

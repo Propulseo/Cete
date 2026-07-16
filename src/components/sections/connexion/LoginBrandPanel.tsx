@@ -1,13 +1,14 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { VigiScale } from "./VigiScale";
 import { TrustChips } from "./login-trust";
 
 /** Panneau marque (colonne de gauche, desktop). Purement présentationnel. */
 export function LoginBrandPanel() {
+  const t = useTranslations("connexion.brand");
   return (
-    <section
-      className="brand"
-      aria-label="Présentation du Consortium Experts Techniques Électricité"
-    >
+    <section className="brand" aria-label={t("panelAria")}>
       {/* Trame réseau électrique en filigrane */}
       <div className="grid-trace" aria-hidden="true">
         <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" fill="none">
@@ -56,28 +57,21 @@ export function LoginBrandPanel() {
       <div className="brand-body">
         <p className="eyebrow">
           <span className="dot" aria-hidden="true" />
-          Organisme indépendant de notation
+          {t("eyebrow")}
         </p>
         <p className="brand-title">
-          La notation du risque électrique,
+          {t("titleLine1")}
           <br />
-          <em>en toute indépendance.</em>
+          <em>{t("titleLine2")}</em>
         </p>
-        <p className="brand-sub">
-          Votre portail d&apos;accès aux notations Vigi-Score, rapports
-          d&apos;expertise et ressources de votre consortium.
-        </p>
+        <p className="brand-sub">{t("sub")}</p>
 
         {/* Sceau Vigi-Score */}
-        <div
-          className="vigi"
-          role="img"
-          aria-label="Échelle de notation Vigi-Score, de A (meilleur) à D (à risque)"
-        >
+        <div className="vigi" role="img" aria-label={t("vigiAria")}>
           <VigiScale className="vigi-scale" />
           <div className="vigi-caption">
-            <strong>Échelle Vigi-Score</strong>
-            Notation A · B · C · D du niveau de maîtrise du risque.
+            <strong>{t("vigiTitle")}</strong>
+            {t("vigiCaption")}
           </div>
         </div>
       </div>

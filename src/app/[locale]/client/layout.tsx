@@ -90,9 +90,9 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           </Button>
           <span className="inline-flex">
             <Image
-              src="/assets/brand/logo-cete-adn.png"
+              src="/assets/brand/logo-cete.svg"
               alt="CETé — Agence de notation"
-              width={120}
+              width={49}
               height={28}
               className="h-7 w-auto dark:brightness-0 dark:invert"
             />

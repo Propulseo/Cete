@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   FileText,
   Video,
@@ -80,7 +80,7 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {(Object.entries(categoryMeta) as [DocumentCategory, (typeof categoryMeta)[DocumentCategory]][]).map(
           ([key, config]) => (
-            <Link key={key} href={config.href} className="block transition-transform hover:-translate-y-0.5">
+            <Link key={key} href={config.href as "/"} className="block transition-transform hover:-translate-y-0.5">
               <KpiTile
                 label={t(`categories.${config.key}` as Parameters<typeof t>[0])}
                 value={countByCategory[key] || 0}

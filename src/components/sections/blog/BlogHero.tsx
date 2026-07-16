@@ -1,6 +1,8 @@
 import { Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function BlogHero({ count }: { count?: number }) {
+  const t = useTranslations("blog.hero");
   return (
     <section className="relative py-24 md:py-32 bg-[#1A2940] overflow-hidden">
       {/* Gradient overlays */}
@@ -30,24 +32,23 @@ export function BlogHero({ count }: { count?: number }) {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#E8630A]/30 backdrop-blur-sm mb-8 animate-slide-up">
             <Zap className="w-4 h-4 text-[#E8630A]" />
             <span className="text-sm text-[#E8630A] font-medium tracking-wide uppercase">
-              Analyses & Perspectives
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6 opacity-0 animate-slide-up animation-delay-100">
-            DÉCRYPTAGES{" "}
+            {t("headingStart")}{" "}
             <span className="text-gradient-accent">&</span>{" "}
-            ANALYSES
+            {t("headingEnd")}
           </h1>
 
           <p className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed opacity-0 animate-slide-up animation-delay-200">
-            Réglementation, retours d&apos;expérience et bonnes pratiques :
-            nos experts décryptent l&apos;actualité du risque électrique.
+            {t("description")}
           </p>
 
           {typeof count === "number" && count > 0 && (
             <p className="mt-8 text-sm text-white/40 opacity-0 animate-slide-up animation-delay-300">
-              {count} article{count > 1 ? "s" : ""} publié{count > 1 ? "s" : ""}
+              {t("count", { count })}
             </p>
           )}
         </div>

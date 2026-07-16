@@ -17,7 +17,7 @@
       "Newsletter subscription for the duration of certification"
     ],
     "icon": "clipboard-check",
-    "imageUrl": "/images/services/dps.jpg"
+    "imageUrl": ""
   },
   {
     "id": "exp-save",
@@ -34,7 +34,7 @@
       "Support for the improvement action plan"
     ],
     "icon": "shield-alert",
-    "imageUrl": "/images/services/save.jpg"
+    "imageUrl": "/images/services/save.png"
   },
   {
     "id": "srv-campus",
@@ -52,7 +52,7 @@
       "Coaching for training organization accreditation"
     ],
     "icon": "graduation-cap",
-    "imageUrl": "/images/services/campus-cpf.jpg"
+    "imageUrl": "/images/services/campus-cpf.png"
   },
   {
     "id": "srv-pass-vip",
@@ -73,7 +73,7 @@
       "Eligibility for partner tools: Viz-Act, VISA, Vi.T.A.L, VESTA, VISU..."
     ],
     "icon": "crown",
-    "imageUrl": "/images/services/pass-vip.jpg"
+    "imageUrl": "/images/services/pass-serenite-vip.png"
   },
   {
     "id": "exp-vigi",
@@ -89,7 +89,7 @@
       "Annual or quarterly reassessment"
     ],
     "icon": "star",
-    "imageUrl": "/images/services/vigi-score.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-mgr",
@@ -105,7 +105,7 @@
       "Deliverable: roadmap to AAA"
     ],
     "icon": "users",
-    "imageUrl": "/images/services/coaching-mgr.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-tst",
@@ -121,7 +121,7 @@
       "Deliverable: skills development plan"
     ],
     "icon": "zap",
-    "imageUrl": "/images/services/coaching-tst.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-coach-encad",
@@ -137,7 +137,7 @@
       "Deliverable: site self-assessment checklist"
     ],
     "icon": "hard-hat",
-    "imageUrl": "/images/services/coaching-encad.jpg"
+    "imageUrl": ""
   },
   {
     "id": "srv-form-orgs",
@@ -153,6 +153,6 @@
       "Deliverable: trainer toolkit and course materials"
     ],
     "icon": "book-open",
-    "imageUrl": "/images/services/coaching-orgs.jpg"
+    "imageUrl": ""
   }
 ]

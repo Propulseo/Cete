@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
+import { brandify } from "@/components/ui/brand-name";
 
 export function AboutHero() {
   const t = useTranslations("about.hero");
@@ -39,7 +40,7 @@ export function AboutHero() {
           </p>
 
           <p className="text-lg text-[#8AA5BE] max-w-2xl mx-auto leading-relaxed animate-slide-up animation-delay-300">
-            {t("description")}
+            {brandify(t("description"))}
           </p>
 
           <div className="mt-16 animate-bounce">

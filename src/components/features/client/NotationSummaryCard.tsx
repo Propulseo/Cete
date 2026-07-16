@@ -5,7 +5,7 @@
 // (composite rating + Vigi-Score seal + status) and link through, so the deliverable is
 // never duplicated in full. Reuses the shared Vigi-Score grammar (RatingSeal / CompositeRating).
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Award, ArrowRight, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";

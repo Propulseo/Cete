@@ -54,14 +54,14 @@ function FounderCard({
 
   return (
     <div
-      className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      className="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="h-1.5 bg-gradient-to-r from-[#E8630A] via-[#4DA6D9] to-[#1A2940]" />
 
-      <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-1 flex-col sm:flex-row">
         {/* Photo or fallback initials */}
-        <div className="relative h-48 sm:h-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] overflow-hidden">
+        <div className="relative aspect-square sm:aspect-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] overflow-hidden">
           {!imgError ? (
             <Image
               src={founder.imageUrl}
@@ -107,20 +107,11 @@ function FounderCard({
             </div>
           </div>
 
-          <p className="text-[#4A6580] text-sm leading-relaxed mb-4">
-            {founder.bio}
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {founder.specialties.map((specialty, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#4DA6D9]/10 text-[#1A2940]"
-              >
-                {specialty}
-              </span>
-            ))}
-          </div>
+          {founder.bio && (
+            <p className="text-[#4A6580] text-sm leading-relaxed">
+              {founder.bio}
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -35,6 +35,12 @@ export interface ArticleForm {
   metaDescription: string;
   readMinutes: string;
   videoUrl: string;
+  // Version anglaise (optionnelle — la vitrine /en retombe sur le FR si vide)
+  titleEn: string;
+  excerptEn: string;
+  contentEn: string;
+  metaDescriptionEn: string;
+  coverAltEn: string;
 }
 
 export const EMPTY_FORM: ArticleForm = {
@@ -53,6 +59,11 @@ export const EMPTY_FORM: ArticleForm = {
   metaDescription: "",
   readMinutes: "",
   videoUrl: "",
+  titleEn: "",
+  excerptEn: "",
+  contentEn: "",
+  metaDescriptionEn: "",
+  coverAltEn: "",
 };
 
 export function formFromArticle(a: Article): ArticleForm {
@@ -72,6 +83,11 @@ export function formFromArticle(a: Article): ArticleForm {
     metaDescription: a.metaDescription ?? "",
     readMinutes: a.readMinutes ? String(a.readMinutes) : "",
     videoUrl: a.videoUrl ?? "",
+    titleEn: a.titleEn ?? "",
+    excerptEn: a.excerptEn ?? "",
+    contentEn: a.contentEn ?? "",
+    metaDescriptionEn: a.metaDescriptionEn ?? "",
+    coverAltEn: a.coverAltEn ?? "",
   };
 }
 
@@ -101,5 +117,10 @@ export function formToPayload(
     coverAlt: form.coverAlt.trim() || undefined,
     metaDescription: form.metaDescription.trim() || undefined,
     readMinutes: Number.isFinite(minutes) && minutes > 0 ? minutes : undefined,
+    titleEn: form.titleEn.trim() || undefined,
+    excerptEn: form.excerptEn.trim() || undefined,
+    contentEn: form.contentEn.trim() || undefined,
+    metaDescriptionEn: form.metaDescriptionEn.trim() || undefined,
+    coverAltEn: form.coverAltEn.trim() || undefined,
   };
 }

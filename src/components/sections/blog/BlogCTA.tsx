@@ -1,8 +1,10 @@
-import Link from "next/link";
 import { Mail, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 export function BlogCTA() {
+  const t = useTranslations("blog.cta");
   return (
     <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
       <div className="absolute top-10 left-10 w-64 h-64 bg-[#4DA6D9]/10 rounded-full blur-3xl" />
@@ -14,11 +16,10 @@ export function BlogCTA() {
             <Mail className="w-8 h-8 text-white" />
           </div>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-white mb-6">
-            RESTEZ INFORMÉ
+            {t("heading")}
           </h2>
           <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-            Recevez nos analyses et décryptages directement dans votre boîte
-            mail. Une veille experte sur le risque électrique.
+            {t("description")}
           </p>
           <Button
             asChild
@@ -26,7 +27,7 @@ export function BlogCTA() {
             className="bg-[#E8630A] text-white hover:bg-[#B84D08] text-lg px-10 py-6 font-semibold rounded-xl shadow-lg shadow-[#E8630A]/20 hover:shadow-xl hover:shadow-[#E8630A]/30 transition-all duration-300"
           >
             <Link href="/contact">
-              S&apos;inscrire à la newsletter
+              {t("subscribe")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

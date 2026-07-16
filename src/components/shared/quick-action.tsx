@@ -1,7 +1,7 @@
 // QuickAction — a card-less / ghost action row shared by admin and client. The single
 // primary action per view gets the solid ink-blue fill; the rest stay quiet. No coloured
 // icon tiles.
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ChevronRight, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +24,7 @@ export function QuickAction({
 }: QuickActionProps) {
   return (
     <Link
-      href={href}
+      href={href as "/"}
       className={cn(
         "group flex items-center gap-3 rounded-[10px] border px-4 py-3 transition-colors",
         primary

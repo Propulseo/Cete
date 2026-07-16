@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
   ClipboardCheck,
@@ -36,7 +37,8 @@ const categoryStyle = {
 
 export function ServicesPillars() {
   const t = useTranslations("services.pillars");
-  const pillars = getPillarServices();
+  const locale = useLocale() as "fr" | "en";
+  const pillars = getPillarServices(locale);
   const expertise = pillars.filter((s) => s.category === "Expertise");
   const conseil = pillars.filter((s) => s.category === "Conseil");
 
@@ -109,6 +111,19 @@ function PillarGroup({
                   </h4>
                 </div>
               </div>
+
+              {service.imageUrl && (
+                <div className="rounded-2xl overflow-hidden border border-[#DAEEF8] mb-6">
+                  <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    width={452}
+                    height={248}
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    className="w-full h-auto"
+                  />
+                </div>
+              )}
 
               <p className="text-[#4A6580] leading-relaxed mb-6">
                 {service.description}

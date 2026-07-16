@@ -1,13 +1,16 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 
 /** Signaux de confiance affichés sur le panneau marque (desktop + en-tête mobile). */
-const TRUST: { label: string; path: ReactNode }[] = [
+const TRUST: { key: "independent" | "rating" | "secure"; path: ReactNode }[] = [
   {
-    label: "Organisme indépendant",
+    key: "independent",
     path: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
   },
   {
-    label: "Notation A · B · C · D",
+    key: "rating",
     path: (
       <>
         <path d="M3 17l6-6 4 4 8-8" />
@@ -16,7 +19,7 @@ const TRUST: { label: string; path: ReactNode }[] = [
     ),
   },
   {
-    label: "Accès sécurisé",
+    key: "secure",
     path: (
       <>
         <rect x="3" y="11" width="18" height="11" rx="2" />
@@ -28,10 +31,11 @@ const TRUST: { label: string; path: ReactNode }[] = [
 
 /** Rend les pastilles de confiance (le parent fournit le conteneur .trust / .mh-trust). */
 export function TrustChips() {
+  const t = useTranslations("connexion.trust");
   return (
     <>
-      {TRUST.map((t) => (
-        <span className="chip" key={t.label}>
+      {TRUST.map((item) => (
+        <span className="chip" key={item.key}>
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -41,9 +45,9 @@ export function TrustChips() {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            {t.path}
+            {item.path}
           </svg>
-          {t.label}
+          {t(item.key)}
         </span>
       ))}
     </>

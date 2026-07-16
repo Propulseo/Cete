@@ -33,9 +33,10 @@
   {
     "id": "4",
     "name": "Denis VUILLOZ",
-    "role": "Co-fondateur - Notation & Analyse",
-    "bio": "Ancien des écoles de métiers EDF Distribution, Ancien Expert SERECT - Concepteur de l'échelle de notation AAA-DDD - Méthodologie Vigi-Score - Ingénierie pédagogique appliquée à la sécurité",
+    "role": "Co-fondateur Expert TST et Risques électriques",
+    "bio": "",
     "imageUrl": "/assets/founders/denis.jpg",
+    "imagePosition": "65% 62%",
     "specialties": ["Méthodologie de notation", "Analyse de risques", "Échelle AAA-DDD"],
     "formerOrg": "Ancien Expert SERECT",
     "currentEntity": ""

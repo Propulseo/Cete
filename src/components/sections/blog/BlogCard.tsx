@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
+import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { type BlogPost } from "@/types";
 import { brandify } from "@/components/ui/brand-name";
 import { VideoEmbed } from "@/components/ui/video-embed";
@@ -17,8 +18,12 @@ function CategoryBadge({ post }: { post: BlogPost }) {
 }
 
 export function BlogCard({ post }: { post: BlogPost }) {
+  const locale = useLocale();
   return (
-    <Link href={`/blog/${post.slug}`} className="group">
+    <Link
+      href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
+      className="group"
+    >
       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#DAEEF8] bg-white transition-all duration-500 hover:-translate-y-1 hover:border-transparent hover:shadow-xl hover:shadow-[#1A2940]/[0.07]">
         {/* Media */}
         {post.videoUrl ? (
@@ -62,11 +67,10 @@ export function BlogCard({ post }: { post: BlogPost }) {
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5" />
                 {post.publishedDate
-                  ? new Date(post.publishedDate).toLocaleDateString("fr-FR", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })
+                  ? new Date(post.publishedDate).toLocaleDateString(
+                      locale === "en" ? "en-GB" : "fr-FR",
+                      { day: "numeric", month: "short", year: "numeric" },
+                    )
                   : "—"}
               </span>
               <span className="flex items-center gap-1.5">

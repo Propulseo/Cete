@@ -40,3 +40,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# artefacts de session locaux (ne jamais deployer)
+# NB: .planning/{PROJECT,ROADMAP,REQUIREMENTS,STATE}.md et config.json sont
+# volontairement versionnes — seul l'etat de session local est ignore.
+/.planning/SESSION.md
+/.playwright-mcp/
+
+# scratch / sources d'assets non destinees a la prod
+/c.js
+/photo denis.jpeg
+/footer-before-desktop.png
+
+# Livrables d'audit go-live — VOLONTAIREMENT HORS DEPOT.
+# Ce depot est PUBLIC : ces documents detaillent des failles non encore
+# corrigees (identifiants de demo, garde de route, conformite legale) et ne
+# doivent pas etre publies tant qu'elles sont ouvertes.
+# Ils existent en local : docs/go-live-audit.md et docs/go-live-plan.md.
+# A reversibiliser si le depot passe en prive.
+/docs/go-live-audit.md
+/docs/go-live-plan.md

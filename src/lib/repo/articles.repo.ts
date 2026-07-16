@@ -13,6 +13,11 @@ function rowToArticle(r: ArticleRow): Article {
     slug: r.slug ?? slugify(r.title),
     excerpt: r.excerpt,
     content: r.content ?? undefined,
+    titleEn: r.title_en ?? undefined,
+    excerptEn: r.excerpt_en ?? undefined,
+    contentEn: r.content_en ?? undefined,
+    metaDescriptionEn: r.meta_description_en ?? undefined,
+    coverAltEn: r.cover_alt_en ?? undefined,
     author: r.author,
     authorRole: r.author_role ?? undefined,
     category: r.category as ArticleCategory,
@@ -48,6 +53,11 @@ function articleToInsert(payload: Omit<Article, "id">): ArticleInsert {
     cover_alt: payload.coverAlt ?? null,
     meta_description: payload.metaDescription ?? null,
     read_minutes: payload.readMinutes ?? null,
+    title_en: payload.titleEn ?? null,
+    excerpt_en: payload.excerptEn ?? null,
+    content_en: payload.contentEn ?? null,
+    meta_description_en: payload.metaDescriptionEn ?? null,
+    cover_alt_en: payload.coverAltEn ?? null,
   };
 }
 
@@ -109,19 +119,26 @@ export async function updateArticle(
   if (payload.title !== undefined) patch.title = payload.title;
   if (payload.slug !== undefined) patch.slug = payload.slug || slugify(payload.title ?? "");
   if (payload.excerpt !== undefined) patch.excerpt = payload.excerpt;
-  if (payload.content !== undefined) patch.content = payload.content ?? null;
   if (payload.author !== undefined) patch.author = payload.author;
-  if (payload.authorRole !== undefined) patch.author_role = payload.authorRole ?? null;
   if (payload.category !== undefined) patch.category = payload.category;
   if (payload.status !== undefined) patch.status = payload.status;
   if (payload.publishedDate !== undefined) patch.published_date = payload.publishedDate;
   if (payload.views !== undefined) patch.views = payload.views;
   if (payload.featured !== undefined) patch.featured = payload.featured;
-  if (payload.videoUrl !== undefined) patch.video_url = payload.videoUrl ?? null;
-  if (payload.coverImage !== undefined) patch.cover_image = payload.coverImage ?? null;
-  if (payload.coverAlt !== undefined) patch.cover_alt = payload.coverAlt ?? null;
-  if (payload.metaDescription !== undefined) patch.meta_description = payload.metaDescription ?? null;
-  if (payload.readMinutes !== undefined) patch.read_minutes = payload.readMinutes ?? null;
+  // Champs optionnels : la présence de la clé suffit (une valeur vidée dans le
+  // formulaire arrive en `undefined` et doit bien effacer la colonne en base).
+  if ("content" in payload) patch.content = payload.content ?? null;
+  if ("authorRole" in payload) patch.author_role = payload.authorRole ?? null;
+  if ("videoUrl" in payload) patch.video_url = payload.videoUrl ?? null;
+  if ("coverImage" in payload) patch.cover_image = payload.coverImage ?? null;
+  if ("coverAlt" in payload) patch.cover_alt = payload.coverAlt ?? null;
+  if ("metaDescription" in payload) patch.meta_description = payload.metaDescription ?? null;
+  if ("readMinutes" in payload) patch.read_minutes = payload.readMinutes ?? null;
+  if ("titleEn" in payload) patch.title_en = payload.titleEn ?? null;
+  if ("excerptEn" in payload) patch.excerpt_en = payload.excerptEn ?? null;
+  if ("contentEn" in payload) patch.content_en = payload.contentEn ?? null;
+  if ("metaDescriptionEn" in payload) patch.meta_description_en = payload.metaDescriptionEn ?? null;
+  if ("coverAltEn" in payload) patch.cover_alt_en = payload.coverAltEn ?? null;
 
   const { data, error } = await supabase
     .from("articles")

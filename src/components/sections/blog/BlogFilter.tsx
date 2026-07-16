@@ -1,12 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { type BlogPost } from "@/types";
 import { BlogCard } from "./BlogCard";
 
-const ALL = "Tous";
+// Sentinelle indépendante de la langue pour le filtre « tout afficher ».
+const ALL = "__all__";
 
 export function BlogFilter({ posts }: { posts: BlogPost[] }) {
+  const t = useTranslations("blog.filter");
   const [active, setActive] = useState<string>(ALL);
 
   const categories = useMemo(() => {
@@ -26,7 +29,7 @@ export function BlogFilter({ posts }: { posts: BlogPost[] }) {
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="flex items-center gap-4">
             <h2 className="font-display text-2xl text-[#1A2940] md:text-3xl">
-              Derniers articles
+              {t("latest")}
             </h2>
             <div className="hidden h-px flex-1 bg-[#DAEEF8] md:block" />
           </div>
@@ -46,7 +49,7 @@ export function BlogFilter({ posts }: { posts: BlogPost[] }) {
                         : "border-[#DAEEF8] bg-white text-[#4A6580] hover:border-[#4DA6D9]/40 hover:text-[#1A2940]"
                     }`}
                   >
-                    {cat}
+                    {cat === ALL ? t("all") : cat}
                   </button>
                 );
               })}
@@ -62,7 +65,7 @@ export function BlogFilter({ posts }: { posts: BlogPost[] }) {
           </div>
         ) : (
           <p className="py-12 text-center text-[#4A6580]">
-            Aucun article dans cette catégorie pour le moment.
+            {t("empty")}
           </p>
         )}
       </div>

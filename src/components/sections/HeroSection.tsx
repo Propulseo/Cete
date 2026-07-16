@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 interface HeroSectionProps {
@@ -72,7 +72,7 @@ export function HeroSection({
                   size="lg"
                   className="bg-accent text-accent-foreground hover:bg-accent/90"
                 >
-                  <Link href={primaryCTA.href}>{primaryCTA.label}</Link>
+                  <Link href={primaryCTA.href as "/"}>{primaryCTA.label}</Link>
                 </Button>
               )}
               {secondaryCTA && (
@@ -82,7 +82,7 @@ export function HeroSection({
                   variant="outline"
                   className="border-white/30 bg-transparent text-white hover:bg-white/10"
                 >
-                  <Link href={secondaryCTA.href}>{secondaryCTA.label}</Link>
+                  <Link href={secondaryCTA.href as "/"}>{secondaryCTA.label}</Link>
                 </Button>
               )}
             </div>

@@ -1,23 +1,29 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { type BlogPost } from "@/types";
 import { brandify } from "@/components/ui/brand-name";
 import { VideoEmbed } from "@/components/ui/video-embed";
 
 export function BlogFeatured({ post }: { post: BlogPost }) {
+  const t = useTranslations("blog.featured");
+  const locale = useLocale();
   return (
     <section className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-6 lg:px-8">
         {/* Section label */}
         <div className="flex items-center gap-4 mb-10">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8630A]">
-            À la une
+            {t("label")}
           </span>
           <div className="flex-1 h-px bg-gradient-to-r from-[#E8630A]/30 to-transparent" />
         </div>
 
-        <Link href={`/blog/${post.slug}`} className="group block">
+        <Link
+          href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
+          className="group block"
+        >
           <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Media - 7 columns */}
             <div className="md:col-span-7">
@@ -76,14 +82,14 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
                     <p className="text-xs text-[#4A6580] flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       {new Date(post.publishedDate).toLocaleDateString(
-                        "fr-FR",
+                        locale === "en" ? "en-GB" : "fr-FR",
                         { day: "numeric", month: "long", year: "numeric" }
                       )}
                     </p>
                   </div>
                 </div>
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8630A] group-hover:gap-3 transition-all duration-300">
-                  Lire l&apos;article
+                  {t("readArticle")}
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </div>

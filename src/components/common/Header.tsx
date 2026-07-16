@@ -4,7 +4,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
 import type { Pathnames } from "@/i18n/routing";
 import { useState } from "react";
-import { LogIn, Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -27,10 +27,10 @@ export function Header() {
         {/* Logo */}
         <Link href="/" aria-label={t("logoAriaLabel")}>
           <Image
-            src="/assets/brand/logo-cete-adn.png"
+            src="/assets/brand/logo-cete.svg"
             alt={t("logoAlt")}
             height={48}
-            width={200}
+            width={83}
             priority
             className="h-16 w-auto sm:h-20 lg:h-16 xl:h-20"
           />
@@ -62,12 +62,16 @@ export function Header() {
           <Button
             asChild
             variant="outline"
-            size="icon"
-            className="border-[#4DA6D9]/30 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8] xl:h-11 xl:w-11"
+            size="sm"
+            className="border-[#4DA6D9]/40 text-[#4DA6D9] hover:border-[#4DA6D9] hover:bg-[#DAEEF8] xl:h-11"
           >
-            <Link href="/connexion" title={t("login")} aria-label={t("login")}>
-              <LogIn className="h-5 w-5" />
-              <span className="sr-only">{t("login")}</span>
+            <Link
+              href="/connexion"
+              title={t("clientArea")}
+              aria-label={t("clientArea")}
+            >
+              <User className="h-5 w-5 xl:mr-2" />
+              <span className="hidden xl:inline">{t("clientArea")}</span>
             </Link>
           </Button>
           <Button
@@ -123,8 +127,8 @@ export function Header() {
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-center gap-2"
                   >
-                    <LogIn className="h-4 w-4" />
-                    {t("login")}
+                    <User className="h-4 w-4" />
+                    {t("clientArea")}
                   </Link>
                 </Button>
                 <Button

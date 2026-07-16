@@ -12,6 +12,12 @@ export interface Article {
   excerpt: string;
   /** Corps de l'article au format Markdown. */
   content?: string;
+  /** Version anglaise (vitrine /en — fallback sur le français si absente). */
+  titleEn?: string;
+  excerptEn?: string;
+  contentEn?: string;
+  metaDescriptionEn?: string;
+  coverAltEn?: string;
   author: string;
   authorRole?: string;
   category: ArticleCategory;

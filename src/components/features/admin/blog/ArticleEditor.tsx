@@ -12,6 +12,7 @@ import type { Article } from "@/types/article";
 import { getArticle, createArticle, updateArticle } from "@/lib/repo/articles.repo";
 import { uploadBlogCover } from "@/lib/repo/blog-media.repo";
 import { ArticleEditorFields } from "./ArticleEditorFields";
+import { ArticleEnglishFields } from "./ArticleEnglishFields";
 import { ArticleEditorPreview } from "./ArticleEditorPreview";
 import { EMPTY_FORM, formFromArticle, formToPayload, type ArticleForm } from "./article-form";
 
@@ -182,6 +183,8 @@ export function ArticleEditor({ articleId }: { articleId?: string }) {
               placeholder="Rédigez le corps de l'article en Markdown…"
             />
           </div>
+
+          <ArticleEnglishFields form={form} set={set} />
         </div>
 
         <div className="lg:sticky lg:top-[72px] lg:self-start">
