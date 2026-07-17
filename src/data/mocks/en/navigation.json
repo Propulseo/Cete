@@ -14,7 +14,7 @@
     { "label": "Sitemap", "href": "/sitemap" }
   ],
   "ctaButtons": [
-    { "label": "Client Portal", "href": "/client" },
+    { "label": "Client Portal", "href": "/connexion" },
     { "label": "Request an Assessment", "href": "/contact" }
   ]
 }

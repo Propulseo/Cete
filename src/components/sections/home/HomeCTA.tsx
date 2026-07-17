@@ -40,7 +40,7 @@ export function HomeCTA() {
               size="lg"
               className="bg-transparent text-lg px-10 py-6 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 rounded-xl transition-all duration-300"
             >
-              <Link href="/client">
+              <Link href="/connexion">
                 {t("clientArea")}
               </Link>
             </Button>

@@ -14,7 +14,7 @@
     { "label": "Plan du site", "href": "/sitemap" }
   ],
   "ctaButtons": [
-    { "label": "Espace Client", "href": "/client" },
+    { "label": "Espace Client", "href": "/connexion" },
     { "label": "Demander une évaluation", "href": "/contact" }
   ]
 }
