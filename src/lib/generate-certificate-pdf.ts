@@ -259,7 +259,9 @@ export async function generateCertificatePDF(
   });
 
   // ── QR Code - bottom right ──
-  const verifyUrl = `https://cete-adn.fr/verifier/${cert.id}`;
+  // Préfixe de locale obligatoire : routing.ts déclare localePrefix "always".
+  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://cete-notation.fr";
+  const verifyUrl = `${base}/fr/verifier/${cert.id}`;
   try {
     const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
       width: 200,
