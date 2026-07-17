@@ -57,14 +57,14 @@ export function HomeHero() {
 
             {/* Main headline */}
             <h1 className="opacity-0 animate-slide-up animation-delay-100">
-              <span className="block font-display text-5xl md:text-6xl lg:text-8xl text-[#1A2940] leading-[0.9] tracking-tight">
+              <span className="block font-display text-4xl md:text-6xl xl:text-7xl 2xl:text-8xl text-[#1A2940] leading-[0.9] tracking-tight">
                 {t("titleLine1")}
               </span>
-              <span className="block font-display text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tight">
+              <span className="block font-display text-4xl md:text-6xl xl:text-7xl 2xl:text-8xl leading-[0.9] tracking-tight">
                 <span className="text-[#1A2940]">{t("titleLine2")} </span>
                 <span className="text-[#E8630A]">{t("titleLine3")}</span>
               </span>
-              <span className="block font-display text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tight text-gradient-accent">
+              <span className="block font-display text-4xl md:text-6xl xl:text-7xl 2xl:text-8xl leading-[0.9] tracking-tight text-gradient-accent">
                 {t("titleLine4")}
               </span>
             </h1>
