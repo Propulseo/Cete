@@ -27,10 +27,10 @@ export function Header() {
         {/* Logo */}
         <Link href="/" aria-label={t("logoAriaLabel")}>
           <Image
-            src="/assets/brand/logo-cete.svg"
+            src="/assets/brand/logo-cete.png"
             alt={t("logoAlt")}
-            height={48}
-            width={83}
+            height={80}
+            width={139}
             priority
             className="h-16 w-auto sm:h-20 lg:h-16 xl:h-20"
           />

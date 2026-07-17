@@ -38,7 +38,7 @@ export async function Footer() {
           <div className="col-span-2 space-y-4 lg:col-span-1 lg:max-w-xs">
             <Link href="/" aria-label={t("logoAriaLabel")} className="inline-block">
               <Image
-                src="/assets/brand/logo-cete.svg"
+                src="/assets/brand/logo-cete.png"
                 alt={t("logoAlt")}
                 height={80}
                 width={138}

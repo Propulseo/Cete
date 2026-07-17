@@ -109,11 +109,10 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
         <span className="inline-flex">
           <Image
-            src="/assets/brand/logo-cete.svg"
+            src="/assets/brand/logo-cete.png"
             alt="CETé — Agence de notation"
             width={69}
             height={40}
-            priority
             className="h-8 w-auto dark:brightness-0 dark:invert"
           />
         </span>
