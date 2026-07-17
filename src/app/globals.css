@@ -648,3 +648,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #1A7AB5;
 }
+
+/* ── Leaflet : cibles tactiles mobiles ─────────────────────────────────────
+   Les contrôles de zoom font 30x30 par défaut. La feuille Leaflet est servie
+   depuis unpkg et chargée APRÈS globals.css (le <link> est dans le corps de
+   AboutWorldMap), donc un override sans !important perdrait la cascade.
+   Au-delà de sm, on rend la main à Leaflet.                                */
+@media (max-width: 639px) {
+  .leaflet-bar a.leaflet-control-zoom-in,
+  .leaflet-bar a.leaflet-control-zoom-out {
+    width: 44px !important;
+    height: 44px !important;
+    line-height: 44px !important;
+  }
+}

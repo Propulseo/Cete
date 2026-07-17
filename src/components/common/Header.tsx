@@ -86,7 +86,7 @@ export function Header() {
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="lg:hidden">
-            <Button variant="ghost" size="icon" className="text-[#1A2940]">
+            <Button variant="ghost" size="icon" className="size-11 text-[#1A2940]">
               <Menu className="h-6 w-6" />
               <span className="sr-only">{t("menu")}</span>
             </Button>

@@ -70,8 +70,8 @@ function InfoBlock({
 
 function SubScore({ label, score }: { label: string; score: string }) {
   return (
-    <div className="rounded-xl bg-[#F4F9FD] p-3 text-center">
-      <p className="text-xs text-[#8AA5BE] mb-1">{label}</p>
+    <div className="min-w-0 rounded-xl bg-[#F4F9FD] p-3 text-center">
+      <p className="text-xs text-[#8AA5BE] mb-1 break-words">{label}</p>
       <p className="font-bold text-[#1A2940] text-lg">{score}</p>
     </div>
   );
@@ -139,7 +139,10 @@ export function CertificateCard({ cert }: { cert: CertificateData }) {
               <p className="text-xs uppercase tracking-wider text-[#8AA5BE] mb-3">
                 Sous-critères
               </p>
-              <div className="grid grid-cols-3 gap-3">
+              {/* Empilé sous sm : à 320-490px les 3 libellés (« Recommandation &
+                  Amélioration ») se chevauchaient. C'est la page atteinte en
+                  scannant le QR d'un certificat, donc lue au téléphone. */}
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <SubScore
                   label="Auto-évaluation"
                   score={cert.subCriteria.autoEvaluation}

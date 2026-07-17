@@ -104,12 +104,14 @@ export function EvaluationForm() {
           <TextField form={form} name="sites" label={t("sitesLabel")} placeholder={t("sitesPlaceholder")} />
           <TextareaField form={form} name="details" label={t("detailsLabel")} placeholder={t("detailsPlaceholder")} />
           <FormField control={form.control} name="acceptCgu" render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+            // min-h-11 : la case fait 16px mais le FormLabel lui est lié
+            // (htmlFor), donc c'est la rangée qui porte la cible tactile.
+            <FormItem className="flex min-h-11 flex-row items-start space-x-3 space-y-0 sm:min-h-0">
               <FormControl>
                 <input type="checkbox" checked={field.value} onChange={field.onChange} className="mt-1 h-4 w-4 rounded border-[#DAEEF8]" />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel className="text-sm font-normal">{t("acceptCgu")} *</FormLabel>
+                <FormLabel className="flex min-h-11 items-center text-sm font-normal sm:min-h-0">{t("acceptCgu")} *</FormLabel>
                 <FormMessage />
               </div>
             </FormItem>

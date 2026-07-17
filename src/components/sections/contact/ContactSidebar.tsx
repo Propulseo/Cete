@@ -34,7 +34,7 @@ function InfoRow({
         {href ? (
           <a
             href={href}
-            className="block font-medium text-[#1A2940] transition-colors hover:text-[#4DA6D9]"
+            className="flex min-h-11 items-center font-medium text-[#1A2940] transition-colors hover:text-[#4DA6D9] sm:min-h-0 sm:block"
           >
             {lines[0]}
           </a>

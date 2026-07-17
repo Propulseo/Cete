@@ -381,7 +381,8 @@
   position: absolute;
   right: 8px;
   display: grid; place-items: center;
-  width: 34px; height: 34px;
+  /* 44px = cible tactile mobile ; densité d'origine restaurée au pointeur. */
+  width: 44px; height: 44px;
   background: transparent;
   border: none;
   border-radius: 8px;
@@ -408,6 +409,16 @@
   color: var(--ink-2);
   cursor: pointer;
   user-select: none;
+  /* La case reste à 17px : c'est le label qui porte la zone tactile de 44px. */
+  min-height: 44px;
+}
+.cete-login .forgot { min-height: 44px; }
+.cete-login .back-link { min-height: 44px; }
+@media (min-width: 640px) {
+  .cete-login .remember,
+  .cete-login .forgot,
+  .cete-login .back-link { min-height: 0; }
+  .cete-login .toggle-pw { width: 34px; height: 34px; }
 }
 .cete-login .remember input {
   appearance: none;

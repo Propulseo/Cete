@@ -53,8 +53,10 @@ function ContactMainInner({ initialTab, contact }: { initialTab: TabId; contact:
           </div>
         </div>
 
+        {/* min-w-0 : un enfant de grid a min-width:auto et refuserait de passer
+            sous la largeur de son contenu, débordant l'écran en mobile. */}
         <div className="grid gap-12 md:grid-cols-2">
-          <div>
+          <div className="min-w-0">
             {activeTab === "evaluation" ? <EvaluationForm /> : <ContactForm />}
           </div>
 

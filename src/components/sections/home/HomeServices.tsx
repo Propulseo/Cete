@@ -42,19 +42,21 @@ export function HomeServices() {
             const Icon = icons[service.icon as keyof typeof icons] || Zap;
 
             return (
-              <Link key={service.id} href="/services" className="block">
+              <Link key={service.id} href="/services" className="block min-w-0">
                 <div
-                  className="group relative p-8 rounded-3xl bg-[#F4F9FD] hover:bg-[#1A2940] border border-transparent hover:border-[#4DA6D9]/30 transition-all duration-500 overflow-hidden"
+                  className="group relative p-6 sm:p-8 rounded-3xl bg-[#F4F9FD] hover:bg-[#1A2940] border border-transparent hover:border-[#4DA6D9]/30 transition-all duration-500 overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[#4DA6D9]/5 group-hover:bg-[#4DA6D9]/10 rounded-full blur-2xl transition-all duration-500" />
 
-                  <div className="relative z-10 flex gap-6">
+                  {/* Icône empilée sous sm : en ligne, elle ne laissait que
+                      ~175px au titre, qui se brisait en 4 lignes. */}
+                  <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:gap-6">
                     <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl bg-[#4DA6D9] group-hover:bg-[#4DA6D9] flex items-center justify-center transition-colors duration-300">
-                        <Icon className="w-8 h-8 text-white group-hover:text-white transition-colors duration-300" />
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#4DA6D9] group-hover:bg-[#4DA6D9] flex items-center justify-center transition-colors duration-300">
+                        <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-white transition-colors duration-300" />
                       </div>
                     </div>
-                    <div className="flex-1">
+                    <div className="min-w-0 flex-1">
                       <h3 className="font-display text-2xl text-[#1A2940] group-hover:text-white mb-2 transition-colors duration-300">
                         {service.title.toUpperCase()}
                       </h3>
@@ -82,7 +84,7 @@ export function HomeServices() {
             asChild
             size="lg"
             variant="outline"
-            className="text-lg px-8 py-6 border-2 border-[#1A2940] text-[#1A2940] hover:bg-[#1A2940] hover:text-white rounded-xl transition-all duration-300"
+            className="h-auto max-w-full whitespace-normal text-lg px-6 sm:px-8 py-6 border-2 border-[#1A2940] text-[#1A2940] hover:bg-[#1A2940] hover:text-white rounded-xl transition-all duration-300"
           >
             <Link href="/services">
               {t("viewAll")}

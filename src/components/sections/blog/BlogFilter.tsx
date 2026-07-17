@@ -43,7 +43,7 @@ export function BlogFilter({ posts }: { posts: BlogPost[] }) {
                     key={cat}
                     type="button"
                     onClick={() => setActive(cat)}
-                    className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
+                    className={`inline-flex min-h-11 items-center rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 sm:min-h-0 ${
                       isActive
                         ? "border-transparent bg-[#1A2940] text-white shadow-sm"
                         : "border-[#DAEEF8] bg-white text-[#4A6580] hover:border-[#4DA6D9]/40 hover:text-[#1A2940]"

@@ -15,8 +15,10 @@ function FooterHeading({ children }: { children: ReactNode }) {
   );
 }
 
+// min-h-11 (44px) = cible tactile mobile ; sm:min-h-0 + sm:py-1 restaure la
+// densité d'origine sur grand écran, où le pointeur est précis.
 const linkClass =
-  "inline-flex items-center py-1 text-sm text-white/70 transition-colors hover:text-white";
+  "inline-flex min-h-11 items-center py-2 text-sm text-white/70 transition-colors hover:text-white sm:min-h-0 sm:py-1";
 
 export async function Footer() {
   const t = await getTranslations("common.footer");

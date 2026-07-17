@@ -100,19 +100,24 @@ function LeafletMap() {
 
   const { MapContainer, TileLayer, Marker, Popup } = components;
 
-  const orangeIcon = L.divIcon({
-    className: "",
-    html: `<div style="width:28px;height:28px;background:#E8630A;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(232,99,10,0.5);"></div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-  });
+  // La pastille visible garde sa taille ; c'est le conteneur transparent qui
+  // porte la cible tactile de 44px (les marqueurs à 24-28px étaient intouchables
+  // au doigt). iconAnchor reste au centre, la position sur la carte est inchangée.
+  const touchIcon = (dot: string) =>
+    L.divIcon({
+      className: "",
+      html: `<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">${dot}</div>`,
+      iconSize: [44, 44],
+      iconAnchor: [22, 22],
+    });
 
-  const blueIcon = L.divIcon({
-    className: "",
-    html: `<div style="width:24px;height:24px;background:#4DA6D9;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(77,166,217,0.5);"></div>`,
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
-  });
+  const orangeIcon = touchIcon(
+    `<div style="width:28px;height:28px;background:#E8630A;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(232,99,10,0.5);"></div>`
+  );
+
+  const blueIcon = touchIcon(
+    `<div style="width:24px;height:24px;background:#4DA6D9;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(77,166,217,0.5);"></div>`
+  );
 
   return (
     <>

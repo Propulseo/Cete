@@ -115,7 +115,7 @@ export function HomeTestimonials() {
 
                 <button
                   onClick={() => setIsExpanded((v) => !v)}
-                  className="mt-4 flex items-center gap-2 text-[#E8630A] font-medium text-sm hover:text-[#B84D08] transition-colors cursor-pointer group"
+                  className="mt-4 flex min-h-11 items-center gap-2 text-[#E8630A] font-medium text-sm hover:text-[#B84D08] transition-colors cursor-pointer group sm:min-h-0"
                 >
                   {isExpanded ? (
                     <>
