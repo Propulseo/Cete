@@ -26,7 +26,7 @@ export function ExpertiseCertificate() {
           </span>
           <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
             {t("heading")}{" "}
-            <span className="text-[#E8630A]">CET<span className="text-[0.75em] align-super">é</span> ADN</span>
+            <span className="text-[#E8630A]">CET<span className="text-[0.75em] align-super">é</span> ADN<span className="align-super text-[0.4em]">®</span></span>
           </h2>
           <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
             {t("description")}
