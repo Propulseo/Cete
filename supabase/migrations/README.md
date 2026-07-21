@@ -80,7 +80,19 @@ Ordre d'application. Toutes appliquées en production au 17/07/2026.
 20260716000001_articles_i18n_en
 ```
 
-Toute migration créée en aval doit être numérotée **après `20260716000001`**.
+Appliquée le 21/07/2026 (via SQL Editor) :
+
+```
+20260721000001_articles_marques_deposees   (2 articles CETé ADN® / Vigi-Score®)
+```
+
+En attente d'application :
+
+```
+20260721000002_article_ressource_ft_bt   (à appliquer — article + ressource « Fiches Techniques BT, édition 1er sept. 2026 » ; dépose aussi public/resources/ft-bt-edition-2026-09.pdf)
+```
+
+Toute migration créée en aval doit être numérotée **après `20260721000002`**.
 
 ## Ne pas confondre avec `supabase/fixes/`
 
