@@ -74,7 +74,7 @@ export function FounderFormDialog({
               placeholder="/images/founders/nom.jpg"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Ancien organisme</Label>
               <Input
@@ -92,7 +92,7 @@ export function FounderFormDialog({
               />
             </div>
           </div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button variant="outline" onClick={onClose}>
               <X className="mr-2 h-4 w-4" strokeWidth={1.75} />
               Annuler

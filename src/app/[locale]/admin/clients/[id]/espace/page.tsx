@@ -7,6 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useClient } from "@/components/features/admin/clients/ClientContext";
 import { AdminEmptyState } from "@/components/features/admin/ui/admin-empty-state";
+import {
+  DataTable,
+  DataThead,
+  DataTh,
+  DataTbody,
+  DataTr,
+  DataTd,
+} from "@/components/shared/data-table";
+import { RecordCard, RecordCardList } from "@/components/shared/record-card";
 import { DocumentFormDialog } from "@/components/features/admin/DocumentFormDialog";
 import { listAssignedToClient, createDocument, deleteDocument } from "@/lib/repo/documents.repo";
 import { getSignedUrl, deleteFile } from "@/lib/supabase/storage";
@@ -80,14 +89,26 @@ export default function ClientEspacePage() {
     }
   };
 
+  // Actions partagées par la vue tableau (≥lg) et la vue fiches.
+  const rowActions = (d: ClientDocument) => (
+    <>
+      <Button variant="ghost" size="icon" onClick={() => handleDownload(d)} aria-label={`Ouvrir ${d.title}`}>
+        <Download className="h-4 w-4 text-primary" strokeWidth={1.75} />
+      </Button>
+      <Button variant="ghost" size="icon" onClick={() => handleDelete(d)} aria-label={`Retirer ${d.title}`}>
+        <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
+      </Button>
+    </>
+  );
+
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="font-serif-display text-lg font-semibold text-foreground">Espace client — documents</h2>
           <p className="text-sm text-muted-foreground">Ces documents apparaissent dans le portail de ce client, sur la page correspondant à leur catégorie.</p>
         </div>
-        <Button onClick={() => setDialogOpen(true)}><Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />Publier un document</Button>
+        <Button className="w-full shrink-0 sm:w-auto" onClick={() => setDialogOpen(true)}><Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />Publier un document</Button>
       </div>
 
       <div className="mb-4 flex items-start gap-2 rounded-lg border border-[var(--admin-line)] bg-secondary/40 p-3 text-xs text-muted-foreground">
@@ -100,38 +121,54 @@ export default function ClientEspacePage() {
       ) : docs.length === 0 ? (
         <AdminEmptyState icon={FileText} title="Aucun document publié pour ce client" />
       ) : (
-        <div className="overflow-hidden rounded-lg border bg-card">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b bg-secondary/50 text-left text-xs font-medium uppercase text-muted-foreground">
-                <th className="px-4 py-3">Document</th>
-                <th className="px-4 py-3">Catégorie</th>
-                <th className="px-4 py-3">Type</th>
-                <th className="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {docs.map((d) => (
-                <tr key={d.id} className="hover:bg-secondary/30">
-                  <td className="px-4 py-3">
-                    <p className="text-sm font-medium">{d.title}</p>
-                    {d.description && <p className="text-xs text-muted-foreground line-clamp-1">{d.description}</p>}
-                  </td>
-                  <td className="px-4 py-3"><Badge variant="secondary">{CATEGORY_LABEL[d.category]}</Badge></td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    {d.type === "video" ? <Video className="h-4 w-4" strokeWidth={1.75} /> : <FileText className="h-4 w-4" strokeWidth={1.75} />}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleDownload(d)} title="Ouvrir"><Download className="h-4 w-4 text-primary" strokeWidth={1.75} /></Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(d)}><Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} /></Button>
-                    </div>
-                  </td>
+        <>
+          <div className="hidden lg:block">
+            <DataTable>
+              <DataThead>
+                <tr>
+                  <DataTh>Document</DataTh>
+                  <DataTh>Catégorie</DataTh>
+                  <DataTh>Type</DataTh>
+                  <DataTh className="text-right">Actions</DataTh>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </DataThead>
+              <DataTbody>
+                {docs.map((d) => (
+                  <DataTr key={d.id}>
+                    <DataTd>
+                      <p className="text-sm font-medium">{d.title}</p>
+                      {d.description && <p className="text-xs text-muted-foreground line-clamp-1">{d.description}</p>}
+                    </DataTd>
+                    <DataTd><Badge variant="secondary">{CATEGORY_LABEL[d.category]}</Badge></DataTd>
+                    <DataTd className="text-muted-foreground">
+                      {d.type === "video" ? <Video className="h-4 w-4" strokeWidth={1.75} /> : <FileText className="h-4 w-4" strokeWidth={1.75} />}
+                    </DataTd>
+                    <DataTd className="text-right">
+                      <div className="flex items-center justify-end gap-1">{rowActions(d)}</div>
+                    </DataTd>
+                  </DataTr>
+                ))}
+              </DataTbody>
+            </DataTable>
+          </div>
+
+          <RecordCardList className="lg:hidden">
+            {docs.map((d) => (
+              <RecordCard
+                key={d.id}
+                icon={
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    {d.type === "video" ? <Video className="size-4" strokeWidth={1.75} /> : <FileText className="size-4" strokeWidth={1.75} />}
+                  </div>
+                }
+                title={d.title}
+                subtitle={d.description}
+                badges={<Badge variant="secondary">{CATEGORY_LABEL[d.category]}</Badge>}
+                actions={rowActions(d)}
+              />
+            ))}
+          </RecordCardList>
+        </>
       )}
 
       <DocumentFormDialog

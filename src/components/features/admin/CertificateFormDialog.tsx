@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
 import { createCertificateAction } from "@/app/actions/certificates";
 import { CertificateCard } from "@/components/features/client/CertificateCard";
@@ -44,8 +45,6 @@ interface CertificateFormDialogProps {
   onCreated: (certId: string) => void;
 }
 
-const selectClass =
-  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 const VIGI: VigiScoreGrade[] = ["A", "B", "C", "D"];
 const STATUSES: CertificateStatus[] = ["valide", "expire", "revoque"];
 
@@ -159,7 +158,7 @@ export function CertificateFormDialog({
             <Label>Raison sociale (telle qu&apos;affichée au client)</Label>
             <Input value={form.companyName} onChange={(e) => set("companyName", e.target.value)} required />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>N° de certificat</Label>
               <Input value={form.certificateNumber} onChange={(e) => set("certificateNumber", e.target.value)} required />
@@ -169,10 +168,10 @@ export function CertificateFormDialog({
               <Input value={form.expertName} onChange={(e) => set("expertName", e.target.value)} required />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>SIREN</Label>
-              <Input value={form.siren} onChange={(e) => set("siren", e.target.value)} />
+              <Input value={form.siren} onChange={(e) => set("siren", e.target.value)} inputMode="numeric" />
             </div>
             <div className="space-y-2">
               <Label>Adresse (snapshot)</Label>
@@ -180,30 +179,32 @@ export function CertificateFormDialog({
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          {/* Vigi-Score / Tendance / Composite : trois champs très courts, ils tiennent
+              côte à côte dès 480px (grid-cols-3 direct, sans passer par une colonne). */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             <div className="space-y-2">
               <Label>Vigi-Score</Label>
-              <select className={selectClass} value={form.vigiScore} onChange={(e) => set("vigiScore", e.target.value as VigiScoreGrade)}>
+              <NativeSelect value={form.vigiScore} onChange={(e) => set("vigiScore", e.target.value as VigiScoreGrade)}>
                 {VIGI.map((v) => <option key={v} value={v}>{v}</option>)}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>Tendance</Label>
-              <select className={selectClass} value={form.vigiScoreTendance} onChange={(e) => set("vigiScoreTendance", e.target.value as "+" | "-" | "")}>
+              <NativeSelect value={form.vigiScoreTendance} onChange={(e) => set("vigiScoreTendance", e.target.value as "+" | "-" | "")}>
                 <option value="">=</option>
                 <option value="+">+</option>
                 <option value="-">−</option>
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
-              <Label>Composite (auto)</Label>
-              <div className="flex h-9 items-center rounded-md border border-dashed border-input px-3 text-sm font-semibold tabular-nums text-foreground">
+              <Label>Composite</Label>
+              <div className="flex h-11 items-center rounded-md border border-dashed border-input px-3 text-sm font-semibold tabular-nums text-foreground sm:h-9">
                 {compositeValid ? composite : "—"}
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label className="text-xs">Auto-évaluation</Label>
               <Input value={form.subCriteria.autoEvaluation} onChange={(e) => set("subCriteria", { ...form.subCriteria, autoEvaluation: e.target.value })} />
@@ -218,7 +219,7 @@ export function CertificateFormDialog({
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label>Date d&apos;évaluation</Label>
               <Input type="date" value={form.evaluationDate} onChange={(e) => set("evaluationDate", e.target.value)} required />
@@ -229,9 +230,9 @@ export function CertificateFormDialog({
             </div>
             <div className="space-y-2">
               <Label>Statut</Label>
-              <select className={selectClass} value={form.status} onChange={(e) => set("status", e.target.value as CertificateStatus)}>
+              <NativeSelect value={form.status} onChange={(e) => set("status", e.target.value as CertificateStatus)}>
                 {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
@@ -243,7 +244,7 @@ export function CertificateFormDialog({
             </p>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>Annuler</Button>
             <Button type="submit" disabled={saving}>
               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" strokeWidth={1.75} />}

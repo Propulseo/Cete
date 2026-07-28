@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { useTranslations } from "next-intl";
 import type { Client, ClientLegalForm, ClientSector, ClientStatus } from "@/types/client";
 
@@ -17,8 +18,6 @@ interface ClientFormDialogProps {
 const LEGAL_FORMS: ClientLegalForm[] = ["SAS", "SARL", "SA", "EURL", "SCI", "autre"];
 const SECTORS: ClientSector[] = ["industrie", "tertiaire", "logistique", "medical", "erp_collectif", "immobilier", "autre"];
 const STATUSES: ClientStatus[] = ["active", "onboarding", "paused"];
-
-const selectClass = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 
 export function ClientFormDialog({ open, onOpenChange, onSubmit }: ClientFormDialogProps) {
   const t = useTranslations("admin.clients");
@@ -86,31 +85,31 @@ export function ClientFormDialog({ open, onOpenChange, onSubmit }: ClientFormDia
             <Input value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
             {errors.companyName && <p className="text-xs text-destructive">{errors.companyName}</p>}
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>{t("form.legalForm")}</Label>
-              <select className={selectClass} value={legalForm} onChange={(e) => setLegalForm(e.target.value as ClientLegalForm)}>
+              <NativeSelect value={legalForm} onChange={(e) => setLegalForm(e.target.value as ClientLegalForm)}>
                 {LEGAL_FORMS.map((f) => <option key={f} value={f}>{f}</option>)}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>{t("form.siret")} *</Label>
-              <Input value={siret} onChange={(e) => setSiret(e.target.value)} placeholder="12345678901234" />
+              <Input value={siret} onChange={(e) => setSiret(e.target.value)} placeholder="12345678901234" inputMode="numeric" />
               {errors.siret && <p className="text-xs text-destructive">{errors.siret}</p>}
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label>{t("form.sector")}</Label>
-              <select className={selectClass} value={sector} onChange={(e) => setSector(e.target.value as ClientSector)}>
+              <NativeSelect value={sector} onChange={(e) => setSector(e.target.value as ClientSector)}>
                 {SECTORS.map((s) => <option key={s} value={s}>{t(`sectors.${s}`)}</option>)}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>{t("form.status")}</Label>
-              <select className={selectClass} value={status} onChange={(e) => setStatus(e.target.value as ClientStatus)}>
+              <NativeSelect value={status} onChange={(e) => setStatus(e.target.value as ClientStatus)}>
                 {STATUSES.map((s) => <option key={s} value={s}>{t(`status.${s}`)}</option>)}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>{t("form.contractStart")}</Label>
@@ -123,9 +122,9 @@ export function ClientFormDialog({ open, onOpenChange, onSubmit }: ClientFormDia
             <div className="space-y-2">
               <Input placeholder={t("form.street")} value={street} onChange={(e) => setStreet(e.target.value)} />
               {errors.street && <p className="text-xs text-destructive">{errors.street}</p>}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <Input placeholder={t("form.postalCode")} value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+                  <Input placeholder={t("form.postalCode")} value={postalCode} onChange={(e) => setPostalCode(e.target.value)} inputMode="numeric" />
                   {errors.postalCode && <p className="text-xs text-destructive">{errors.postalCode}</p>}
                 </div>
                 <div>
@@ -138,27 +137,29 @@ export function ClientFormDialog({ open, onOpenChange, onSubmit }: ClientFormDia
 
           <div className="border-t pt-4">
             <Label className="mb-2 block font-semibold">{t("form.primaryContact")}</Label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Input placeholder={t("form.firstName")} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                <Input placeholder={t("form.firstName")} value={firstName} onChange={(e) => setFirstName(e.target.value)} autoComplete="given-name" />
                 {errors.firstName && <p className="text-xs text-destructive">{errors.firstName}</p>}
               </div>
               <div className="space-y-1">
-                <Input placeholder={t("form.lastName")} value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                <Input placeholder={t("form.lastName")} value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" />
                 {errors.lastName && <p className="text-xs text-destructive">{errors.lastName}</p>}
               </div>
             </div>
             <Input className="mt-2" placeholder={t("form.role")} value={role} onChange={(e) => setRole(e.target.value)} />
-            <div className="mt-2 grid grid-cols-2 gap-4">
+            <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Input placeholder={t("form.email")} type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input placeholder={t("form.email")} type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" inputMode="email" />
                 {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
               </div>
-              <Input placeholder={t("form.phone")} value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <Input placeholder={t("form.phone")} value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          {/* Actions empilées en pleine largeur sur mobile : deux boutons côte à côte
+              sous 360px se réduisent sous la cible tactile confortable. */}
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => { reset(); onOpenChange(false); }}>{t("form.cancel")}</Button>
             <Button type="submit">{t("form.create")}</Button>
           </div>

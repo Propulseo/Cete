@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
@@ -15,7 +16,6 @@ import { uploadFile, buildStoragePath } from "@/lib/supabase/storage";
 import type { ContractDocument, ContractDocumentType, ContractDocumentStatus } from "@/types/client";
 import type { AccessType } from "@/types/shared";
 
-const selectClass = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 const DOC_TYPES: ContractDocumentType[] = ["offer", "quote", "contract", "addendum", "resource", "report", "other"];
 const DOC_STATUSES: ContractDocumentStatus[] = ["draft", "sent", "signed", "archived"];
 
@@ -88,9 +88,9 @@ export function ContractDocumentDialog({ open, onOpenChange, editDoc, clientId, 
         <DialogHeader><DialogTitle>{editDoc ? t("editMeta") : t("upload")}</DialogTitle></DialogHeader>
         <div className="space-y-4">
           <div className="space-y-2"><Label>{t("formTitle")}</Label><Input value={title} onChange={(e) => setTitle(e.target.value)} /></div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2"><Label>{t("formType")}</Label><select className={selectClass} value={docType} onChange={(e) => setDocType(e.target.value as ContractDocumentType)}>{DOC_TYPES.map((dt) => <option key={dt} value={dt}>{t(`types.${dt}`)}</option>)}</select></div>
-            <div className="space-y-2"><Label>{t("formStatus")}</Label><select className={selectClass} value={docStatus} onChange={(e) => setDocStatus(e.target.value as ContractDocumentStatus)}>{DOC_STATUSES.map((ds) => <option key={ds} value={ds}>{t(`statuses.${ds}`)}</option>)}</select></div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-2"><Label>{t("formType")}</Label><NativeSelect value={docType} onChange={(e) => setDocType(e.target.value as ContractDocumentType)}>{DOC_TYPES.map((dt) => <option key={dt} value={dt}>{t(`types.${dt}`)}</option>)}</NativeSelect></div>
+            <div className="space-y-2"><Label>{t("formStatus")}</Label><NativeSelect value={docStatus} onChange={(e) => setDocStatus(e.target.value as ContractDocumentStatus)}>{DOC_STATUSES.map((ds) => <option key={ds} value={ds}>{t(`statuses.${ds}`)}</option>)}</NativeSelect></div>
           </div>
           <div className="space-y-2">
             <Label>{t("formFile")}</Label>
@@ -98,10 +98,10 @@ export function ContractDocumentDialog({ open, onOpenChange, editDoc, clientId, 
           </div>
           <div className="space-y-2">
             <Label>Accès client</Label>
-            <select className={selectClass} value={docAccess} onChange={(e) => setDocAccess(e.target.value as AccessType)}>
+            <NativeSelect value={docAccess} onChange={(e) => setDocAccess(e.target.value as AccessType)}>
               <option value="download">Téléchargement + impression</option>
               <option value="view-only">Visualisation seule</option>
-            </select>
+            </NativeSelect>
             <p className="text-xs text-muted-foreground">
               {docAccess === "view-only"
                 ? "Le client peut consulter le document mais ne peut ni le télécharger ni l'imprimer."
@@ -109,7 +109,7 @@ export function ContractDocumentDialog({ open, onOpenChange, editDoc, clientId, 
             </p>
           </div>
           <div className="space-y-2"><Label>{t("formNotes")}</Label><Textarea rows={2} value={docNotes} onChange={(e) => setDocNotes(e.target.value)} /></div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>Annuler</Button>
             <Button onClick={handleSave} disabled={saving}>
               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" strokeWidth={1.75} />}

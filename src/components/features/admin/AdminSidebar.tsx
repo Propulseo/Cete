@@ -18,6 +18,7 @@ import {
   Building2,
   UserCircle,
   Briefcase,
+  ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -89,7 +90,12 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
           monochrome (même traitement que le footer du site) pour rester lisible sur le
           rail sombre, sans plaque. En clair il garde ses couleurs. */}
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
-        <span className="inline-flex">
+        <Link
+          href="/"
+          onClick={onNavigate}
+          aria-label="Retour au site"
+          className="inline-flex rounded-sm transition-opacity hover:opacity-80"
+        >
           <Image
             src="/assets/brand/logo-cete.png"
             alt="CETé — Agence de notation"
@@ -97,7 +103,7 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
             height={40}
             className="h-8 w-auto dark:brightness-0 dark:invert"
           />
-        </span>
+        </Link>
       </div>
 
       {/* Grouped navigation */}
@@ -143,6 +149,22 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
             </div>
           </div>
         ))}
+
+        {/* Sortie vers la vitrine — sur mobile le drawer est la seule navigation, et
+            « Déconnexion » était jusqu'ici le seul chemin vers l'accueil. */}
+        <div className="mt-3 border-t border-[var(--admin-line)] pt-3">
+          <Link
+            href="/"
+            onClick={onNavigate}
+            className="group flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <ArrowLeft
+              strokeWidth={1.75}
+              className="size-[18px] shrink-0 text-muted-foreground group-hover:text-foreground"
+            />
+            <span className="truncate">Retour au site</span>
+          </Link>
+        </div>
       </nav>
 
       {/* Account */}

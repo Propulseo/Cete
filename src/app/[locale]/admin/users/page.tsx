@@ -23,6 +23,7 @@ import {
   AdminTr,
   AdminTd,
 } from "@/components/features/admin/ui/admin-table";
+import { RecordCard, RecordCardList } from "@/components/shared/record-card";
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<Profile[]>([]);
@@ -99,6 +100,42 @@ export default function AdminUsersPage() {
     );
   }
 
+  const userIcon = (u: Profile) => (
+    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+      {u.role === "admin" ? <Shield className="h-4 w-4" strokeWidth={1.75} /> : <User className="h-4 w-4" strokeWidth={1.75} />}
+    </div>
+  );
+
+  // Un compte client sans clientId ne verra rien dans son portail. L'explication était
+  // portée par un attribut `title` — donc invisible au doigt : elle est désormais rendue
+  // en texte, replié sur une ligne au-delà de `lg` où la colonne est étroite.
+  const companyCell = (u: Profile) =>
+    u.role === "client" && !u.clientId ? (
+      <span className="inline-flex flex-col gap-0.5">
+        <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-urgent">
+          <AlertTriangle className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+          Non rattaché
+        </span>
+        <span className="text-[11px] leading-snug text-muted-foreground lg:hidden">
+          Ce compte ne verra ni document ni notation. Rattachez-le depuis la fiche client
+          («&nbsp;Ouvrir un accès&nbsp;») ou en modifiant le compte.
+        </span>
+      </span>
+    ) : (
+      (u.company ?? "-")
+    );
+
+  const rowActions = (u: Profile) => (
+    <>
+      <Button variant="ghost" size="icon" onClick={() => { setEditing(u); setDialogOpen(true); }} aria-label={`Modifier ${u.name}`}>
+        <Edit className="h-4 w-4" strokeWidth={1.75} />
+      </Button>
+      <Button variant="ghost" size="icon" onClick={() => handleDelete(u.id)} aria-label={`Supprimer ${u.name}`}>
+        <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
+      </Button>
+    </>
+  );
+
   return (
     <div className="p-4 lg:p-8">
       <AdminPageHeader
@@ -115,6 +152,8 @@ export default function AdminUsersPage() {
       {users.length === 0 ? (
         <AdminEmptyState icon={User} title="Aucun utilisateur" />
       ) : (
+        <>
+        <div className="hidden lg:block">
         <AdminTable>
           <AdminThead>
             <AdminTr>
@@ -131,9 +170,7 @@ export default function AdminUsersPage() {
               <AdminTr key={u.id}>
                 <AdminTd>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                      {u.role === "admin" ? <Shield className="h-4 w-4" strokeWidth={1.75} /> : <User className="h-4 w-4" strokeWidth={1.75} />}
-                    </div>
+                    {userIcon(u)}
                     <span className="font-medium">{u.name}</span>
                   </div>
                 </AdminTd>
@@ -143,31 +180,38 @@ export default function AdminUsersPage() {
                     {u.role === "admin" ? "Admin" : "Client"}
                   </Badge>
                 </AdminTd>
-                <AdminTd className="text-sm text-muted-foreground">
-                  {u.role === "client" && !u.clientId ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-urgent" title="Ce compte client n'est rattaché à aucune entreprise : il ne verra aucun document ni notation. Rattachez-le via la fiche client (« Ouvrir un accès ») ou en modifiant le compte.">
-                      <AlertTriangle className="h-3.5 w-3.5" strokeWidth={1.75} />
-                      Non rattaché
-                    </span>
-                  ) : (
-                    u.company ?? "-"
-                  )}
-                </AdminTd>
-                <AdminTd className="text-sm text-muted-foreground">{u.created_at ?? "-"}</AdminTd>
+                <AdminTd className="text-sm text-muted-foreground">{companyCell(u)}</AdminTd>
+                <AdminTd className="text-sm tabular-nums text-muted-foreground">{u.created_at ?? "-"}</AdminTd>
                 <AdminTd className="text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    <Button variant="ghost" size="icon" onClick={() => { setEditing(u); setDialogOpen(true); }}>
-                      <Edit className="h-4 w-4" strokeWidth={1.75} />
-                    </Button>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(u.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
-                    </Button>
-                  </div>
+                  <div className="flex items-center justify-end gap-1">{rowActions(u)}</div>
                 </AdminTd>
               </AdminTr>
             ))}
           </AdminTbody>
         </AdminTable>
+        </div>
+
+        <RecordCardList className="lg:hidden">
+          {users.map((u) => (
+            <RecordCard
+              key={u.id}
+              icon={userIcon(u)}
+              title={u.name}
+              subtitle={u.email}
+              badges={
+                <Badge variant={u.role === "admin" ? "default" : "secondary"}>
+                  {u.role === "admin" ? "Admin" : "Client"}
+                </Badge>
+              }
+              fields={[
+                { label: "Entreprise", value: companyCell(u) },
+                { label: "Créé le", value: <span className="tabular-nums">{u.created_at ?? "-"}</span> },
+              ]}
+              actions={rowActions(u)}
+            />
+          ))}
+        </RecordCardList>
+        </>
       )}
 
       <UserFormDialog

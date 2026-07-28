@@ -3,13 +3,11 @@
 import { RefreshCw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { slugify } from "@/lib/repo/articles.repo";
 import { CoverImageField } from "./CoverImageField";
 import { CATEGORIES, type ArticleForm } from "./article-form";
-
-const SELECT_CLS =
-  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
 interface Props {
   form: ArticleForm;
@@ -49,6 +47,7 @@ export function ArticleEditorFields({ form, set, coverFile, onCoverFileChange }:
             onClick={() => set({ slug: slugify(form.title), slugLocked: false })}
             className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-input px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             title="Régénérer depuis le titre"
+            aria-label="Régénérer le slug depuis le titre"
           >
             <RefreshCw className="h-3.5 w-3.5" strokeWidth={1.75} />
             Auto
@@ -71,11 +70,10 @@ export function ArticleEditorFields({ form, set, coverFile, onCoverFileChange }:
       </div>
 
       {/* Catégorie + temps de lecture */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Catégorie</Label>
-          <select
-            className={SELECT_CLS}
+          <NativeSelect
             value={form.category}
             onChange={(e) => set({ category: e.target.value as ArticleForm["category"] })}
           >
@@ -84,7 +82,7 @@ export function ArticleEditorFields({ form, set, coverFile, onCoverFileChange }:
                 {c}
               </option>
             ))}
-          </select>
+          </NativeSelect>
         </div>
         <div className="space-y-2">
           <Label>Temps de lecture (min)</Label>
@@ -99,7 +97,7 @@ export function ArticleEditorFields({ form, set, coverFile, onCoverFileChange }:
       </div>
 
       {/* Auteur + rôle */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Auteur *</Label>
           <Input

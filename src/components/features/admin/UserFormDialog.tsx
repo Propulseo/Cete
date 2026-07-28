@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { listClients } from "@/lib/repo/clients.repo";
 import type { Client } from "@/types/client";
 import type { Profile } from "@/types/auth";
@@ -34,9 +35,6 @@ const EMPTY: UserPayload = {
   is_active: true,
   password: "",
 };
-
-const selectClass =
-  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 
 export function UserFormDialog({
   open,
@@ -125,22 +123,20 @@ export function UserFormDialog({
 
           <div className="space-y-2">
             <Label>Rôle</Label>
-            <select
-              className={selectClass}
+            <NativeSelect
               value={form.role}
               onChange={(e) => set("role", e.target.value)}
               disabled={!!lockedClient}
             >
               <option value="client">Client</option>
               <option value="admin">Administrateur</option>
-            </select>
+            </NativeSelect>
           </div>
 
           {form.role === "client" && (
             <div className="space-y-2">
               <Label>Entreprise cliente</Label>
-              <select
-                className={selectClass}
+              <NativeSelect
                 value={form.clientId ?? ""}
                 onChange={(e) => {
                   const c = clients.find((x) => x.id === e.target.value);
@@ -159,14 +155,14 @@ export function UserFormDialog({
                     {c.companyName}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
               <p className="text-xs text-muted-foreground">
                 Le compte donne accès au portail de cette entreprise.
               </p>
             </div>
           )}
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Annuler
             </Button>

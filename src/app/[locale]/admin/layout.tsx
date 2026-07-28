@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { Source_Serif_4 } from "next/font/google";
 import { Menu } from "lucide-react";
@@ -79,7 +79,13 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="inline-flex">
+          {/* Le logo de la topbar ramène à la vitrine — seul geste « accueil » quand le
+              drawer est fermé. */}
+          <Link
+            href="/"
+            aria-label="Retour au site"
+            className="inline-flex rounded-sm transition-opacity hover:opacity-80"
+          >
             <Image
               src="/assets/brand/logo-cete.png"
               alt="CETé — Agence de notation"
@@ -87,7 +93,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
               height={28}
               className="h-7 w-auto dark:brightness-0 dark:invert"
             />
-          </span>
+          </Link>
         </div>
         {children}
       </main>

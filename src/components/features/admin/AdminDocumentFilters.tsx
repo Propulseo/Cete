@@ -2,6 +2,7 @@
 
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { NativeSelect } from "@/components/ui/native-select";
 
 const categoryLabels: Record<string, string> = {
   newsletters: "Newsletters",
@@ -28,20 +29,20 @@ export function AdminDocumentFilters({
   onFilterVisChange,
 }: AdminDocumentFiltersProps) {
   return (
-    <div className="mb-4 flex flex-wrap gap-3">
-      <div className="relative flex-1">
+    <div className="mb-4 grid gap-3 sm:flex sm:flex-wrap">
+      <div className="relative sm:flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.75} />
         <Input className="pl-9" placeholder="Rechercher..." value={search} onChange={(e) => onSearchChange(e.target.value)} />
       </div>
-      <select className="h-9 rounded-md border border-input bg-card px-3 text-sm text-foreground" value={filterCat} onChange={(e) => onFilterCatChange(e.target.value)}>
+      <NativeSelect wrapperClassName="sm:w-44" className="bg-card text-foreground" value={filterCat} onChange={(e) => onFilterCatChange(e.target.value)} aria-label="Filtrer par catégorie">
         <option value="">Toutes catégories</option>
         {Object.entries(categoryLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-      </select>
-      <select className="h-9 rounded-md border border-input bg-card px-3 text-sm text-foreground" value={filterVis} onChange={(e) => onFilterVisChange(e.target.value)}>
+      </NativeSelect>
+      <NativeSelect wrapperClassName="sm:w-44" className="bg-card text-foreground" value={filterVis} onChange={(e) => onFilterVisChange(e.target.value)} aria-label="Filtrer par visibilité">
         <option value="">Toute visibilité</option>
         <option value="global">Global</option>
         <option value="assigned">Assigné</option>
-      </select>
+      </NativeSelect>
     </div>
   );
 }

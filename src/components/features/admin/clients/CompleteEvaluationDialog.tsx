@@ -77,17 +77,19 @@ export function CompleteEvaluationDialog({ target, onOpenChange, onSubmit }: Com
               })}
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="space-y-2"><Label className="text-xs">{t("autoEval")}</Label><Input value={autoEval} onChange={(e) => setAutoEval(e.target.value)} placeholder="B+" /></div>
-            <div className="space-y-2"><Label className="text-xs">{t("requirements")}</Label><Input value={reqScore} onChange={(e) => setReqScore(e.target.value)} placeholder="A-" /></div>
-            <div className="space-y-2"><Label className="text-xs">{t("operational")}</Label><Input value={opScore} onChange={(e) => setOpScore(e.target.value)} placeholder="B" /></div>
+          {/* Trois notes très courtes (« B+ ») : elles tiennent côte à côte même à 360px,
+              on garde donc grid-cols-3 et on resserre seulement la gouttière. */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="space-y-2"><Label className="text-xs">{t("autoEval")}</Label><Input value={autoEval} onChange={(e) => setAutoEval(e.target.value)} placeholder="B+" autoCapitalize="characters" /></div>
+            <div className="space-y-2"><Label className="text-xs">{t("requirements")}</Label><Input value={reqScore} onChange={(e) => setReqScore(e.target.value)} placeholder="A-" autoCapitalize="characters" /></div>
+            <div className="space-y-2"><Label className="text-xs">{t("operational")}</Label><Input value={opScore} onChange={(e) => setOpScore(e.target.value)} placeholder="B" autoCapitalize="characters" /></div>
           </div>
           <div className="flex flex-col items-center gap-2 rounded-lg bg-secondary/50 p-3 text-center">
             <p className="text-xs text-muted-foreground">{t("compositeRating")}</p>
             <CompositeRating value={`${autoEval[0] ?? ""}${reqScore[0] ?? ""}${opScore[0] ?? ""}`} labels />
           </div>
           <div className="space-y-2"><Label>{t("notes")}</Label><Textarea rows={2} value={notes} onChange={(e) => setNotes(e.target.value)} /></div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button variant="outline" onClick={() => onOpenChange(false)}>Annuler</Button>
             <Button onClick={handleConfirm}>{t("complete")}</Button>
           </div>

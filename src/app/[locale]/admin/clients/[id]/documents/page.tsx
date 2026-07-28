@@ -5,10 +5,20 @@ import { Plus, Edit, Trash2, Archive, FileText, Download, Eye, EyeOff, Info, Loc
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { NativeSelect } from "@/components/ui/native-select";
 import { useTranslations } from "next-intl";
 import { useClient } from "@/components/features/admin/clients/ClientContext";
 import { StatusBadge } from "@/components/features/admin/ui/status-badge";
 import { AdminEmptyState } from "@/components/features/admin/ui/admin-empty-state";
+import {
+  DataTable,
+  DataThead,
+  DataTh,
+  DataTbody,
+  DataTr,
+  DataTd,
+} from "@/components/shared/data-table";
+import { RecordCard, RecordCardList } from "@/components/shared/record-card";
 import { ContractDocumentDialog } from "@/components/features/admin/clients/ContractDocumentDialog";
 import { listContractDocumentsByClientId, updateContractDocument, deleteContractDocument, isClientVisibleContractDocument } from "@/lib/repo/contract-documents.repo";
 import { getSignedUrl, deleteFile } from "@/lib/supabase/storage";
@@ -68,11 +78,58 @@ export default function ClientDocumentsPage() {
   };
   const handleStatusChange = async (id: string, status: ContractDocumentStatus) => { await updateContractDocument(id, { status }); reload(); };
 
+  // Marqueurs de visibilité et actions, partagés par la vue tableau (≥lg) et la vue fiches.
+  const visibilityMarks = (d: ContractDocument) => (
+    <>
+      {isClientVisibleContractDocument(d) ? (
+        <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-pos">
+          <Eye className="h-3.5 w-3.5" strokeWidth={1.75} />{t("visibleClient")}
+        </span>
+      ) : (
+        <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
+          <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} />{t("internalOnly")}
+        </span>
+      )}
+      {isClientVisibleContractDocument(d) && (
+        d.accessType === "view-only" ? (
+          <span className="inline-flex items-center gap-1 text-[11px] text-admin-urgent">
+            <Lock className="h-3 w-3" strokeWidth={1.75} />Lecture seule
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+            <Download className="h-3 w-3" strokeWidth={1.75} />Téléchargeable
+          </span>
+        )
+      )}
+    </>
+  );
+
+  const rowActions = (d: ContractDocument) => (
+    <>
+      {d.storagePath && (
+        <Button variant="ghost" size="icon" onClick={() => handleDownload(d)} aria-label={`Télécharger ${d.title}`}>
+          <Download className="h-4 w-4 text-primary" strokeWidth={1.75} />
+        </Button>
+      )}
+      <Button variant="ghost" size="icon" onClick={() => openForm(d)} aria-label={`Modifier ${d.title}`}>
+        <Edit className="h-4 w-4" strokeWidth={1.75} />
+      </Button>
+      {d.status !== "signed" && d.status !== "archived" && (
+        <Button variant="ghost" size="icon" onClick={() => handleStatusChange(d.id, d.status === "draft" ? "sent" : "signed")} aria-label={`Faire avancer le statut de ${d.title}`}>
+          <Archive className="h-4 w-4" strokeWidth={1.75} />
+        </Button>
+      )}
+      <Button variant="ghost" size="icon" onClick={() => handleDelete(d)} aria-label={`Supprimer ${d.title}`}>
+        <Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} />
+      </Button>
+    </>
+  );
+
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-serif-display text-lg font-semibold text-foreground">{t("title")}</h2>
-        <Button onClick={() => openForm()}><Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />{t("upload")}</Button>
+        <Button className="w-full sm:w-auto" onClick={() => openForm()}><Plus className="mr-2 h-4 w-4" strokeWidth={1.75} />{t("upload")}</Button>
       </div>
 
       <div className="mb-4 flex items-start gap-2 rounded-lg border border-[var(--admin-line)] bg-secondary/40 p-3 text-xs text-muted-foreground">
@@ -80,84 +137,76 @@ export default function ClientDocumentsPage() {
         <span>{t("visibilityInfo")}</span>
       </div>
 
-      <div className="mb-4 flex gap-3">
-        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+      <div className="mb-4 grid gap-3 sm:flex">
+        <NativeSelect wrapperClassName="sm:w-48" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} aria-label={t("allTypes")}>
           <option value="">{t("allTypes")}</option>
           {DOC_TYPES.map((dt) => <option key={dt} value={dt}>{t(`types.${dt}`)}</option>)}
-        </select>
-        <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        </NativeSelect>
+        <NativeSelect wrapperClassName="sm:w-48" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} aria-label={t("allStatuses")}>
           <option value="">{t("allStatuses")}</option>
           {DOC_STATUSES.map((ds) => <option key={ds} value={ds}>{t(`statuses.${ds}`)}</option>)}
-        </select>
+        </NativeSelect>
       </div>
 
       {filtered.length === 0 ? (
         <AdminEmptyState icon={FileText} title={t("empty")} />
       ) : (
-      <div className="overflow-hidden rounded-lg border bg-card">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b bg-secondary/50">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colTitle")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colType")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colVersion")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colStatus")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colVisibility")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colDate")}</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">{t("colSize")}</th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase text-muted-foreground">{t("colActions")}</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {filtered.map((d) => (
-              <tr key={d.id} className="hover:bg-secondary/30">
-                <td className="px-4 py-3 text-sm font-medium">{d.title}</td>
-                <td className="px-4 py-3"><Badge variant="secondary">{t(`types.${d.type}`)}</Badge></td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">v{d.version}</td>
-                <td className="px-4 py-3"><StatusBadge status={d.status}>{t(`statuses.${d.status}`)}</StatusBadge></td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-col gap-1">
-                    {isClientVisibleContractDocument(d) ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-admin-pos">
-                        <Eye className="h-3.5 w-3.5" strokeWidth={1.75} />{t("visibleClient")}
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
-                        <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} />{t("internalOnly")}
-                      </span>
-                    )}
-                    {isClientVisibleContractDocument(d) && (
-                      d.accessType === "view-only" ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] text-admin-urgent">
-                          <Lock className="h-3 w-3" strokeWidth={1.75} />Lecture seule
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
-                          <Download className="h-3 w-3" strokeWidth={1.75} />Téléchargeable
-                        </span>
-                      )
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{fmtDate(d.uploadedAt)}</td>
-                <td className="px-4 py-3 text-sm text-muted-foreground">{fmtSize(d.fileSize)}</td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    {d.storagePath && (
-                      <Button variant="ghost" size="icon" onClick={() => handleDownload(d)} title="Télécharger"><Download className="h-4 w-4 text-primary" strokeWidth={1.75} /></Button>
-                    )}
-                    <Button variant="ghost" size="icon" onClick={() => openForm(d)}><Edit className="h-4 w-4" strokeWidth={1.75} /></Button>
-                    {d.status !== "signed" && d.status !== "archived" && (
-                      <Button variant="ghost" size="icon" onClick={() => handleStatusChange(d.id, d.status === "draft" ? "sent" : "signed")}><Archive className="h-4 w-4" strokeWidth={1.75} /></Button>
-                    )}
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(d)}><Trash2 className="h-4 w-4 text-destructive" strokeWidth={1.75} /></Button>
-                  </div>
-                </td>
+      <>
+        <div className="hidden lg:block">
+          <DataTable>
+            <DataThead>
+              <tr>
+                <DataTh>{t("colTitle")}</DataTh>
+                <DataTh>{t("colType")}</DataTh>
+                <DataTh>{t("colVersion")}</DataTh>
+                <DataTh>{t("colStatus")}</DataTh>
+                <DataTh>{t("colVisibility")}</DataTh>
+                <DataTh>{t("colDate")}</DataTh>
+                <DataTh>{t("colSize")}</DataTh>
+                <DataTh className="text-right">{t("colActions")}</DataTh>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </DataThead>
+            <DataTbody>
+              {filtered.map((d) => (
+                <DataTr key={d.id}>
+                  <DataTd className="text-sm font-medium">{d.title}</DataTd>
+                  <DataTd><Badge variant="secondary">{t(`types.${d.type}`)}</Badge></DataTd>
+                  <DataTd className="text-sm tabular-nums text-muted-foreground">v{d.version}</DataTd>
+                  <DataTd><StatusBadge status={d.status}>{t(`statuses.${d.status}`)}</StatusBadge></DataTd>
+                  <DataTd><div className="flex flex-col gap-1">{visibilityMarks(d)}</div></DataTd>
+                  <DataTd className="text-sm tabular-nums text-muted-foreground">{fmtDate(d.uploadedAt)}</DataTd>
+                  <DataTd className="text-sm tabular-nums text-muted-foreground">{fmtSize(d.fileSize)}</DataTd>
+                  <DataTd className="text-right">
+                    <div className="flex items-center justify-end gap-1">{rowActions(d)}</div>
+                  </DataTd>
+                </DataTr>
+              ))}
+            </DataTbody>
+          </DataTable>
+        </div>
+
+        <RecordCardList className="lg:hidden">
+          {filtered.map((d) => (
+            <RecordCard
+              key={d.id}
+              title={d.title}
+              badges={
+                <>
+                  <StatusBadge status={d.status}>{t(`statuses.${d.status}`)}</StatusBadge>
+                  <Badge variant="secondary">{t(`types.${d.type}`)}</Badge>
+                  <Badge variant="outline" className="tabular-nums">v{d.version}</Badge>
+                </>
+              }
+              fields={[
+                { label: t("colVisibility"), value: <div className="flex flex-col gap-1">{visibilityMarks(d)}</div> },
+                { label: t("colDate"), value: <span className="tabular-nums">{fmtDate(d.uploadedAt)}</span> },
+                { label: t("colSize"), value: <span className="tabular-nums">{fmtSize(d.fileSize)}</span> },
+              ]}
+              actions={rowActions(d)}
+            />
+          ))}
+        </RecordCardList>
+      </>
       )}
 
       <ContractDocumentDialog

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
@@ -14,7 +15,6 @@ import { useClient } from "@/components/features/admin/clients/ClientContext";
 import { updateClient } from "@/lib/repo/clients.repo";
 import type { Client, ClientContact, ClientLegalForm, ClientSector } from "@/types/client";
 
-const selectClass = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 const LEGAL_FORMS: ClientLegalForm[] = ["SAS", "SARL", "SA", "EURL", "SCI", "autre"];
 const SECTORS: ClientSector[] = ["industrie", "tertiaire", "logistique", "medical", "erp_collectif", "immobilier", "autre"];
 
@@ -113,12 +113,12 @@ export default function ClientCompanyPage() {
     <div className="space-y-6">
       {/* Company Info */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="font-serif-display">{t("company.legalInfo")}</CardTitle>
-          <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}><Edit className="mr-1.5 h-3.5 w-3.5" strokeWidth={1.75} />{t("company.edit")}</Button>
+          <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => setEditOpen(true)}><Edit className="mr-1.5 h-3.5 w-3.5" strokeWidth={1.75} />{t("company.edit")}</Button>
         </CardHeader>
         <CardContent>
-          <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm lg:grid-cols-3">
+          <dl className="grid grid-cols-1 gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
             <div><dt className="text-muted-foreground">{t("form.companyName")}</dt><dd className="font-medium">{localClient.companyName}</dd></div>
             <div><dt className="text-muted-foreground">{t("form.legalForm")}</dt><dd className="font-medium">{localClient.legalForm}</dd></div>
             <div><dt className="text-muted-foreground">SIRET</dt><dd className="font-mono">{localClient.siret}</dd></div>
@@ -140,9 +140,9 @@ export default function ClientCompanyPage() {
 
       {/* Contacts */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="font-serif-display">{t("company.contacts")} ({localClient.contacts.length})</CardTitle>
-          <Button variant="outline" size="sm" onClick={() => openContactForm()}><Plus className="mr-1.5 h-3.5 w-3.5" strokeWidth={1.75} />{t("company.addContact")}</Button>
+          <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => openContactForm()}><Plus className="mr-1.5 h-3.5 w-3.5" strokeWidth={1.75} />{t("company.addContact")}</Button>
         </CardHeader>
         <CardContent>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -151,12 +151,12 @@ export default function ClientCompanyPage() {
                 {c.isPrimary && <Badge className="absolute -top-2 right-2 bg-primary text-xs">{t("company.setPrimary")}</Badge>}
                 <p className="font-medium">{c.firstName} {c.lastName}</p>
                 <p className="text-sm text-muted-foreground">{c.role}</p>
-                <p className="mt-1 text-sm">{c.email}</p>
+                <p className="mt-1 break-words text-sm">{c.email}</p>
                 <p className="text-sm text-muted-foreground">{c.phone}</p>
-                <div className="mt-3 flex gap-1">
-                  <Button variant="ghost" size="icon" onClick={() => openContactForm(c)}><Edit className="h-3.5 w-3.5" strokeWidth={1.75} /></Button>
-                  {!c.isPrimary && <Button variant="ghost" size="icon" onClick={() => setPrimary(c.id)}><Star className="h-3.5 w-3.5" strokeWidth={1.75} /></Button>}
-                  {!c.isPrimary && <Button variant="ghost" size="icon" onClick={() => deleteContact(c.id)}><Trash2 className="h-3.5 w-3.5 text-destructive" strokeWidth={1.75} /></Button>}
+                <div className="mt-3 flex flex-wrap gap-1">
+                  <Button variant="ghost" size="icon" onClick={() => openContactForm(c)} aria-label={`Modifier ${c.firstName} ${c.lastName}`}><Edit className="h-3.5 w-3.5" strokeWidth={1.75} /></Button>
+                  {!c.isPrimary && <Button variant="ghost" size="icon" onClick={() => setPrimary(c.id)} aria-label={`Définir ${c.firstName} ${c.lastName} comme contact principal`}><Star className="h-3.5 w-3.5" strokeWidth={1.75} /></Button>}
+                  {!c.isPrimary && <Button variant="ghost" size="icon" onClick={() => deleteContact(c.id)} aria-label={`Supprimer ${c.firstName} ${c.lastName}`}><Trash2 className="h-3.5 w-3.5 text-destructive" strokeWidth={1.75} /></Button>}
                 </div>
               </div>
             ))}
@@ -179,24 +179,24 @@ export default function ClientCompanyPage() {
           <DialogHeader><DialogTitle>{t("form.editTitle")}</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2"><Label>{t("form.companyName")}</Label><Input value={companyName} onChange={(e) => setCompanyName(e.target.value)} /></div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2"><Label>{t("form.legalForm")}</Label><select className={selectClass} value={legalForm} onChange={(e) => setLegalForm(e.target.value as ClientLegalForm)}>{LEGAL_FORMS.map((f) => <option key={f}>{f}</option>)}</select></div>
-              <div className="space-y-2"><Label>SIRET</Label><Input value={siret} onChange={(e) => setSiret(e.target.value)} /></div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2"><Label>{t("form.legalForm")}</Label><NativeSelect value={legalForm} onChange={(e) => setLegalForm(e.target.value as ClientLegalForm)}>{LEGAL_FORMS.map((f) => <option key={f}>{f}</option>)}</NativeSelect></div>
+              <div className="space-y-2"><Label>SIRET</Label><Input value={siret} onChange={(e) => setSiret(e.target.value)} inputMode="numeric" /></div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2"><Label>{t("form.vatNumber")}</Label><Input value={vatNumber} onChange={(e) => setVatNumber(e.target.value)} /></div>
-              <div className="space-y-2"><Label>{t("form.sector")}</Label><select className={selectClass} value={sector} onChange={(e) => setSector(e.target.value as ClientSector)}>{SECTORS.map((s) => <option key={s} value={s}>{t(`sectors.${s}`)}</option>)}</select></div>
+              <div className="space-y-2"><Label>{t("form.sector")}</Label><NativeSelect value={sector} onChange={(e) => setSector(e.target.value as ClientSector)}>{SECTORS.map((s) => <option key={s} value={s}>{t(`sectors.${s}`)}</option>)}</NativeSelect></div>
             </div>
             <div className="space-y-2"><Label>{t("form.headcount")}</Label><Input value={headcount} onChange={(e) => setHeadcount(e.target.value)} placeholder="ex: 51-200" /></div>
             <div className="border-t pt-4 space-y-2">
               <Label>{t("company.address")}</Label>
               <Input value={street} onChange={(e) => setStreet(e.target.value)} placeholder={t("form.street")} />
-              <div className="grid grid-cols-2 gap-4">
-                <Input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} placeholder={t("form.postalCode")} />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <Input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} placeholder={t("form.postalCode")} inputMode="numeric" />
                 <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder={t("form.city")} />
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
               <Button variant="outline" onClick={() => setEditOpen(false)}>{t("form.cancel")}</Button>
               <Button onClick={saveCompany}>{t("form.save")}</Button>
             </div>
@@ -209,16 +209,16 @@ export default function ClientCompanyPage() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader><DialogTitle>{editingContact ? t("company.editContact") : t("company.newContact")}</DialogTitle></DialogHeader>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2"><Label>{t("form.firstName")}</Label><Input value={cFirst} onChange={(e) => setCFirst(e.target.value)} /></div>
-              <div className="space-y-2"><Label>{t("form.lastName")}</Label><Input value={cLast} onChange={(e) => setCLast(e.target.value)} /></div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2"><Label>{t("form.firstName")}</Label><Input value={cFirst} onChange={(e) => setCFirst(e.target.value)} autoComplete="given-name" /></div>
+              <div className="space-y-2"><Label>{t("form.lastName")}</Label><Input value={cLast} onChange={(e) => setCLast(e.target.value)} autoComplete="family-name" /></div>
             </div>
             <div className="space-y-2"><Label>{t("form.role")}</Label><Input value={cRole} onChange={(e) => setCRole(e.target.value)} /></div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2"><Label>{t("form.email")}</Label><Input type="email" value={cEmail} onChange={(e) => setCEmail(e.target.value)} /></div>
-              <div className="space-y-2"><Label>{t("form.phone")}</Label><Input value={cPhone} onChange={(e) => setCPhone(e.target.value)} /></div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2"><Label>{t("form.email")}</Label><Input type="email" value={cEmail} onChange={(e) => setCEmail(e.target.value)} inputMode="email" autoComplete="email" /></div>
+              <div className="space-y-2"><Label>{t("form.phone")}</Label><Input value={cPhone} onChange={(e) => setCPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" /></div>
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
               <Button variant="outline" onClick={() => setContactOpen(false)}>{t("form.cancel")}</Button>
               <Button onClick={saveContact}>{t("form.save")}</Button>
             </div>

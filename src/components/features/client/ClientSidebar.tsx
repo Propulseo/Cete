@@ -18,6 +18,7 @@ import {
   ClipboardList,
   Library,
   UserCircle,
+  ArrowLeft,
   LogOut,
   type LucideIcon,
 } from "lucide-react";
@@ -107,7 +108,12 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
           monochrome (même traitement que le footer du site) pour rester lisible sur le
           rail sombre, sans plaque. En clair il garde ses couleurs. */}
       <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
-        <span className="inline-flex">
+        <Link
+          href="/"
+          onClick={onNavigate}
+          aria-label={t("backToSite")}
+          className="inline-flex rounded-sm transition-opacity hover:opacity-80"
+        >
           <Image
             src="/assets/brand/logo-cete.png"
             alt="CETé — Agence de notation"
@@ -115,7 +121,7 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
             height={40}
             className="h-8 w-auto dark:brightness-0 dark:invert"
           />
-        </span>
+        </Link>
       </div>
 
       {/* Grouped navigation */}
@@ -159,6 +165,24 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
             </div>
           </div>
         ))}
+
+        {/* Sortie vers la vitrine — sans ce lien le portail est une impasse sur mobile :
+            le drawer est la seule navigation, et « Déconnexion » était le seul chemin
+            vers l'accueil. Le logo du masthead pointe aussi vers /, mais l'affordance
+            reste implicite : on garde une entrée explicite. */}
+        <div className="mt-3 border-t border-[var(--admin-line)] pt-3">
+          <Link
+            href="/"
+            onClick={onNavigate}
+            className="group flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <ArrowLeft
+              strokeWidth={1.75}
+              className="size-[18px] shrink-0 text-muted-foreground group-hover:text-foreground"
+            />
+            <span className="truncate">{t("backToSite")}</span>
+          </Link>
+        </div>
       </nav>
 
       {/* Account */}

@@ -76,15 +76,15 @@ export default function AdminOrganizationsPage() {
           <CardTitle>Ajouter une organisation</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Input
               placeholder="Nom de l'organisation..."
               value={newOrg}
               onChange={(e) => setNewOrg(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              className="max-w-md"
+              className="sm:max-w-md"
             />
-            <Button onClick={handleAdd} className="bg-primary">
+            <Button onClick={handleAdd} className="bg-primary shrink-0">
               <Plus className="mr-2 h-4 w-4" />
               Ajouter
             </Button>
@@ -93,9 +93,9 @@ export default function AdminOrganizationsPage() {
       </Card>
 
       <Card>
-        <CardHeader className="flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-between gap-3">
           <CardTitle>Liste des organisations</CardTitle>
-          <Badge variant="secondary">{organizations.length}</Badge>
+          <Badge variant="secondary" className="shrink-0 tabular-nums">{organizations.length}</Badge>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -119,9 +119,10 @@ export default function AdminOrganizationsPage() {
                   </div>
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="icon"
+                    aria-label={`Retirer ${org.name}`}
                     onClick={() => handleRemove(org)}
-                    className="text-destructive hover:text-destructive"
+                    className="shrink-0 text-destructive hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" strokeWidth={1.75} />
                   </Button>

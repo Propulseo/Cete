@@ -2,6 +2,7 @@
 
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { NativeSelect } from "@/components/ui/native-select";
 import { useTranslations } from "next-intl";
 import type { ClientStatus, ClientSector } from "@/types/client";
 
@@ -23,19 +24,21 @@ export function ClientsFilters({
   const t = useTranslations("admin.clients");
 
   return (
-    <div className="mb-4 flex flex-wrap gap-3">
-      <div className="relative flex-1">
+    // Mobile : une grille 1 colonne → recherche et filtres empilés en pleine largeur.
+    // ≥sm : on repasse en ligne, la recherche s'étire, les filtres gardent 176px.
+    <div className="mb-4 grid gap-3 sm:flex sm:flex-wrap">
+      <div className="relative sm:flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input className="pl-9" placeholder={t("list.search")} value={search} onChange={(e) => onSearchChange(e.target.value)} />
       </div>
-      <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={statusFilter} onChange={(e) => onStatusFilterChange(e.target.value)}>
+      <NativeSelect wrapperClassName="sm:w-44" value={statusFilter} onChange={(e) => onStatusFilterChange(e.target.value)} aria-label={t("list.allStatuses")}>
         <option value="">{t("list.allStatuses")}</option>
         {STATUSES.map((s) => <option key={s} value={s}>{t(`status.${s}`)}</option>)}
-      </select>
-      <select className="h-9 rounded-md border border-input bg-transparent px-3 text-sm" value={sectorFilter} onChange={(e) => onSectorFilterChange(e.target.value)}>
+      </NativeSelect>
+      <NativeSelect wrapperClassName="sm:w-44" value={sectorFilter} onChange={(e) => onSectorFilterChange(e.target.value)} aria-label={t("list.allSectors")}>
         <option value="">{t("list.allSectors")}</option>
         {SECTORS.map((s) => <option key={s} value={s}>{t(`sectors.${s}`)}</option>)}
-      </select>
+      </NativeSelect>
     </div>
   );
 }

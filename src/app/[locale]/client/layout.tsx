@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { Source_Serif_4 } from "next/font/google";
 import { Menu, Building2 } from "lucide-react";
@@ -88,7 +88,13 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="inline-flex">
+          {/* Le logo de la topbar ramène à la vitrine — seul geste « accueil » quand le
+              drawer est fermé. */}
+          <Link
+            href="/"
+            aria-label={t("sidebar.backToSite")}
+            className="inline-flex rounded-sm transition-opacity hover:opacity-80"
+          >
             <Image
               src="/assets/brand/logo-cete.png"
               alt="CETé — Agence de notation"
@@ -96,7 +102,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
               height={28}
               className="h-7 w-auto dark:brightness-0 dark:invert"
             />
-          </span>
+          </Link>
         </div>
         {isOrphan ? (
           <div className="p-4 lg:p-8">

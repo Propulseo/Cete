@@ -120,10 +120,15 @@ export function CertificateCard({ clientId, companyName, certificates: provided,
                   Détail — règle des 3C
                 </p>
                 <div className="divide-y divide-[var(--admin-line)] overflow-hidden rounded-[10px] border border-[var(--admin-line)]">
+                  {/* Le libellé complet était porté par un `title` — donc inexistant au
+                      doigt. Il est désormais affiché sous l'abréviation. */}
                   {THREE_C_CRITERIA.map((c) => (
                     <div key={c.id} className="flex items-center justify-between gap-3 px-3 py-2">
-                      <span className="text-sm text-foreground" title={c.full}>
-                        {c.short}
+                      <span className="min-w-0">
+                        <span className="block text-sm text-foreground">{c.short}</span>
+                        {c.full && c.full !== c.short && (
+                          <span className="block text-xs leading-snug text-muted-foreground">{c.full}</span>
+                        )}
                       </span>
                       <RatingSeal value={cert.subCriteria[c.id as keyof ThreeCScore]} size="inline-sm" />
                     </div>
@@ -131,7 +136,7 @@ export function CertificateCard({ clientId, companyName, certificates: provided,
                 </div>
               </div>
 
-              <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+              <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm min-[400px]:grid-cols-2">
                 <Meta label={t("evaluation")}>
                   {new Date(cert.evaluationDate).toLocaleDateString(dateLocale)}
                 </Meta>

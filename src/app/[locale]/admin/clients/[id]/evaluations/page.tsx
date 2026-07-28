@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
@@ -19,8 +20,6 @@ import { RatingSeal, CompositeRating } from "@/components/features/admin/ui/rati
 import { StatusBadge } from "@/components/features/admin/ui/status-badge";
 import { CertificateFormDialog, type CertificateDefaults } from "@/components/features/admin/CertificateFormDialog";
 import { CompleteEvaluationDialog, type CompleteResult } from "@/components/features/admin/clients/CompleteEvaluationDialog";
-
-const selectClass = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
 
 export default function ClientEvaluationsPage() {
   const client = useClient();
@@ -130,9 +129,9 @@ export default function ClientEvaluationsPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold">{t("title")}</h2>
-        <Button onClick={openSchedule}><Plus className="mr-2 h-4 w-4" />{t("schedule")}</Button>
+        <Button className="w-full sm:w-auto" onClick={openSchedule}><Plus className="mr-2 h-4 w-4" />{t("schedule")}</Button>
       </div>
 
       {evals.length === 0 ? (
@@ -141,25 +140,27 @@ export default function ClientEvaluationsPage() {
         <div className="space-y-4">
           {evals.map((ev) => (
             <Card key={ev.id}>
-              <CardContent className="flex items-start gap-6 p-5">
+              {/* Sceau + corps côte à côte dès `sm` ; les actions passent sous le corps
+                  tant qu'on n'a pas la largeur d'une troisième colonne (lg). */}
+              <CardContent className="flex flex-col gap-4 p-4 sm:flex-row sm:gap-6 sm:p-5">
                 {ev.vigiScore ? (
                   <RatingSeal value={ev.vigiScore} size="hero" serif className="shrink-0" />
                 ) : (
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border-2 border-dashed border-muted-foreground/30 text-xs text-muted-foreground">N/A</div>
+                  <div className="flex size-16 shrink-0 items-center justify-center rounded-xl border-2 border-dashed border-muted-foreground/30 text-xs text-muted-foreground">N/A</div>
                 )}
-                <div className="flex-1">
+                <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="font-semibold">{ev.siteName}</h3>
                     <StatusBadge status={ev.status}>{t(`status.${ev.status}`)}</StatusBadge>
                     {ev.compositeRating && <CompositeRating value={ev.compositeRating} />}
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{fmtDate(ev.visitDate)}</span>
-                    <span className="flex items-center gap-1"><User className="h-3.5 w-3.5" />{getAuditorName(ev.auditorId)}</span>
-                    <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{ev.siteAddress}</span>
+                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5 shrink-0" />{fmtDate(ev.visitDate)}</span>
+                    <span className="flex items-center gap-1"><User className="h-3.5 w-3.5 shrink-0" />{getAuditorName(ev.auditorId)}</span>
+                    <span className="flex min-w-0 items-start gap-1"><MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" /><span className="break-words">{ev.siteAddress}</span></span>
                   </div>
                   {ev.omtScore && (
-                    <div className="mt-2 flex gap-3 text-xs">
+                    <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
                       <span>{t("autoEval")}: <strong>{ev.omtScore.autoEvaluation}</strong></span>
                       <span>{t("requirements")}: <strong>{ev.omtScore.recommandation}</strong></span>
                       <span>{t("operational")}: <strong>{ev.omtScore.gestesMetiers}</strong></span>
@@ -168,7 +169,7 @@ export default function ClientEvaluationsPage() {
                   {ev.nextEvaluationDue && <p className="mt-1 text-xs text-muted-foreground">{t("nextDue")}: {fmtDate(ev.nextEvaluationDue)}</p>}
                   {ev.notes && <p className="mt-2 text-sm text-muted-foreground">{ev.notes}</p>}
                 </div>
-                <div className="flex shrink-0 flex-col gap-2">
+                <div className="flex shrink-0 flex-col gap-2 border-t border-[var(--admin-line)] pt-3 sm:border-0 sm:pt-0">
                   {(ev.status === "scheduled" || ev.status === "in_progress") && (
                     <Button size="sm" onClick={() => openComplete(ev)}><CheckCircle className="mr-1.5 h-3.5 w-3.5" />{t("complete")}</Button>
                   )}
@@ -201,17 +202,17 @@ export default function ClientEvaluationsPage() {
               </div>
               <Input value={siteAddress} onChange={(e) => setSiteAddress(e.target.value)} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2"><Label>{t("visitDate")}</Label><Input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)} /></div>
               <div className="space-y-2">
                 <Label>{t("auditor")}</Label>
-                <select className={selectClass} value={auditorId} onChange={(e) => setAuditorId(e.target.value)}>
+                <NativeSelect value={auditorId} onChange={(e) => setAuditorId(e.target.value)}>
                   {founders.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
-                </select>
+                </NativeSelect>
               </div>
             </div>
             <div className="space-y-2"><Label>{t("notes")}</Label><Textarea rows={2} value={schedNotes} onChange={(e) => setSchedNotes(e.target.value)} /></div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
               <Button variant="outline" onClick={() => setScheduleOpen(false)}>Annuler</Button>
               <Button onClick={handleSchedule} disabled={!siteName || !visitDate}>Planifier</Button>
             </div>

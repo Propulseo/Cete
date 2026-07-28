@@ -106,7 +106,9 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
             <FormControl>
               <select
                 {...field}
-                className="flex h-11 sm:h-10 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                // text-base sous md : en dessous de 16px, Safari iOS zoome à l'ouverture
+                // du picker et décale la page.
+                className="flex h-11 sm:h-10 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-base md:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {subjectOptions.map((opt) => (
                   <option key={opt.value} value={opt.value} disabled={opt.value === ""}>

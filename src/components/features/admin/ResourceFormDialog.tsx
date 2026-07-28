@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
 import { uploadFile, buildStoragePath } from "@/lib/supabase/storage";
@@ -137,9 +138,6 @@ export function ResourceFormDialog({
     }
   };
 
-  const selectClass =
-    "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm";
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
@@ -158,11 +156,10 @@ export function ResourceFormDialog({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Catégorie</Label>
-              <select
-                className={selectClass}
+              <NativeSelect
                 value={form.category}
                 onChange={(e) => set("category", e.target.value)}
               >
@@ -173,12 +170,11 @@ export function ResourceFormDialog({
                     </option>
                   )
                 )}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>Type</Label>
-              <select
-                className={selectClass}
+              <NativeSelect
                 value={form.type}
                 onChange={(e) => {
                   const t = e.target.value as ResourceType;
@@ -197,14 +193,13 @@ export function ResourceFormDialog({
                     </option>
                   )
                 )}
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
           <div className="space-y-2">
             <Label>Mode d&apos;accès client</Label>
-            <select
-              className={selectClass}
+            <NativeSelect
               value={form.accessType}
               onChange={(e) => set("accessType", e.target.value)}
             >
@@ -215,7 +210,7 @@ export function ResourceFormDialog({
                   </option>
                 )
               )}
-            </select>
+            </NativeSelect>
           </div>
 
           <div className="space-y-2">
@@ -276,8 +271,7 @@ export function ResourceFormDialog({
 
           <div className="space-y-2">
             <Label>Visibilité</Label>
-            <select
-              className={selectClass}
+            <NativeSelect
               value={form.visibility}
               onChange={(e) => {
                 const v = e.target.value as Visibility;
@@ -286,7 +280,7 @@ export function ResourceFormDialog({
             >
               <option value="global">Global (tous les clients)</option>
               <option value="assigned">Clients spécifiques</option>
-            </select>
+            </NativeSelect>
           </div>
           {form.visibility === "assigned" && (
             <div className="space-y-2">
@@ -296,12 +290,12 @@ export function ResourceFormDialog({
                   <p className="px-1 text-xs text-muted-foreground">Aucune entreprise cliente.</p>
                 ) : (
                   clients.map((c) => (
-                    <label key={c.id} className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-accent">
+                    <label key={c.id} className="flex min-h-11 cursor-pointer items-center gap-3 rounded px-1.5 py-1 text-sm hover:bg-accent sm:min-h-0">
                       <input
                         type="checkbox"
                         checked={form.assignedClientIds.includes(c.id)}
                         onChange={() => toggleClient(c.id)}
-                        className="h-4 w-4 rounded border-input"
+                        className="size-5 rounded border-input sm:size-4"
                       />
                       {c.companyName}
                     </label>
@@ -311,7 +305,7 @@ export function ResourceFormDialog({
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Date de publication</Label>
               <Input
@@ -330,7 +324,7 @@ export function ResourceFormDialog({
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>
               Annuler
             </Button>

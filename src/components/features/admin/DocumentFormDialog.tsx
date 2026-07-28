@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploadField } from "@/components/features/admin/ui/FileUploadField";
 import { uploadFile, buildStoragePath } from "@/lib/supabase/storage";
@@ -143,11 +144,11 @@ export function DocumentFormDialog({
             <Input value={form.title} onChange={(e) => set("title", e.target.value)} required />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Catégorie</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm text-foreground shadow-sm"
+              <NativeSelect
+                className="bg-card text-foreground"
                 value={form.category}
                 onChange={(e) => set("category", e.target.value)}
               >
@@ -155,12 +156,12 @@ export function DocumentFormDialog({
                 <option value="capsules">Capsules vidéo</option>
                 <option value="guides">Guides</option>
                 <option value="carnets">Carnets d&apos;appui</option>
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label>Type</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm text-foreground shadow-sm"
+              <NativeSelect
+                className="bg-card text-foreground"
                 value={form.type}
                 onChange={(e) => {
                   const t = e.target.value as DocType;
@@ -176,7 +177,7 @@ export function DocumentFormDialog({
               >
                 <option value="pdf">PDF</option>
                 <option value="video">Vidéo</option>
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
@@ -205,7 +206,7 @@ export function DocumentFormDialog({
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label>Durée</Label>
                 <Input
@@ -229,8 +230,8 @@ export function DocumentFormDialog({
             <>
               <div className="space-y-2">
                 <Label>Visibilité</Label>
-                <select
-                  className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm text-foreground shadow-sm"
+                <NativeSelect
+                  className="bg-card text-foreground"
                   value={form.visibility}
                   onChange={(e) => {
                     const v = e.target.value as Visibility;
@@ -243,7 +244,7 @@ export function DocumentFormDialog({
                 >
                   <option value="global">Global (tous les clients)</option>
                   <option value="assigned">Clients spécifiques</option>
-                </select>
+                </NativeSelect>
               </div>
               {form.visibility === "assigned" && (
                 <div className="space-y-2">
@@ -253,12 +254,12 @@ export function DocumentFormDialog({
                       <p className="px-1 text-xs text-muted-foreground">Aucune entreprise cliente.</p>
                     ) : (
                       clients.map((c) => (
-                        <label key={c.id} className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-accent">
+                        <label key={c.id} className="flex min-h-11 cursor-pointer items-center gap-3 rounded px-1.5 py-1 text-sm hover:bg-accent sm:min-h-0">
                           <input
                             type="checkbox"
                             checked={form.assignedClientIds.includes(c.id)}
                             onChange={() => toggleClient(c.id)}
-                            className="h-4 w-4 rounded border-input"
+                            className="size-5 rounded border-input sm:size-4"
                           />
                           {c.companyName}
                         </label>
@@ -272,14 +273,14 @@ export function DocumentFormDialog({
 
           <div className="space-y-2">
             <Label>Type d&apos;accès</Label>
-            <select
-              className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm text-foreground shadow-sm"
+            <NativeSelect
+              className="bg-card text-foreground"
               value={form.accessType ?? "view-only"}
               onChange={(e) => set("accessType", e.target.value)}
             >
               <option value="view-only">Visualisation uniquement</option>
               <option value="download">Téléchargement autorisé</option>
-            </select>
+            </NativeSelect>
           </div>
 
           <div className="space-y-2">
@@ -291,7 +292,7 @@ export function DocumentFormDialog({
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>
               Annuler
             </Button>

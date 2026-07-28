@@ -21,39 +21,48 @@ export function ClientBanner() {
     router.push("/admin/clients");
   };
 
+  const actions = [
+    { key: "edit", icon: Edit, label: t("detail.edit"), onClick: () => router.push(`/admin/clients/${client.id}/societe`) },
+    { key: "archive", icon: Archive, label: t("detail.archive"), onClick: handleArchive },
+    { key: "eval", icon: ClipboardCheck, label: t("detail.newEval"), onClick: () => router.push(`/admin/clients/${client.id}/evaluations`) },
+    { key: "doc", icon: FileUp, label: t("detail.newDoc"), onClick: () => router.push(`/admin/clients/${client.id}/documents`) },
+  ];
+
   return (
-    <div className="border-b bg-card px-8 py-5">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-lg font-bold text-primary">
+    // Trois blocs empilés sous `lg` : identité, méta repliable, actions en grille 2×2.
+    // La rangée de quatre boutons et la ligne de méta séparée par des gap-4 débordaient
+    // largement d'un écran de téléphone.
+    <div className="border-b bg-card px-4 py-4 lg:px-8 lg:py-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex items-start gap-3 sm:gap-4">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-base font-bold text-primary sm:size-14 sm:text-lg">
             {initials}
           </div>
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="font-serif-display text-2xl font-semibold text-foreground">{client.companyName}</h1>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <h1 className="font-serif-display text-xl font-semibold text-foreground sm:text-2xl">{client.companyName}</h1>
               <StatusBadge status={client.status}>{t(`status.${client.status}`)}</StatusBadge>
             </div>
-            <div className="mt-1 flex items-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><Building2 className="h-3.5 w-3.5" />{client.siret}</span>
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1"><Building2 className="h-3.5 w-3.5 shrink-0" />{client.siret}</span>
               <span>{client.address.city}</span>
               <Badge variant="secondary">{t(`sectors.${client.sector}`)}</Badge>
-              {primary && <span>{primary.firstName} {primary.lastName} &middot; {primary.email}</span>}
+              {primary && (
+                <span className="min-w-0 break-words">
+                  {primary.firstName} {primary.lastName} &middot; {primary.email}
+                </span>
+              )}
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => router.push(`/admin/clients/${client.id}/societe`)}>
-            <Edit className="mr-1.5 h-3.5 w-3.5" />{t("detail.edit")}
-          </Button>
-          <Button variant="outline" size="sm" onClick={handleArchive}>
-            <Archive className="mr-1.5 h-3.5 w-3.5" />{t("detail.archive")}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => router.push(`/admin/clients/${client.id}/evaluations`)}>
-            <ClipboardCheck className="mr-1.5 h-3.5 w-3.5" />{t("detail.newEval")}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => router.push(`/admin/clients/${client.id}/documents`)}>
-            <FileUp className="mr-1.5 h-3.5 w-3.5" />{t("detail.newDoc")}
-          </Button>
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:flex lg:shrink-0">
+          {actions.map((a) => (
+            <Button key={a.key} variant="outline" size="sm" onClick={a.onClick} className="justify-start lg:justify-center">
+              <a.icon className="mr-1.5 h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">{a.label}</span>
+            </Button>
+          ))}
         </div>
       </div>
     </div>

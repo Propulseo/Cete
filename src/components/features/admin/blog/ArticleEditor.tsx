@@ -175,11 +175,13 @@ export function ArticleEditor({ articleId }: { articleId?: string }) {
                 ## titre · **gras** · - liste · [lien](url)
               </span>
             </div>
+            {/* rows réduit sur mobile : avec 22 lignes, le clavier virtuel ouvert, on ne
+                voyait plus ni les champs au-dessus ni l'aperçu en dessous. */}
             <Textarea
               value={form.content}
               onChange={(e) => set({ content: e.target.value })}
-              rows={22}
-              className="font-mono text-sm leading-relaxed"
+              rows={12}
+              className="font-mono text-sm leading-relaxed lg:min-h-[36rem]"
               placeholder="Rédigez le corps de l'article en Markdown…"
             />
           </div>

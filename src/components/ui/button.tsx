@@ -20,15 +20,20 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
       },
+      // Géométrie mobile-first : sous `sm` toute taille cliquable fait au moins 44px
+      // (recommandation WCAG 2.5.5 / HIG), au-dessus on rend la main aux valeurs
+      // desktop d'origine — le rendu ≥640px est donc inchangé. Les variantes `xs` /
+      // `icon-xs` restent volontairement compactes : réservées aux zones denses non
+      // tactiles, elles ne sont utilisées nulle part aujourd'hui.
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        default: "h-11 px-4 py-2 has-[>svg]:px-3 sm:h-9",
         xs: "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
+        sm: "h-11 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 sm:h-8",
+        lg: "h-12 rounded-md px-6 has-[>svg]:px-4 sm:h-10",
+        icon: "size-11 sm:size-9",
         "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
+        "icon-sm": "size-11 sm:size-8",
+        "icon-lg": "size-11 sm:size-10",
       },
     },
     defaultVariants: {

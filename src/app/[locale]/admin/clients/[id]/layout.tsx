@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Loader2, ChevronRight, UserX } from "lucide-react";
+import { Loader2, ChevronRight, ChevronLeft, UserX } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { getClientById } from "@/lib/repo/clients.repo";
@@ -47,13 +47,21 @@ export default function ClientDetailLayout({ children }: { children: React.React
 
   return (
     <ClientProvider client={client}>
-      <div className="border-b bg-card px-8 py-2">
+      {/* Fil d'Ariane — sous `sm` on ne garde que le maillon utile (retour à la liste),
+          avec une cible tactile pleine hauteur ; le chemin complet réapparaît ensuite. */}
+      <div className="border-b bg-card px-4 py-2 lg:px-8">
         <nav className="flex items-center gap-1 text-sm text-muted-foreground">
-          <Link href="/admin/dashboard" className="hover:text-foreground">Admin</Link>
-          <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-          <Link href="/admin/clients" className="hover:text-foreground">{t("backToList").replace("Retour a la liste", "Clients").replace("[EN] Back to list", "Clients")}</Link>
-          <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-          <span className="font-medium text-foreground">{client.companyName}</span>
+          <Link href="/admin/clients" className="-ml-2 inline-flex min-h-11 items-center gap-1 px-2 hover:text-foreground sm:hidden">
+            <ChevronLeft className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+            Clients
+          </Link>
+          <span className="hidden min-w-0 items-center gap-1 sm:flex">
+            <Link href="/admin/dashboard" className="hover:text-foreground">Admin</Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+            <Link href="/admin/clients" className="hover:text-foreground">{t("backToList").replace("Retour a la liste", "Clients").replace("[EN] Back to list", "Clients")}</Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+            <span className="truncate font-medium text-foreground">{client.companyName}</span>
+          </span>
         </nav>
       </div>
       <ClientBanner />
