@@ -43,6 +43,16 @@ async function handleDocAction(doc: ClientDocument, viewOnlyTitle: string, popup
     window.open(`https://www.youtube.com/watch?v=${doc.youtubeId}`, "_blank");
     return;
   }
+  if (doc.accessType !== "download") {
+    const opened = openSecureViewer({
+      title: doc.title,
+      bucket: "client-documents",
+      path: doc.storagePath,
+      src: doc.url,
+    });
+    if (!opened) toast.error(popupError);
+    return;
+  }
   const url = doc.storagePath
     ? await getSignedUrl("client-documents", doc.storagePath).catch(() => null)
     : doc.url ?? null;
@@ -50,11 +60,7 @@ async function handleDocAction(doc: ClientDocument, viewOnlyTitle: string, popup
     toast.error("Document indisponible");
     return;
   }
-  if (doc.accessType === "download") {
-    window.open(url, "_blank", "noopener");
-  } else if (!openSecureViewer(url, { title: doc.title, badge: viewOnlyTitle })) {
-    toast.error(popupError);
-  }
+  window.open(url, "_blank", "noopener");
 }
 
 export function DashboardSummary({ documents }: DashboardSummaryProps) {
@@ -105,9 +111,11 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
               const config = categoryMeta[doc.category];
               const Icon = doc.type === "video" ? Video : FileText;
               return (
+                // Quatre éléments sur une ligne écrasaient le titre sous 400px : la date
+                // rejoint la ligne de méta en mobile et ne reprend sa colonne qu'en sm.
                 <li
                   key={doc.id}
-                  className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-[var(--admin-sidebar-hover)]"
+                  className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[var(--admin-sidebar-hover)] sm:gap-4 sm:px-5"
                 >
                   <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                     <Icon className="size-4" strokeWidth={1.75} />
@@ -117,17 +125,26 @@ export function DashboardSummary({ documents }: DashboardSummaryProps) {
                     <p className="text-xs text-muted-foreground">
                       {config ? t(`categories.${config.key}` as Parameters<typeof t>[0]) : ""} ·{" "}
                       {doc.type === "pdf" ? doc.fileSize : doc.duration}
+                      <span className="tabular-nums sm:hidden">
+                        {" · "}
+                        {new Date(doc.uploadDate).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
+                          day: "numeric",
+                          month: "short",
+                        })}
+                      </span>
                     </p>
                   </div>
-                  <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                  <span className="hidden shrink-0 text-xs tabular-nums text-muted-foreground sm:inline">
                     {new Date(doc.uploadDate).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
                       day: "numeric",
                       month: "short",
                     })}
                   </span>
                   <Button
-                    size="sm"
+                    size="icon"
                     variant="ghost"
+                    className="shrink-0"
+                    aria-label={doc.title}
                     onClick={() => handleDocAction(doc, tDoc("viewOnlyTitle"), tDoc("popupError"))}
                   >
                     {doc.type === "video" ? (

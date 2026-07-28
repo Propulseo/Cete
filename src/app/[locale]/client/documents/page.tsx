@@ -87,13 +87,8 @@ export default function ClientDocumentsPage() {
       toast.error(t("fileUnavailable"));
       return;
     }
-    try {
-      const url = await getSignedUrl("contract-documents", d.storagePath);
-      if (!openSecureViewer(url, { title: d.title, badge: t("viewOnly") })) {
-        toast.error(t("popupError"));
-      }
-    } catch {
-      toast.error(t("fileUnavailable"));
+    if (!openSecureViewer({ title: d.title, bucket: "contract-documents", path: d.storagePath })) {
+      toast.error(t("popupError"));
     }
   };
 

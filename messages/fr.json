@@ -198,7 +198,25 @@
       "description": "CETé intervient en France et à l'international pour évaluer et noter la maîtrise du risque électrique",
       "loading": "Chargement de la carte…",
       "legendFrance": "Siège & France",
-      "legendInternational": "International"
+      "legendInternational": "International",
+      "zones": {
+        "france": "France métropolitaine",
+        "idf": "Île-de-France",
+        "lyon": "Lyon",
+        "marseille": "Marseille",
+        "bordeaux": "Bordeaux",
+        "belgique": "Belgique",
+        "suisse": "Suisse",
+        "maroc": "Maroc",
+        "algerie": "Algérie",
+        "tunisie": "Tunisie",
+        "senegal": "Sénégal",
+        "coteIvoire": "Côte d'Ivoire",
+        "cameroun": "Cameroun",
+        "madagascar": "Madagascar",
+        "reunion": "La Réunion",
+        "chine": "Chine"
+      }
     },
     "governance": {
       "badge": "Gouvernance",
@@ -523,9 +541,6 @@
       "step3Desc": "Remise du Vigi-Score et recommandations.",
       "coordinates": "COORDONNÉES",
       "emailLabel": "Email",
-      "hoursLabel": "Horaires",
-      "weekdays": "Lun–Ven : 09:00–18:00",
-      "weekend": "Sam–Dim : Fermé",
       "howItWorks": "COMMENT ÇA MARCHE",
       "chipVigiScore": "Notation Vigi-Score",
       "chipDPS": "Diagnostic DPS",
@@ -647,9 +662,6 @@
       "addressLabel": "Adresse",
       "emailLabel": "Email",
       "phoneLabel": "Téléphone",
-      "hoursLabel": "Horaires",
-      "weekdays": "Lun-Ven",
-      "weekendClosed": "Sam-Dim : Fermé",
       "mapPlaceholder": "Carte Google Maps"
     }
   },
@@ -785,6 +797,15 @@
     }
   },
   "client": {
+    "viewer": {
+      "badge": "Lecture seule",
+      "loading": "Chargement du document…",
+      "errorTitle": "Document illisible",
+      "errorHint": "Le fichier est indisponible ou son format n'est pas pris en charge par la visionneuse. Contactez CETé si le problème persiste.",
+      "notice": "Impression et téléchargement désactivés — document consultable en ligne uniquement.",
+      "zoomIn": "Agrandir",
+      "zoomOut": "Réduire"
+    },
     "sidebar": {
       "groupOverview": "Mon espace",
       "groupContent": "Mes contenus",
@@ -799,6 +820,7 @@
       "carnets": "Carnets d'appui",
       "resources": "Ressources",
       "profile": "Mon profil",
+      "backToSite": "Retour au site",
       "logout": "Déconnexion"
     },
     "states": {

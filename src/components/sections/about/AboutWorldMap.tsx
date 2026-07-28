@@ -6,22 +6,22 @@ import { Globe } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
 
 const interventionZones = [
-  { name: "France métropolitaine", lat: 46.6, lng: 2.2, primary: true },
-  { name: "Île-de-France", lat: 48.86, lng: 2.35, primary: true },
-  { name: "Lyon", lat: 45.76, lng: 4.83, primary: true },
-  { name: "Marseille", lat: 43.3, lng: 5.37, primary: true },
-  { name: "Bordeaux", lat: 44.84, lng: -0.58, primary: true },
-  { name: "Belgique", lat: 50.85, lng: 4.35, primary: false },
-  { name: "Suisse", lat: 46.95, lng: 7.45, primary: false },
-  { name: "Maroc", lat: 33.97, lng: -6.85, primary: false },
-  { name: "Algérie", lat: 36.75, lng: 3.06, primary: false },
-  { name: "Tunisie", lat: 36.81, lng: 10.17, primary: false },
-  { name: "Sénégal", lat: 14.69, lng: -17.44, primary: false },
-  { name: "Côte d'Ivoire", lat: 5.35, lng: -4.01, primary: false },
-  { name: "Cameroun", lat: 3.87, lng: 11.52, primary: false },
-  { name: "Madagascar", lat: -18.88, lng: 47.51, primary: false },
-  { name: "La Réunion", lat: -21.12, lng: 55.53, primary: false },
-  { name: "Chine", lat: 39.9, lng: 116.4, primary: false },
+  { key: "france", lat: 46.6, lng: 2.2, primary: true },
+  { key: "idf", lat: 48.86, lng: 2.35, primary: true },
+  { key: "lyon", lat: 45.76, lng: 4.83, primary: true },
+  { key: "marseille", lat: 43.3, lng: 5.37, primary: true },
+  { key: "bordeaux", lat: 44.84, lng: -0.58, primary: true },
+  { key: "belgique", lat: 50.85, lng: 4.35, primary: false },
+  { key: "suisse", lat: 46.95, lng: 7.45, primary: false },
+  { key: "maroc", lat: 33.97, lng: -6.85, primary: false },
+  { key: "algerie", lat: 36.75, lng: 3.06, primary: false },
+  { key: "tunisie", lat: 36.81, lng: 10.17, primary: false },
+  { key: "senegal", lat: 14.69, lng: -17.44, primary: false },
+  { key: "coteIvoire", lat: 5.35, lng: -4.01, primary: false },
+  { key: "cameroun", lat: 3.87, lng: 11.52, primary: false },
+  { key: "madagascar", lat: -18.88, lng: 47.51, primary: false },
+  { key: "reunion", lat: -21.12, lng: 55.53, primary: false },
+  { key: "chine", lat: 39.9, lng: 116.4, primary: false },
 ];
 
 export function AboutWorldMap() {
@@ -50,12 +50,12 @@ export function AboutWorldMap() {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-[#4DA6D9]/20 shadow-2xl">
+        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-white/20 ring-1 ring-black/10 shadow-2xl bg-[#F4F9FD]">
           {mapReady ? (
             <LeafletMap />
           ) : (
-            <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
-              <span className="text-white/40">{t("loading")}</span>
+            <div className="h-[500px] bg-[#F4F9FD] flex items-center justify-center">
+              <span className="text-[#4A6580]">{t("loading")}</span>
             </div>
           )}
         </div>
@@ -64,13 +64,30 @@ export function AboutWorldMap() {
         <div className="flex flex-wrap justify-center gap-6 mt-8">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#E8630A]" />
-            <span className="text-sm text-white/70">{t("legendFrance")}</span>
+            <span className="text-sm text-white/90">{t("legendFrance")}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#4DA6D9]" />
-            <span className="text-sm text-white/70">{t("legendInternational")}</span>
+            <span className="text-sm text-white/90">{t("legendInternational")}</span>
           </div>
         </div>
+
+        {/* Reprise textuelle des zones : à ce niveau de zoom les marqueurs
+            français se superposent et restent illisibles sur la carte seule. */}
+        <ul className="max-w-4xl mx-auto mt-6 flex flex-wrap justify-center gap-2">
+          {interventionZones.map((zone) => (
+            <li
+              key={zone.key}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-white/90"
+            >
+              <span
+                className={`h-2 w-2 rounded-full ${zone.primary ? "bg-[#E8630A]" : "bg-[#4DA6D9]"}`}
+                aria-hidden
+              />
+              {t(`zones.${zone.key}`)}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -92,13 +109,13 @@ function LeafletMap() {
 
   if (!L || !components) {
     return (
-      <div className="h-[500px] bg-[#0D5A8A]/30 flex items-center justify-center">
-        <span className="text-white/40">{t("loading")}</span>
+      <div className="h-[500px] bg-[#F4F9FD] flex items-center justify-center">
+        <span className="text-[#4A6580]">{t("loading")}</span>
       </div>
     );
   }
 
-  const { MapContainer, TileLayer, Marker, Popup } = components;
+  const { MapContainer, TileLayer, Marker, Popup, Tooltip } = components;
 
   // La pastille visible garde sa taille ; c'est le conteneur transparent qui
   // porte la cible tactile de 44px (les marqueurs à 24-28px étaient intouchables
@@ -111,12 +128,14 @@ function LeafletMap() {
       iconAnchor: [22, 22],
     });
 
+  // Sur fond clair, le liseré blanc seul se noie : on ajoute un anneau sombre
+  // (box-shadow 0 0 0 1px) pour détacher la pastille des tuiles.
   const orangeIcon = touchIcon(
-    `<div style="width:28px;height:28px;background:#E8630A;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(232,99,10,0.5);"></div>`
+    `<div style="width:28px;height:28px;background:#E8630A;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(26,41,64,0.45),0 2px 6px rgba(26,41,64,0.35);"></div>`
   );
 
   const blueIcon = touchIcon(
-    `<div style="width:24px;height:24px;background:#4DA6D9;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(77,166,217,0.5);"></div>`
+    `<div style="width:24px;height:24px;background:#4DA6D9;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(26,41,64,0.45),0 2px 6px rgba(26,41,64,0.35);"></div>`
   );
 
   return (
@@ -133,18 +152,26 @@ function LeafletMap() {
         style={{ height: 500, width: "100%" }}
         attributionControl={false}
       >
+        {/* Fond clair (Positron) : le fond sombre écrasait les pastilles et les
+            noms de villes, les localisations n'étaient plus lisibles. */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         {interventionZones.map((zone) => (
           <Marker
-            key={zone.name}
+            key={zone.key}
             position={[zone.lat, zone.lng]}
             icon={zone.primary ? orangeIcon : blueIcon}
           >
+            {/* Survol desktop : le nom sans clic. Le popup reste pour le tactile. */}
+            <Tooltip direction="top" offset={[0, -16]} opacity={1}>
+              <span style={{ fontWeight: 600, color: "#1A2940" }}>
+                {t(`zones.${zone.key}`)}
+              </span>
+            </Tooltip>
             <Popup>
               <span style={{ fontWeight: 600, color: "#1A2940" }}>
-                {zone.name}
+                {t(`zones.${zone.key}`)}
               </span>
             </Popup>
           </Marker>

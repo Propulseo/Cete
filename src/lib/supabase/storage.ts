@@ -64,6 +64,25 @@ export async function getSignedUrl(
   return data.signedUrl;
 }
 
+/**
+ * Récupère les octets d'un objet privé, sans jamais fabriquer d'URL.
+ *
+ * Utilisé par la visionneuse lecture seule : une URL signée finirait dans le DOM
+ * (ou la barre d'adresse) et suffirait à rouvrir le fichier hors visionneuse,
+ * donc à l'imprimer. Ici les octets ne quittent pas la mémoire de l'onglet.
+ */
+export async function downloadFileBytes(
+  bucket: StorageBucket,
+  path: string,
+): Promise<ArrayBuffer> {
+  const supabase = createClient();
+  const { data, error } = await supabase.storage.from(bucket).download(path);
+  if (error || !data) {
+    throw new RepoError("Impossible de charger le fichier", "storage", "download");
+  }
+  return await data.arrayBuffer();
+}
+
 /** Supprime un objet Storage (best-effort ; n'interrompt pas le flux appelant). */
 export async function deleteFile(bucket: StorageBucket, path: string): Promise<void> {
   const supabase = createClient();

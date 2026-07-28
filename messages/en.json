@@ -198,7 +198,25 @@
       "description": "CETé operates in France and internationally to assess and rate electrical risk management",
       "loading": "Loading map…",
       "legendFrance": "Headquarters & France",
-      "legendInternational": "International"
+      "legendInternational": "International",
+      "zones": {
+        "france": "Mainland France",
+        "idf": "Île-de-France",
+        "lyon": "Lyon",
+        "marseille": "Marseille",
+        "bordeaux": "Bordeaux",
+        "belgique": "Belgium",
+        "suisse": "Switzerland",
+        "maroc": "Morocco",
+        "algerie": "Algeria",
+        "tunisie": "Tunisia",
+        "senegal": "Senegal",
+        "coteIvoire": "Côte d'Ivoire",
+        "cameroun": "Cameroon",
+        "madagascar": "Madagascar",
+        "reunion": "Réunion",
+        "chine": "China"
+      }
     },
     "governance": {
       "badge": "Governance",
@@ -523,9 +541,6 @@
       "step3Desc": "Delivery of Vigi-Score and recommendations.",
       "coordinates": "CONTACT DETAILS",
       "emailLabel": "Email",
-      "hoursLabel": "Hours",
-      "weekdays": "Mon–Fri: 09:00–18:00",
-      "weekend": "Sat–Sun: Closed",
       "howItWorks": "HOW IT WORKS",
       "chipVigiScore": "Vigi-Score Rating",
       "chipDPS": "DPS Diagnosis",
@@ -647,9 +662,6 @@
       "addressLabel": "Address",
       "emailLabel": "Email",
       "phoneLabel": "Phone",
-      "hoursLabel": "Hours",
-      "weekdays": "Mon-Fri",
-      "weekendClosed": "Sat-Sun: Closed",
       "mapPlaceholder": "Google Maps"
     }
   },
@@ -785,6 +797,15 @@
     }
   },
   "client": {
+    "viewer": {
+      "badge": "View only",
+      "loading": "Loading document…",
+      "errorTitle": "Document cannot be displayed",
+      "errorHint": "The file is unavailable or its format is not supported by the viewer. Contact CETé if the problem persists.",
+      "notice": "Printing and downloading disabled — this document can only be read online.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
     "sidebar": {
       "groupOverview": "My space",
       "groupContent": "My content",
@@ -799,6 +820,7 @@
       "carnets": "Support Notebooks",
       "resources": "Resources",
       "profile": "My Profile",
+      "backToSite": "Back to website",
       "logout": "Log out"
     },
     "states": {

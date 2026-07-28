@@ -2,7 +2,6 @@
 
 import {
   Mail,
-  Clock,
   MessageCircle,
   FileSearch,
   Handshake,
@@ -94,16 +93,13 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
           {t("coordinates")}
         </h3>
         <div className="space-y-4">
+          {/* Pas d'horaires d'ouverture : structure d'expertise sans accueil
+              bureau — un affichage d'horaires serait trompeur. */}
           <InfoRow
             icon={Mail}
             label={t("emailLabel")}
             value={contact.email}
             href={`mailto:${contact.email}`}
-          />
-          <InfoRow
-            icon={Clock}
-            label={t("hoursLabel")}
-            value={`${t("weekdays")}\n${t("weekend")}`}
           />
         </div>
       </div>

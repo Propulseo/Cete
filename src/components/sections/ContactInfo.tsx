@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { getContactInfo } from "@/lib/data-loader";
 
 export function ContactInfo() {
@@ -61,20 +61,6 @@ export function ContactInfo() {
             >
               {contact.phone}
             </a>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-4">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary text-white">
-            <Clock className="h-5 w-5" />
-          </div>
-          <div>
-            <h4 className="font-semibold text-foreground">{t("hoursLabel")}</h4>
-            <p className="text-muted-foreground">
-              {t("weekdays")} : {contact.businessHours.monday}
-              <br />
-              {t("weekendClosed")}
-            </p>
           </div>
         </div>
       </div>

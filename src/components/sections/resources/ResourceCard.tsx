@@ -82,20 +82,24 @@ export function ResourceCard({ res }: { res: Resource }) {
             variant="outline"
             size="sm"
             onClick={async () => {
+              // Seuls les PDF restreints passent par la visionneuse lecture seule ;
+              // liens externes et vidéos s'ouvrent normalement.
+              if (res.type === "pdf" && res.accessType !== "download") {
+                const opened = openSecureViewer({
+                  title: res.title,
+                  bucket: "client-documents",
+                  path: res.storagePath,
+                  src: res.url || undefined,
+                });
+                if (!opened) toast.error(t("popupError"));
+                return;
+              }
               const url = await resolveResourceUrl(res);
               if (!url) {
                 toast.error("Ressource indisponible");
                 return;
               }
-              // Seuls les PDF restreints passent par la visionneuse lecture seule ;
-              // liens externes et vidéos s'ouvrent normalement.
-              if (res.type === "pdf" && res.accessType !== "download") {
-                if (!openSecureViewer(url, { title: res.title, badge: t("viewOnly") })) {
-                  toast.error(t("popupError"));
-                }
-              } else {
-                window.open(url, "_blank", "noopener,noreferrer");
-              }
+              window.open(url, "_blank", "noopener,noreferrer");
             }}
           >
             {res.accessType === "download" ? (

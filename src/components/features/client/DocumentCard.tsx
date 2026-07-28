@@ -29,6 +29,16 @@ export function DocumentCard({ document }: DocumentCardProps) {
       window.open(`https://www.youtube.com/watch?v=${document.youtubeId}`, "_blank");
       return;
     }
+    if (!canDownload) {
+      const opened = openSecureViewer({
+        title: document.title,
+        bucket: "client-documents",
+        path: document.storagePath,
+        src: document.url,
+      });
+      if (!opened) toast.error(t("popupError"));
+      return;
+    }
     const url = document.storagePath
       ? await getSignedUrl("client-documents", document.storagePath).catch(() => null)
       : document.url ?? null;
@@ -36,11 +46,7 @@ export function DocumentCard({ document }: DocumentCardProps) {
       toast.error("Document indisponible");
       return;
     }
-    if (canDownload) {
-      window.open(url, "_blank", "noopener");
-    } else if (!openSecureViewer(url, { title: document.title, badge: t("viewOnlyTitle") })) {
-      toast.error(t("popupError"));
-    }
+    window.open(url, "_blank", "noopener");
   };
 
   return (

@@ -73,7 +73,7 @@ function FounderTile({ founder }: { founder: Founder }) {
             alt={t("imageAlt", { name: founder.name, role: founder.role })}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
+            className="object-cover object-top transition-all duration-500"
             style={founder.imagePosition ? { objectPosition: founder.imagePosition } : undefined}
             onError={() => setImgError(true)}
           />

@@ -120,37 +120,6 @@ export default function AdminSettingsPage() {
             </div>
           </CardContent>
         </Card>
-
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-lg">Horaires d&apos;ouverture</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const).map((day) => {
-                const labels: Record<string, string> = {
-                  monday: "Lundi", tuesday: "Mardi", wednesday: "Mercredi",
-                  thursday: "Jeudi", friday: "Vendredi", saturday: "Samedi", sunday: "Dimanche",
-                };
-                return (
-                  <div key={day} className="space-y-1">
-                    <Label className="text-xs">{labels[day]}</Label>
-                    <Input
-                      value={settings.businessHours[day]}
-                      onChange={(e) =>
-                        setSettings((prev) =>
-                          prev
-                            ? { ...prev, businessHours: { ...prev.businessHours, [day]: e.target.value } }
-                            : prev
-                        )
-                      }
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
