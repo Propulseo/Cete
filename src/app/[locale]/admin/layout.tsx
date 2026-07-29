@@ -77,7 +77,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         </SheetContent>
       </Sheet>
 
-      <main className="flex-1 lg:ml-64">
+      {/* min-w-0 : un enfant de flex a `min-width:auto` par défaut, donc un contenu
+          large (table, titre non coupé) élargit le <main> et fait déborder toute la
+          page horizontalement. overflow-x-clip en filet de sécurité — `clip` et non
+          `hidden`, qui créerait un conteneur de défilement et casserait le sticky de
+          la barre du haut. */}
+      <main className="min-w-0 flex-1 overflow-x-clip lg:ml-64">
         <div className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-[var(--admin-line)] bg-card px-4 lg:hidden">
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />

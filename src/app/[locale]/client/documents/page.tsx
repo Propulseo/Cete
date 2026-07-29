@@ -20,6 +20,7 @@ import {
   DataTr,
   DataTd,
 } from "@/components/shared/data-table";
+import { RecordCard, RecordCardList } from "@/components/shared/record-card";
 import type { ContractDocument, ContractDocumentType } from "@/types/client";
 
 const TYPE_ICON: Record<ContractDocumentType, typeof FileText> = {
@@ -111,6 +112,33 @@ export default function ClientDocumentsPage() {
     );
   }
 
+  // Action du document, partagée par la vue tableau (≥lg) et la vue fiches.
+  // En fiche le bouton prend toute la largeur du pied : c'est l'action de la ligne.
+  const docAction = (d: ContractDocument, fullWidth?: boolean) =>
+    canDownload(d) ? (
+      <Button
+        size="sm"
+        variant="outline"
+        className={fullWidth ? "w-full" : undefined}
+        onClick={() => handleDownload(d)}
+        disabled={!d.storagePath}
+      >
+        <Download className="mr-2 size-4" />
+        {t("download")}
+      </Button>
+    ) : (
+      <Button
+        size="sm"
+        variant="outline"
+        className={fullWidth ? "w-full" : undefined}
+        onClick={() => handleView(d)}
+        disabled={!d.storagePath}
+      >
+        <Eye className="mr-2 size-4" />
+        {t("view")}
+      </Button>
+    );
+
   return (
     <div className="p-4 lg:p-8">
       <PageHeader
@@ -121,6 +149,8 @@ export default function ClientDocumentsPage() {
       {docs.length === 0 ? (
         <EmptyState icon={FileText} title={t("empty")} description={t("emptyDescription")} />
       ) : (
+        <>
+        <div className="hidden lg:block">
         <DataTable>
           <DataThead>
             <tr>
@@ -162,35 +192,55 @@ export default function ClientDocumentsPage() {
                   <DataTd className="hidden lg:table-cell text-sm text-muted-foreground">
                     {fmtSize(d.fileSize)}
                   </DataTd>
-                  <DataTd className="text-right">
-                    {canDownload(d) ? (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleDownload(d)}
-                        disabled={!d.storagePath}
-                      >
-                        <Download className="mr-2 size-4" />
-                        {t("download")}
-                      </Button>
-                    ) : (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleView(d)}
-                        disabled={!d.storagePath}
-                        title={t("viewOnly")}
-                      >
-                        <Eye className="mr-2 size-4" />
-                        {t("view")}
-                      </Button>
-                    )}
-                  </DataTd>
+                  <DataTd className="text-right">{docAction(d)}</DataTd>
                 </DataTr>
               );
             })}
           </DataTbody>
         </DataTable>
+        </div>
+
+        <RecordCardList className="lg:hidden">
+          {docs.map((d) => {
+            const Icon = TYPE_ICON[d.type] ?? FileText;
+            return (
+              <RecordCard
+                key={d.id}
+                icon={
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <Icon className="size-4" strokeWidth={1.75} />
+                  </div>
+                }
+                title={d.title}
+                subtitle={d.notes}
+                badges={
+                  <>
+                    <Badge variant="outline">{t(`types.${d.type}`)}</Badge>
+                    {!canDownload(d) && (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-admin-urgent">
+                        <Lock className="size-3" strokeWidth={1.75} />
+                        {t("viewOnly")}
+                      </span>
+                    )}
+                  </>
+                }
+                fields={[
+                  {
+                    label: t("colDate"),
+                    value: (
+                      <span className="tabular-nums">
+                        {new Date(d.uploadedAt).toLocaleDateString(dateLocale, { day: "numeric", month: "short", year: "numeric" })}
+                      </span>
+                    ),
+                  },
+                  { label: t("colSize"), value: <span className="tabular-nums">{fmtSize(d.fileSize)}</span> },
+                ]}
+                actions={docAction(d, true)}
+              />
+            );
+          })}
+        </RecordCardList>
+        </>
       )}
     </div>
   );

@@ -23,13 +23,14 @@ export function ClientTabNav({ clientId }: ClientTabNavProps) {
   ];
 
   return (
-    // Cinq onglets ne tiennent pas dans 360px. Plutôt que de les replier (on perdrait
-    // l'alignement de la règle active) on les rend défilables horizontalement, avec un
-    // masque en dégradé à droite qui signale qu'il reste des onglets — sans lui, les deux
-    // derniers passaient simplement inaperçus. `scrollbar-none` : la barre native masque
-    // la règle des 2px sous les libellés.
-    <div className="relative border-b bg-card">
-      <nav className="flex gap-0 overflow-x-auto scroll-smooth px-4 [-ms-overflow-style:none] [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden">
+    // Cinq onglets ne tiennent pas sur une ligne à 360px. Le défilement horizontal a été
+    // écarté : il cache des onglets, et un glissement latéral pendant qu'on parcourt la
+    // page verticalement est désorientant. On replie donc en grille — deux colonnes au
+    // téléphone, trois en tablette, une seule ligne à partir de lg. Chaque onglet garde
+    // son libellé, rien n'est masqué, et le repère d'état actif passe du soulignement
+    // (illisible en grille) à un aplat léger doublé d'un liseré à gauche.
+    <div className="border-b bg-card">
+      <nav className="grid grid-cols-2 gap-1 p-2 sm:grid-cols-3 lg:flex lg:gap-0 lg:p-0 lg:px-8">
         {tabs.map((tab) => {
           const isActive = tab.exact ? pathname.endsWith(clientId) || pathname.endsWith(`${clientId}/`) : pathname.includes(tab.href.split("/").pop()!);
           return (
@@ -37,22 +38,21 @@ export function ClientTabNav({ clientId }: ClientTabNavProps) {
               key={tab.href}
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
-              className={`flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
+              className={`relative flex min-h-11 items-center gap-2 rounded-md px-3 text-sm font-medium transition-colors lg:min-h-0 lg:rounded-none lg:border-b-2 lg:px-4 lg:py-3 ${
                 isActive
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground"
+                  ? "bg-primary/[0.08] text-primary lg:border-primary lg:bg-transparent"
+                  : "text-muted-foreground hover:text-foreground lg:border-transparent lg:hover:border-muted-foreground/30"
               }`}
             >
+              {isActive && (
+                <span aria-hidden className="absolute inset-y-1.5 left-0 w-[3px] rounded-r bg-primary lg:hidden" />
+              )}
               <tab.icon className="h-4 w-4 shrink-0" />
-              {tab.label}
+              <span className="truncate">{tab.label}</span>
             </Link>
           );
         })}
       </nav>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent lg:hidden"
-      />
     </div>
   );
 }

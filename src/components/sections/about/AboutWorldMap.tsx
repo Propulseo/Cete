@@ -117,6 +117,27 @@ function LeafletMap() {
 
   const { MapContainer, TileLayer, Marker, Popup, Tooltip } = components;
 
+  // Cadrage initial, dépendant de la largeur.
+  //
+  // Le cadrage précédent — centre [28, 55], zoom 3 — était calculé pour un écran large.
+  // À ce zoom, la carte fait 2048px de large : un téléphone de 390px n'en montre que
+  // ~19%, soit environ 68° de longitude. Centré sur 55°E, on affichait donc 21°E–89°E,
+  // c'est-à-dire l'Asie centrale : la France (2°E) et toute l'Europe tombaient hors
+  // champ à l'arrivée sur la section.
+  //
+  // Sous 1024px on recentre sur l'Europe occidentale et le Maghreb — le cœur de
+  // l'activité, et ce que le lecteur cherche. Les zones lointaines (Chine, Madagascar,
+  // Afrique de l'Ouest) restent atteignables en déplaçant la carte, et sont de toute
+  // façon reprises en toutes lettres dans la liste sous la carte.
+  //
+  // Lecture directe de innerWidth : ce composant n'est monté qu'après hydratation
+  // (`mapReady`, puis import dynamique de Leaflet), on est donc toujours côté client ici.
+  // Le zoom reste à 3 dans les deux cas : c'est la largeur du conteneur qui change
+  // l'étendue visible, seul le centre a besoin de bouger.
+  const isNarrow = typeof window !== "undefined" && window.innerWidth < 1024;
+  const center: [number, number] = isNarrow ? [41, 6] : [28, 55];
+  const zoom = 3;
+
   // La pastille visible garde sa taille ; c'est le conteneur transparent qui
   // porte la cible tactile de 44px (les marqueurs à 24-28px étaient intouchables
   // au doigt). iconAnchor reste au centre, la position sur la carte est inchangée.
@@ -146,8 +167,8 @@ function LeafletMap() {
         crossOrigin=""
       />
       <MapContainer
-        center={[28, 55]}
-        zoom={3}
+        center={center}
+        zoom={zoom}
         scrollWheelZoom={false}
         style={{ height: 500, width: "100%" }}
         attributionControl={false}
