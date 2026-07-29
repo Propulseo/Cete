@@ -35,6 +35,7 @@
     },
     "languageSwitcher": {
       "label": "Change language",
+      "short": "Language",
       "fr": "FR",
       "en": "EN"
     }

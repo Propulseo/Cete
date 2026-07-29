@@ -9,7 +9,7 @@ import { Menu, Building2 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ClientSidebar } from "@/components/features/client/ClientSidebar";
 
@@ -73,8 +73,11 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetContent
           side="left"
-          className={`${clientScope} w-64 border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)] p-0`}
+          className={`${clientScope} w-[min(86vw,320px)] border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)] p-0 sm:max-w-none`}
         >
+          {/* Radix exige un titre sur le contenu du dialog : sans lui, le lecteur
+              d'écran annonce un panneau anonyme (et la console émet un avertissement). */}
+          <SheetTitle className="sr-only">{t("sidebar.groupOverview")}</SheetTitle>
           <ClientSidebar
             user={user}
             onLogout={handleLogout}

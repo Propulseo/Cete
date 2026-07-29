@@ -7,12 +7,21 @@ import { useState } from "react";
 import { Menu, User } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetBody,
+  SheetFooter,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 import { getNavigation } from "@/lib/data-loader";
 
 export function Header() {
   const t = useTranslations("common.header");
+  const tLang = useTranslations("common.languageSwitcher");
   const locale = useLocale() as "fr" | "en";
   const [isOpen, setIsOpen] = useState(false);
   const navigation = getNavigation(locale);
@@ -91,56 +100,82 @@ export function Header() {
               <span className="sr-only">{t("menu")}</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-            <nav className="flex flex-col gap-4 pt-8">
-              {mainNav.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href as "/"}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-lg font-medium transition-colors ${
-                      isActive
-                        ? "text-[#1A2940]"
-                        : "text-[#4A6580] hover:text-[#1A2940]"
-                    }`}
-                  >
-                    {isActive && (
-                      <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#4DA6D9]" />
-                    )}
-                    {item.label}
-                  </Link>
-                );
-              })}
-              <div className="mt-2 flex justify-center">
+          {/* Panneau en trois bandes : marque + fermeture / navigation défilante /
+              actions en pied. Les deux CTA vivent en bas parce que c'est là que tombe
+              le pouce sur un grand téléphone — et parce que « Demander une évaluation »
+              est la conversion du site, elle ne doit pas se mériter au scroll. */}
+          <SheetContent
+            side="right"
+            className="w-[min(88vw,340px)] gap-0 border-l-[#4DA6D9]/15 bg-[#F4F9FD] p-0 sm:max-w-none"
+          >
+            <SheetHeader className="border-b-[#4DA6D9]/15">
+              <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
+              <Image
+                src="/assets/brand/logo-cete.png"
+                alt={t("logoAlt")}
+                height={80}
+                width={139}
+                className="h-10 w-auto"
+              />
+            </SheetHeader>
+
+            <SheetBody>
+              <nav className="px-3 py-3">
+                {mainNav.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href as "/"}
+                      onClick={() => setIsOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`relative flex min-h-[52px] items-center rounded-lg px-4 text-[17px] transition-colors ${
+                        isActive
+                          ? "bg-[#4DA6D9]/[0.10] font-semibold text-[#1A2940]"
+                          : "font-medium text-[#4A6580] active:bg-[#4DA6D9]/[0.06]"
+                      }`}
+                    >
+                      {/* Repère d'état actif : un liseré vertical, comme dans les
+                          portails — plus lisible qu'une pastille qui décale le libellé. */}
+                      {isActive && (
+                        <span
+                          aria-hidden
+                          className="absolute inset-y-2 left-0 w-[3px] rounded-r bg-[#4DA6D9]"
+                        />
+                      )}
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </SheetBody>
+
+            <SheetFooter className="gap-3 border-t-[#4DA6D9]/15 px-4 pt-4">
+              <Button
+                asChild
+                className="h-12 w-full bg-[#E8630A] text-base text-white shadow-sm hover:bg-[#B84D08]"
+              >
+                <Link href="/contact" onClick={() => setIsOpen(false)}>
+                  {t("requestEvaluation")}
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 w-full border-[#4DA6D9]/40 text-base text-[#1A7AB5] hover:bg-[#DAEEF8]"
+              >
+                <Link href="/connexion" onClick={() => setIsOpen(false)}>
+                  <User className="mr-2 h-4 w-4" />
+                  {t("clientArea")}
+                </Link>
+              </Button>
+              <div className="flex items-center justify-between border-t border-[#4DA6D9]/15 pt-3">
+                <span className="text-xs font-medium uppercase tracking-[0.06em] text-[#8AA5BE]">
+                  {tLang("short")}
+                </span>
                 <LanguageSwitcher />
               </div>
-              <div className="mt-4 flex flex-col gap-2">
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-[#4DA6D9]/30 text-[#4DA6D9]"
-                >
-                  <Link
-                    href="/connexion"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center gap-2"
-                  >
-                    <User className="h-4 w-4" />
-                    {t("clientArea")}
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  className="bg-[#E8630A] text-white hover:bg-[#B84D08]"
-                >
-                  <Link href="/contact" onClick={() => setIsOpen(false)}>
-                    {t("requestEvaluation")}
-                  </Link>
-                </Button>
-              </div>
-            </nav>
+            </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>

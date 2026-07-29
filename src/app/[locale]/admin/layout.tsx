@@ -8,7 +8,7 @@ import { Menu } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { AdminSidebar } from "@/components/features/admin/AdminSidebar";
 
 // Source Serif 4 — institutional display serif, scoped to the admin theme only
@@ -68,8 +68,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetContent
           side="left"
-          className={`${adminScope} w-64 border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)] p-0`}
+          className={`${adminScope} w-[min(86vw,320px)] border-r border-[var(--admin-line)] bg-[var(--admin-sidebar)] p-0 sm:max-w-none`}
         >
+          {/* Radix exige un titre sur le contenu du dialog : sans lui, le lecteur
+              d'écran annonce un panneau anonyme (et la console émet un avertissement). */}
+          <SheetTitle className="sr-only">Navigation admin</SheetTitle>
           <AdminSidebar user={sidebarUser} onLogout={handleLogout} onNavigate={() => setSidebarOpen(false)} />
         </SheetContent>
       </Sheet>

@@ -34,7 +34,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     return (
       <div
         aria-hidden
-        className={cn("h-8 w-full rounded-md border border-[var(--admin-line)]", className)}
+        className={cn("h-12 w-full rounded-md border border-[var(--admin-line)] lg:h-8", className)}
       />
     );
   }
@@ -60,7 +60,9 @@ export function ThemeToggle({ className }: { className?: string }) {
             title={label}
             onClick={() => setTheme(value)}
             className={cn(
-              "flex h-6 items-center justify-center rounded-sm transition-colors",
+              // 40px de haut au doigt (la largeur de segment dépasse déjà 44px dans un
+              // rail de 320px), densité d'origine en desktop.
+              "flex h-10 items-center justify-center rounded-sm transition-colors lg:h-6",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--admin-sidebar)]",
               active
                 ? "bg-primary/[0.1] text-primary"

@@ -21,7 +21,6 @@ import {
   ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -89,7 +88,7 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
       {/* Brand masthead — logo détouré (SVG) : en mode sombre il est inversé en blanc
           monochrome (même traitement que le footer du site) pour rester lisible sur le
           rail sombre, sans plaque. En clair il garde ses couleurs. */}
-      <div className="flex h-16 items-center border-b border-[var(--admin-line)] px-5">
+      <div className="flex h-16 shrink-0 items-center border-b border-[var(--admin-line)] px-5 pr-14 lg:pr-5">
         <Link
           href="/"
           onClick={onNavigate}
@@ -106,8 +105,9 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
         </Link>
       </div>
 
-      {/* Grouped navigation */}
-      <nav className="flex-1 overflow-y-auto px-3 py-3">
+      {/* Corps défilant. overscroll-contain : sans lui, arrivé en bout de liste, le
+          geste continue sur la page derrière le voile. */}
+      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-2">
         {navGroups.map((group) => (
           <div key={group.title || group.items[0].href} className="mb-1">
             {group.title && (
@@ -125,20 +125,22 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
                     key={item.href}
                     href={item.href as "/"}
                     onClick={onNavigate}
+                    aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                      // 48px au doigt, densité desktop d'origine à partir de lg.
+                      "group relative flex min-h-12 items-center gap-3 rounded-md px-3 text-[15px] transition-colors lg:min-h-0 lg:py-2 lg:text-sm",
                       isActive
                         ? "bg-primary/[0.07] font-medium text-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground active:bg-accent",
                     )}
                   >
                     {isActive && (
-                      <span aria-hidden className="absolute inset-y-1 left-0 w-[3px] rounded-r bg-primary" />
+                      <span aria-hidden className="absolute inset-y-1.5 left-0 w-[3px] rounded-r bg-primary lg:inset-y-1" />
                     )}
                     <item.icon
                       strokeWidth={1.75}
                       className={cn(
-                        "size-[18px] shrink-0",
+                        "size-5 shrink-0 lg:size-[18px]",
                         isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground",
                       )}
                     />
@@ -149,26 +151,12 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
             </div>
           </div>
         ))}
-
-        {/* Sortie vers la vitrine — sur mobile le drawer est la seule navigation, et
-            « Déconnexion » était jusqu'ici le seul chemin vers l'accueil. */}
-        <div className="mt-3 border-t border-[var(--admin-line)] pt-3">
-          <Link
-            href="/"
-            onClick={onNavigate}
-            className="group flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-          >
-            <ArrowLeft
-              strokeWidth={1.75}
-              className="size-[18px] shrink-0 text-muted-foreground group-hover:text-foreground"
-            />
-            <span className="truncate">Retour au site</span>
-          </Link>
-        </div>
       </nav>
 
-      {/* Account */}
-      <div className="border-t border-[var(--admin-line)] p-3">
+      {/* Pied fixe — identité, thème, sortie. Épinglé plutôt que placé en fin de liste :
+          la déconnexion et le retour au site restent atteignables sans scroller, et
+          tombent dans la zone du pouce. */}
+      <div className="shrink-0 border-t border-[var(--admin-line)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:pb-3">
         <div className="mb-2 flex items-center gap-3 px-1">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-foreground">
             {initialsOf(user.name)}
@@ -178,16 +166,23 @@ export function AdminSidebar({ user, onLogout, onNavigate }: AdminSidebarProps) 
             <p className="truncate text-xs text-muted-foreground">{user.email}</p>
           </div>
         </div>
-        <ThemeToggle className="mb-2" />
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start text-muted-foreground hover:text-foreground"
-          onClick={onLogout}
+        <ThemeToggle className="mb-1" />
+        <Link
+          href="/"
+          onClick={onNavigate}
+          className="group flex min-h-11 items-center gap-3 rounded-md px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:min-h-0 lg:py-2"
         >
-          <LogOut className="mr-2 size-4" />
-          Déconnexion
-        </Button>
+          <ArrowLeft strokeWidth={1.75} className="size-4 shrink-0" />
+          <span className="truncate">Retour au site</span>
+        </Link>
+        <button
+          type="button"
+          onClick={onLogout}
+          className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:min-h-0 lg:py-2"
+        >
+          <LogOut className="size-4 shrink-0" strokeWidth={1.75} />
+          <span className="truncate">Déconnexion</span>
+        </button>
       </div>
     </div>
   );
