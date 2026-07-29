@@ -5,13 +5,12 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Eye, Loader2, Save, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { StatusBadge } from "@/components/features/admin/ui/status-badge";
 import type { Article } from "@/types/article";
 import { getArticle, createArticle, updateArticle } from "@/lib/repo/articles.repo";
 import { uploadBlogCover } from "@/lib/repo/blog-media.repo";
 import { ArticleEditorFields } from "./ArticleEditorFields";
+import { MarkdownEditor } from "./MarkdownEditor";
 import { ArticleEnglishFields } from "./ArticleEnglishFields";
 import { ArticleEditorPreview } from "./ArticleEditorPreview";
 import { EMPTY_FORM, formFromArticle, formToPayload, type ArticleForm } from "./article-form";
@@ -168,23 +167,7 @@ export function ArticleEditor({ articleId }: { articleId?: string }) {
             onCoverFileChange={setCoverFile}
           />
 
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label>Contenu (Markdown)</Label>
-              <span className="text-xs text-muted-foreground">
-                ## titre · **gras** · - liste · [lien](url)
-              </span>
-            </div>
-            {/* rows réduit sur mobile : avec 22 lignes, le clavier virtuel ouvert, on ne
-                voyait plus ni les champs au-dessus ni l'aperçu en dessous. */}
-            <Textarea
-              value={form.content}
-              onChange={(e) => set({ content: e.target.value })}
-              rows={12}
-              className="font-mono text-sm leading-relaxed lg:min-h-[36rem]"
-              placeholder="Rédigez le corps de l'article en Markdown…"
-            />
-          </div>
+          <MarkdownEditor value={form.content} onChange={(content) => set({ content })} />
 
           <ArticleEnglishFields form={form} set={set} />
         </div>

@@ -16,13 +16,9 @@ function safeName(name: string): string {
   return `${base || "image"}${ext}`;
 }
 
-/**
- * Téléverse une image de couverture dans le bucket public `blog-images` et
- * renvoie son URL publique (utilisable directement dans next/image).
- */
-export async function uploadBlogCover(file: File): Promise<string> {
+async function uploadTo(folder: string, file: File): Promise<string> {
   const supabase = createClient();
-  const path = `covers/${crypto.randomUUID()}-${safeName(file.name)}`;
+  const path = `${folder}/${crypto.randomUUID()}-${safeName(file.name)}`;
 
   const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
     cacheControl: "31536000",
@@ -35,4 +31,21 @@ export async function uploadBlogCover(file: File): Promise<string> {
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
   return data.publicUrl;
+}
+
+/**
+ * Téléverse une image de couverture dans le bucket public `blog-images` et
+ * renvoie son URL publique (utilisable directement dans next/image).
+ */
+export function uploadBlogCover(file: File): Promise<string> {
+  return uploadTo("covers", file);
+}
+
+/**
+ * Idem pour une image insérée dans le corps de l'article. Rangée à part des
+ * couvertures : ce sont deux cycles de vie différents (une couverture est
+ * remplacée, une image de corps est ajoutée au fil du texte).
+ */
+export function uploadBlogImage(file: File): Promise<string> {
+  return uploadTo("body", file);
 }
