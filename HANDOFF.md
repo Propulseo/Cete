@@ -205,5 +205,11 @@ git show <commit>^:BACKEND_SPEC.md                 # relire l'un d'eux
 git checkout <commit>^ -- docs/i18n-audit.md       # le restaurer
 ```
 
+Quelques commentaires d'en-tête pointent encore vers ces documents : les cinq
+premières migrations de `supabase/migrations/` citent `BACKEND_SPEC.md` comme source,
+et `src/app/globals.css:304` renvoie à `docs/dark-mode-audit.md` pour la validation
+WCAG de la palette sombre. Ces renvois restent valables — les fichiers sont dans
+l'historique, récupérables par les commandes ci-dessus.
+
 Seul `docs/PRD.md` a été conservé : c'est la spécification produit validée avec le
 client en février 2026. Elle décrit l'**intention**, pas l'état actuel du code.
