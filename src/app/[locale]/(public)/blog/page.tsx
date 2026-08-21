@@ -7,6 +7,7 @@ import {
   BlogCTA,
 } from "@/components/sections/blog";
 import { loadPublishedArticles } from "@/lib/vitrine-data";
+import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -19,6 +20,8 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
+    alternates: buildAlternates(locale as Locale, "/blog"),
+    openGraph: buildOpenGraph(locale as Locale, "/blog"),
   };
 }
 

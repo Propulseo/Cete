@@ -6,6 +6,9 @@ import { VizActContent } from "@/components/sections/blog/VizActContent";
 import { ArticleBody } from "@/components/sections/blog/ArticleBody";
 import { VideoEmbed } from "@/components/ui/video-embed";
 import { loadArticleBySlug } from "@/lib/vitrine-data";
+import { buildAlternates, localizedUrl } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import type { Locale } from "@/i18n/routing";
 
 // Article éditorial sur-mesure (contenu riche, FR + EN). Les autres articles
@@ -53,19 +56,6 @@ const articles: Record<string, Record<Locale, ArticleMeta>> = {
   },
 };
 
-const seoKeywords: Record<string, Record<Locale, string[]>> = {
-  "viz-act-tracabilite-intelligente-tst": {
-    fr: [
-      "TST", "travaux sous tension", "traçabilité OTST", "NF C 18-510",
-      "habilitation électrique", "VIZ-ACT", "CETé",
-    ],
-    en: [
-      "live working", "TST", "work order traceability", "NF C 18-510",
-      "electrical authorisation", "VIZ-ACT", "CETé",
-    ],
-  },
-};
-
 const contentMap: Record<string, React.ComponentType<{ locale?: Locale }>> = {
   "viz-act-tracabilite-intelligente-tst": VizActContent,
 };
@@ -85,22 +75,50 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale = asLocale(rawLocale);
+  // Le template du layout ajoute déjà " | CETé" : jamais de marque dans le titre.
+  const href = { pathname: "/blog/[slug]", params: { slug } } as const;
   const article = articles[slug]?.[locale];
   if (article) {
     return {
-      title: `${article.title}${article.titleHighlight ?? ""} - Blog CETé`,
+      title: `${article.title}${article.titleHighlight ?? ""}`.trim(),
       description: article.metaDescription,
-      keywords: seoKeywords[slug]?.[locale],
+      alternates: buildAlternates(locale, href),
+      openGraph: {
+        type: "article",
+        siteName: "CETé",
+        locale: locale === "en" ? "en_US" : "fr_FR",
+        url: localizedUrl(locale, href),
+        images: [article.imageUrl],
+        publishedTime: article.publishedDate,
+        authors: [article.author.name],
+      },
     };
   }
   const post = await loadArticleBySlug(slug, locale);
   if (!post) {
     const t = await getTranslations({ locale, namespace: "blog.article" });
-    return { title: t("notFound") };
+    return { title: t("notFound"), robots: { index: false, follow: false } };
   }
+  // Article sans traduction EN : /en/blog/<slug> sert le texte FR à l'identique.
+  // Ce vrai duplicata (même langue, même contenu) est consolidé par un canonical
+  // vers l'URL FR — sans hreflang (le canonical prime, le set serait ignoré).
+  const alternates =
+    !post.hasEnglish && locale === "en"
+      ? { canonical: localizedUrl("fr", href) }
+      : buildAlternates(locale, href, post.hasEnglish ? undefined : ["fr"]);
   return {
-    title: `${post.title} - Blog CETé`,
+    title: post.title,
     description: post.metaDescription || post.excerpt,
+    alternates,
+    openGraph: {
+      type: "article",
+      siteName: "CETé",
+      locale: locale === "en" ? "en_US" : "fr_FR",
+      url: localizedUrl(locale, href),
+      images: [post.imageUrl],
+      publishedTime: post.publishedDate,
+      authors: [post.author],
+    },
   };
 }
 
@@ -118,14 +136,41 @@ export default async function BlogArticlePage({
   setRequestLocale(rawLocale);
   const t = await getTranslations({ locale, namespace: "blog.article" });
 
+  const articleUrl = localizedUrl(locale, {
+    pathname: "/blog/[slug]",
+    params: { slug },
+  });
+  const breadcrumb = (title: string) =>
+    breadcrumbJsonLd([
+      { name: locale === "en" ? "Home" : "Accueil", url: localizedUrl(locale, "/") },
+      { name: "Blog", url: localizedUrl(locale, "/blog") },
+      { name: title },
+    ]);
+
   // 1) Article éditorial sur-mesure
   const bespoke = articles[slug]?.[locale];
   const Content = contentMap[slug];
   if (bespoke && Content) {
+    const bespokeTitle = `${bespoke.title}${bespoke.titleHighlight ?? ""}`.trim();
     return (
-      <ArticleLayout meta={bespoke}>
-        <Content locale={locale} />
-      </ArticleLayout>
+      <>
+        <JsonLd
+          data={articleJsonLd({
+            locale,
+            url: articleUrl,
+            title: bespokeTitle,
+            description: bespoke.metaDescription,
+            image: bespoke.imageUrl,
+            datePublished: bespoke.publishedDate,
+            authorName: bespoke.author.name,
+            authorRole: bespoke.author.role,
+          })}
+        />
+        <JsonLd data={breadcrumb(bespokeTitle)} />
+        <ArticleLayout meta={bespoke}>
+          <Content locale={locale} />
+        </ArticleLayout>
+      </>
     );
   }
 
@@ -150,21 +195,36 @@ export default async function BlogArticlePage({
   };
 
   return (
-    <ArticleLayout meta={meta}>
-      {post.videoUrl && (
-        <div className="mb-8">
-          <VideoEmbed url={post.videoUrl} title={post.title} />
-        </div>
-      )}
-      {/* Chapô = résumé en accroche */}
-      <p className="mb-10 border-l-4 border-[#E8630A] pl-5 text-xl font-medium leading-relaxed text-[#1A2940]">
-        {post.excerpt}
-      </p>
-      {post.content ? (
-        <ArticleBody content={post.content} />
-      ) : (
-        <p className="text-lg leading-relaxed text-[#4A6580]">{t("comingSoon")}</p>
-      )}
-    </ArticleLayout>
+    <>
+      <JsonLd
+        data={articleJsonLd({
+          locale,
+          url: articleUrl,
+          title: post.title,
+          description: post.metaDescription || post.excerpt,
+          image: post.imageUrl,
+          datePublished: post.publishedDate,
+          authorName: post.author,
+          authorRole: post.authorRole,
+        })}
+      />
+      <JsonLd data={breadcrumb(post.title)} />
+      <ArticleLayout meta={meta}>
+        {post.videoUrl && (
+          <div className="mb-8">
+            <VideoEmbed url={post.videoUrl} title={post.title} />
+          </div>
+        )}
+        {/* Chapô = résumé en accroche */}
+        <p className="mb-10 border-l-4 border-[#E8630A] pl-5 text-xl font-medium leading-relaxed text-[#1A2940]">
+          {post.excerpt}
+        </p>
+        {post.content ? (
+          <ArticleBody content={post.content} />
+        ) : (
+          <p className="text-lg leading-relaxed text-[#4A6580]">{t("comingSoon")}</p>
+        )}
+      </ArticleLayout>
+    </>
   );
 }

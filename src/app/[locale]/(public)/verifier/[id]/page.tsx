@@ -1,7 +1,24 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import type { CertificateData } from "@/types/certificate";
 import { CertificateNotFound } from "@/components/sections/verifier/CertificateNotFound";
 import { CertificateCard } from "@/components/sections/verifier/CertificateCard";
+
+// Pages utilitaires de vérification (partagées par QR code) : noindex mais
+// crawlables (pas de Disallow robots, sinon le noindex n'est jamais lu) —
+// follow pour que le lien vers le site transmette.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title:
+      locale === "en" ? "Certificate verification" : "Vérification de certificat",
+    robots: { index: false, follow: true },
+  };
+}
 
 // Server Component : lecture publique (anon) via la vue v_certificate_public
 // (uniquement certificats valides + non expirés, colonnes minimales — pas de

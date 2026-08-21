@@ -2,8 +2,12 @@
 
 import { useEffect, useState, useRef } from "react";
 
+// Le state initial est la valeur FINALE : le HTML rendu côté serveur contient
+// les vrais chiffres (crawlers Google/IA sans JavaScript les lisent — avec 0,
+// les statistiques de l'Observatoire O-M-T étaient invisibles, cf. audit SEO).
+// L'animation 0 → end ne démarre qu'à l'intersection, côté client uniquement.
 export function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(end);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

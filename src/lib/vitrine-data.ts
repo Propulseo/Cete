@@ -173,6 +173,7 @@ function articleToBlogPost(a: Article, locale: Locale = "fr"): BlogPost {
     metaDescription: (en && (a.metaDescriptionEn || a.excerptEn)) || a.metaDescription,
     featured: a.featured,
     videoUrl: a.videoUrl,
+    hasEnglish: Boolean(a.titleEn && (a.contentEn || a.excerptEn)),
   };
 }
 

@@ -15,4 +15,10 @@ export interface BlogPost {
   metaDescription?: string;
   featured: boolean;
   videoUrl?: string;
+  /**
+   * true si l'article dispose d'une vraie traduction anglaise (title_en +
+   * contenu). Pilote le hreflang et le sitemap : un article FR sans traduction
+   * ne doit pas déclarer d'alternate EN (duplicate cross-locale).
+   */
+  hasEnglish: boolean;
 }

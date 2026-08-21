@@ -1,8 +1,9 @@
 "use client";
 
 import { useCountUp } from "@/lib/hooks/useCountUp";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const omtStatKeys = [
   { value: 133, key: "stat1" },
@@ -58,6 +59,16 @@ export function ExpertiseOMT() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/observatoire"
+            className="inline-flex items-center gap-2 rounded-full border border-[#4DA6D9]/40 bg-[#4DA6D9]/10 px-6 py-3 font-medium text-white transition-colors hover:bg-[#4DA6D9]/20"
+          >
+            {t("cta")}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

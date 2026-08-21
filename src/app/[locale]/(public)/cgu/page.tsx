@@ -1,10 +1,24 @@
 import { Metadata } from "next";
 import { BrandName } from "@/components/ui/brand-name";
+import { buildAlternates, buildOpenGraph } from "@/lib/seo";
+import type { Locale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Conditions Générales d'Utilisation",
-  description: "CGU du site CETé - Agence de Notation du Risque Électrique.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  return {
+    title: isEn ? "Terms of Use" : "Conditions Générales d'Utilisation",
+    description: isEn
+      ? "Terms of use of the CETé website - Electrical Risk Rating Agency."
+      : "CGU du site CETé - Agence de Notation du Risque Électrique.",
+    alternates: buildAlternates(locale as Locale, "/cgu"),
+    openGraph: buildOpenGraph(locale as Locale, "/cgu"),
+  };
+}
 
 export default function CGUPage() {
   return (
