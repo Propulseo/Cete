@@ -94,44 +94,58 @@ faudrait faire pour brancher un jour la CLI, est dans `supabase/migrations/READM
 
 ---
 
-## 5. État réel — ce qui marche, ce qui n'est pas branché
+## 5. État réel — ce qui marche, ce qui n'a jamais été écrit
 
-### Ce qui fonctionne vraiment
+Le projet est **très avancé**. Ce n'est pas un prototype : l'essentiel du produit
+fonctionne pour de bon. Mais il reste huit trous, et aucun n'est visible à l'écran —
+d'où cette section.
 
-- Authentification Supabase, avec garde `is_active` au login **et** à la
-  réinitialisation de mot de passe : un compte désactivé n'entre pas.
-- Back-office complet : CRUD clients, évaluations, documents contractuels, ressources,
-  utilisateurs, paramètres.
-- **Génération de certificat PDF authentique** (pas une maquette) avec QR code de
-  vérification pointant vers la page publique `/verifier/{id}`.
-- Portail client alimenté par les données réelles, aligné visuellement sur l'admin.
-- Blog éditorial rédigé depuis l'admin (éditeur Markdown avec barre d'outils, envoi
-  d'images, aperçu réel), bilingue avec repli FR quand la version EN manque.
-- Bilinguisme FR/EN sur toute la surface publique et cliente, chemins traduits inclus.
-- Socle SEO/GEO : canonicals et hreflang auto-référents, sitemap complet, JSON-LD,
-  glossaire, observatoire, FAQ, `llms.txt`, image d'aperçu au partage.
-- Interfaces utilisables au doigt (mobile) et mode nuit sur les deux portails.
+### Ce qui est réellement implémenté
 
-### Ce qui n'est pas branché — à savoir avant de promettre une date
+- **Socle Supabase complet** : 14 tables, RLS active sur les 14, policies dédiées sur
+  les 4 buckets de stockage, 20 migrations, triggers anti-escalade de privilèges.
+- **Authentification réelle** (cookies SSR rafraîchis par le middleware), réinitialisation
+  de mot de passe, garde `is_active` au login **et** au reset.
+- **Back-office** : clients, évaluations, certificats (**PDF + QR code réels**, avec la
+  page publique de vérification), documents contractuels, ressources, blog bilingue avec
+  éditeur Markdown, utilisateurs, réglages.
+- **Espace client** : notation, certificats, quatre catégories de publications,
+  bibliothèque de ressources, visionneuse PDF sécurisée.
+- **Vitrine FR/EN** : 10 pages, i18n complet, SEO/GEO soigné — canonicals, hreflang,
+  sitemap en ISR, 8 types de JSON-LD, `llms.txt`, `robots.txt` ouvert aux crawlers d'IA.
+- **Build vert**, exit 0.
 
-- **Les formulaires publics n'envoient rien.** `src/components/sections/ContactForm.tsx`
-  valide la saisie, attend une seconde et affiche un message de succès. Aucun message
-  ne part, aucun lead n'est stocké. C'est le point le plus coûteux du projet : le canal
-  commercial est muet et le prospect croit avoir été reçu.
-- **Aucun service d'emailing n'est intégré.** La décision est actée — **Brevo**, via son
-  API REST transactionnelle, donc sans dépendance npm à ajouter. Rien n'est écrit.
-- **Les mentions légales et la politique de confidentialité n'existent pas** alors que
-  le pied de page les annonce sur toutes les pages. Elles sont obligatoires (LCEN
-  art. 6-III) et bloquées par des informations que seul le client peut fournir
-  (immatriculation, hébergeur, directeur de publication).
+### Les huit trous — ce qui n'a jamais été implémenté
+
+| Manque | État exact, vérifié dans le code |
+|---|---|
+| **Captation de leads** | `src/components/sections/ContactForm.tsx` : `setTimeout(1000)` puis toast de succès. Pas de table, pas d'email, pas de route API. **100 % des leads sont perdus**, et le prospect croit avoir été reçu. |
+| **Mentions légales / confidentialité** | `/legal` et `/privacy` sont liés dans le pied de page (`src/data/mocks/{fr,en}/navigation.json:11-12`) sur **toutes** les pages, et les deux routes → 404. |
+| **Analytics** | Zéro. Ni Plausible, ni GA, ni PostHog, ni Sentry. Aucune conversion mesurée, aucune erreur de production remontée. |
+| **Notifications** | Tables `notifications` et `notification_reads` créées et protégées par RLS en base. Côté code : rien d'autre que les types générés. Aucun repo, aucune UI, aucun déclencheur. |
+| **Newsletter** | `src/components/sections/blog/BlogCTA.tsx` : le bouton « S'inscrire à la newsletter » est un `Link` vers `/contact`. Aucun champ email n'existe nulle part. |
+| **Benchmark sectoriel** | Promis dans l'offre Vigi-Score, non implémenté. |
+| **Calcul de la note** | **Il n'y en a pas.** Dans `CompleteEvaluationDialog`, les trois lettres O-M-T sont des champs de saisie libres et le Vigi-Score global est choisi à la main parmi A/B/C/D. La seule mécanique existante est `CertificateFormDialog.tsx:75`, qui concatène l'initiale des trois sous-critères. |
+| **Tests** | Aucun framework, aucun script. `npm run build` et `scripts/verify-*.mjs` (RLS, écritures admin, visibilité client, stockage) sont les seuls filets. |
+
+À quoi s'ajoutent deux points de contenu :
+
 - **La page d'accueil affiche un témoignage client non sourcé** — nom, entreprise et
   chiffres qui n'apparaissent dans aucune donnée du projet, sous un badge « Témoignage
   client ». À remplacer par un témoignage réel autorisé par écrit, ou à retirer.
-- Blog : **4 articles publiés**. Des brouillons attendent en base, dont deux articles
-  de fond rédigés fin juillet, jamais relus ni publiés.
-- Aucun test automatisé. `npm run build` et les scripts `scripts/verify-*.mjs` (qui
-  sondent le RLS, les écritures admin, la visibilité client et le stockage) sont les
-  seuls filets.
+- **Blog** : 4 articles publiés. Des brouillons attendent en base, dont deux articles de
+  fond rédigés fin juillet, jamais relus ni publiés.
+
+Le service d'emailing conditionne les deux premières lignes du tableau : **aucun n'est
+intégré**. La décision est actée — Brevo, via son API REST transactionnelle, donc sans
+dépendance npm à ajouter. Rien n'est écrit.
+
+### Passeport de prévention — terrain entièrement neuf
+
+Si la question se pose : **rien n'a été fait ici**. Zéro occurrence de « passeport »,
+« Caisse des Dépôts », « net-entreprises » ou « CACES » dans tout le dépôt (vérifié le
+21 août 2026 sur `src/`, `messages/` et `supabase/`). Hors socle technique — auth,
+RLS, portails, design system — il n'y a rien à réutiliser pour ce chantier.
 
 ---
 
@@ -143,17 +157,29 @@ confidentiel. Voici la trame.
 
 1. **Sécurité et accès** — traité en premier, détaillé dans le document confidentiel.
    Ne rien mettre en ligne avant.
-2. **Rebrancher le canal commercial** : formulaire de contact → Brevo, avec trace
-   côté base. Sans cela, tout trafic gagné est perdu.
-3. **Conformité légale** : mentions légales et politique de confidentialité, à partir
-   des informations à réclamer au client (elles sont listées dans le document
-   confidentiel — c'est le vrai chemin critique, pas le code).
+2. **Rebrancher le canal commercial** : formulaire de contact → Brevo, avec écriture
+   d'une trace en base. Sans cela, tout trafic gagné est perdu à l'arrivée.
+3. **Conformité légale** : créer `/legal` et `/privacy` — les deux liens existent déjà
+   sur toutes les pages. Bloqué par des informations que seul le client peut fournir
+   (elles sont listées dans le document confidentiel : c'est le vrai chemin critique,
+   pas le code).
 4. **Assainir les contenus non sourcés** : témoignage, références d'entreprises,
    volumétrie affichée.
 5. **Mise en ligne** sur `cete-notation.fr` : DNS, variables d'environnement,
    **rebuild complet**, vérification du sitemap et des canonicals sur le domaine réel.
-6. **Ensuite seulement** : les 58 majeurs de l'audit, la performance (ISR sur les pages
-   publiques, réduction du `"use client"`), et la suite éditoriale du blog.
+6. **Analytics, le jour même de la mise en ligne.** Sans mesure, le travail SEO/GEO
+   déjà fait ne produit aucune information exploitable — et on ne saura pas si le
+   formulaire remis en service convertit.
+7. **Ensuite seulement**, par ordre de valeur décroissante : les 58 majeurs de l'audit,
+   la performance (ISR sur les pages publiques, réduction du `"use client"`), l'interface
+   des notifications (la base est prête, tout le code reste à écrire), le benchmark
+   sectoriel promis dans l'offre, un vrai calcul du Vigi-Score à la place de la saisie
+   manuelle, et les premiers tests automatisés.
+
+Les trois derniers points du 7 sont des **fonctionnalités produit**, pas de la dette :
+ils demandent un arbitrage métier avec le client avant d'être chiffrés. Le calcul de la
+note en particulier touche au cœur de la promesse commerciale — aujourd'hui, un expert
+saisit la note qu'il a établie hors application.
 
 ---
 
