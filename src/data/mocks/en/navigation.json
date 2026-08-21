@@ -11,7 +11,7 @@
     { "label": "Legal Notice", "href": "/legal" },
     { "label": "Privacy Policy", "href": "/privacy" },
     { "label": "Terms & Conditions", "href": "/cgu" },
-    { "label": "Sitemap", "href": "/sitemap" }
+    { "label": "Live Working Glossary", "href": "/glossaire" }
   ],
   "ctaButtons": [
     { "label": "Client Portal", "href": "/connexion" },

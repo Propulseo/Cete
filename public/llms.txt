@@ -1,0 +1,35 @@
+# CETé — Consortium Experts Techniques Électricité
+
+> Agence de notation indépendante du risque électrique en France. CETé évalue la
+> maîtrise des Travaux Sous Tension (TST BT et TST HTA) des organisations et
+> délivre le Vigi-Score®, une notation composite de AAA à DDD fondée sur la
+> Règle des 3C (auto-évaluation, conformité à la Recommandation du Métier,
+> maîtrise des gestes métiers). Fondée par quatre anciens experts du SERECT.
+> Baseline : « La force d'un collectif ». CETé n'est ni un organisme de
+> formation ni un bureau de contrôle : elle NOTE la maîtrise du risque
+> électrique, en complément de ces acteurs.
+
+## Pages principales
+
+- [Accueil](https://cete-notation.fr/fr) : présentation de la notation du risque électrique
+- [La méthode ADN](https://cete-notation.fr/fr/expertise) : Vigi-Score®, Règle des 3C, Vigilance/Vulnérabilité, Observatoire O-M-T
+- [Nos offres](https://cete-notation.fr/fr/services) : DPS (audit terrain du risque électrique), SAVE (analyse d'événements), Campus CPF (coaching et formation), PASS-Sérénité VIP
+- [À propos](https://cete-notation.fr/fr/a-propos) : origine SERECT, gouvernance, fondateurs
+- [Glossaire](https://cete-notation.fr/fr/glossaire) : définitions TST, BT, HTA, CET, NF C 18-510, habilitations, Vigi-Score®
+- [Observatoire O-M-T](https://cete-notation.fr/fr/observatoire) : les données terrain 2022-2025 de la maîtrise des TST en France (133 DPS, 43 entreprises, 3 profils d'organisations)
+- [Blog](https://cete-notation.fr/fr/blog) : réglementation TST, Fiches Techniques BT, prévention du risque électrique
+- [Contact](https://cete-notation.fr/fr/contact) : demande d'évaluation
+
+## Glossaire express
+
+- TST : Travaux Sous Tension — interventions sur ouvrages électriques maintenus sous tension
+- BT : Basse Tension (≤ 1 000 V) ; HTA : Haute Tension A (1 kV à 50 kV)
+- CET : Conditions d'Exécution du Travail (référentiels du Comité des TST)
+- Vigi-Score® : notation composite AAA → DDD de la maîtrise du risque électrique
+- DPS : Diagnostic Performance Sécurité — audit terrain structuré
+- O-M-T : Observatoire de la Maîtrise des TST — 133 DPS, 43 entreprises auditées, plus de 10 000 exigences observées (2022-2025)
+- NF C 18-510 : norme française de prévention du risque électrique et des habilitations
+
+## Version anglaise
+
+- [English site](https://cete-notation.fr/en) — Independent Electrical Risk Rating Agency (Live Working / TST)

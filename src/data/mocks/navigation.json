@@ -11,7 +11,7 @@
     { "label": "Mentions légales", "href": "/legal" },
     { "label": "Politique de confidentialité", "href": "/privacy" },
     { "label": "Conditions générales", "href": "/cgu" },
-    { "label": "Plan du site", "href": "/sitemap" }
+    { "label": "Glossaire TST", "href": "/glossaire" }
   ],
   "ctaButtons": [
     { "label": "Espace Client", "href": "/connexion" },
