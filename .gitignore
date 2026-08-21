@@ -77,3 +77,7 @@ next-env.d.ts
 # Volet confidentiel de la passation : acces, comptes, actions de securite.
 # Se transmet de la main a la main. HANDOFF.md (versionne) y renvoie.
 /docs/passation-confidentiel.md
+
+# Brouillon du courrier client (passation) : nomme les contenus non sourcés
+# encore en ligne. Meme politique que le volet confidentiel.
+/docs/passation-email-client.md
