@@ -73,3 +73,7 @@ next-env.d.ts
 # Audit « matiere premiere pour plateforme tierce » — meme politique : il
 # recense en clair les identifiants de demo et les failles encore ouvertes.
 /AUDIT-CETE-POUR-PLATEFORME.md
+
+# Volet confidentiel de la passation : acces, comptes, actions de securite.
+# Se transmet de la main a la main. HANDOFF.md (versionne) y renvoie.
+/docs/passation-confidentiel.md

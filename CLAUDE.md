@@ -1,73 +1,127 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guide de travail pour Claude Code (claude.ai/code) sur ce dépôt.
+Contexte complet, état fonctionnel et travail restant : **[HANDOFF.md](HANDOFF.md)**.
 
-## Project Overview
+## Le produit
 
-CETé (Consortium Experts Techniques Électricité) — a French-language showcase website for an independent electrical risk rating agency. Phase 1 is a static site with mock data; Phase 2 will integrate Supabase for real auth and database.
+CETé — agence indépendante de notation du risque électrique. Une application Next.js
+qui sert le site public bilingue FR/EN, le portail client et le back-office admin.
+Les données sont **réelles** (Supabase : auth, base, stockage) ; seul le contenu
+éditorial figé de la vitrine reste en JSON.
 
-## Commands
+## Commandes
 
 ```bash
-npm run dev          # Start Next.js dev server
-npm run build        # Production build (runs lint first via prebuild)
-npm run lint         # ESLint check
-npm run lint:lines   # Custom script: enforces max 250 lines per page/section file (warns at 150)
+npm run dev          # serveur de développement
+npm run build        # build de production (prebuild = lint:lines)
+npm run lint         # ESLint
+npm run lint:lines   # 250 lignes max par page/section (avertissement à 150)
 ```
 
-No test framework is configured yet.
+Pas de framework de test. La preuve d'une modification, c'est `npm run build` vert
+plus une vérification au navigateur. `scripts/verify-*.mjs` sondent Supabase
+(RLS, écritures admin, visibilité client, stockage).
 
 ## Architecture
 
-### Tech Stack
-- **Next.js 16** (App Router, React 19, Server Components by default)
-- **TypeScript** (strict mode, path alias `@/*` → `./src/*`)
-- **Tailwind CSS v4** (PostCSS-first, no tailwind.config — uses CSS variables in globals.css)
-- **shadcn/ui** (new-york style, RSC-enabled) + Radix UI + Lucide icons
-- **React Hook Form + Zod** for form validation
+### Routage — tout est sous `[locale]`
 
-### Route Structure
-- `src/app/(public)/` — 5 public pages: `/`, `/a-propos`, `/expertise`, `/services`, `/contact`
-- `src/app/client/` — Protected client area (mock auth, localStorage)
-- `src/app/admin/` — Protected admin area (mock auth, localStorage)
+`src/i18n/routing.ts` déclare les locales `fr` / `en` en `localePrefix: "always"` et
+**mappe chaque chemin traduit** (`/a-propos` ↔ `/about`, `/glossaire` ↔ `/glossary`).
+Toute nouvelle route publique doit être ajoutée à `pathnames`, sinon elle est
+inatteignable en anglais et absente du sitemap.
 
-Each route group has its own layout. Public layout wraps Header + Footer. Client/admin layouts check auth and redirect to login if unauthorized.
+- `src/app/[locale]/(public)/` — vitrine, blog, glossaire, observatoire, CGU, vérification de certificat
+- `src/app/[locale]/admin/` — back-office
+- `src/app/[locale]/client/` — portail client
+- `src/app/[locale]/connexion`, `reset-password`, `viewer` — authentification et visionneuse
+- `src/middleware.ts` — i18n, rafraîchissement de session Supabase, CSP `frame-ancestors`
 
-### Data Layer
-All content comes from typed JSON files in `src/data/mocks/`. The `src/lib/data-loader.ts` module imports these and exposes typed getter functions (e.g., `getFounders()`, `getServices()`, `getExpertiseServices()`). Services are filtered by `category: "Expertise" | "Conseil"`.
+### Données — trois sources, dans cet ordre
 
-### Component Organization
-- `src/components/ui/` — shadcn/ui primitives (button, card, dialog, form, sheet, etc.)
-- `src/components/common/` — Header, Footer
-- `src/components/sections/` — Reusable section components, organized by page:
-  - `sections/home/` — HomeHero, HomeStats, HomePillars, HomeADN, HomeServices, etc.
-  - `sections/about/` — AboutHero, AboutOriginStory, AboutStats, etc.
-  - `sections/expertise/` — ExpertiseHero, ExpertiseADN, ExpertiseServices, etc.
-  - `sections/services/` — ServiceHero, ServicesGrid, ProcessSection, etc.
-  - Plus shared components: ContactForm, ContactInfo, HeroSection, FoundersGrid, etc.
+1. **Supabase** (`src/lib/repo/*.repo.ts`) — clients, évaluations, certificats, articles,
+   ressources, documents, utilisateurs, paramètres. Un repo par entité, jamais de requête
+   Supabase dispersée dans un composant.
+2. **`src/lib/vitrine-data.ts`** — lectures serveur de la vitrine (fondateurs, coordonnées,
+   articles) avec **repli automatique sur le JSON statique** si la base est injoignable.
+   Règle intangible : *la vitrine ne casse jamais*.
+3. **`src/data/mocks/{fr,en}/*.json`** via `src/lib/data-loader.ts` — contenu éditorial figé
+   (services, piliers, valeurs, navigation).
 
-### Auth (Mock)
-`src/lib/auth.ts` provides `login()`, `logout()`, `getUser()`, `isAdmin()`, `isClient()` — all backed by localStorage. `src/lib/auth-context.tsx` exposes `AuthProvider` and `useAuth()` hook.
+Clients Supabase : `src/lib/supabase/client.ts` (navigateur), `server.ts` (composants serveur),
+`admin.ts` (**service-role, serveur uniquement**), `middleware.ts` (session), `storage.ts`
+(buckets `certificates`, `contract-documents`, `client-documents` ; le bucket public
+`blog-images` est géré à part par `src/lib/repo/blog-media.repo.ts`).
 
-Demo credentials: `demo@cete.fr` / `Cete2026` (client), `admin@cete.fr` / `Admin2026` (admin).
+### Auth
 
-### Types
-All interfaces live in `src/types/` with a barrel export in `index.ts`. Key types: `Founder`, `Service`, `Pillar`, `Value`, `AuthUser`, `ClientDocument`, `ContactInfo`.
+`src/lib/auth.ts` s'appuie sur Supabase Auth (`signInWithPassword`) puis charge le profil.
+Un compte **sans profil ou avec `is_active = false` est immédiatement déconnecté** — c'est
+volontaire et cette garde existe aussi côté réinitialisation de mot de passe.
+`src/lib/auth-context.tsx` expose `AuthProvider` / `useAuth()`.
+Les opérations privilégiées (création de compte, réinitialisation) passent par des Server
+Actions dans `src/app/actions/`, jamais par le client.
+
+### SEO
+
+`src/lib/seo.ts` est la source unique des URLs : `buildAlternates()` produit le canonical
+auto-référent et les hreflang depuis `routing.pathnames`. `src/lib/schema.ts` produit le
+JSON-LD (Organization, BreadcrumbList, Article, FAQPage, DefinedTermSet).
+**Le layout ne pose aucun `alternates`** — chaque page construit le sien.
+
+### Base de données
+
+Migrations dans `supabase/migrations/`, appliquées **à la main via le SQL Editor** du
+dashboard Supabase. `supabase db push` échouerait : lire `supabase/migrations/README.md`
+avant toute migration. Toute nouvelle migration s'écrit idempotente.
+
+## Pièges connus — ils ont tous déjà coûté une session
+
+1. **Navigation i18n** : importer `Link`, `useRouter`, `redirect`, `getPathname` depuis
+   `@/i18n/navigation`, jamais depuis `next/*`. Sinon la locale retombe sur `/fr`.
+2. **`getPathname` inclut déjà `/{locale}`** — ne pas le préfixer une seconde fois.
+3. **`openGraph` d'une page REMPLACE celui du layout** (fusion superficielle) : une page qui
+   définit `openGraph` doit redéclarer son image.
+4. **`NEXT_PUBLIC_*` est inliné au build** : changer une variable impose un rebuild.
+5. **`profiles.client_id`** relie un compte à sa fiche client. S'il est nul, le portail
+   client se vide silencieusement — sans erreur.
+6. **Routes metadata sans extension** (`opengraph-image`) : à exclure du matcher du
+   middleware, sinon elles sont redirigées en 307 et deviennent inaccessibles.
 
 ## Conventions
 
-- **Language**: All UI copy, data, and content is in French.
-- **File size limits**: Page files and section components must stay under 250 lines (warning at 150). Extract sections into `src/components/sections/<page>/` subdirectories.
-- **Client components**: Only mark `"use client"` when required (hooks, event handlers, browser APIs). Default to server components.
-- **Styling**: Tailwind utilities only — no CSS modules or styled-components. Custom animations and brand CSS variables are defined in `src/app/globals.css`.
-- **Fonts**: Inter (body) and Merriweather (display) via next/font Google.
-- **Brand colors (CSS vars)**:
-  - Primary: `#4DA6D9` (sky blue), `#1A7AB5` (deep), `#0D5A8A` (ultra)
-  - Accent: `#E8630A` (orange TST), `#F59542` (light), `#B84D08` (dark)
-  - Text: `#1A2940` (primary), `#4A6580` (secondary), `#8AA5BE` (muted)
-  - Backgrounds: `#FFFFFF` (main), `#F4F9FD` (soft), `#DAEEF8` (gradient start)
-  - Footer: `#1A2940` (dark blue night)
-- **Design motif**: Translucent blue bubbles (`rgba(77,166,217,0.08–0.15)`) as decorative background elements on heroes and key sections. No orange bubbles, no text inside bubbles.
-- **Icons**: Lucide React exclusively. Icon names in JSON data match Lucide icon identifiers.
-- **Imports**: Use `@/` path alias for all src imports.
-- **No `any` types**: Strict TypeScript — all data is typed through interfaces.
+- **Langue** : toute l'interface publique et client est bilingue via `messages/{fr,en}.json`.
+  L'admin interne reste en français.
+- **Taille de fichier** : 250 lignes maximum par page et par section (`prebuild` bloquant).
+  Au-delà, extraire dans `src/components/sections/<page>/`.
+- **Composants serveur par défaut** ; `"use client"` seulement pour hooks, événements
+  ou API navigateur.
+- **Styles** : Tailwind v4 en PostCSS-first, aucun `tailwind.config`. Les variables de
+  marque et les thèmes (`.admin-theme`, `.client-theme`, mode nuit) sont dans
+  `src/app/globals.css`.
+- **Composants** : `ui/` (shadcn), `common/` (Header, Footer), `shared/` (design system des
+  portails : `data-table`, `kpi-tile`, `status-badge`, `rating-seal`…), `sections/<page>/`,
+  `features/`, `seo/`.
+- **Icônes** : Lucide exclusivement. Les noms d'icônes dans les JSON sont des identifiants Lucide.
+- **Imports** : alias `@/` partout.
+- **TypeScript strict, aucun `any`.** Les types sont dans `src/types/` avec un barrel `index.ts`.
+- **Polices** : Inter (texte) et Merriweather (titres) via `next/font`.
+
+### Couleurs de marque (`globals.css`)
+
+- Primaire : `#4DA6D9` (bleu ciel), `#1A7AB5` (profond), `#0D5A8A` (ultra)
+- Accent : `#E8630A` (orange TST), `#F59542` (clair), `#B84D08` (foncé)
+- Texte : `#1A2940` (principal), `#4A6580` (secondaire), `#8AA5BE` (atténué)
+- Fonds : `#FFFFFF`, `#F4F9FD` (doux), `#DAEEF8` (départ de dégradé) — pied de page `#1A2940`
+- **Motif** : bulles bleues translucides (`rgba(77,166,217,0.08–0.15)`) en décor de hero.
+  Jamais de bulle orange, jamais de texte dans une bulle.
+
+## Sécurité — non négociable
+
+Le dépôt est **public**. Avant tout commit :
+
+- aucune clé, aucun mot de passe, aucun identifiant réel dans le code ni dans un document versionné ;
+- `SUPABASE_SERVICE_ROLE_KEY` ne sort jamais du serveur ;
+- les documents d'audit qui décrivent des failles encore ouvertes restent hors dépôt
+  (voir la fin du `.gitignore`).
