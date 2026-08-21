@@ -56,7 +56,10 @@ export default async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Tout sauf : _next, api, fichiers statiques.
-    "/((?!_next|api|favicon\\.ico|.*\\..*).*)",
+    // Tout sauf : _next, api, opengraph-image (route metadata SANS extension —
+    // sinon le middleware i18n la redirige en 307 vers /fr/... et elle devient
+    // inaccessible ; sitemap.xml et robots.txt ont un point, déjà exclus) et
+    // fichiers statiques.
+    "/((?!_next|api|favicon\\.ico|opengraph-image|.*\\..*).*)",
   ],
 };

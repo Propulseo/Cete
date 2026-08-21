@@ -40,7 +40,21 @@
       "en": "EN"
     }
   },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home",
+    "linksLabel": "Useful pages:",
+    "linkExpertise": "Our electrical risk expertise",
+    "linkServices": "Our audit and support services",
+    "linkBlog": "The electrical risk & live working blog",
+    "linkContact": "Request an assessment"
+  },
   "home": {
+    "meta": {
+      "title": "CETé: Electrical Risk Rating & Live Working (TST)",
+      "description": "Independent electrical risk rating agency: audit, expertise and prevention for live working safety (LV and HV TST). Vigi-Score® rating for your organisation."
+    },
     "hero": {
       "badge": "Independent Rating Agency",
       "titleLine1": "YOUR RATING",
@@ -49,7 +63,7 @@
       "titleLine4": "RISK",
       "baseline": "The strength of a collective",
       "slogan": "Classify. Assess. Illuminate.",
-      "subtitle": "Live Working aptitude at a glance - our framework rates each organization on 3 criteria (A, B, C or D) assembled into a composite Vigi-Score, from AAA to DDD.",
+      "subtitle": "Live Working (TST) aptitude at a glance - our framework rates each organization on 3 criteria (A, B, C or D) assembled into a composite Vigi-Score, from AAA to DDD.",
       "discoverRating": "Discover our rating",
       "requestEvaluation": "Request an Assessment",
       "trustIndicator": "200+ organizations assessed",
@@ -70,7 +84,7 @@
     "pillars": {
       "badge": "Our methodology",
       "heading": "ASSESS. RATE. SUPPORT.",
-      "description": "Three structured steps to objectively measure and improve your electrical risk management"
+      "description": "Three structured steps to objectively measure your electrical risk management and strengthen prevention"
     },
     "adn": {
       "badge": "Proprietary rating",
@@ -137,11 +151,15 @@
     }
   },
   "about": {
+    "meta": {
+      "title": "About: the independent electrical risk rating agency",
+      "description": "CETé, an independent agency founded by four live working experts (ex-SERECT), assesses and rates how organisations control electrical risk."
+    },
     "hero": {
       "badge": "Independent Rating Agency",
       "heading": "WHO ARE <accent>WE</accent>?",
       "subtitle": "From <serect>SERECT</serect> to <cete>CET</cete> - 20 years in the field, a rating agency.",
-      "description": "Four independent experts founded CETé to objectively measure electrical risk management with a structured and transparent rating system."
+      "description": "Four independent live working (TST) experts from SERECT founded CETé - Consortium Experts Techniques Électricité - to objectively measure electrical risk management with a structured and transparent rating system."
     },
     "originStory": {
       "badge": "Our Story",
@@ -267,15 +285,19 @@
     }
   },
   "expertise": {
+    "meta": {
+      "title": "Live Working Expertise (HV & LV TST): Risk Audit",
+      "description": "Live working expertise and audits (HV TST, LV TST): ADN method, Vigi-Score® rating and field assessment of electrical risk control."
+    },
     "hero": {
       "badge": "Rating methodology",
-      "heading": "THE METHOD",
+      "heading": "ELECTRICAL RISK RATING: THE METHOD",
       "subheading": {
         "part1": "gence",
         "part2": "e",
         "part3": "otation"
       },
-      "description": "Our exclusive methodology provides a confidence level - from AAA (excellence) to DDD (critical risk) - on your organization's electrical risk management.",
+      "description": "Our exclusive methodology assesses live working performance (LV and HV TST) and provides a confidence level - from AAA (excellence) to DDD (critical risk) - on your organization's electrical risk.",
       "cta1": "Request an Assessment",
       "cta2": "View support program"
     },
@@ -311,7 +333,7 @@
       "badge": "Founding concept",
       "headingVigilance": "VIGILANCE",
       "headingVulnerability": "VULNERABILITY",
-      "description": "Two opposing forces that determine the level of electrical risk management in your organization.",
+      "description": "Two opposing forces that determine your organization's level of electrical risk control and prevention.",
       "gaugeVigilance": "Vigilance",
       "gaugeVulnerability": "Vulnerability",
       "gaugeLow": "High vigilance",
@@ -359,7 +381,8 @@
       "stat1": "DPS completed",
       "stat2": "Companies audited",
       "stat3": "Requirements observed",
-      "stat4": "Field facts"
+      "stat4": "Field facts",
+      "cta": "Explore the observatory"
     },
     "tertiles": {
       "badge": "O-M-T Observatory",
@@ -481,10 +504,14 @@
     }
   },
   "services": {
+    "meta": {
+      "title": "Electrical Risk Audit, Expertise & Rating Services",
+      "description": "DPS field audit, SAVE, Campus CPF and PASS-Sérénité: audit, consulting and training for the electrical safety and prevention of your live working teams."
+    },
     "hero": {
       "badge": "4 structured services",
-      "heading": "OUR SERVICES",
-      "description": "Expertise, diagnostics, coaching and tailored support to master electrical risk.",
+      "heading": "AUDIT, EXPERTISE & SUPPORT",
+      "description": "Electrical risk audit, expertise, coaching and tailored support for the electrical safety and prevention of your teams.",
       "subdescription": "From DPS to PASS-Sérénité VIP, CETé ADN supports you at every stage of your performance journey.",
       "contactUs": "Contact Us",
       "discoverRating": "Discover our rating"
@@ -541,6 +568,10 @@
     }
   },
   "contact": {
+    "meta": {
+      "title": "Contact & Electrical Risk Assessment Request",
+      "description": "Contact CETé for an audit, expert assessment or rating of your electrical risk. Request your Vigi-Score® evaluation and talk to our live working experts."
+    },
     "hero": {
       "badge": "CETé Rating Agency",
       "heading": "LET'S DISCUSS YOUR PROJECT",
@@ -681,16 +712,69 @@
       "mapPlaceholder": "Google Maps"
     }
   },
+  "faq": {
+    "badge": "FAQ",
+    "heading": "FREQUENTLY ASKED QUESTIONS"
+  },
+  "observatory": {
+    "meta": {
+      "title": "O-M-T Observatory: Live Working Mastery Data",
+      "description": "The Live Working Mastery Observatory: 133 DPS audits, 43 companies, over 10,000 requirements observed (2022-2025). Field data on electrical risk in France."
+    },
+    "hero": {
+      "badge": "O-M-T Observatory · 2022–2025",
+      "heading": "THE LIVE WORKING MASTERY OBSERVATORY",
+      "description": "The field knowledge base that objectively measures how French companies control electrical risk."
+    },
+    "intro": "The Live Working Mastery Observatory (O-M-T) is the knowledge base built by CETé since 2022. It capitalises the results of Safety Performance Diagnoses (DPS) conducted with French companies performing live working, in low voltage (LV) and high voltage (HV), to objectify recurring gaps and benchmark each organisation against its sector.",
+    "stats": {
+      "heading": "The observatory in figures",
+      "period": "Period 2022–2025"
+    },
+    "method": {
+      "heading": "Methodology",
+      "item1": "Field audits (DPS) conducted on worksites representative of each company's activity, in both low and high voltage.",
+      "item2": "The AudiMaT cross-analysis: confronting the organisation's self-assessment, its compliance with the professional recommendation, and the technical gestures observed in real situations.",
+      "item3": "An anonymised consolidation of findings, feeding the sector benchmark and the Vigi-Score® rating framework."
+    },
+    "tertiles": {
+      "heading": "Three organisation profiles",
+      "description": "The cross-analysis of results reveals three tertiles, from the most exposed to the most mature:",
+      "t1Name": "The Vulnerable",
+      "t1Desc": "Weak safety culture, incomplete documentation, resistance to change. High accident probability.",
+      "t2Name": "The Middle Ground",
+      "t2Desc": "Formal compliance without real ownership, gaps between procedures and field practices. Moderate accident probability.",
+      "t3Name": "The Talents",
+      "t3Desc": "Embedded safety culture, measurable continuous improvement, proactive anticipation. Low accident probability.",
+      "cta": "Where do you stand? Request your assessment"
+    },
+    "note": "Observatory data is consolidated on an ongoing basis and published in aggregated, anonymised form.",
+    "links": {
+      "method": "Discover the rating method",
+      "contact": "Request an assessment"
+    }
+  },
+  "glossary": {
+    "meta": {
+      "title": "Live Working & Electrical Risk Glossary",
+      "description": "Definitions of the key live working and electrical risk terms: TST, LV, HV, CET, NF C 18-510, authorisations, Vigi-Score®, DPS, DUERP…"
+    },
+    "hero": {
+      "badge": "References & definitions",
+      "heading": "LIVE WORKING GLOSSARY",
+      "description": "The essential terms of live working (TST), prevention and electrical risk rating, defined by CETé experts."
+    }
+  },
   "blog": {
     "meta": {
-      "title": "Blog - Insights & Analysis",
-      "description": "Regulation, field experience and best practices: our experts decode the latest developments in electrical risk."
+      "title": "Electrical Risk & Live Working Blog: Expert Insights",
+      "description": "Regulation, live working, prevention and electrical safety: our experts decode the latest developments in electrical risk and TST."
     },
     "hero": {
       "badge": "Insights & Perspectives",
-      "headingStart": "INSIGHTS",
-      "headingEnd": "ANALYSIS",
-      "description": "Regulation, field experience and best practices: our experts decode the latest developments in electrical risk.",
+      "headingStart": "ELECTRICAL RISK",
+      "headingEnd": "LIVE WORKING",
+      "description": "Regulation, live working, prevention and electrical safety: our experts decode the latest developments in electrical risk.",
       "count": "{count, plural, one {# published article} other {# published articles}}"
     },
     "featured": {

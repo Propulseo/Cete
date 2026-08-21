@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { OG_IMAGE, siteUrl } from "@/lib/seo";
 import { Toaster } from "@/components/ui/sonner";
 import "@/app/globals.css";
 
@@ -22,6 +23,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Le layout ne définit AUCUN alternates : un canonical hérité identique sur
+// toutes les pages les déclarerait duplicatas de la home. Chaque page publique
+// construit son canonical/hreflang auto-référent via buildAlternates (src/lib/seo).
 export async function generateMetadata({
   params,
 }: {
@@ -29,10 +33,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isEn = locale === "en";
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://cete-notation.fr";
 
   return {
+    metadataBase: new URL(siteUrl),
     title: {
       default: "CETé - Consortium Experts Techniques Électricité",
       template: "%s | CETé",
@@ -40,23 +43,16 @@ export async function generateMetadata({
     description: isEn
       ? "Independent Electrical Risk Rating Agency. Expertise, consulting and training in electrical safety and Live Working (TST)."
       : "Agence de Notation indépendante du risque électrique. Expertise, conseil et formation en sécurité électrique et Travaux Sous Tension (TST).",
-    keywords: isEn
-      ? ["electrical safety", "electrical risk", "TST", "Live Working", "rating agency", "electrical expertise", "safety training", "electrical audit"]
-      : ["sécurité électrique", "risque électrique", "TST", "Travaux Sous Tension", "agence de notation", "expertise électrique", "formation sécurité", "audit électrique"],
     authors: [{ name: "CETé" }],
     openGraph: {
       type: "website",
       locale: isEn ? "en_US" : "fr_FR",
       alternateLocale: isEn ? "fr_FR" : "en_US",
-      url: `${siteUrl}/${locale}`,
       siteName: "CETé",
+      images: [OG_IMAGE],
     },
-    alternates: {
-      canonical: `${siteUrl}/${locale}`,
-      languages: {
-        fr: `${siteUrl}/fr`,
-        en: `${siteUrl}/en`,
-      },
+    twitter: {
+      card: "summary_large_image",
     },
   };
 }

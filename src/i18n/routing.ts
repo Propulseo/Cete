@@ -6,6 +6,10 @@ export const routing = defineRouting({
   // "always" = locale toujours visible dans l'URL (/fr/..., /en/...)
   // Meilleur pour le SEO : chaque langue a son URL canonique distincte.
   localePrefix: "always",
+  // Une SEULE source hreflang : les alternates par page (src/lib/seo.ts).
+  // Les en-têtes Link du middleware contredisaient le hreflang HTML (et
+  // utilisent le host de la requête, pas NEXT_PUBLIC_SITE_URL).
+  alternateLinks: false,
   pathnames: {
     "/": "/",
     "/a-propos": {
@@ -17,6 +21,14 @@ export const routing = defineRouting({
     "/contact": "/contact",
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",
+    "/glossaire": {
+      fr: "/glossaire",
+      en: "/glossary",
+    },
+    "/observatoire": {
+      fr: "/observatoire",
+      en: "/observatory",
+    },
     "/cgu": {
       fr: "/cgu",
       en: "/terms",
