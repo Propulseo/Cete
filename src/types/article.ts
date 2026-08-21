@@ -3,7 +3,8 @@ export type ArticleCategory =
   | "Formation"
   | "Réglementation"
   | "Sécurité"
-  | "Innovation";
+  | "Innovation"
+  | "Engagement";
 
 export interface Article {
   id: string;

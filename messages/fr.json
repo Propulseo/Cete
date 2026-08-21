@@ -243,6 +243,21 @@
       "heading": "INDÉPENDANCE & CONFIDENTIALITÉ",
       "description": "Les valeurs fondamentales qui guident notre engagement quotidien"
     },
+    "rse": {
+      "badge": "Engagement RSE",
+      "heading": "LA FORCE D'UN COLLECTIF <accent>SOLIDAIRE</accent>",
+      "subtitle": "Quand l'expertise technique se met au service de l'accès à l'énergie pour tous",
+      "logoAlt": "Logo Électriciens sans frontières",
+      "partnerTitle": "Partenaire d'Électriciens sans frontières",
+      "paragraph1": "Chez CETé ADN, nous croyons profondément que la force d'un collectif prend tout son sens lorsqu'elle dépasse nos frontières professionnelles. C'est pourquoi nous sommes fiers de soutenir Électriciens sans frontières (ESF).",
+      "paragraph2": "En tant qu'experts techniques en électricité, partager notre savoir-faire et contribuer à donner accès à l'énergie et à l'eau aux populations les plus vulnérables est une évidence. Ce partenariat incarne nos valeurs : la solidarité, le partage d'expertise et l'engagement durable. À travers notre soutien, nous participons à éclairer des vies et à bâtir des infrastructures essentielles pour des communautés du monde entier.",
+      "tags": {
+        "solidarity": "Solidarité",
+        "expertise": "Partage d'expertise",
+        "commitment": "Engagement durable"
+      },
+      "cta": "Découvrir leurs actions sur le terrain"
+    },
     "cta": {
       "badge": "Passez à l'action",
       "heading": "CONNAISSEZ-VOUS VOTRE <accent>NOTATION</accent> ?",

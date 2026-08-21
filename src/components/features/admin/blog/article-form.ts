@@ -7,6 +7,7 @@ export const CATEGORIES: ArticleCategory[] = [
   "Réglementation",
   "Formation",
   "Innovation",
+  "Engagement",
 ];
 
 /** Couleur de pastille par catégorie (miroir de vitrine-data). */
@@ -16,6 +17,7 @@ export const CATEGORY_COLOR: Record<string, string> = {
   Réglementation: "bg-[#1A2940]",
   Sécurité: "bg-[#0D5A8A]",
   Innovation: "bg-[#E8630A]",
+  Engagement: "bg-[#16a34a]",
 };
 
 /** État du formulaire d'édition (tout en chaînes pour les inputs contrôlés). */

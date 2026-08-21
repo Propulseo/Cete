@@ -5,4 +5,5 @@ export { AboutFounders } from "./AboutFounders";
 export { AboutWorldMap } from "./AboutWorldMap";
 export { AboutGouvernance } from "./AboutGouvernance";
 export { AboutValues } from "./AboutValues";
+export { AboutRSE } from "./AboutRSE";
 export { AboutCTA } from "./AboutCTA";

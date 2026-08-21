@@ -7,6 +7,7 @@ import {
   AboutWorldMap,
   AboutGouvernance,
   AboutValues,
+  AboutRSE,
   AboutCTA,
 } from "@/components/sections/about";
 import { loadFounders } from "@/lib/vitrine-data";
@@ -29,6 +30,7 @@ export default async function AProposPage({
       <AboutWorldMap />
       <AboutGouvernance />
       <AboutValues />
+      <AboutRSE />
       <AboutCTA />
     </>
   );

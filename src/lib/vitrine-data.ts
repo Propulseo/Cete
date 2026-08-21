@@ -119,6 +119,7 @@ const CATEGORY_COLOR: Record<string, string> = {
   Réglementation: "bg-[#1A2940]",
   Sécurité: "bg-[#0D5A8A]",
   Innovation: "bg-[#E8630A]",
+  Engagement: "bg-[#16a34a]",
 };
 
 const CATEGORY_IMG: Record<string, string> = {
@@ -127,6 +128,7 @@ const CATEGORY_IMG: Record<string, string> = {
   Réglementation: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop",
   Sécurité: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop",
   Innovation: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+  Engagement: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop",
 };
 
 /** Libellé de catégorie affiché sur la vitrine EN (la valeur stockée reste FR). */

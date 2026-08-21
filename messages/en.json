@@ -243,6 +243,21 @@
       "heading": "INDEPENDENCE & CONFIDENTIALITY",
       "description": "The core values that guide our daily commitment"
     },
+    "rse": {
+      "badge": "CSR Commitment",
+      "heading": "THE STRENGTH OF A <accent>CARING</accent> COLLECTIVE",
+      "subtitle": "When technical expertise serves universal access to energy",
+      "logoAlt": "Électriciens sans frontières logo",
+      "partnerTitle": "Partner of Électriciens sans frontières",
+      "paragraph1": "At CETé ADN, we firmly believe that the strength of a collective takes on its full meaning when it extends beyond our professional boundaries. That is why we are proud to support Électriciens sans frontières (ESF).",
+      "paragraph2": "As electrical engineering experts, sharing our know-how and contributing to providing access to energy and water for the most vulnerable populations is a natural commitment. This partnership embodies our values: solidarity, knowledge sharing and lasting engagement. Through our support, we help light up lives and build essential infrastructure for communities around the world.",
+      "tags": {
+        "solidarity": "Solidarity",
+        "expertise": "Knowledge sharing",
+        "commitment": "Lasting engagement"
+      },
+      "cta": "Discover their field actions"
+    },
     "cta": {
       "badge": "Take action",
       "heading": "DO YOU KNOW YOUR <accent>RATING</accent>?",
