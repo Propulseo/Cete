@@ -52,6 +52,11 @@ next-env.d.ts
 /photo denis.jpeg
 /footer-before-desktop.png
 
+# Skills agent installes en local (depot public — tooling hors depot)
+/.agents/
+/.claude/skills/
+/skills-lock.json
+
 # Livrables d'audit go-live — VOLONTAIREMENT HORS DEPOT.
 # Ce depot est PUBLIC : ces documents detaillent des failles non encore
 # corrigees (identifiants de demo, garde de route, conformite legale) et ne
@@ -60,3 +65,11 @@ next-env.d.ts
 # A reversibiliser si le depot passe en prive.
 /docs/go-live-audit.md
 /docs/go-live-plan.md
+
+# Audit SEO/GEO — même politique : hors depot tant que les failles sont ouvertes
+/docs/seo-geo-audit-2026-07-29.md
+/docs/seo-geo-audit-2026-07-29-findings.md
+
+# Audit « matiere premiere pour plateforme tierce » — meme politique : il
+# recense en clair les identifiants de demo et les failles encore ouvertes.
+/AUDIT-CETE-POUR-PLATEFORME.md
