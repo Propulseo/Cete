@@ -1,12 +1,12 @@
 // Bootstrap des comptes initiaux via la Supabase Admin API (service-role).
-// Lit .env.local (NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY).
+// Lit .env (NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY).
 // Usage : node scripts/bootstrap-auth.mjs
 // Crée : 1 client démo + admin@cete.fr (admin) + client@cete.fr (client lié au client démo).
 import { readFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 
 const env = Object.fromEntries(
-  readFileSync(new URL("../.env.local", import.meta.url), "utf8")
+  readFileSync(new URL("../.env", import.meta.url), "utf8")
     .split(/\r?\n/)
     .filter((l) => l && !l.trimStart().startsWith("#") && l.includes("="))
     .map((l) => {
@@ -18,7 +18,7 @@ const env = Object.fromEntries(
 const url = env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 if (!url || !serviceKey) {
-  console.error("Manque NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY dans .env.local");
+  console.error("Manque NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY dans .env");
   process.exit(1);
 }
 
