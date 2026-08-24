@@ -474,6 +474,9 @@ export type Database = {
           notes: string | null
           omt_score: Json | null
           report_document_id: string | null
+          score_computed: string | null
+          score_details: Json | null
+          score_override_reason: string | null
           site_address: string
           site_name: string
           status: string
@@ -492,6 +495,9 @@ export type Database = {
           notes?: string | null
           omt_score?: Json | null
           report_document_id?: string | null
+          score_computed?: string | null
+          score_details?: Json | null
+          score_override_reason?: string | null
           site_address: string
           site_name: string
           status?: string
@@ -510,6 +516,9 @@ export type Database = {
           notes?: string | null
           omt_score?: Json | null
           report_document_id?: string | null
+          score_computed?: string | null
+          score_details?: Json | null
+          score_override_reason?: string | null
           site_address?: string
           site_name?: string
           status?: string

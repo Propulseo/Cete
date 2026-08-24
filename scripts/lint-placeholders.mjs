@@ -46,4 +46,17 @@ if (offenders.length > 0) {
   process.exit(1);
 }
 
-console.log("📏 lint-placeholders : aucun marqueur résiduel. OK.");
+// Barème Vigi-Score : interdit de partir en production avec les règles provisoires.
+const scaleConfig = readFileSync(
+  join(SRC, "lib", "rating", "vigi-scale-default.ts"),
+  "utf8"
+);
+if (/RULES_VALIDATED_BY_CLIENT\s*=\s*false/.test(scaleConfig)) {
+  console.error("\n❌ lint-placeholders : le barème du Vigi-Score n'est pas validé !");
+  console.error("   RULES_VALIDATED_BY_CLIENT = false dans src/lib/rating/vigi-scale-default.ts.");
+  console.error("   Faire valider les règles de calcul par CETé (plan Tâche 9.1), mettre à");
+  console.error("   jour la config ET passer le flag à true avant tout build de production.\n");
+  process.exit(1);
+}
+
+console.log("📏 lint-placeholders : aucun marqueur résiduel, barème validé. OK.");
