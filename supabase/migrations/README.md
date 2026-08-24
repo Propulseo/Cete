@@ -80,19 +80,24 @@ Ordre d'application. Toutes appliquées en production au 17/07/2026.
 20260716000001_articles_i18n_en
 ```
 
-Appliquée le 21/07/2026 (via SQL Editor) :
+Appliquées ensuite via le SQL Editor :
 
 ```
 20260721000001_articles_marques_deposees   (2 articles CETé ADN® / Vigi-Score®)
+20260721000002_article_ressource_ft_bt     (article + ressource « Fiches Techniques BT,
+                                            édition 1er sept. 2026 » ; dépose aussi
+                                            public/resources/ft-bt-edition-2026-09.pdf)
+20260821000001_article_rse_esf             (article « Engagement RSE — ESF »)
+20260821000002_contact_requests            (table de captation des demandes entrantes)
 ```
 
-En attente d'application :
+**Aucune migration n'est en attente.** Vérifié par introspection le 24/08/2026 :
+existence des lignes déposées (`articles.slug`, `resources.url`) et de la table
+`contact_requests`. La section ci-dessus annonçait `20260721000002` comme non
+appliquée alors qu'elle l'était depuis juillet — d'où ce contrôle en base plutôt
+qu'une lecture de l'historique.
 
-```
-20260721000002_article_ressource_ft_bt   (à appliquer — article + ressource « Fiches Techniques BT, édition 1er sept. 2026 » ; dépose aussi public/resources/ft-bt-edition-2026-09.pdf)
-```
-
-Toute migration créée en aval doit être numérotée **après `20260721000002`**.
+Toute migration créée en aval doit être numérotée **après `20260821000002`**.
 
 ## Ne pas confondre avec `supabase/fixes/`
 
