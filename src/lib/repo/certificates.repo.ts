@@ -3,6 +3,7 @@ import type { CertificateData, CertificateStatus } from "@/types/certificate";
 import type { VigiScoreGrade } from "@/types/client";
 import type { ThreeCScore } from "@/types/shared";
 import { RepoError } from "@/types/repo-error";
+import { notifyClientsAssigned } from "@/lib/repo/notifications.repo";
 import type { Database, Json } from "@/lib/supabase/database.types";
 
 type CertificateRow = Database["public"]["Tables"]["certificates"]["Row"];
@@ -114,8 +115,7 @@ export async function getCertificateById(
 export async function createCertificate(
   payload: CreateCertificatePayload
 ): Promise<CertificateData> {
-  const supabase = createClient();
-  const insert: CertificateInsert = {
+  const supabase = createClient();  const insert: CertificateInsert = {
     certificate_number: payload.certificateNumber,
     client_id: payload.clientId,
     company_name: payload.companyName,
@@ -139,6 +139,11 @@ export async function createCertificate(
   if (error || !data) {
     throw new RepoError("Impossible de déposer le certificat", "certificates", "create");
   }
+  // Déclencheur 7.4 : l'émission d'un certificat notifie le client concerné.
+  await notifyClientsAssigned({
+    message: `Votre certificat Vigi-Score ${payload.vigiScore} est disponible`,
+    clientIds: [payload.clientId],
+  });
   return rowToCertificate(data);
 }
 

@@ -3,6 +3,7 @@ import type { ClientDocument, DocumentCategory, DocumentType } from "@/types/doc
 import type { AccessType, Visibility } from "@/types/shared";
 import type { Database } from "@/lib/supabase/database.types";
 import { RepoError } from "@/types/repo-error";
+import { notifyClientsAssigned } from "@/lib/repo/notifications.repo";
 
 type DocumentRow = Database["public"]["Tables"]["client_documents"]["Row"];
 type DocumentInsert = Database["public"]["Tables"]["client_documents"]["Insert"];
@@ -145,7 +146,15 @@ export async function createDocument(
       .select("*")
       .single();
     if (error) throw error;
-    return rowToDocument(data);
+    const created = rowToDocument(data);
+    // Déclencheur 7.4 : un document assigné à des clients les notifie à sa création.
+    if (created.visibility === "assigned" && created.assignedClientIds.length > 0) {
+      await notifyClientsAssigned({
+        message: `Nouveau document disponible : ${created.title}`,
+        clientIds: created.assignedClientIds,
+      });
+    }
+    return created;
   } catch (error) {
     console.error("[documents.repo] createDocument failed:", error);
     throw new RepoError("Impossible de créer le document", "documents", "create");
@@ -158,6 +167,9 @@ export async function updateDocument(
 ): Promise<ClientDocument | null> {
   try {
     const supabase = createClient();
+    // Déclencheur 7.4 : notifier uniquement les clients VENANT d'être assignés.
+    const previous =
+      payload.assignedClientIds !== undefined ? await getDocument(id) : null;
     const { data, error } = await supabase
       .from("client_documents")
       .update(documentToRow(payload))
@@ -165,7 +177,18 @@ export async function updateDocument(
       .select("*")
       .maybeSingle();
     if (error) throw error;
-    return data ? rowToDocument(data) : null;
+    if (!data) return null;
+    const updated = rowToDocument(data);
+    if (previous && payload.assignedClientIds !== undefined) {
+      const added = updated.assignedClientIds.filter(
+        (cid) => !previous.assignedClientIds.includes(cid)
+      );
+      await notifyClientsAssigned({
+        message: `Nouveau document disponible : ${updated.title}`,
+        clientIds: added,
+      });
+    }
+    return updated;
   } catch (error) {
     console.error("[documents.repo] updateDocument failed:", error);
     throw new RepoError("Impossible de modifier le document", "documents", "update");
