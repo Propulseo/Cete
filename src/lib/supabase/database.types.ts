@@ -329,6 +329,73 @@ export type Database = {
         }
         Relationships: []
       }
+      // Bloc ajouté à la main le 24/08/2026 après la migration
+      // 20260821000002_contact_requests, faute de pouvoir régénérer le fichier
+      // sur le moment. Conforme à ce que produit le générateur ; il sera absorbé
+      // sans perte à la prochaine régénération.
+      contact_requests: {
+        Row: {
+          cgu_accepted_at: string
+          company: string
+          created_at: string
+          email: string
+          email_error: string | null
+          email_sent: boolean
+          id: string
+          ip: string | null
+          kind: string
+          locale: string
+          message: string | null
+          name: string
+          payload: Json
+          phone: string | null
+          status: string
+          subject: string | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          cgu_accepted_at?: string
+          company: string
+          created_at?: string
+          email: string
+          email_error?: string | null
+          email_sent?: boolean
+          id?: string
+          ip?: string | null
+          kind: string
+          locale?: string
+          message?: string | null
+          name: string
+          payload?: Json
+          phone?: string | null
+          status?: string
+          subject?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          cgu_accepted_at?: string
+          company?: string
+          created_at?: string
+          email?: string
+          email_error?: string | null
+          email_sent?: boolean
+          id?: string
+          ip?: string | null
+          kind?: string
+          locale?: string
+          message?: string | null
+          name?: string
+          payload?: Json
+          phone?: string | null
+          status?: string
+          subject?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       contract_documents: {
         Row: {
           access_type: string
