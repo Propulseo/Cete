@@ -6,6 +6,7 @@ export * from "./pillar";
 export * from "./value";
 export * from "./navigation";
 export * from "./contact";
+export * from "./contact-request";
 export * from "./document";
 export * from "./article";
 export * from "./stats";
