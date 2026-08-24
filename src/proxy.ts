@@ -41,7 +41,7 @@ function isPrivatePath(pathname: string): boolean {
   return segment !== undefined && PRIVATE_SEGMENTS.has(segment);
 }
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   // 1. i18n d'abord : négociation/redirections de locale → produit la réponse.
   const response = intlMiddleware(request);
   // 2. Rafraîchit la session Supabase en posant les cookies sur CETTE réponse.
