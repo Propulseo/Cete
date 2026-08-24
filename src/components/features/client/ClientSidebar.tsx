@@ -23,6 +23,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { NotificationBell } from "@/components/features/client/NotificationBell";
 import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/auth";
 
@@ -122,6 +123,8 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
             className="h-8 w-auto dark:brightness-0 dark:invert"
           />
         </Link>
+        {/* Cloche des notifications : dans le bandeau de marque, visible desktop et drawer. */}
+        <NotificationBell />
       </div>
 
       {/* Corps défilant. overscroll-contain : sans lui, arrivé en bout de liste, le

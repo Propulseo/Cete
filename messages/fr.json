@@ -910,6 +910,12 @@
       "zoomIn": "Agrandir",
       "zoomOut": "Réduire"
     },
+    "notifications": {
+      "title": "Notifications",
+      "empty": "Aucune notification pour le moment",
+      "markAllRead": "Tout marquer comme lu",
+      "unread": "{{count}} non lue(s)"
+    },
     "sidebar": {
       "groupOverview": "Mon espace",
       "groupContent": "Mes contenus",
