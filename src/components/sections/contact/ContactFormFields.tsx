@@ -25,6 +25,8 @@ interface ContactFormFieldsProps {
     subject: string;
     message: string;
     acceptCgu: boolean;
+    /** Pot de miel, rendu par ContactForm — jamais affiché ici. */
+    website?: string;
   }>;
   t: (key: string) => string;
   subjectOptions: SubjectOption[];

@@ -625,6 +625,8 @@
       "sending": "Envoi en cours...",
       "successTitle": "Message envoyé !",
       "successDesc": "Nous vous recontacterons dans les meilleurs délais.",
+      "errorTitle": "Votre message n'a pas pu être envoyé",
+      "errorDesc": "Un incident technique nous empêche de l'enregistrer. Réessayez dans un instant, ou écrivez-nous directement à contact@cete-notation.fr.",
       "subjectOptions": {
         "dps": "Notation - Diagnostic Performance Sécurité (DPS)",
         "save": "Expertise - Analyse d'événements (SAVE)",
@@ -668,6 +670,8 @@
       "sending": "Envoi en cours...",
       "successTitle": "Demande d'évaluation envoyée !",
       "successDesc": "Nous vous recontacterons dans les meilleurs délais pour organiser un entretien.",
+      "errorTitle": "Votre demande n'a pas pu être envoyée",
+      "errorDesc": "Un incident technique nous empêche de l'enregistrer. Réessayez dans un instant, ou écrivez-nous directement à contact@cete-notation.fr.",
       "sectorOptions": {
         "energy": "Énergie & Utilities",
         "construction": "BTP & Génie électrique",

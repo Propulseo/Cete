@@ -5,14 +5,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { ContactFormFields } from "@/components/sections/contact/ContactFormFields";
+import { submitContactRequestAction } from "@/app/actions/contact";
 
 export function ContactForm() {
   const t = useTranslations("contact.form");
+  const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const SUBJECT_OPTIONS = [
@@ -34,6 +36,8 @@ export function ContactForm() {
     acceptCgu: z.boolean().refine((val) => val === true, {
       message: t("validation.cguRequired"),
     }),
+    // Pot de miel : jamais affiché, donc jamais rempli par un humain.
+    website: z.string().optional(),
   });
 
   type ContactFormData = z.infer<typeof contactSchema>;
@@ -48,13 +52,20 @@ export function ContactForm() {
       subject: "",
       message: "",
       acceptCgu: false,
+      website: "",
     },
   });
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await submitContactRequestAction({ kind: "contact", locale, ...data });
     setIsSubmitting(false);
+
+    // Le succès n'est plus affiché que si la demande est réellement enregistrée.
+    if (!result.ok) {
+      toast.error(t("errorTitle"), { description: t("errorDesc") });
+      return;
+    }
 
     toast.success(t("successTitle"), {
       description: t("successDesc"),
@@ -79,6 +90,19 @@ export function ContactForm() {
             t={t}
             subjectOptions={SUBJECT_OPTIONS}
           />
+
+          {/* Pot de miel. Masqué à l'écran, retiré de l'arbre d'accessibilité et
+              du parcours clavier : seul un robot qui lit le HTML le remplira. */}
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="contact-website">Site web</label>
+            <input
+              id="contact-website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...form.register("website")}
+            />
+          </div>
 
           <Button
             type="submit"

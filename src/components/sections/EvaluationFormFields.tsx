@@ -26,6 +26,8 @@ interface EvaluationFormData {
   sites?: string;
   details?: string;
   acceptCgu: boolean;
+  /** Pot de miel, rendu par EvaluationForm — aucun champ visible ne s'y rattache. */
+  website?: string;
 }
 
 // La hauteur tactile était déjà traitée ; restait la taille de police : sous 16px,

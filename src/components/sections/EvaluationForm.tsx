@@ -5,15 +5,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { SelectField, TextField, TextareaField } from "./EvaluationFormFields";
 import type { EvaluationFormData, SelectOption } from "./EvaluationFormFields";
+import { submitContactRequestAction } from "@/app/actions/contact";
 
 export function EvaluationForm() {
   const t = useTranslations("contact.evaluationForm");
+  const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sectorOpts: SelectOption[] = [
@@ -59,6 +61,8 @@ export function EvaluationForm() {
     sites: z.string().optional(),
     details: z.string().optional(),
     acceptCgu: z.boolean().refine((v) => v, { message: t("validation.cguRequired") }),
+    // Pot de miel : jamais affiché, donc jamais rempli par un humain.
+    website: z.string().optional(),
   });
 
   const form = useForm<EvaluationFormData>({
@@ -66,14 +70,39 @@ export function EvaluationForm() {
     defaultValues: {
       contactName: "", contactRole: "", company: "", siren: "",
       sector: "", employees: "", email: "", phone: "",
-      evaluationType: "", sites: "", details: "", acceptCgu: false,
+      evaluationType: "", sites: "", details: "", acceptCgu: false, website: "",
     },
   });
 
-  const onSubmit = async (_data: EvaluationFormData) => {
+  const onSubmit = async (data: EvaluationFormData) => {
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
+    // Correspondance explicite, pas un spread : le formulaire dit `contactName`
+    // là où la table et l'action disent `name`.
+    const result = await submitContactRequestAction({
+      kind: "evaluation",
+      locale,
+      name: data.contactName,
+      contactRole: data.contactRole,
+      company: data.company,
+      siren: data.siren,
+      sector: data.sector,
+      employees: data.employees,
+      email: data.email,
+      phone: data.phone,
+      evaluationType: data.evaluationType,
+      sites: data.sites,
+      details: data.details,
+      acceptCgu: data.acceptCgu,
+      website: data.website,
+    });
     setIsSubmitting(false);
+
+    // Le succès n'est plus affiché que si la demande est réellement enregistrée.
+    if (!result.ok) {
+      toast.error(t("errorTitle"), { description: t("errorDesc") });
+      return;
+    }
+
     toast.success(t("successTitle"), { description: t("successDesc") });
     form.reset();
   };
@@ -116,6 +145,12 @@ export function EvaluationForm() {
               </div>
             </FormItem>
           )} />
+          {/* Pot de miel. Masqué à l'écran, retiré de l'arbre d'accessibilité et
+              du parcours clavier : seul un robot qui lit le HTML le remplira. */}
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="evaluation-website">Site web</label>
+            <input id="evaluation-website" type="text" tabIndex={-1} autoComplete="off" {...form.register("website")} />
+          </div>
           <Button type="submit" className="w-full bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold py-6 text-base rounded-xl group" disabled={isSubmitting}>
             {isSubmitting ? t("sending") : <>{t("submit")}<Send className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" /></>}
           </Button>
