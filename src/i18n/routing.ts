@@ -52,6 +52,7 @@ export const routing = defineRouting({
     "/client/ressources": "/client/ressources",
     "/admin": "/admin",
     "/admin/dashboard": "/admin/dashboard",
+    "/admin/demandes": "/admin/demandes",
     "/admin/blog": "/admin/blog",
     "/admin/blog/new": "/admin/blog/new",
     "/admin/blog/[id]": "/admin/blog/[id]",

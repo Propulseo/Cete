@@ -19,6 +19,7 @@ import {
   UserCircle,
   Briefcase,
   ArrowLeft,
+  Inbox,
   type LucideIcon,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -43,6 +44,7 @@ const navGroups: { title: string; items: NavItem[] }[] = [
   {
     title: "Opérationnel",
     items: [
+      { label: "Demandes", href: "/admin/demandes", icon: Inbox },
       { label: "Clients", href: "/admin/clients", icon: Briefcase },
       { label: "Documents", href: "/admin/documents", icon: FolderOpen },
     ],
