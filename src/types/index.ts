@@ -16,3 +16,4 @@ export * from "./repo-error";
 export * from "./blog";
 export * from "./certificate";
 export * from "./client";
+export * from "./notification";
