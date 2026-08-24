@@ -65,8 +65,18 @@
 | 2.2 Pages `/legal` + `/privacy` | `e33a0f4` | 200 ×4 URLs, hreflang OK, garde-fou testé |
 | 6.1 Socle Vitest + tests captation | `8f68d1a` | 7/7 verts (test gabarit email : après 1.3) |
 | 11.6 Migration proxy.ts | `b4ab585` | avertissement Next 16 éliminé |
+| **Nuit du 25 au 26/08 — travail autonome** | | |
+| Phase 7 Notifications complète (7.1→7.4) | `37a6b61`→`518a9e3` | repo, cloche client, écran admin, déclencheurs |
+| Phase 9 Moule Vigi-Score (TDD, 21 tests verts) | `10ca27d`+`00bce03`+`04b4ce8` | moteur pur + calcul assisté + dérogation justifiée |
+| Migration score écrite NON appliquée + garde-fou barème | `62da2be` | à passer au SQL Editor |
+| Audit sécurité lot 1 : FAILLE RLS trouvée + correctif écrit | `eceeeee` | voir docs/audit-securite-maison.md |
 
 Build vert : **82 routes**.
+
+### À faire en priorité au réveil (30 min)
+1. Appliquer les **2 migrations** au SQL Editor : `20260826000001_evaluation_score_mechanics.sql`, puis `20260826000002_fix_client_select_rls.sql`
+2. `node scripts/verify-security-baseline.mjs` → attendu « 0 FAILLE »
+3. Vérifs navigateur : diffuser une notification depuis `/admin/notifications` → la voir dans la cloche du portail client ; clôture d'une évaluation avec le calcul assisté
 
 ---
 
