@@ -119,7 +119,7 @@ export function computeVigiScore(
   // Échec éliminatoire : indépendant du calcul moyen, mais exige la valeur.
   let cap: VigiScoreGrade | null = null;
   for (const c of config.criteria) {
-    if (!c.eliminatory || c.eliminatoryBelow === undefined || !c.capIfFailed) continue;
+    if (c.eliminatoryBelow === undefined || !c.capIfFailed) continue;
     const v = inputs[c.id];
     if (v === null || v === undefined) {
       result.incomplete = true;
