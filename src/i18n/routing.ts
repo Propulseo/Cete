@@ -33,6 +33,14 @@ export const routing = defineRouting({
       fr: "/cgu",
       en: "/terms",
     },
+    "/legal": {
+      fr: "/mentions-legales",
+      en: "/legal-notice",
+    },
+    "/privacy": {
+      fr: "/politique-de-confidentialite",
+      en: "/privacy-policy",
+    },
     "/verifier/[id]": {
       fr: "/verifier/[id]",
       en: "/verify/[id]",

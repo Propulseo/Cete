@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/lint-lines.js",
+    "prebuild": "node scripts/lint-lines.js && node scripts/lint-placeholders.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "lint:lines": "node scripts/lint-lines.js"
+    "lint:lines": "node scripts/lint-lines.js",
+    "lint:placeholders": "node scripts/lint-placeholders.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

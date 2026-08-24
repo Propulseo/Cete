@@ -22,6 +22,8 @@ const staticPages = [
   "/glossaire",
   "/observatoire",
   "/cgu",
+  "/legal",
+  "/privacy",
 ] as const;
 
 // Article éditorial sur-mesure (FR + EN), rendu par blog/[slug]/page.tsx hors DB.
