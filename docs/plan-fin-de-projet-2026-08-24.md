@@ -26,6 +26,10 @@
    migrations existantes). Prérequis machine : Docker Desktop actif + `seed.sql`
    pour les comptes de démo. Aucun projet cloud staging.
 6. **Plausible abandonné** — remplacé par Umami (ligne retirée des demandes client).
+7. **Hébergement de production : VPS OVH auto-géré** (décision du 26/08). On installe
+   nous-mêmes Coolify sur le VPS et on déploie depuis `master` comme sur l'aperçu
+   actuel. La zone DNS OVH porte aussi les enregistrements Brevo (SPF/DKIM).
+   ⚠️ L'hébergement web mutualisé OVH est incompatible (PHP only) — ne pas confondre.
 
 ### Ordre d'exécution consolidé (issu du grill)
 
@@ -40,7 +44,7 @@
 | 6 | Tâche 1.3 Brevo + Phase 8 newsletter | compte Brevo (client) |
 | 7 | Versage légal + témoignage + chiffres | réponses client |
 | 8 | Remplissage barème Vigi-Score validé + tests | règles client |
-| 9 | **Phase 4 — Go-live unique** (+ Umami + Sentry le jour même) | tout ce qui précède |
+| 9 | **Phase 4 — Go-live unique** (+ Umami + Sentry le jour même) — cible : **VPS OVH + Coolify** | tout ce qui précède + VPS commandé et accessible |
 
 ### En attente client (mis à jour)
 | Demande | Débloque |
