@@ -31,8 +31,8 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#DAEEF8]/90 via-[#F4F9FD]/90 to-[#DAEEF8]/90 backdrop-blur-md border-b border-[#4DA6D9]/10">
-      <div className="max-w-[1400px] mx-auto flex h-[72px] items-center justify-between px-6">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#DAEEF8]/90 via-[#F4F9FD]/90 to-[#DAEEF8]/90 backdrop-blur-md border-b border-[#4DA6D9]/[0.18]">
+      <div className="max-w-[1400px] mx-auto flex h-[76px] items-center justify-between px-6">
         {/* Logo */}
         <Link href="/" aria-label={t("logoAriaLabel")}>
           <Image
@@ -46,7 +46,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center lg:flex lg:gap-4 xl:gap-8 xl:ml-28">
+        <nav className="hidden items-center lg:flex lg:gap-[30px] xl:ml-28">
           {mainNav.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -179,9 +179,6 @@ export function Header() {
           </SheetContent>
         </Sheet>
       </div>
-
-      {/* Subtle branded bottom line */}
-      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#4DA6D9]/30 to-transparent" />
     </header>
   );
 }
