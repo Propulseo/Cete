@@ -17,49 +17,45 @@ export function HomePillars() {
   const pillars = getPillars();
 
   return (
-    <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#4DA6D9]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4DA6D9]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+    <section className="section-pad relative overflow-hidden bg-[#F4F9FD]">
+      <div className="glow-blob absolute -left-48 -top-48 h-96 w-96" />
+      <div className="glow-blob absolute -bottom-48 -right-48 h-96 w-96 bg-[#87C4E8]/15" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-14 max-w-[700px] text-center">
+          <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
             {t("badge")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] mb-6">
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t("heading")}
           </h2>
-          <p className="text-xl text-[#4A6580]">
+          <p className="text-base leading-[1.65] text-[#4A6580]">
             {t("description")}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid gap-6 md:grid-cols-3">
           {pillars.map((pillar, index) => {
             const Icon = icons[pillar.icon as keyof typeof icons] || Zap;
             const bgColor = colors[pillar.color as keyof typeof colors] || colors.blue;
 
             return (
-              <Link key={pillar.id} href="/expertise" className="block">
-                <div className="group relative">
-                  <div className="relative h-full p-6 lg:p-8 rounded-3xl bg-white border border-[#DAEEF8] hover:border-transparent hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-                    <div className="relative z-10">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${bgColor} text-white mb-6 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300`}>
-                        <Icon className="w-8 h-8" />
-                      </div>
-                      <h3 className="font-display text-2xl md:text-3xl text-[#1A2940] group-hover:text-white mb-4 transition-colors duration-300">
-                        {pillar.title.toUpperCase()}
-                      </h3>
-                      <p className="text-[#4A6580] group-hover:text-white/80 leading-relaxed transition-colors duration-300">
-                        {pillar.description}
-                      </p>
+              <Link key={pillar.id} href="/expertise" className="group block h-full">
+                <div className="relative h-full overflow-hidden rounded-[18px] border border-subtle bg-white p-7 shadow-cete-sm transition-all duration-300 hover:-translate-y-[5px] hover:border-strong hover:shadow-cete-lg lg:p-8">
+                  <div className="relative z-10">
+                    <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-[14px] bg-gradient-to-br ${bgColor} text-white shadow-cete-sm transition-transform duration-300 group-hover:scale-105`}>
+                      <Icon className="h-6 w-6" />
                     </div>
+                    <h3 className="type-h3-card mb-3 text-[#1A2940]">
+                      {pillar.title.toUpperCase()}
+                    </h3>
+                    <p className="text-[14.5px] leading-[1.65] text-[#4A6580]">
+                      {pillar.description}
+                    </p>
+                  </div>
 
-                    <div className="absolute top-4 right-4 font-display text-6xl text-[#1A2940]/5 group-hover:text-white/10 transition-colors duration-300">
-                      0{index + 1}
-                    </div>
+                  <div className="absolute right-6 top-5 font-display text-[44px] font-black leading-none text-[#4DA6D9]/20">
+                    0{index + 1}
                   </div>
                 </div>
               </Link>

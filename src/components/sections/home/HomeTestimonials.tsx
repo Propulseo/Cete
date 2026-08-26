@@ -10,33 +10,33 @@ export function HomeTestimonials() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#F4F9FD] to-white relative overflow-hidden">
+    <section className="section-pad relative overflow-hidden bg-gradient-to-b from-[#F4F9FD] to-white">
       {/* Decorative bubbles */}
-      <div className="absolute top-20 left-[10%] w-[300px] h-[300px] rounded-full bg-[#4DA6D9]/[0.06] blur-3xl" />
-      <div className="absolute bottom-20 right-[10%] w-[400px] h-[400px] rounded-full bg-[#4DA6D9]/[0.04] blur-3xl" />
+      <div className="glow-blob absolute left-[10%] top-20 h-[300px] w-[300px]" />
+      <div className="glow-blob absolute bottom-20 right-[10%] h-[400px] w-[400px] bg-[#87C4E8]/10" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="container-page relative z-10">
         {/* Section header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
+        <div className="mx-auto mb-12 max-w-[660px] text-center">
+          <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
             {t("badge")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940]">
+          <h2 className="type-h2-section text-[#1A2940]">
             {t("heading")}
           </h2>
         </div>
 
         {/* Featured testimonial card */}
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-3xl overflow-hidden bg-white border border-[#DAEEF8] shadow-xl shadow-[#4DA6D9]/5">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="overflow-hidden rounded-3xl border border-subtle bg-white shadow-cete-xl">
             {/* Video + Pull quote row */}
             <div className="grid md:grid-cols-5">
               {/* Video area - 3/5 */}
               <div className="md:col-span-3 relative">
-                <div className="aspect-video bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
+                <div className="bg-grad-ink relative min-h-[300px] overflow-hidden md:aspect-video">
                   {/* Subtle grid texture */}
                   <div
-                    className="absolute inset-0 opacity-[0.03]"
+                    className="absolute inset-0 opacity-[0.22]"
                     style={{
                       backgroundImage:
                         "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
@@ -45,8 +45,8 @@ export function HomeTestimonials() {
                   />
 
                   {/* Ambient glow */}
-                  <div className="absolute top-1/3 left-1/3 w-72 h-72 rounded-full bg-[#4DA6D9]/10 blur-3xl" />
-                  <div className="absolute bottom-1/4 right-1/4 w-52 h-52 rounded-full bg-[#E8630A]/[0.06] blur-3xl" />
+                  <div className="absolute left-1/3 top-1/3 h-72 w-72 rounded-full bg-[#4DA6D9]/15 blur-3xl" />
+                  <div className="absolute bottom-1/4 right-1/4 h-52 w-52 rounded-full bg-[#E8630A]/10 blur-3xl" />
 
                   {/* Play button */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 group">
@@ -54,11 +54,11 @@ export function HomeTestimonials() {
                       {/* Pulse ring */}
                       <span className="absolute inset-[-12px] rounded-full border-2 border-white/20 animate-ping [animation-duration:2.5s]" />
                       <span className="absolute inset-[-12px] rounded-full border border-white/10" />
-                      <div className="w-20 h-20 rounded-full bg-[#E8630A] flex items-center justify-center shadow-2xl shadow-[#E8630A]/30 group-hover:scale-110 group-hover:shadow-[#E8630A]/50 transition-all duration-300">
-                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#E8630A] shadow-[0_18px_44px_-12px_rgba(232,99,10,0.55)] transition-all duration-300 group-hover:scale-105">
+                        <Play className="ml-1 h-8 w-8 text-white" fill="white" />
                       </div>
                     </div>
-                    <span className="text-white/50 text-sm font-medium tracking-widest uppercase">
+                    <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white/55">
                       {t("viewTestimonial")}
                     </span>
                   </div>
@@ -66,20 +66,20 @@ export function HomeTestimonials() {
               </div>
 
               {/* Pull quote - 2/5 */}
-              <div className="md:col-span-2 p-8 md:p-6 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-[#F4F9FD]">
-                <Quote className="w-14 h-14 text-[#E8630A]/15 mb-4 -scale-x-100" />
+              <div className="flex flex-col justify-center bg-gradient-to-br from-white to-[#F4F9FD] p-7 md:col-span-2 lg:p-10">
+                <Quote className="mb-4 h-14 w-14 -scale-x-100 text-[#E8630A]/20" />
 
-                <blockquote className="font-display text-xl md:text-lg lg:text-[1.35rem] xl:text-2xl text-[#1A2940] leading-snug italic mb-8">
+                <blockquote className="mb-7 font-display text-xl italic leading-[1.45] text-[#1A2940] lg:text-[1.35rem]">
                   {brandify(t("pullQuote"))}
                 </blockquote>
 
                 {/* Rating progress */}
                 <div className="flex items-center gap-3">
-                  <span className="px-3 py-1.5 rounded-lg bg-[#F97316]/10 text-[#F97316] font-bold text-sm">
+                  <span className="rounded-lg bg-[#F97316]/10 px-3 py-1.5 text-sm font-bold text-[#C2410C]">
                     {t("ratingBefore")}
                   </span>
                   <div className="flex-1 max-w-[80px] h-[2px] rounded-full bg-gradient-to-r from-[#F97316] via-[#A3E635] to-[#22C55E]" />
-                  <span className="px-3 py-1.5 rounded-lg bg-[#22C55E]/10 text-[#22C55E] font-bold text-sm">
+                  <span className="rounded-lg bg-[#22C55E]/10 px-3 py-1.5 text-sm font-bold text-[#15803D]">
                     {t("ratingAfter")}
                   </span>
                   <span className="text-[#8AA5BE] text-sm ml-1">
@@ -90,7 +90,7 @@ export function HomeTestimonials() {
             </div>
 
             {/* Full text + author */}
-            <div className="px-8 lg:px-12 py-10 border-t border-[#DAEEF8]">
+            <div className="border-t border-[#DAEEF8] px-7 py-9 lg:px-12">
               <div className="max-w-4xl">
                 {/* Expandable text */}
                 <div
@@ -101,7 +101,7 @@ export function HomeTestimonials() {
                   {[t("paragraph1"), t("paragraph2"), t("paragraph3"), t("paragraph4")].map((p, i) => (
                     <p
                       key={i}
-                      className="text-[#4A6580] leading-relaxed mb-4 last:mb-0"
+                      className="mb-4 leading-[1.7] text-[#4A6580] last:mb-0"
                     >
                       {brandify(p)}
                     </p>
@@ -114,8 +114,9 @@ export function HomeTestimonials() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => setIsExpanded((v) => !v)}
-                  className="mt-4 flex min-h-11 items-center gap-2 text-[#E8630A] font-medium text-sm hover:text-[#B84D08] transition-colors cursor-pointer group sm:min-h-0"
+                  className="group mt-4 flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-[#E8630A] transition-colors hover:text-[#B84D08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8630A] focus-visible:ring-offset-2 sm:min-h-0"
                 >
                   {isExpanded ? (
                     <>
@@ -132,9 +133,9 @@ export function HomeTestimonials() {
               </div>
 
               {/* Author bar */}
-              <div className="mt-8 pt-8 border-t border-[#DAEEF8] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="mt-8 flex flex-col justify-between gap-6 border-t border-[#DAEEF8] pt-8 sm:flex-row sm:items-center">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-[#1A2940]/20">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-grad-ink text-lg font-bold text-white shadow-cete-md">
                     {t("authorName")
                       .split(" ")
                       .map((n: string) => n[0])
@@ -154,7 +155,7 @@ export function HomeTestimonials() {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-5 h-5 fill-[#E8630A] text-[#E8630A]"
+                      className="h-5 w-5 fill-[#E8630A] text-[#E8630A]"
                     />
                   ))}
                 </div>

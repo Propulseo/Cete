@@ -22,31 +22,32 @@ export function HomeADN() {
   const t = useTranslations("home.adn");
 
   return (
-    <section className="py-24 bg-[#1A2940] relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] opacity-50" />
+    <section className="section-pad bg-grad-ink relative overflow-hidden">
+      <div className="glow-blob absolute -left-20 -top-24 h-[400px] w-[400px]" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="space-y-8">
-            <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#4DA6D9] text-sm font-semibold uppercase tracking-wider">
+      <div className="container-page relative z-10">
+        <div className="grid items-center gap-10 md:grid-cols-2 lg:gap-[clamp(40px,5vw,72px)]">
+          <div>
+            <span className="type-kicker mb-5 inline-flex items-center gap-2.5 text-[#87C4E8]">
+              <span className="h-0.5 w-7 rounded-full bg-[#E8630A]" />
               {t("badge")}
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+            <h2 className="type-h2-section mb-5 text-white">
               {t("heading")}
             </h2>
-            <p className="text-xl text-white/70 leading-relaxed">
+            <p className="mb-8 text-base leading-[1.65] text-[#8AA5BE]">
               {t("description")}
             </p>
 
-            <div className="space-y-6 pt-4">
+            <div className="mb-8 grid gap-4">
               {threeCriteria.map((step, i) => (
-                <div key={i} className="flex items-start gap-4 group">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#4DA6D9]/10 flex items-center justify-center group-hover:bg-[#E8630A] transition-colors duration-300">
-                    <step.icon className="w-6 h-6 text-[#4DA6D9] group-hover:text-white transition-colors duration-300" />
+                <div key={i} className="group flex gap-4 rounded-[14px] border border-on-dark bg-white/[0.05] p-4">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[11px] bg-[#4DA6D9]/20 text-[#87C4E8] transition-colors duration-300 group-hover:bg-[#E8630A] group-hover:text-white">
+                    <step.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold text-lg mb-1">{t(`${step.key}Title`)}</h4>
-                    <p className="text-white/60">{t(`${step.key}Desc`)}</p>
+                    <h4 className="mb-1 text-[15px] font-semibold text-white">{t(`${step.key}Title`)}</h4>
+                    <p className="text-[13.5px] leading-[1.55] text-[#8AA5BE]">{t(`${step.key}Desc`)}</p>
                   </div>
                 </div>
               ))}
@@ -55,7 +56,7 @@ export function HomeADN() {
             <Button
               asChild
               size="lg"
-              className="mt-8 bg-white text-[#1A2940] hover:bg-[#4DA6D9] hover:text-white text-lg px-8 py-6 font-semibold rounded-xl transition-all duration-300"
+              className="bg-grad-blue h-12 rounded-xl px-7 text-[15px] font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
             >
               <Link href="/expertise">
                 {t("understandRating")}
@@ -65,32 +66,32 @@ export function HomeADN() {
           </div>
 
           {/* 3×4 pastilles - un score par critère */}
-          <div className="relative flex items-center justify-center py-12">
-            <div className="w-full max-w-md space-y-8">
+          <div className="relative flex items-center justify-center py-6">
+            <div className="w-full max-w-md rounded-[20px] border border-on-dark bg-white/[0.06] p-7 backdrop-blur-sm">
+              <p className="type-kicker mb-6 text-[#87C4E8]">{t("assemblyLabel")}</p>
+              <div className="grid gap-5">
               {threeCriteria.map((criterion, ci) => (
                 <div key={ci}>
-                  <div className="text-sm text-white/50 uppercase tracking-wider mb-3">
+                  <div className="mb-3 text-[13.5px] font-semibold text-white">
                     {t(`${criterion.key}Title`)}
                   </div>
                   <div className="flex gap-3">
                     {levels.map((level) => (
                       <div
                         key={level.letter}
-                        className="flex-1 text-center py-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-all group"
+                        className="group flex-1 rounded-xl border border-on-dark bg-white/[0.04] py-3 text-center transition-all hover:border-[#87C4E8]/45"
                       >
-                        <div className={`w-8 h-8 rounded-full ${level.color} mx-auto mb-2 group-hover:scale-110 transition-transform`} />
-                        <span className="text-white font-bold text-lg">{level.letter}</span>
+                        <div className={`mx-auto mb-2 h-8 w-8 rounded-full ${level.color} transition-transform group-hover:scale-110`} />
+                        <span className="text-lg font-bold text-white">{level.letter}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               ))}
+              </div>
 
               {/* Assemblage triple-lettre */}
-              <div className="mt-8 p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-sm text-white/50 text-center mb-3 uppercase tracking-wider">
-                  {t("assemblyLabel")}
-                </div>
+              <div className="mt-6 rounded-2xl border border-on-dark bg-white/[0.05] p-4">
                 <div className="flex items-center justify-center gap-2">
                   <span className="px-3 py-1 rounded-lg bg-[#22C55E]/20 text-[#22C55E] font-bold">A</span>
                   <span className="text-white/30">+</span>

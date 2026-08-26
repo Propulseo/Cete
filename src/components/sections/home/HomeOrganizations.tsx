@@ -1,45 +1,42 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Building2 } from "lucide-react";
 
 export function HomeOrganizations({ organizations }: { organizations: string[] }) {
   const t = useTranslations("home.organizations");
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
+    <section className="section-pad relative overflow-hidden bg-white pb-0">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-11 max-w-[640px] text-center">
+          <span className="type-kicker mb-4 inline-flex text-[#1A7AB5]">
             {t("badge")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] mb-6">
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t("heading")}
           </h2>
-          <p className="text-xl text-[#4A6580]">
+          <p className="text-base leading-[1.65] text-[#4A6580]">
             {t("description")}
           </p>
         </div>
       </div>
 
-      {/* Carousel with fade edges */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      <div className="relative border-y border-[#4DA6D9]/[0.18] bg-[#F4F9FD] py-6">
+        <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-16 bg-gradient-to-r from-[#F4F9FD] to-transparent md:w-32" />
+        <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-16 bg-gradient-to-l from-[#F4F9FD] to-transparent md:w-32" />
 
         <div className="overflow-hidden">
           <div className="flex animate-scroll-logos">
             {[...organizations, ...organizations].map((org, i) => (
               <div
                 key={`${org}-${i}`}
-                className="flex-shrink-0 px-3"
+                aria-hidden={i >= organizations.length}
+                className="flex flex-shrink-0 items-center"
               >
-                <div className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#F4F9FD] border border-[#DAEEF8] whitespace-nowrap">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4DA6D9]/10 flex items-center justify-center">
-                    <Building2 className="w-5 h-5 text-[#4DA6D9]" />
-                  </div>
-                  <span className="font-semibold text-sm text-[#1A2940]">{org}</span>
-                </div>
+                <span className="px-[30px] text-sm font-bold uppercase tracking-[0.08em] text-[#4A6580]">
+                  {org}
+                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#4DA6D9]" />
               </div>
             ))}
           </div>

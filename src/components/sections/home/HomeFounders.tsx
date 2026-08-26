@@ -12,29 +12,30 @@ export function HomeFounders({ founders }: { founders: Founder[] }) {
   const t = useTranslations("home.founders");
 
   return (
-    <section className="py-24 bg-white relative">
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="grid grid-cols-2 gap-4">
+    <section className="section-pad relative bg-white">
+      <div className="container-page">
+        <div className="grid items-center gap-10 md:grid-cols-2 lg:gap-[clamp(40px,5vw,72px)]">
+          <div className="grid grid-cols-2 gap-[18px]">
             {founders.map((founder) => (
               <FounderTile key={founder.id} founder={founder} />
             ))}
           </div>
 
-          <div className="space-y-8">
-            <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider">
+          <div>
+            <span className="type-kicker mb-5 inline-flex items-center gap-2.5 text-[#1A7AB5]">
+              <span className="h-0.5 w-7 rounded-full bg-[#E8630A]" />
               {t("badge")}
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#1A2940] leading-tight">
+            <h2 className="type-h2-section mb-5 text-[#1A2940]">
               {t("heading")}
             </h2>
-            <p className="text-xl text-[#4A6580] leading-relaxed">
+            <p className="mb-7 text-[16.5px] leading-[1.7] text-[#4A6580]">
               {t("description")}
             </p>
-            <ul className="space-y-4">
+            <ul className="mb-8 grid gap-3.5">
               {[t("bullet1"), t("bullet2"), t("bullet3"), t("bullet4")].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-[#4A6580]">
-                  <CheckCircle className="w-5 h-5 text-[#E8630A] flex-shrink-0" />
+                <li key={i} className="flex items-start gap-3.5 font-medium text-[#1A2940]">
+                  <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#15803D]" />
                   {item}
                 </li>
               ))}
@@ -42,7 +43,7 @@ export function HomeFounders({ founders }: { founders: Founder[] }) {
             <Button
               asChild
               size="lg"
-              className="mt-4 bg-[#4DA6D9] text-white hover:bg-[#1A7AB5] text-lg px-8 py-6 font-semibold rounded-xl transition-all duration-300"
+              className="h-12 rounded-xl bg-[#1A2940] px-7 text-[15px] font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:bg-[#0D5A8A]"
             >
               <Link href="/a-propos">
                 {t("cta")}
@@ -65,21 +66,21 @@ function FounderTile({ founder }: { founder: Founder }) {
     .join("");
 
   return (
-    <Link href="/a-propos" className="block">
-      <div className="relative rounded-2xl overflow-hidden aspect-square bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] group">
+    <Link href="/a-propos" className="group flex h-full flex-col overflow-hidden rounded-2xl border border-subtle bg-white shadow-cete-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-cete-lg">
+      <div className="relative aspect-square bg-grad-ink">
         {!imgError ? (
           <Image
             src={founder.imageUrl}
             alt={t("imageAlt", { name: founder.name, role: founder.role })}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover object-top transition-all duration-500"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
             style={founder.imagePosition ? { objectPosition: founder.imagePosition } : undefined}
             onError={() => setImgError(true)}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-5xl font-display text-white/20">
+            <span className="font-display text-5xl text-white/20">
               {initials}
             </span>
           </div>
@@ -87,9 +88,9 @@ function FounderTile({ founder }: { founder: Founder }) {
       </div>
       {/* Nom et rôle sous la photo : les portraits n'ont pas tous du buste sous le
           menton, un bandeau superposé retombait sur certains visages. */}
-      <div className="mt-2 px-1">
-        <div className="font-semibold text-[#1A2940] text-sm">{founder.name}</div>
-        <div className="text-xs text-[#4A6580]">{founder.role}</div>
+      <div className="flex-1 px-4 py-3.5">
+        <div className="text-sm font-semibold text-[#1A2940]">{founder.name}</div>
+        <div className="mt-1 text-xs leading-[1.45] text-[#4A6580]">{founder.role}</div>
       </div>
     </Link>
   );
