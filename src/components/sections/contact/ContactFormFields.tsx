@@ -32,6 +32,14 @@ interface ContactFormFieldsProps {
   subjectOptions: SubjectOption[];
 }
 
+// Style commun des champs texte/email/tel — cf. fiche §06. Passé en className
+// car Input est un composant shadcn générique partagé avec l'admin/le portail
+// client, qui ont leurs propres thèmes.
+const fieldClass =
+  "h-auto rounded-[11px] border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-[14.5px] text-[#1A2940] shadow-none placeholder:text-[#9DB2C6] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)]";
+const labelClass = "text-[13px] font-semibold text-[#1A2940]";
+const errorClass = "text-[12.5px] text-[#B91C1C]";
+
 export function ContactFormFields({ form, t, subjectOptions }: ContactFormFieldsProps) {
   return (
     <>
@@ -40,11 +48,11 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("nameLabel")} *</FormLabel>
+            <FormLabel className={labelClass}>{t("nameLabel")} *</FormLabel>
             <FormControl>
-              <Input placeholder={t("namePlaceholder")} {...field} />
+              <Input placeholder={t("namePlaceholder")} className={fieldClass} {...field} />
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -54,11 +62,11 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="company"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("companyLabel")} *</FormLabel>
+            <FormLabel className={labelClass}>{t("companyLabel")} *</FormLabel>
             <FormControl>
-              <Input placeholder={t("companyPlaceholder")} {...field} />
+              <Input placeholder={t("companyPlaceholder")} className={fieldClass} {...field} />
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -68,15 +76,16 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("emailLabel")} *</FormLabel>
+            <FormLabel className={labelClass}>{t("emailLabel")} *</FormLabel>
             <FormControl>
               <Input
                 type="email"
                 placeholder={t("emailPlaceholder")}
+                className={fieldClass}
                 {...field}
               />
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -86,15 +95,16 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="phone"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("phoneLabel")}</FormLabel>
+            <FormLabel className={labelClass}>{t("phoneLabel")}</FormLabel>
             <FormControl>
               <Input
                 type="tel"
                 placeholder={t("phonePlaceholder")}
+                className={fieldClass}
                 {...field}
               />
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -104,13 +114,13 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="subject"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("subjectLabel")} *</FormLabel>
+            <FormLabel className={labelClass}>{t("subjectLabel")} *</FormLabel>
             <FormControl>
               <select
                 {...field}
                 // text-base sous md : en dessous de 16px, Safari iOS zoome à l'ouverture
                 // du picker et décale la page.
-                className="flex h-11 sm:h-10 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-base md:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-auto w-full min-w-0 rounded-[11px] border border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-base text-[#1A2940] transition-colors md:text-[14.5px] focus-visible:border-[#4DA6D9] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {subjectOptions.map((opt) => (
                   <option key={opt.value} value={opt.value} disabled={opt.value === ""}>
@@ -119,7 +129,7 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
                 ))}
               </select>
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -129,15 +139,16 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
         name="message"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t("messageLabel")} *</FormLabel>
+            <FormLabel className={labelClass}>{t("messageLabel")} *</FormLabel>
             <FormControl>
               <Textarea
                 placeholder={t("messagePlaceholder")}
                 rows={5}
+                className={`${fieldClass} leading-[1.6] resize-y`}
                 {...field}
               />
             </FormControl>
-            <FormMessage />
+            <FormMessage className={errorClass} />
           </FormItem>
         )}
       />
@@ -152,14 +163,14 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
                 type="checkbox"
                 checked={field.value}
                 onChange={field.onChange}
-                className="mt-1 h-5 w-5 rounded border-[#DAEEF8]"
+                className="mt-1 h-[18px] w-[18px] accent-[#E8630A] rounded border-[rgba(77,166,217,0.35)]"
               />
             </FormControl>
             <div className="space-y-1 leading-none">
-              <FormLabel className="text-sm font-normal">
+              <FormLabel className="text-sm font-normal text-[#4A6580]">
                 {t("acceptCgu")} *
               </FormLabel>
-              <FormMessage />
+              <FormMessage className={errorClass} />
             </div>
           </FormItem>
         )}

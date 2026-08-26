@@ -33,7 +33,14 @@ interface EvaluationFormData {
 // La hauteur tactile était déjà traitée ; restait la taille de police : sous 16px,
 // Safari iOS zoome à l'ouverture du picker et décale toute la page.
 const selectClass =
-  "flex h-11 sm:h-10 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-base md:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  "flex h-auto w-full min-w-0 rounded-[11px] border border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-base text-[#1A2940] transition-colors md:text-[14.5px] focus-visible:border-[#4DA6D9] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)]";
+// Style commun des champs texte — cf. fiche §06. Passé en className car Input/
+// Textarea sont des composants shadcn génériques partagés avec l'admin/le
+// portail client, qui ont leurs propres thèmes.
+const fieldClass =
+  "h-auto rounded-[11px] border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-[14.5px] text-[#1A2940] shadow-none placeholder:text-[#9DB2C6] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)]";
+const labelClass = "text-[13px] font-semibold text-[#1A2940]";
+const errorClass = "text-[12.5px] text-[#B91C1C]";
 
 function SelectField({
   form,
@@ -52,7 +59,7 @@ function SelectField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label} *</FormLabel>
+          <FormLabel className={labelClass}>{label} *</FormLabel>
           <FormControl>
             <select {...field} value={field.value as string} className={selectClass}>
               {options.map((opt) => (
@@ -62,7 +69,7 @@ function SelectField({
               ))}
             </select>
           </FormControl>
-          <FormMessage />
+          <FormMessage className={errorClass} />
         </FormItem>
       )}
     />
@@ -90,11 +97,11 @@ function TextField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}{required ? " *" : ""}</FormLabel>
+          <FormLabel className={labelClass}>{label}{required ? " *" : ""}</FormLabel>
           <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} value={field.value as string} />
+            <Input type={type} placeholder={placeholder} className={fieldClass} {...field} value={field.value as string} />
           </FormControl>
-          <FormMessage />
+          <FormMessage className={errorClass} />
         </FormItem>
       )}
     />
@@ -120,11 +127,17 @@ function TextareaField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className={labelClass}>{label}</FormLabel>
           <FormControl>
-            <Textarea placeholder={placeholder} rows={rows} {...field} value={field.value as string} />
+            <Textarea
+              placeholder={placeholder}
+              rows={rows}
+              className={`${fieldClass} leading-[1.6] resize-y`}
+              {...field}
+              value={field.value as string}
+            />
           </FormControl>
-          <FormMessage />
+          <FormMessage className={errorClass} />
         </FormItem>
       )}
     />

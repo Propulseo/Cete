@@ -108,24 +108,24 @@ export function EvaluationForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm md:p-8">
-      <h3 className="mb-1 font-display text-xl tracking-wide text-[#1A2940]">{t("heading")}</h3>
-      <p className="mb-6 text-sm text-[#4A6580]">{t("description")}</p>
+    <div className="rounded-[22px] border border-subtle bg-white p-[clamp(24px,3vw,34px)] shadow-cete-xl">
+      <h3 className="mb-[10px] font-display text-[clamp(20px,2.2vw,26px)] font-black text-[#1A2940]">{t("heading")}</h3>
+      <p className="mb-[28px] text-[14.5px] leading-[1.65] text-[#4A6580]">{t("description")}</p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-[18px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
             <TextField form={form} name="contactName" label={t("nameLabel")} placeholder={t("namePlaceholder")} required />
             <TextField form={form} name="contactRole" label={t("roleLabel")} placeholder={t("rolePlaceholder")} required />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
             <TextField form={form} name="company" label={t("companyLabel")} placeholder={t("companyPlaceholder")} required />
             <TextField form={form} name="siren" label={t("sirenLabel")} placeholder={t("sirenPlaceholder")} />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
             <SelectField form={form} name="sector" label={t("sectorLabel")} options={sectorOpts} />
             <SelectField form={form} name="employees" label={t("employeesLabel")} options={empOpts} />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
             <TextField form={form} name="email" label={t("emailLabel")} placeholder={t("emailPlaceholder")} required type="email" />
             <TextField form={form} name="phone" label={t("phoneLabel")} placeholder={t("phonePlaceholder")} />
           </div>
@@ -137,11 +137,11 @@ export function EvaluationForm() {
             // (htmlFor), donc c'est la rangée qui porte la cible tactile.
             <FormItem className="flex min-h-11 flex-row items-start space-x-3 space-y-0 sm:min-h-0">
               <FormControl>
-                <input type="checkbox" checked={field.value} onChange={field.onChange} className="mt-1 h-4 w-4 rounded border-[#DAEEF8]" />
+                <input type="checkbox" checked={field.value} onChange={field.onChange} className="mt-1 h-[18px] w-[18px] accent-[#E8630A] rounded border-[rgba(77,166,217,0.35)]" />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel className="flex min-h-11 items-center text-sm font-normal sm:min-h-0">{t("acceptCgu")} *</FormLabel>
-                <FormMessage />
+                <FormLabel className="flex min-h-11 items-center text-sm font-normal text-[#4A6580] sm:min-h-0">{t("acceptCgu")} *</FormLabel>
+                <FormMessage className="text-[12.5px] text-[#B91C1C]" />
               </div>
             </FormItem>
           )} />
@@ -151,7 +151,7 @@ export function EvaluationForm() {
             <label htmlFor="evaluation-website">Site web</label>
             <input id="evaluation-website" type="text" tabIndex={-1} autoComplete="off" {...form.register("website")} />
           </div>
-          <Button type="submit" className="w-full bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold py-6 text-base rounded-xl group" disabled={isSubmitting}>
+          <Button type="submit" className="w-full rounded-xl bg-[#E8630A] py-6 text-base font-semibold text-white shadow-cta transition-all hover:-translate-y-0.5 hover:bg-[#B84D08] group" disabled={isSubmitting}>
             {isSubmitting ? t("sending") : <>{t("submit")}<Send className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" /></>}
           </Button>
         </form>

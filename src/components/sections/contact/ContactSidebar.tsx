@@ -23,23 +23,23 @@ function InfoRow({
 
   return (
     <div className="flex items-start gap-4">
-      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#4DA6D9]/10">
-        <Icon className="h-4 w-4 text-[#4DA6D9]" />
+      <div className="flex h-[38px] w-[38px] flex-shrink-0 items-center justify-center rounded-[11px] bg-[rgba(77,166,217,0.25)]">
+        <Icon className="h-[18px] w-[18px] text-[#87C4E8]" />
       </div>
       <div>
-        <span className="text-xs font-medium uppercase tracking-wider text-[#4A6580]">
+        <span className="text-xs font-medium uppercase tracking-wider text-[#87C4E8]">
           {label}
         </span>
         {href ? (
           <a
             href={href}
-            className="flex min-h-11 items-center font-medium text-[#1A2940] transition-colors hover:text-[#4DA6D9] sm:min-h-0 sm:block"
+            className="flex min-h-11 items-center font-medium text-white transition-colors hover:text-[#E8630A] sm:min-h-0 sm:block"
           >
             {lines[0]}
           </a>
         ) : (
           lines.map((line, i) => (
-            <p key={i} className="text-[#1A2940]">
+            <p key={i} className="text-white">
               {line}
             </p>
           ))
@@ -86,10 +86,10 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
   const serviceChips = [t("chipVigiScore"), t("chipDPS"), t("chipCoaching"), t("chipVeille")];
 
   return (
-    <div className="space-y-8">
-      {/* Info Cards */}
-      <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm">
-        <h3 className="mb-5 font-display text-xl tracking-wide text-[#1A2940]">
+    <div className="space-y-[22px]">
+      {/* Info Cards — variante encre (fiche §07) */}
+      <div className="rounded-[20px] border border-on-dark bg-grad-ink p-[26px_28px] shadow-cete-lg">
+        <h3 className="mb-[18px] text-xs font-bold uppercase tracking-[0.14em] text-[#87C4E8]">
           {t("coordinates")}
         </h3>
         <div className="space-y-4">
@@ -105,34 +105,43 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
       </div>
 
       {/* Mini Process */}
-      <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm">
-        <h3 className="mb-5 font-display text-xl tracking-wide text-[#1A2940]">
+      <div className="rounded-[20px] border border-subtle bg-[#F4F9FD] p-[28px_26px]">
+        <h3 className="mb-[22px] text-xs font-bold uppercase tracking-[0.14em] text-[#1A7AB5]">
           {t("howItWorks")}
         </h3>
-        <div className="space-y-4">
-          {processSteps.map((step, i) => (
-            <div key={step.number} className="flex items-start gap-4">
-              <div className="relative flex-shrink-0">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4DA6D9] text-white">
-                  <step.icon className="h-4 w-4" />
+        <div className="space-y-5">
+          {processSteps.map((step, i) => {
+            const isFinal = i === processSteps.length - 1;
+            return (
+              <div key={step.number} className="flex items-start gap-[14px]">
+                <div className="relative flex-shrink-0">
+                  <div
+                    className={`flex h-9 w-9 items-center justify-center rounded-[11px] ${
+                      isFinal
+                        ? "bg-[#E8630A] text-white"
+                        : "border border-[rgba(77,166,217,0.3)] bg-white text-[#0D5A8A]"
+                    }`}
+                  >
+                    <step.icon className="h-4 w-4" />
+                  </div>
+                  {i < processSteps.length - 1 && (
+                    <div className="absolute left-1/2 top-9 h-4 w-px -translate-x-1/2 bg-[rgba(77,166,217,0.3)]" />
+                  )}
                 </div>
-                {i < processSteps.length - 1 && (
-                  <div className="absolute left-1/2 top-10 h-4 w-px -translate-x-1/2 bg-[#DAEEF8]" />
-                )}
+                <div>
+                  <span className="text-xs font-bold text-[#E8630A]">
+                    {step.number}
+                  </span>
+                  <h4 className="text-[14.5px] font-semibold text-[#1A2940]">
+                    {step.title}
+                  </h4>
+                  <p className="text-[13.5px] leading-[1.6] text-[#4A6580]">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-              <div>
-                <span className="text-xs font-bold text-[#E8630A]">
-                  {step.number}
-                </span>
-                <h4 className="font-semibold text-[#1A2940]">
-                  {step.title}
-                </h4>
-                <p className="text-sm text-[#4A6580]">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -141,7 +150,7 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
         {serviceChips.map((chip) => (
           <span
             key={chip}
-            className="rounded-full border border-[#4DA6D9]/20 bg-[#4DA6D9]/10 px-4 py-1.5 text-sm font-medium text-[#1A2940]"
+            className="rounded-full bg-[rgba(77,166,217,0.12)] px-4 py-1.5 text-[12.5px] font-bold uppercase tracking-[0.12em] text-[#1A2940]"
           >
             {chip}
           </span>

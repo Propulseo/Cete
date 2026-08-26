@@ -28,34 +28,32 @@ function ContactMainInner({ initialTab, contact }: { initialTab: TabId; contact:
   ];
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="section-pad bg-white">
+      <div className="container-page">
         {/* Tabs */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-xl bg-[#F4F9FD] border border-[#DAEEF8] p-1.5 gap-1">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isActive
-                      ? "bg-white text-[#1A2940] shadow-sm"
-                      : "text-[#4A6580] hover:text-[#1A2940]"
-                  }`}
-                >
-                  <tab.icon className={`h-4 w-4 ${isActive ? "text-[#E8630A]" : ""}`} />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 rounded-[11px] px-5 py-3 text-sm font-semibold transition-colors duration-200 ${
+                  isActive
+                    ? "bg-[#1A2940] text-white"
+                    : "bg-[#F4F9FD] text-[#4A6580] hover:text-[#1A2940]"
+                }`}
+              >
+                <tab.icon className={`h-4 w-4 ${isActive ? "text-[#E8630A]" : ""}`} />
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* min-w-0 : un enfant de grid a min-width:auto et refuserait de passer
             sous la largeur de son contenu, débordant l'écran en mobile. */}
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="grid items-start gap-[clamp(28px,3.5vw,44px)] md:grid-cols-[1.4fr_0.6fr]">
           <div className="min-w-0">
             {activeTab === "evaluation" ? <EvaluationForm /> : <ContactForm />}
           </div>

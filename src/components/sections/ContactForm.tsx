@@ -75,16 +75,16 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-[#DAEEF8] bg-white p-6 shadow-sm md:p-8">
-      <h3 className="mb-1 font-display text-xl tracking-wide text-[#1A2940]">
+    <div className="rounded-[22px] border border-subtle bg-white p-[clamp(24px,3vw,34px)] shadow-cete-xl">
+      <h3 className="mb-[10px] font-display text-[clamp(20px,2.2vw,26px)] font-black text-[#1A2940]">
         {t("heading")}
       </h3>
-      <p className="mb-6 text-sm text-[#4A6580]">
+      <p className="mb-[28px] text-[14.5px] leading-[1.65] text-[#4A6580]">
         {t("requiredFields")}
       </p>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-[18px]">
           <ContactFormFields
             form={form}
             t={t}
@@ -106,7 +106,7 @@ export function ContactForm() {
 
           <Button
             type="submit"
-            className="w-full bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold py-6 text-base rounded-xl group"
+            className="w-full rounded-xl bg-[#E8630A] py-6 text-base font-semibold text-white shadow-cta transition-all hover:-translate-y-0.5 hover:bg-[#B84D08] group"
             disabled={isSubmitting}
           >
             {isSubmitting ? (

@@ -10,32 +10,31 @@ export async function FaqSection({ items }: { items: FaqItem[] }) {
   const t = await getTranslations("faq");
 
   return (
-    <section className="bg-[#F4F9FD] py-20">
-      <div className="container mx-auto max-w-3xl px-4">
+    <section className="section-pad bg-[#F4F9FD]">
+      <div className="container-reading">
         <div className="mb-12 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 text-sm font-medium text-[#E8630A]">
+          <span className="type-kicker mb-4 inline-flex items-center gap-2 rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
             <HelpCircle className="h-4 w-4" />
             {t("badge")}
           </span>
-          <h2 className="mt-6 font-display text-3xl text-[#1A2940] md:text-4xl">
+          <h2 className="type-h2-section text-[#1A2940]">
             {t("heading")}
           </h2>
-          <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-[#E8630A]" />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-[14px]">
           {items.map((item) => (
             <details
               key={item.id}
-              className="group rounded-2xl border border-[#DAEEF8] bg-white px-6 py-5 transition-shadow open:shadow-md"
+              className="group rounded-2xl border border-subtle bg-white p-[20px_24px] transition-shadow open:shadow-cete-sm"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                <h3 className="font-display text-lg text-[#1A2940]">
+                <h3 className="text-base font-semibold text-[#1A2940]">
                   {item.question}
                 </h3>
                 <ChevronDown className="h-5 w-5 flex-shrink-0 text-[#4DA6D9] transition-transform group-open:rotate-180" />
               </summary>
-              <p className="mt-4 leading-relaxed text-[#4A6580]">{item.answer}</p>
+              <p className="mt-4 text-[15px] leading-[1.75] text-[#4A6580]">{item.answer}</p>
             </details>
           ))}
         </div>

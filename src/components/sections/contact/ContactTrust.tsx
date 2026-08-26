@@ -25,22 +25,34 @@ export function ContactTrust() {
   ];
 
   return (
-    <section className="border-y border-[#DAEEF8] bg-[#F4F9FD] py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid gap-6 lg:gap-8 md:grid-cols-3">
-          {trustItems.map((item) => (
-            <div key={item.title} className="flex items-start gap-4 text-center md:flex-col md:items-center">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#4DA6D9]/10">
-                <item.icon className="h-5 w-5 text-[#4DA6D9]" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-[#1A2940]">{item.title}</h3>
-                <p className="mt-1 text-sm text-[#4A6580]">
+    <section className="section-pad bg-white">
+      <div className="container-page">
+        <div className="grid gap-[22px] md:grid-cols-3">
+          {trustItems.map((item, i) => {
+            const isLast = i === trustItems.length - 1;
+            return (
+              <div
+                key={item.title}
+                className={`flex h-full flex-col rounded-[18px] border p-[28px_26px] transition-all duration-300 hover:-translate-y-[5px] hover:shadow-cete-lg ${
+                  isLast
+                    ? "bg-[linear-gradient(180deg,#FDF3EC,#fff_45%)] border-[rgba(232,99,10,0.22)] hover:border-[#E8630A]"
+                    : "bg-grad-card border-subtle hover:border-strong"
+                }`}
+              >
+                <div
+                  className={`mb-[18px] flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[13px] ${
+                    isLast ? "bg-[rgba(232,99,10,0.14)] text-[#B84D08]" : "bg-[rgba(77,166,217,0.14)] text-[#0D5A8A]"
+                  }`}
+                >
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <h3 className="type-h3-card mb-2 text-[#1A2940]">{item.title}</h3>
+                <p className="text-[14px] leading-[1.65] text-[#4A6580]">
                   {item.description}
                 </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
