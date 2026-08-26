@@ -1,80 +1,72 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { Target, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { BrandName } from "@/components/ui/brand-name";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const levels = [
-  { letter: "A", bg: "bg-[#22C55E]", text: "text-white" },
-  { letter: "B", bg: "bg-[#A3E635]", text: "text-white" },
-  { letter: "C", bg: "bg-[#F97316]", text: "text-white" },
-  { letter: "D", bg: "bg-[#EF4444]", text: "text-white" },
+  { letter: "A", className: "bg-[#22C55E] text-white" },
+  { letter: "B", className: "bg-[#A3E635] text-[#1A2940]" },
+  { letter: "C", className: "bg-[#F97316] text-white" },
+  { letter: "D", className: "bg-[#EF4444] text-white" },
 ];
 
 export function ExpertiseCTA() {
   const t = useTranslations("expertise.cta");
+
   return (
-    <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#4DA6D9]/10 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-[#1A2940]/10 blur-3xl animate-float animation-delay-500" />
-      </div>
+    <section className="bg-grad-ink relative overflow-hidden py-[clamp(64px,8vw,110px)]">
+      <div className="glow-blob absolute right-[12%] top-[-60px] h-[300px] w-[300px]" />
+      <div className="absolute bottom-[-80px] left-[8%] h-[320px] w-[320px] rounded-full bg-[#E8630A]/10 blur-[80px]" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 mb-8">
-            <Target className="h-4 w-4 text-[#E8630A]" />
-            <span className="text-sm font-medium text-[#E8630A]">{t("badge")}</span>
-          </div>
+      <div className="container-reading relative z-10 text-center">
+        <p className="type-kicker mb-5 inline-block rounded-full bg-white/[0.08] px-4 py-2 text-[#87C4E8]">
+          {t("badge")}
+        </p>
+        <h2 className="mb-5 font-display text-[clamp(30px,4.4vw,54px)] font-black uppercase leading-[1.1] text-white">
+          {t("heading")} <span className="text-[#E8630A]">AAA</span>
+        </h2>
+        <p className="mx-auto mb-10 max-w-[560px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+          {t("description")}
+        </p>
 
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white tracking-wide mb-6">
-            {t("heading")}{" "}
-            <span className="text-[#E8630A]">AAA</span>
-          </h2>
+        <div className="flex flex-col justify-center gap-3.5 sm:flex-row">
+          <Button
+            asChild
+            size="lg"
+            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+          >
+            <Link href="/contact">
+              {t("cta1")}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
+          >
+            <Link href="/a-propos">
+              {t("cta2")} <BrandName />
+            </Link>
+          </Button>
+        </div>
 
-          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-            {t("description")}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold px-8 py-6 text-lg rounded-full group shadow-lg shadow-[#E8630A]/25 hover:shadow-[#E8630A]/40 transition-all"
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+          {levels.map((level) => (
+            <span
+              key={level.letter}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold ${level.className}`}
             >
-              <Link href="/contact">
-                {t("cta1")}
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg rounded-full"
-            >
-              <Link href="/a-propos">
-                {t("cta2")} <BrandName />
-              </Link>
-            </Button>
-          </div>
-
-          {/* 4 niveaux → notation composite */}
-          <div className="mt-16 flex justify-center items-center gap-3">
-            {levels.map((level) => (
-              <div
-                key={level.letter}
-                className={`px-4 py-2 rounded-xl text-sm font-bold ${level.bg} ${level.text}`}
-              >
-                {level.letter}
-              </div>
-            ))}
-            <ArrowRight className="h-5 w-5 text-white/40 mx-2" />
-            <div className="px-4 py-2 rounded-xl text-sm font-bold bg-[#22C55E] text-white scale-110">
-              AAA
-            </div>
-          </div>
+              {level.letter}
+            </span>
+          ))}
+          <ArrowRight className="h-5 w-5 text-white/40" />
+          <span className="inline-flex h-10 min-w-16 items-center justify-center rounded-xl bg-[#22C55E] px-4 text-sm font-bold text-white">
+            AAA
+          </span>
         </div>
       </div>
     </section>

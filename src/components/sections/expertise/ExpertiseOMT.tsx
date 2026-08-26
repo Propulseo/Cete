@@ -1,9 +1,9 @@
 "use client";
 
-import { useCountUp } from "@/lib/hooks/useCountUp";
-import { BarChart3, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { useCountUp } from "@/lib/hooks/useCountUp";
+import { ArrowRight, BarChart3 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const omtStatKeys = [
   { value: 133, key: "stat1" },
@@ -22,49 +22,48 @@ export function ExpertiseOMT() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#4DA6D9]/10 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-[#4DA6D9]/5 blur-3xl animate-float animation-delay-500" />
-      </div>
+    <section className="relative overflow-hidden bg-[#1A2940] py-[clamp(56px,7vw,90px)]">
+      <div className="glow-blob absolute -right-10 -top-20 h-[340px] w-[340px]" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#4DA6D9]/30 bg-[#4DA6D9]/10 px-4 py-2 mb-6">
-            <BarChart3 className="h-4 w-4 text-[#4DA6D9]" />
-            <span className="text-sm font-medium text-[#4DA6D9]">{t("badge")}</span>
-          </div>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white tracking-wide mb-6">
-            {t("heading")}{" "}
-            <span className="text-[#E8630A]">{t("headingHighlight")}</span>
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-11 max-w-[780px] text-center">
+          <p className="type-kicker mb-[18px] inline-flex items-center gap-2.5 rounded-full bg-[#87C4E8]/14 px-4 py-2 text-[#87C4E8]">
+            <BarChart3 className="h-[15px] w-[15px]" />
+            {t("badge")}
+          </p>
+          <h2 className="mb-4 font-display text-[clamp(24px,3vw,38px)] font-black uppercase leading-[1.15] text-white">
+            {t("heading")} <span className="text-[#87C4E8]">{t("headingHighlight")}</span>
           </h2>
-          <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-3xl text-base leading-[1.7] text-[#8AA5BE]">
             {t("description")}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="mx-auto mb-10 grid max-w-4xl grid-cols-2 gap-[22px] lg:grid-cols-4">
           {omtStatKeys.map((stat, index) => {
             const counter = counters[index];
+
             return (
-              <div
+              <article
                 key={stat.key}
                 ref={counter.ref}
-                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                className="rounded-[18px] border border-on-dark bg-white/[0.06] px-[22px] py-[26px]"
               >
-                <div className="font-display text-3xl md:text-4xl text-white leading-none mb-2">
+                <p className="type-chiffre-cle mb-2 text-4xl text-white">
                   {counter.count.toLocaleString("fr-FR")}
-                </div>
-                <div className="text-sm text-white/60 font-medium">{t(stat.key)}</div>
-              </div>
+                </p>
+                <p className="text-sm font-medium leading-[1.45] text-[#8AA5BE]">
+                  {t(stat.key)}
+                </p>
+              </article>
             );
           })}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="text-center">
           <Link
             href="/observatoire"
-            className="inline-flex items-center gap-2 rounded-full border border-[#4DA6D9]/40 bg-[#4DA6D9]/10 px-6 py-3 font-medium text-white transition-colors hover:bg-[#4DA6D9]/20"
+            className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center gap-2.5 rounded-xl px-7 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white"
           >
             {t("cta")}
             <ArrowRight className="h-4 w-4" />

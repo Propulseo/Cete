@@ -1,180 +1,110 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { Shield, CheckCircle, QrCode, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { BrandName } from "@/components/ui/brand-name";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, CheckCircle, QrCode } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const subCriteria = [
-  { label: "Capacité d'auto-évaluation", score: "A" },
-  { label: "Maîtrise des exigences métier", score: "B" },
-  { label: "Maîtrise opérationnelle", score: "A" },
+  { label: "C1", score: "A" },
+  { label: "C2", score: "B" },
+  { label: "C3", score: "A" },
 ];
 
 export function ExpertiseCertificate() {
   const t = useTranslations("expertise.certificate");
-  return (
-    <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-80 h-80 bg-[#4DA6D9]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4DA6D9]/8 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
+  return (
+    <section className="section-pad bg-[#F4F9FD]">
+      <div className="container-page">
+        <div className="mx-auto mb-12 max-w-[720px] text-center">
+          <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/12 px-4 py-2 text-[#1A2940]">
             {t("badge")}
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
-            {t("heading")}{" "}
-            <span className="text-[#E8630A]">CET<span className="text-[0.75em] align-super">é</span> ADN<span className="align-super text-[0.4em]">®</span></span>
+          </p>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
+            {t("heading")} <BrandName /> ADN<span className="align-super text-[0.4em]">®</span>
           </h2>
-          <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-          {/* Certificate mockup */}
-          <div className="relative flex justify-center">
-            <div className="relative w-full max-w-md">
-              {/* Shadow & tilt effect */}
-              <div className="absolute inset-0 bg-[#1A2940]/10 rounded-2xl blur-2xl translate-y-4 scale-95" />
-
-              {/* Certificate card */}
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl border border-[#DAEEF8]">
-                {/* Top bands */}
-                <div className="h-1.5 bg-[#E8630A]" />
-                <div className="h-1 bg-[#4DA6D9]" />
-
-                {/* Header */}
-                <div className="bg-[#1A2940] px-6 py-4 flex items-center justify-between">
-                  <div>
-                    <div className="text-white font-bold text-lg">
-                      CET<span className="text-[0.75em] align-super">é</span> ADN
-                    </div>
-                    <div className="text-white/50 text-xs">
-                      Agence de notation indépendante
-                    </div>
-                  </div>
-                  <Shield className="h-8 w-8 text-[#4DA6D9]/50" />
+        <div className="grid items-center gap-[clamp(28px,4vw,52px)] md:grid-cols-[0.9fr_1.1fr]">
+          <div className="shadow-cete-lg rounded-[20px] border border-subtle bg-white p-[26px]">
+            <p className="type-kicker mb-[18px] text-[#1A7AB5]">
+              <BrandName /> ADN<span className="align-super text-[0.5em]">®</span>
+            </p>
+            <div className="relative flex aspect-[1/1.35] flex-col justify-between overflow-hidden rounded-xl border border-[#4DA6D9]/25 bg-[repeating-linear-gradient(45deg,#F4F9FD_0_10px,#EAF4FB_10px_11px)] p-6">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#1A7AB5]">
+                    Vigi-Score<span className="align-super text-[0.6em]">®</span>
+                  </p>
+                  <p className="font-display text-2xl font-black tracking-[0.08em] text-[#1A2940]">
+                    ABA
+                  </p>
                 </div>
-
-                {/* Title */}
-                <div className="px-6 pt-6 pb-4 text-center">
-                  <h3 className="font-display text-sm font-bold text-[#1A2940] tracking-wide uppercase">
-                    Certificat d&apos;évaluation des risques professionnels
-                  </h3>
-                  <div className="w-16 h-0.5 bg-[#E8630A] mx-auto mt-2" />
-                </div>
-
-                {/* Body */}
-                <div className="px-6 pb-6 grid grid-cols-2 gap-4">
-                  {/* Left - company info */}
-                  <div className="space-y-3">
-                    <div>
-                      <div className="text-[10px] font-bold text-[#8AA5BE] uppercase">Entreprise évaluée</div>
-                      <div className="text-sm font-bold text-[#1A2940]">Entreprise XYZ</div>
-                      <div className="text-[10px] text-[#4A6580]">SIREN : 123 456 789</div>
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold text-[#8AA5BE] uppercase">Évaluation</div>
-                      <div className="text-xs text-[#4A6580]">15 janvier 2026</div>
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold text-[#8AA5BE] uppercase">Validité</div>
-                      <div className="text-xs text-[#4A6580]">15 janvier 2027</div>
-                    </div>
-                  </div>
-
-                  {/* Right - rating */}
-                  <div className="space-y-3">
-                    <div className="rounded-xl border-2 border-[#22C55E] p-3 text-center">
-                      <div className="bg-[#1A2940] rounded-lg px-3 py-1 mb-2 inline-block">
-                        <span className="text-[10px] font-bold text-white tracking-wider">NOTATION CETé ADN</span>
-                      </div>
-                      <div className="font-display text-4xl font-bold text-[#22C55E]">ABA</div>
-                      <div className="text-[9px] text-[#8AA5BE] mt-1">AAA (optimal) - DDD (critique)</div>
-                    </div>
-
-                    {/* Sub-criteria */}
-                    <div className="rounded-lg border border-[#DAEEF8] p-2.5 space-y-1.5">
-                      {subCriteria.map((c) => (
-                        <div key={c.label} className="flex items-center justify-between text-[10px]">
-                          <span className="text-[#4A6580]">{c.label}</span>
-                          <span className="font-bold text-[#1A2940]">{c.score}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer */}
-                <div className="px-6 py-3 bg-[#F4F9FD] border-t border-[#DAEEF8] flex items-center justify-between">
-                  <div className="text-[9px] text-[#8AA5BE] max-w-[60%]">
-                    Ce certificat est délivré par CETé - Consortium Experts Techniques Électricité.
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <QrCode className="h-8 w-8 text-[#1A2940]/20" />
-                    <span className="text-[8px] text-[#8AA5BE]">Vérifiable en ligne</span>
-                  </div>
-                </div>
-
-                {/* Bottom bands */}
-                <div className="h-1 bg-[#4DA6D9]" />
-                <div className="h-1 bg-[#E8630A]" />
+                <QrCode className="h-9 w-9 text-[#1A2940]/35" />
               </div>
 
-              {/* Floating badge */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-[#E8630A] shadow-lg flex items-center justify-center animate-pulse-glow">
-                <div className="text-center">
-                  <div className="text-white font-bold text-[10px] leading-tight">CETé</div>
-                  <div className="text-white/80 text-[7px]">CERTIFIÉ</div>
+              <div className="rounded-2xl border border-white/70 bg-white/75 p-5 backdrop-blur-sm">
+                <div className="mb-4 grid grid-cols-3 gap-2">
+                  {subCriteria.map((criterion) => (
+                    <div key={criterion.label} className="rounded-xl border border-subtle bg-white p-3 text-center">
+                      <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#8AA5BE]">
+                        {criterion.label}
+                      </p>
+                      <p className="font-display text-2xl font-black text-[#1A2940]">
+                        {criterion.score}
+                      </p>
+                    </div>
+                  ))}
                 </div>
+                <div className="h-2 rounded-full bg-[linear-gradient(to_right,#22C55E,#A3E635,#F97316,#EF4444)]" />
               </div>
+
+              <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8AA5BE]">
+                <BrandName /> · ADN · AAA-DDD
+              </p>
             </div>
           </div>
 
-          {/* Description & CTA */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h3 className="font-display text-2xl md:text-3xl text-[#1A2940]">
-                {t("differenceHeading")}
-              </h3>
-              <p className="text-[#4A6580] leading-relaxed">
-                {t("differenceDescription")}
-              </p>
-            </div>
+          <div>
+            <h3 className="mb-4 font-display text-[clamp(19px,2.2vw,26px)] font-bold leading-[1.3] text-[#1A2940]">
+              {t("differenceHeading")}
+            </h3>
+            <p className="mb-6 text-[15.5px] leading-[1.75] text-[#4A6580]">
+              {t("differenceDescription")}
+            </p>
 
-            <ul className="space-y-4">
-              {Array.from({ length: 5 }, (_, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[#22C55E] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#4A6580]">{t(`features.${i}`)}</span>
+            <ul className="mb-[30px] grid gap-[13px]">
+              {Array.from({ length: 5 }, (_, index) => (
+                <li key={index} className="flex items-start gap-[13px] text-[15px] leading-[1.6] text-[#1A2940]">
+                  <CheckCircle className="mt-0.5 h-[22px] w-[22px] flex-shrink-0 rounded-full bg-[#22C55E]/15 p-0.5 text-[#15803D]" />
+                  {t(`features.${index}`)}
                 </li>
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col gap-3.5 sm:flex-row">
               <Button
                 asChild
                 size="lg"
-                className="bg-[#E8630A] text-white hover:bg-[#B84D08] font-semibold px-8 py-6 text-lg rounded-xl group shadow-lg shadow-[#E8630A]/20 hover:shadow-[#E8630A]/40 transition-all"
+                className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
               >
                 <Link href="/contact">
                   {t("cta1")}
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-2 border-[#1A2940] text-[#1A2940] hover:bg-[#1A2940] hover:text-white font-semibold px-8 py-6 text-lg rounded-xl transition-all"
+                className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-[15px] font-semibold text-[#0D5A8A] transition-all hover:border-[#E8630A] hover:bg-white"
               >
-                <Link href="/services">
-                  {t("cta2")}
-                </Link>
+                <Link href="/services">{t("cta2")}</Link>
               </Button>
             </div>
           </div>
