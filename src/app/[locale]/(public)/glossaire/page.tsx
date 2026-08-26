@@ -44,44 +44,40 @@ export default async function GlossairePage({
   return (
     <>
       <JsonLd data={definedTermSet} />
-      <section className="relative overflow-hidden bg-hero-gradient py-24">
-        <div className="absolute inset-0">
-          <div className="absolute top-10 right-[12%] h-56 w-56 rounded-full bg-[#4DA6D9]/10 blur-3xl" />
-          <div className="absolute bottom-0 left-[18%] h-40 w-40 rounded-full bg-[#1A2940]/15 blur-3xl" />
-        </div>
-        <div className="relative z-10 container mx-auto max-w-4xl px-4 text-center">
-          <span className="mb-6 inline-flex items-center rounded-full border border-[#E8630A]/30 bg-[#E8630A]/10 px-4 py-2 text-sm font-medium text-[#E8630A]">
+      <section className="relative overflow-hidden bg-hero-gradient">
+        <div className="glow-blob absolute right-[8%] top-5 h-[300px] w-[300px]" />
+        <div className="container-reading relative z-10 py-[clamp(52px,6.5vw,92px)] pb-[clamp(44px,5vw,72px)] text-center">
+          <p className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-[#E8630A] shadow-[0_0_0_3px_rgba(232,99,10,0.18)]" />
             {t("hero.badge")}
-          </span>
-          <h1 className="font-display text-4xl text-[#1A2940] md:text-5xl lg:text-6xl">
+          </p>
+          <h1 className="mb-5 font-display text-[clamp(28px,4vw,52px)] font-black uppercase leading-[1.08] text-[#1A2940]">
             {t("hero.heading")}
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#4A6580]">
+          <p className="mx-auto max-w-[660px] text-[16.5px] leading-[1.75] text-[#4A6580]">
             {t("hero.description")}
           </p>
         </div>
       </section>
 
-      <section className="bg-white py-20">
-        <div className="container mx-auto max-w-4xl px-4">
-          <dl className="space-y-10">
+      <section className="bg-[#F4F9FD] py-[clamp(48px,6vw,80px)]">
+        <div className="container-page max-w-[1160px]">
+          <dl className="grid gap-5 md:grid-cols-2">
             {entries.map((entry) => (
               <div
                 key={entry.id}
                 id={entry.id}
-                className="scroll-mt-28 border-b border-[#DAEEF8] pb-8 last:border-b-0"
+                className="shadow-cete-sm scroll-mt-28 rounded-[18px] border border-subtle bg-white px-6 py-[26px] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong hover:shadow-cete-lg"
               >
-                <dt>
-                  <h2 className="font-display text-2xl text-[#1A2940]">
-                    {entry.term}
-                    {entry.expansion && (
-                      <span className="ml-2 text-lg font-normal text-[#4A6580]">
-                        — {entry.expansion}
-                      </span>
-                    )}
-                  </h2>
+                <dt className="mb-3 flex flex-wrap items-baseline gap-2.5 font-display text-[19px] font-black text-[#1A2940]">
+                  {entry.term}
+                  {entry.expansion && (
+                    <span className="font-sans text-[13.5px] font-medium text-[#4A6580]">
+                      — {entry.expansion}
+                    </span>
+                  )}
                 </dt>
-                <dd className="mt-3 leading-relaxed text-[#4A6580]">
+                <dd className="text-[14.5px] leading-[1.7] text-[#4A6580]">
                   {entry.definition}
                 </dd>
               </div>
