@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Play, Quote, ChevronDown, ChevronUp } from "lucide-react";
+import { Play, Quote, Star, ChevronDown, ChevronUp } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
 
 export function HomeTestimonials() {
@@ -69,9 +69,23 @@ export function HomeTestimonials() {
               <div className="flex flex-col justify-center bg-gradient-to-br from-white to-[#F4F9FD] p-7 md:col-span-2 lg:p-10">
                 <Quote className="mb-4 h-14 w-14 -scale-x-100 text-[#E8630A]/20" />
 
-                <blockquote className="font-display text-xl italic leading-[1.45] text-[#1A2940] lg:text-[1.35rem]">
+                <blockquote className="mb-7 font-display text-xl italic leading-[1.45] text-[#1A2940] lg:text-[1.35rem]">
                   {brandify(t("pullQuote"))}
                 </blockquote>
+
+                {/* Rating progress */}
+                <div className="flex items-center gap-3">
+                  <span className="rounded-lg bg-[#F97316]/10 px-3 py-1.5 text-sm font-bold text-[#C2410C]">
+                    {t("ratingBefore")}
+                  </span>
+                  <div className="flex-1 max-w-[80px] h-[2px] rounded-full bg-gradient-to-r from-[#F97316] via-[#A3E635] to-[#22C55E]" />
+                  <span className="rounded-lg bg-[#22C55E]/10 px-3 py-1.5 text-sm font-bold text-[#15803D]">
+                    {t("ratingAfter")}
+                  </span>
+                  <span className="text-[#8AA5BE] text-sm ml-1">
+                    {t("duration")}
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -84,7 +98,7 @@ export function HomeTestimonials() {
                     isExpanded ? "max-h-[800px]" : "max-h-[120px]"
                   }`}
                 >
-                  {[t("paragraph1"), t("paragraph2"), t("paragraph3"), t("paragraph4")].filter(Boolean).map((p, i) => (
+                  {[t("paragraph1"), t("paragraph2"), t("paragraph3"), t("paragraph4")].map((p, i) => (
                     <p
                       key={i}
                       className="mb-4 leading-[1.7] text-[#4A6580] last:mb-0"
@@ -119,20 +133,31 @@ export function HomeTestimonials() {
               </div>
 
               {/* Author bar */}
-              <div className="mt-8 flex items-center gap-4 border-t border-[#DAEEF8] pt-8">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-grad-ink text-lg font-bold text-white shadow-cete-md">
-                  {t("authorName")
-                    .split(" ")
-                    .map((n: string) => n[0])
-                    .join("")}
+              <div className="mt-8 flex flex-col justify-between gap-6 border-t border-[#DAEEF8] pt-8 sm:flex-row sm:items-center">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-grad-ink text-lg font-bold text-white shadow-cete-md">
+                    {t("authorName")
+                      .split(" ")
+                      .map((n: string) => n[0])
+                      .join("")}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-[#1A2940] text-lg">
+                      {t("authorName")}
+                    </div>
+                    <div className="text-[#4A6580]">
+                      {t("authorRole")} - {t("authorCompany")}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-semibold text-[#1A2940] text-lg">
-                    {t("authorName")}
-                  </div>
-                  <div className="text-[#4A6580]">
-                    {t("authorRole")} - {t("authorCompany")}
-                  </div>
+
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-5 w-5 fill-[#E8630A] text-[#E8630A]"
+                    />
+                  ))}
                 </div>
               </div>
             </div>
