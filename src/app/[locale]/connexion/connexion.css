@@ -433,8 +433,9 @@
 }
 .cete-login .remember input:hover { border-color: var(--sky); }
 .cete-login .remember input:checked {
-  background: var(--sky-deep);
-  border-color: var(--sky-deep);
+  /* accent-color #E8630A : cf. fiche tokens §06 "case à cocher" */
+  background: var(--tst);
+  border-color: var(--tst);
 }
 .cete-login .remember input:checked::after {
   content: "";
@@ -481,28 +482,29 @@
   font-weight: 600;
   letter-spacing: 0.01em;
   color: #fff;
-  background: linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-ultra) 100%);
+  /* Bouton primaire = orange, cohérent avec la règle "action principale" de la fiche tokens (§05). */
+  background: var(--tst);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   padding: 0.92rem 1rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  box-shadow: 0 6px 18px rgba(13,90,138,0.28);
-  transition: transform 0.16s var(--ease), box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 10px 26px -12px rgba(232,99,10,0.6);
+  transition: background 0.2s ease, transform 0.16s var(--ease), box-shadow 0.2s ease;
 }
 .cete-login .btn-primary svg { width: 18px; height: 18px; transition: transform 0.2s var(--ease); }
 .cete-login .btn-primary:hover {
-  filter: brightness(1.06);
-  box-shadow: 0 10px 26px rgba(13,90,138,0.34);
-  transform: translateY(-1px);
+  background: var(--tst-dark);
+  box-shadow: 0 14px 30px -12px rgba(232,99,10,0.65);
+  transform: translateY(-2px);
 }
 .cete-login .btn-primary:hover svg { transform: translateX(3px); }
-.cete-login .btn-primary:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(13,90,138,0.30); }
-.cete-login .btn-primary:focus-visible { outline: 3px solid rgba(13,90,138,0.65); outline-offset: 2px; }
-.cete-login .btn-primary:disabled { opacity: 0.7; cursor: progress; filter: none; transform: none; }
+.cete-login .btn-primary:active { transform: translateY(0); background: #A34506; box-shadow: 0 4px 12px -6px rgba(232,99,10,0.5); }
+.cete-login .btn-primary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.cete-login .btn-primary:disabled { opacity: 0.45; cursor: progress; transform: none; }
 
 /* Spinner du bouton pendant la soumission */
 .cete-login .btn-spinner {
