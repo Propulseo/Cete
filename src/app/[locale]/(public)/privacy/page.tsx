@@ -125,8 +125,7 @@ export default function PrivacyPage() {
                 Durée de conservation
               </h2>
               <p className={pClass}>
-                Les demandes de contact sont conservées pendant{" "}
-                <TODO v="durée de conservation des demandes de contact" />, puis supprimées.
+                Les demandes de contact sont conservées pendant <strong className="text-[#1A2940]">3 ans</strong>, puis supprimées.
               </p>
             </section>
 
