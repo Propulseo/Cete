@@ -1,37 +1,24 @@
 "use client";
 
-import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import {
-  ClipboardCheck,
-  ShieldAlert,
-  GraduationCap,
-  Crown,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
 import { getPillarServices } from "@/lib/data-loader";
-
-const iconMap: Record<string, React.ReactNode> = {
-  "clipboard-check": <ClipboardCheck className="h-8 w-8" />,
-  "shield-alert": <ShieldAlert className="h-8 w-8" />,
-  "graduation-cap": <GraduationCap className="h-8 w-8" />,
-  crown: <Crown className="h-8 w-8" />,
-};
+import { ArrowRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 const categoryStyle = {
   Expertise: {
-    badge: "bg-[#1A2940] text-white",
-    accent: "border-[#4DA6D9]",
-    iconBg: "bg-gradient-to-br from-[#1A2940] to-[#0D5A8A]",
-    hover: "hover:border-[#4DA6D9]",
+    line: "bg-[#4DA6D9]",
+    badge: "bg-[#4DA6D9]/14 text-[#0D5A8A]",
+    border: "border-subtle bg-grad-card hover:border-strong",
+    bullet: "text-[#4DA6D9]",
+    separator: "border-[#4DA6D9]/20",
   },
   Conseil: {
-    badge: "bg-[#E8630A] text-white",
-    accent: "border-[#E8630A]",
-    iconBg: "bg-gradient-to-br from-[#E8630A] to-[#B84D08]",
-    hover: "hover:border-[#E8630A]",
+    line: "bg-[#E8630A]",
+    badge: "bg-[#E8630A]/12 text-[#B84D08]",
+    border: "border-[#E8630A]/22 bg-gradient-to-b from-[#FDF3EC] to-white hover:border-[#E8630A]/50",
+    bullet: "text-[#E8630A]",
+    separator: "border-[#E8630A]/20",
   },
 };
 
@@ -39,27 +26,15 @@ export function ServicesPillars() {
   const t = useTranslations("services.pillars");
   const locale = useLocale() as "fr" | "en";
   const pillars = getPillarServices(locale);
-  const expertise = pillars.filter((s) => s.category === "Expertise");
-  const conseil = pillars.filter((s) => s.category === "Conseil");
+  const expertise = pillars.filter((service) => service.category === "Expertise");
+  const conseil = pillars.filter((service) => service.category === "Conseil");
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 font-display text-[12rem] text-[#DAEEF8] leading-none select-none whitespace-nowrap pointer-events-none">
-        {t("heading")}
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-2xl mb-20">
-          <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">
-            {t("badge")}
-          </span>
-          <h2 className="font-display text-5xl md:text-6xl text-[#1A2940] tracking-wide mt-4">
-            {t("heading")}
-          </h2>
-          <div className="w-24 h-1.5 bg-[#E8630A] mt-6" />
-          <p className="text-lg text-[#4A6580] mt-6 max-w-xl">
-            {t("description")}
-          </p>
+    <section className="section-pad bg-white">
+      <div className="container-page">
+        <div className="mx-auto mb-[52px] max-w-[760px] text-center">
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">{t("heading")}</h2>
+          <p className="text-base leading-[1.7] text-[#4A6580]">{t("description")}</p>
         </div>
 
         <PillarGroup label={t("expertise")} services={expertise} contactLabel={t("contactUs")} />
@@ -78,69 +53,48 @@ function PillarGroup({
   services: ReturnType<typeof getPillarServices>;
   contactLabel: string;
 }) {
-  return (
-    <div className="mb-16 last:mb-0">
-      <div className="flex items-center gap-4 mb-8">
-        <h3 className="font-display text-2xl text-[#1A2940] tracking-wide uppercase">
-          {label}
-        </h3>
-        <div className="flex-1 h-px bg-[#DAEEF8]" />
-      </div>
+  const style = categoryStyle[services[0]?.category ?? "Expertise"];
 
-      <div className="grid md:grid-cols-2 gap-8">
+  return (
+    <div className="mb-[clamp(44px,5vw,64px)] last:mb-0">
+      <h3 className="mb-6 flex items-center gap-3.5 font-display text-xl font-bold text-[#1A2940]">
+        <span className={`h-[3px] w-[30px] rounded-sm ${style.line}`} />
+        {label}
+      </h3>
+
+      <div className="grid gap-[22px] md:grid-cols-2">
         {services.map((service) => {
-          const style = categoryStyle[service.category];
+          const serviceStyle = categoryStyle[service.category];
+
           return (
             <Link
               key={service.id}
               href="/contact"
-              className={`block group relative bg-white rounded-3xl border-2 border-[#DAEEF8] ${style.hover} p-8 md:p-10 transition-all duration-500 hover:shadow-2xl`}
+              className={`group flex flex-col rounded-[20px] border px-7 py-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-cete-lg ${serviceStyle.border}`}
             >
-              <div className="flex items-start gap-5 mb-6">
-                <div
-                  className={`w-16 h-16 rounded-2xl ${style.iconBg} flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-500 shadow-lg`}
-                >
-                  {iconMap[service.icon] || <ClipboardCheck className="h-8 w-8" />}
-                </div>
-                <div>
-                  <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${style.badge} mb-2`}>
-                    {service.category}
-                  </span>
-                  <h4 className="text-xl md:text-2xl font-bold text-[#1A2940] leading-tight">
-                    {service.title}
-                  </h4>
-                </div>
-              </div>
+              <span className={`mb-[18px] inline-flex self-start rounded-full px-[13px] py-1.5 text-[11.5px] font-bold tracking-[0.08em] ${serviceStyle.badge}`}>
+                {service.category}
+              </span>
 
-              {service.imageUrl && (
-                <div className="rounded-2xl overflow-hidden border border-[#DAEEF8] mb-6">
-                  <Image
-                    src={service.imageUrl}
-                    alt={service.title}
-                    width={452}
-                    height={248}
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                    className="w-full h-auto"
-                  />
-                </div>
-              )}
-
-              <p className="text-[#4A6580] leading-relaxed mb-6">
+              <h4 className="mb-3 text-[19px] font-bold leading-[1.3] text-[#1A2940]">
+                {service.title}
+              </h4>
+              <p className="mb-[22px] text-[14.5px] leading-[1.7] text-[#4A6580]">
                 {service.description}
               </p>
 
-              <ul className="space-y-2.5 mb-8">
-                {service.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-[#4A6580]">
-                    <CheckCircle className="h-4 w-4 text-[#E8630A] flex-shrink-0 mt-0.5" />
-                    <span>{feature}</span>
+              <ul className={`mb-[22px] grid gap-2.5 border-t pt-[18px] text-[13.5px] leading-[1.55] text-[#4A6580] ${serviceStyle.separator}`}>
+                {service.features.map((feature) => (
+                  <li key={feature} className="flex gap-2.5">
+                    <span className={`font-bold ${serviceStyle.bullet}`}>›</span>
+                    {feature}
                   </li>
                 ))}
               </ul>
 
-              <span className="inline-flex items-center text-[#1A2940] group-hover:text-[#E8630A] font-semibold transition-colors">
+              <span className="mt-auto inline-flex items-center gap-2 text-[14.5px] font-semibold text-[#E8630A]">
                 {contactLabel}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
           );
