@@ -21,24 +21,21 @@ export function AboutStats() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-r from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
-      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full bg-[#4DA6D9]/10 blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-[#1A2940]/10 blur-3xl" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <section className="relative overflow-hidden bg-[#F4F9FD] py-[clamp(44px,5vw,64px)]">
+      <div className="container-page relative z-10">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-6">
           {stats.map((stat, index) => {
             const counter = counters[index];
             const Icon = stat.icon;
             return (
-              <div key={stat.labelKey} ref={counter.ref} className="text-center group">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 mb-4 group-hover:bg-[#E8630A]/20 transition-colors">
-                  <Icon className="h-10 w-10 text-[#4DA6D9]" />
+              <div key={stat.labelKey} ref={counter.ref} className="group rounded-[18px] border border-subtle bg-white p-6 shadow-cete-sm transition-all duration-300 hover:-translate-y-1 hover:border-strong hover:shadow-cete-lg">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#4DA6D9]/[0.12] text-[#0D5A8A] transition-colors group-hover:bg-[#E8630A]/[0.12] group-hover:text-[#B84D08]">
+                  <Icon className="h-5 w-5" />
                 </div>
-                <div className="text-5xl md:text-6xl font-display text-white mb-2">
+                <div className="type-chiffre-cle text-[38px] text-[#1A2940]">
                   {counter.count}{stat.suffix && <span className="text-[#E8630A]">{stat.suffix}</span>}
                 </div>
-                <p className="text-white/70">{t(stat.labelKey)}</p>
+                <p className="mt-2 text-[13.5px] text-[#4A6580]">{t(stat.labelKey)}</p>
               </div>
             );
           })}

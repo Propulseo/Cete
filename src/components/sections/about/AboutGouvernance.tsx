@@ -9,38 +9,37 @@ const itemIcons = [Users, Monitor, ShieldCheck];
 export function AboutGouvernance() {
   const t = useTranslations("about.governance");
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-72 h-72 bg-[#4DA6D9]/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+    <section className="section-pad bg-grad-ink relative overflow-hidden">
+      <div className="glow-blob absolute -bottom-24 -right-16 h-[380px] w-[380px]" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#1A2940] text-sm font-semibold uppercase tracking-wider mb-4">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-12 max-w-[720px] text-center">
+          <span className="type-kicker mb-4 inline-flex rounded-full bg-[#87C4E8]/[0.14] px-4 py-2 text-[#87C4E8]">
             {t("badge")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
+          <h2 className="type-h2-section mb-4 text-white">
             {t.rich("heading", {
               accent: (chunks) => <span className="text-[#E8630A]">{chunks}</span>,
             })}
           </h2>
-          <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#8AA5BE]">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
           {itemIcons.map((Icon, index) => (
             <div
               key={index}
-              className="group p-8 rounded-3xl bg-[#F4F9FD] border border-[#DAEEF8] hover:border-[#4DA6D9]/30 hover:shadow-xl transition-all duration-500"
+              className="group rounded-[20px] border border-on-dark bg-white/[0.06] p-7 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#87C4E8]/45"
             >
-              <div className="w-14 h-14 rounded-2xl bg-[#4DA6D9]/10 flex items-center justify-center mb-6 group-hover:bg-[#4DA6D9] transition-colors duration-300">
-                <Icon className="w-7 h-7 text-[#4DA6D9] group-hover:text-white transition-colors duration-300" />
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#4DA6D9]/20 text-[#87C4E8] transition-colors duration-300 group-hover:bg-[#E8630A]/20 group-hover:text-[#E8630A]">
+                <Icon className="h-6 w-6" />
               </div>
-              <h3 className="font-display text-xl text-[#1A2940] font-bold mb-3">
+              <h3 className="type-h3-card mb-3 text-white">
                 {t(`items.${index}.title`)}
               </h3>
-              <p className="text-[#4A6580] leading-relaxed">
+              <p className="text-[14.5px] leading-[1.7] text-[#8AA5BE]">
                 {brandify(t(`items.${index}.description`))}
               </p>
             </div>

@@ -3,33 +3,30 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { Founder } from "@/types/founder";
 
 export function AboutFounders({ founders }: { founders: Founder[] }) {
   const t = useTranslations("about.founders");
 
   return (
-    <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
-      <div className="absolute top-20 left-0 w-72 h-72 bg-[#4DA6D9]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-0 w-96 h-96 bg-[#4DA6D9]/10 rounded-full blur-3xl" />
+    <section className="section-pad relative overflow-hidden bg-white">
+      <div className="glow-blob absolute left-0 top-20 h-72 w-72" />
+      <div className="glow-blob absolute bottom-20 right-0 h-96 w-96 bg-[#87C4E8]/15" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <Badge className="bg-[#4DA6D9]/10 text-[#1A2940] hover:bg-[#4DA6D9]/20 mb-4">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-12 max-w-[680px] text-center">
+          <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
             {t("badge")}
-          </Badge>
-          <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
+          </span>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t("heading")}
           </h2>
-          <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-6">
           {founders.map((founder, index) => (
             <FounderCard key={founder.id} founder={founder} index={index} />
           ))}
@@ -54,61 +51,53 @@ function FounderCard({
 
   return (
     <div
-      className="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-subtle bg-white shadow-cete-sm transition-all duration-300 hover:-translate-y-1 hover:border-strong hover:shadow-cete-lg"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="h-1.5 bg-gradient-to-r from-[#E8630A] via-[#4DA6D9] to-[#1A2940]" />
-
-      <div className="flex flex-1 flex-col sm:flex-row">
+      <div className="flex flex-1 flex-col">
         {/* Photo or fallback initials */}
-        <div className="relative aspect-square sm:aspect-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] overflow-hidden">
+        <div className="relative aspect-[4/4.6] flex-shrink-0 overflow-hidden bg-grad-ink">
           {!imgError ? (
             <Image
               src={founder.imageUrl}
               alt={`Portrait de ${founder.name}, ${founder.role}`}
               fill
-              sizes="(max-width: 768px) 100vw, 192px"
-              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
               style={founder.imagePosition ? { objectPosition: founder.imagePosition } : undefined}
               onError={() => setImgError(true)}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-5xl font-display text-white/20 group-hover:text-[#E8630A]/30 transition-colors duration-500">
+              <span className="font-display text-5xl text-white/20 transition-colors duration-500 group-hover:text-[#E8630A]/30">
                 {initials}
               </span>
             </div>
           )}
-          <div className="absolute inset-0 bg-[#4DA6D9]/0 group-hover:bg-[#E8630A]/10 transition-colors duration-500" />
         </div>
 
-        <div className="flex-1 p-6">
-          <div className="flex items-start justify-between mb-2">
-            <div>
-              <h3 className="text-xl font-bold text-[#1A2940]">
-                {founder.name}
-              </h3>
-              <p className="text-sm font-medium text-[#E8630A]">
+        <div className="flex flex-1 flex-col p-5">
+          <div className="mb-4">
+            <h3 className="type-h3-card mb-1 text-[#1A2940]">
+              {founder.name}
+            </h3>
+              <p className="text-[13.5px] font-semibold text-[#0D5A8A]">
                 Co-fondateur
               </p>
               {founder.formerOrg && (
-                <p className="text-xs text-[#8AA5BE] mt-0.5">
+                <p className="mt-0.5 text-xs text-[#8AA5BE]">
                   {founder.formerOrg}
                 </p>
               )}
               {founder.currentEntity && (
-                <p className="text-xs text-[#4A6580] font-medium">
+                <p className="text-xs font-medium text-[#4A6580]">
                   {founder.currentEntity}
                 </p>
               )}
-            </div>
-            <div className="w-10 h-10 rounded-full bg-[#4DA6D9]/10 flex items-center justify-center group-hover:bg-[#E8630A]/10 transition-colors">
-              <ChevronRight className="h-5 w-5 text-[#4DA6D9]/30 group-hover:text-[#E8630A] transition-colors" />
-            </div>
           </div>
 
           {founder.bio && (
-            <p className="text-[#4A6580] text-sm leading-relaxed">
+            <p className="mt-auto text-[13px] leading-[1.6] text-[#4A6580]">
               {founder.bio}
             </p>
           )}

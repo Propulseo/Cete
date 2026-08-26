@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Shield, Lock, Heart, Target } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { getValues } from "@/lib/data-loader";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -17,50 +16,44 @@ export function AboutValues() {
   const values = getValues();
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="section-pad relative overflow-hidden bg-white">
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[#1A2940]/5" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-[#4DA6D9]/10" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#1A2940]/10" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <Badge className="bg-[#1A2940] text-white hover:bg-[#0D5A8A] mb-4">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-12 max-w-[660px] text-center">
+          <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
             {t("badge")}
-          </Badge>
-          <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
+          </span>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t("heading")}
           </h2>
-          <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6">
           {values.map((value) => (
             <div
               key={value.id}
-              className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-[#DAEEF8] hover:border-[#E8630A]/30 overflow-hidden"
+              className="group relative flex flex-col overflow-hidden rounded-[18px] border border-subtle bg-grad-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-strong hover:shadow-cete-lg"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4DA6D9]/0 to-[#4DA6D9]/0 group-hover:from-[#E8630A]/5 group-hover:to-transparent transition-all duration-500" />
-
-              <div className="relative mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500 shadow-lg">
+              <div className="relative mb-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#4DA6D9]/[0.14] text-[#0D5A8A] transition-transform duration-300 group-hover:scale-105">
                   {iconMap[value.icon]}
                 </div>
-                <div className="absolute inset-0 w-16 h-16 rounded-2xl bg-[#E8630A]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
-              <h3 className="text-lg font-bold text-[#1A2940] mb-3 group-hover:text-[#1A2940] transition-colors">
+              <h3 className="type-h3-card mb-3 text-[#1A2940]">
                 {value.title}
               </h3>
-              <p className="text-sm text-[#4A6580] leading-relaxed">
+              <p className="text-sm leading-[1.65] text-[#4A6580]">
                 {value.description}
               </p>
-
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#E8630A] to-[#4DA6D9] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </div>
           ))}
         </div>

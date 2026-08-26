@@ -3,42 +3,40 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Heart, ExternalLink } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export function AboutRSE() {
   const t = useTranslations("about.rse");
 
   return (
-    <section className="py-24 bg-[#F4F9FD] relative overflow-hidden">
+    <section className="section-pad relative overflow-hidden bg-gradient-to-b from-[#F4F9FD] to-white">
       {/* Decorative bubbles */}
-      <div className="absolute top-12 right-16 w-48 h-48 rounded-full bg-[rgba(77,166,217,0.08)] blur-2xl" />
-      <div className="absolute bottom-16 left-12 w-64 h-64 rounded-full bg-[rgba(77,166,217,0.06)] blur-3xl" />
+      <div className="glow-blob absolute right-16 top-12 h-48 w-48" />
+      <div className="glow-blob absolute bottom-16 left-12 h-64 w-64 bg-[#87C4E8]/10" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <Badge className="bg-[#1A2940] text-white hover:bg-[#0D5A8A] mb-4">
-            <Heart className="h-3.5 w-3.5 mr-1.5" />
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-11 max-w-[700px] text-center">
+          <span className="type-kicker mb-4 inline-flex items-center gap-2 rounded-full bg-[#22C55E]/[0.12] px-4 py-2 text-[#15803D]">
+            <Heart className="h-3.5 w-3.5" />
             {t("badge")}
-          </Badge>
-          <h2 className="font-display text-4xl md:text-5xl text-[#1A2940] tracking-wide mb-4">
+          </span>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t.rich("heading", {
               accent: (chunks) => (
                 <span className="text-[#E8630A]">{chunks}</span>
               ),
             })}
           </h2>
-          <p className="text-lg text-[#4A6580] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
             {t("subtitle")}
           </p>
-          <div className="w-24 h-1 bg-[#E8630A] mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg border border-[#DAEEF8] overflow-hidden">
-            <div className="grid md:grid-cols-[240px_1fr] items-center">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="overflow-hidden rounded-3xl border border-subtle bg-white p-0 shadow-cete-xl md:p-0">
+            <div className="grid items-center md:grid-cols-[0.8fr_1.2fr]">
               {/* Logo ESF */}
-              <div className="flex items-center justify-center p-8 md:p-10 bg-gradient-to-br from-[#F4F9FD] to-white md:border-r border-b md:border-b-0 border-[#DAEEF8]">
+              <div className="flex min-h-[180px] items-center justify-center bg-[#F4F9FD] p-8 md:p-10">
                 <Image
                   src="/images/partners/esf-logo.png"
                   alt={t("logoAlt")}
@@ -50,25 +48,25 @@ export function AboutRSE() {
 
               {/* Content */}
               <div className="p-8 md:p-10">
-                <h3 className="text-xl font-bold text-[#1A2940] mb-4">
+                <h3 className="type-h3-card mb-4 text-[#1A2940] md:text-2xl">
                   {t("partnerTitle")}
                 </h3>
 
-                <p className="text-[#4A6580] leading-relaxed mb-4">
+                <p className="mb-4 leading-[1.75] text-[#4A6580]">
                   {t("paragraph1")}
                 </p>
 
-                <p className="text-[#4A6580] leading-relaxed mb-6">
+                <p className="mb-6 leading-[1.75] text-[#4A6580]">
                   {t("paragraph2")}
                 </p>
 
                 {/* Values tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="mb-6 flex flex-wrap gap-2">
                   {(["solidarity", "expertise", "commitment"] as const).map(
                     (key) => (
                       <span
                         key={key}
-                        className="inline-flex items-center rounded-full bg-[#DAEEF8] px-3 py-1 text-sm font-medium text-[#0D5A8A]"
+                         className="inline-flex items-center rounded-full bg-[#22C55E]/10 px-3.5 py-1.5 text-sm font-semibold text-[#15803D]"
                       >
                         {t(`tags.${key}`)}
                       </span>
@@ -80,7 +78,7 @@ export function AboutRSE() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-[#4DA6D9] text-[#1A7AB5] hover:bg-[#F4F9FD] group"
+                  className="group h-11 rounded-xl border-[#1A2940] text-[15px] font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white"
                 >
                   <a
                     href="https://www.electriciens-sans-frontieres.org/"

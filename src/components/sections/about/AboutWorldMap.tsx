@@ -33,24 +33,24 @@ export function AboutWorldMap() {
   }, []);
 
   return (
-    <section className="py-24 bg-[#1A2940] relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A]/30 to-[#1A2940]" />
+    <section className="section-pad relative overflow-hidden bg-[#F4F9FD]">
+      <div className="glow-blob absolute -left-16 -top-20 h-[320px] w-[320px]" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#4DA6D9]/10 text-[#4DA6D9] text-sm font-semibold uppercase tracking-wider mb-4">
+      <div className="container-page relative z-10">
+        <div className="mx-auto mb-12 max-w-[680px] text-center">
+          <span className="type-kicker mb-4 inline-flex items-center gap-2 rounded-full bg-[#4DA6D9]/[0.14] px-4 py-2 text-[#1A2940]">
             <Globe className="h-4 w-4" />
             {t("badge")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-4">
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t("heading")}
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
             {brandify(t("description"))}
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-white/20 ring-1 ring-black/10 shadow-2xl bg-[#F4F9FD]">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-[20px] border border-subtle bg-white shadow-cete-xl">
           {mapReady ? (
             <LeafletMap />
           ) : (
@@ -61,24 +61,24 @@ export function AboutWorldMap() {
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap justify-center gap-6 mt-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#E8630A]" />
-            <span className="text-sm text-white/90">{t("legendFrance")}</span>
+            <div className="h-3 w-3 rounded-full bg-[#E8630A]" />
+            <span className="text-sm text-[#4A6580]">{t("legendFrance")}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#4DA6D9]" />
-            <span className="text-sm text-white/90">{t("legendInternational")}</span>
+            <div className="h-3 w-3 rounded-full bg-[#4DA6D9]" />
+            <span className="text-sm text-[#4A6580]">{t("legendInternational")}</span>
           </div>
         </div>
 
         {/* Reprise textuelle des zones : à ce niveau de zoom les marqueurs
             français se superposent et restent illisibles sur la carte seule. */}
-        <ul className="max-w-4xl mx-auto mt-6 flex flex-wrap justify-center gap-2">
+        <ul className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-2">
           {interventionZones.map((zone) => (
             <li
               key={zone.key}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-white/90"
+              className="inline-flex items-center gap-2 rounded-full border border-subtle bg-white px-3 py-1.5 text-sm text-[#1A2940]"
             >
               <span
                 className={`h-2 w-2 rounded-full ${zone.primary ? "bg-[#E8630A]" : "bg-[#4DA6D9]"}`}
