@@ -8,9 +8,8 @@ import { loadContactInfo } from "@/lib/vitrine-data";
 
 function FooterHeading({ children }: { children: ReactNode }) {
   return (
-    <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-white">
+    <h3 className="mb-5 font-sans text-[12px] font-bold uppercase tracking-[0.12em] text-white">
       {children}
-      <span className="mt-2 block h-0.5 w-8 rounded-full bg-[#E8630A]" />
     </h3>
   );
 }
@@ -18,7 +17,7 @@ function FooterHeading({ children }: { children: ReactNode }) {
 // min-h-11 (44px) = cible tactile mobile ; sm:min-h-0 + sm:py-1 restaure la
 // densité d'origine sur grand écran, où le pointeur est précis.
 const linkClass =
-  "inline-flex min-h-11 items-center py-2 text-sm text-white/70 transition-colors hover:text-white sm:min-h-0 sm:py-1";
+  "inline-flex min-h-11 items-center py-2 text-[15px] leading-6 text-[#8AA5BE] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#87C4E8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A2940] sm:min-h-0 sm:py-1";
 
 export async function Footer() {
   const t = await getTranslations("common.footer");
@@ -27,17 +26,14 @@ export async function Footer() {
   const contact = await loadContactInfo(locale);
 
   return (
-    <footer className="relative border-t border-white/10 bg-[#1A2940] text-white overflow-hidden">
+    <footer className="relative overflow-hidden border-t border-[rgba(135,196,232,0.15)] bg-[#1A2940] text-[#8AA5BE]">
       {/* Motif de bulles : assez discret pour ne pas gêner la lecture du texte. */}
-      <div className="absolute inset-0 bg-bubbles-pattern opacity-25 pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-bubbles-pattern opacity-[0.18]" />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-8 lg:px-12 py-14 md:py-16">
-        {/* 2 colonnes dès le mobile : empiler les 4 blocs rendait le footer
-
-            interminable. La marque garde plus de large que les colonnes de liens. */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.7fr_1fr_1fr_1fr] lg:gap-12">
+      <div className="container-wide relative z-10 py-14 md:py-16">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[44px]">
           {/* Marque */}
-          <div className="col-span-2 space-y-4 lg:col-span-1 lg:max-w-xs">
+          <div className="space-y-5">
             <Link href="/" aria-label={t("logoAriaLabel")} className="inline-block">
               <Image
                 src="/assets/brand/logo-cete.png"
@@ -47,10 +43,10 @@ export async function Footer() {
                 className="h-16 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-sm leading-relaxed text-white/70">{t("tagline")}</p>
-            {/* #F59542 (orange clair de la charte) : l'orange vif ne passait pas
-                le contraste AA sur le bleu nuit. */}
-            <p className="text-sm font-medium italic text-[#F59542]">{t("motto")}</p>
+            <p className="max-w-[280px] text-[15px] leading-7 text-[#8AA5BE]">
+              {t("tagline")}
+            </p>
+            <p className="text-[15px] font-semibold text-[#87C4E8]">{t("motto")}</p>
           </div>
 
           {/* Navigation */}
@@ -78,17 +74,17 @@ export async function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="col-span-2 lg:col-span-1">
+          <div>
             <FooterHeading>{t("contact")}</FooterHeading>
             <a href={`mailto:${contact.email}`} className={`${linkClass} gap-2`}>
-              <Mail className="h-4 w-4 flex-shrink-0 text-[#F59542]" />
+              <Mail className="h-4 w-4 flex-shrink-0 text-[#87C4E8]" />
               {contact.email}
             </a>
           </div>
         </div>
 
         {/* Bas de page */}
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/65 md:flex-row md:items-center md:justify-between md:gap-6">
+        <div className="mt-12 flex flex-col gap-2 border-t border-[rgba(135,196,232,0.15)] pt-6 text-xs text-[#8AA5BE] md:flex-row md:items-center md:justify-between md:gap-6">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>
             {t("madeBy")}{" "}
@@ -96,7 +92,7 @@ export async function Footer() {
               href="https://propulseo-site.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
+              className="text-[#87C4E8] underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#87C4E8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A2940]"
             >
               Propul&apos;SEO
             </a>
