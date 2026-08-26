@@ -1,37 +1,36 @@
-import { Mail, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function BlogCTA() {
   const t = useTranslations("blog.cta");
-  return (
-    <section className="py-24 bg-gradient-to-br from-[#1A2940] via-[#0D5A8A] to-[#1A2940] relative overflow-hidden">
-      <div className="absolute top-10 left-10 w-64 h-64 bg-[#4DA6D9]/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#1A2940]/10 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#E8630A] mb-8 animate-pulse-glow">
-            <Mail className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-white mb-6">
-            {t("heading")}
-          </h2>
-          <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-            {t("description")}
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-[#E8630A] text-white hover:bg-[#B84D08] text-lg px-10 py-6 font-semibold rounded-xl shadow-lg shadow-[#E8630A]/20 hover:shadow-xl hover:shadow-[#E8630A]/30 transition-all duration-300"
-          >
-            <Link href="/contact">
-              {t("subscribe")}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
+  return (
+    <section className="bg-grad-ink relative overflow-hidden py-[clamp(56px,7vw,96px)]">
+      <div className="glow-blob absolute right-[12%] top-[-60px] h-[300px] w-[300px]" />
+      <div className="absolute bottom-[-80px] left-[8%] h-[300px] w-[300px] rounded-full bg-[#E8630A]/10 blur-[80px]" />
+
+      <div className="container-reading relative z-10 text-center">
+        <span className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#4DA6D9]/20 text-[#87C4E8]">
+          <Mail className="h-6 w-6" />
+        </span>
+        <h2 className="mb-[18px] font-display text-[clamp(26px,3.6vw,44px)] font-black uppercase leading-[1.1] text-white">
+          {t("heading")}
+        </h2>
+        <p className="mx-auto mb-9 max-w-[560px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+          {t("description")}
+        </p>
+        <Button
+          asChild
+          size="lg"
+          className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+        >
+          <Link href="/contact">
+            {t("subscribe")}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

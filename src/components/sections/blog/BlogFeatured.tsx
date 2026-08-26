@@ -1,100 +1,80 @@
 import Image from "next/image";
-import { ArrowRight, Clock, Calendar } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { type BlogPost } from "@/types";
 import { brandify } from "@/components/ui/brand-name";
 import { VideoEmbed } from "@/components/ui/video-embed";
+import { ArrowRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { type BlogPost } from "@/types";
+
+function formatDate(date: string, locale: string) {
+  return new Date(date).toLocaleDateString(locale === "en" ? "en-GB" : "fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export function BlogFeatured({ post }: { post: BlogPost }) {
   const t = useTranslations("blog.featured");
   const locale = useLocale();
-  return (
-    <section className="py-16 md:py-20 bg-white">
-      <div className="container mx-auto px-6 lg:px-8">
-        {/* Section label */}
-        <div className="flex items-center gap-4 mb-10">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8630A]">
-            {t("label")}
-          </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-[#E8630A]/30 to-transparent" />
-        </div>
 
+  return (
+    <section className="bg-white pb-[clamp(48px,6vw,72px)] pt-0">
+      <div className="container-page">
         <Link
           href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
-          className="group block"
+          className="group grid overflow-hidden rounded-3xl border border-subtle bg-white shadow-cete-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-cete-lg md:grid-cols-2"
         >
-          <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Media - 7 columns */}
-            <div className="md:col-span-7">
-              {post.videoUrl ? (
-                <VideoEmbed url={post.videoUrl} title={post.title} />
-              ) : (
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-[#1A2940]/10 ring-1 ring-[#DAEEF8]/50">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.imageAlt ?? post.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A2940]/20 to-transparent" />
-                </div>
-              )}
-            </div>
-
-            {/* Content - 5 columns */}
-            <div className="md:col-span-5 space-y-6">
-              <div className="flex items-center gap-3">
-                <span
-                  className={`inline-block w-2.5 h-2.5 rounded-full ${post.categoryColor}`}
-                />
-                <span className="text-sm font-semibold uppercase tracking-wider text-[#4A6580]">
-                  {post.category}
-                </span>
-                <span className="text-[#DAEEF8]">/</span>
-                <span className="text-sm text-[#4A6580] flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  {post.readTime}
-                </span>
-              </div>
-
-              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-[#1A2940] leading-snug group-hover:text-[#E8630A] transition-colors duration-300">
-                {post.title}
-              </h2>
-
-              <p className="text-[#4A6580] leading-relaxed text-lg">
-                {brandify(post.excerpt)}
-              </p>
-
-              <div className="flex items-center justify-between pt-6 border-t border-[#DAEEF8]">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#4DA6D9] flex items-center justify-center text-white font-semibold text-sm">
-                    {post.author
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1A2940]">
-                      {post.author}
-                    </p>
-                    <p className="text-xs text-[#4A6580] flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {new Date(post.publishedDate).toLocaleDateString(
-                        locale === "en" ? "en-GB" : "fr-FR",
-                        { day: "numeric", month: "long", year: "numeric" }
-                      )}
-                    </p>
-                  </div>
-                </div>
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8630A] group-hover:gap-3 transition-all duration-300">
-                  {t("readArticle")}
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
-            </div>
+          <div className="relative min-h-[280px] overflow-hidden bg-[#F4F9FD]">
+            {post.videoUrl ? (
+              <VideoEmbed url={post.videoUrl} title={post.title} />
+            ) : (
+              <Image
+                src={post.imageUrl}
+                alt={post.imageAlt ?? post.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
           </div>
+
+          <article className="flex flex-col p-[clamp(26px,3.5vw,40px)]">
+            <div className="mb-[18px] flex items-center gap-3">
+              <span className="rounded-full bg-[#22C55E]/12 px-[13px] py-1.5 text-[11.5px] font-bold tracking-[0.06em] text-[#15803D]">
+                {post.category}
+              </span>
+              <span className="text-[12.5px] text-[#8AA5BE]">{post.readTime}</span>
+            </div>
+
+            <p className="type-kicker mb-3 text-[#E8630A]">{t("label")}</p>
+            <h2 className="mb-3.5 font-display text-[clamp(19px,2.2vw,26px)] font-black leading-[1.28] text-[#1A2940] transition-colors group-hover:text-[#E8630A]">
+              {post.title}
+            </h2>
+            <p className="mb-6 text-[14.5px] leading-[1.7] text-[#4A6580]">
+              {brandify(post.excerpt)}
+            </p>
+
+            <div className="mt-auto flex flex-wrap items-center justify-between gap-3.5 border-t border-[#DAEEF8] pt-5">
+              <span className="flex items-center gap-3">
+                <span className="bg-grad-ink inline-flex h-[38px] w-[38px] items-center justify-center rounded-full text-xs font-bold text-white">
+                  {post.author.split(" ").map((name) => name[0]).join("")}
+                </span>
+                <span>
+                  <span className="block text-[13.5px] font-semibold text-[#1A2940]">
+                    {post.author}
+                  </span>
+                  <span className="block text-[12.5px] text-[#8AA5BE]">
+                    {formatDate(post.publishedDate, locale)}
+                  </span>
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8630A]">
+                {t("readArticle")}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </article>
         </Link>
       </div>
     </section>

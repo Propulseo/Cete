@@ -1,64 +1,32 @@
-import { Zap } from "lucide-react";
+import { Newspaper } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function BlogHero({ count }: { count?: number }) {
   const t = useTranslations("blog.hero");
+
   return (
-    <section className="relative py-24 md:py-32 bg-[#1A2940] overflow-hidden">
-      {/* Gradient overlays */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `
-            radial-gradient(ellipse at 20% 50%, rgba(77,166,217,0.06), transparent 50%),
-            radial-gradient(ellipse at 80% 30%, rgba(26,41,64,0.3), transparent 50%)
-          `,
-        }}
-      />
-      <div className="absolute inset-0 bg-bubbles-pattern opacity-30" />
+    <section className="relative overflow-hidden bg-hero-gradient">
+      <div className="glow-blob absolute left-[8%] top-5 h-80 w-80" />
 
-      {/* Floating orbs */}
-      <div className="absolute top-10 right-20 w-48 h-48 rounded-full bg-[#4DA6D9]/8 blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full bg-[#1A2940]/20 blur-3xl animate-float animation-delay-300" />
+      <div className="container-reading relative z-10 py-[clamp(52px,6.5vw,92px)] pb-[clamp(44px,5vw,72px)] text-center">
+        <p className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
+          <span className="h-2 w-2 rounded-full bg-[#E8630A] shadow-[0_0_0_3px_rgba(232,99,10,0.18)]" />
+          {t("badge")}
+        </p>
 
-      {/* Decorative large text */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 font-display text-[20rem] leading-none text-white/[0.02] select-none pointer-events-none hidden lg:block">
-        &
-      </div>
+        <h1 className="mb-5 font-display text-[clamp(30px,4.4vw,56px)] font-black uppercase leading-[1.06] text-[#1A2940] animate-slide-up animation-delay-100">
+          {t("headingStart")} &amp; {t("headingEnd")}
+        </h1>
+        <p className="mx-auto mb-[22px] max-w-[660px] text-[16.5px] leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-200">
+          {t("description")}
+        </p>
 
-      <div className="relative z-10 container mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#E8630A]/30 backdrop-blur-sm mb-8 animate-slide-up">
-            <Zap className="w-4 h-4 text-[#E8630A]" />
-            <span className="text-sm text-[#E8630A] font-medium tracking-wide uppercase">
-              {t("badge")}
-            </span>
-          </div>
-
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6 opacity-0 animate-slide-up animation-delay-100">
-            {t("headingStart")}{" "}
-            <span className="text-gradient-accent">&</span>{" "}
-            {t("headingEnd")}
-          </h1>
-
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed opacity-0 animate-slide-up animation-delay-200">
-            {t("description")}
+        {typeof count === "number" && count > 0 && (
+          <p className="inline-flex items-center gap-[9px] text-[13.5px] font-semibold text-[#0D5A8A] animate-slide-up animation-delay-300">
+            <Newspaper className="h-4 w-4" />
+            {t("count", { count })}
           </p>
-
-          {typeof count === "number" && count > 0 && (
-            <p className="mt-8 text-sm text-white/40 opacity-0 animate-slide-up animation-delay-300">
-              {t("count", { count })}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" fill="none" className="w-full">
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#FFFFFF" />
-        </svg>
+        )}
       </div>
     </section>
   );
