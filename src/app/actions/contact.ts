@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { routing } from "@/i18n/routing";
+import { sendTransactionalEmail } from "@/lib/email/brevo";
+import { buildContactNotification } from "@/lib/email/contact-notification";
 import type { TablesInsert } from "@/lib/supabase/database.types";
 
 /**
@@ -133,17 +135,39 @@ export async function submitContactRequestAction(
         }),
   };
 
-  const { error } = await supabase.from("contact_requests").insert(row);
+  const { data: inserted, error } = await supabase
+    .from("contact_requests")
+    .insert(row)
+    .select("id")
+    .single();
 
-  if (error) {
+  if (error || !inserted) {
     // Seule trace de la demande perdue : le projet n'a pas encore de Sentry.
     console.error("[contact] écriture impossible", {
       kind: data.kind,
       email: data.email,
-      message: error.message,
+      message: error?.message,
     });
     return { ok: false, reason: "storage" };
   }
+
+  // L'email est un confort ; la ligne en base est la preuve. Un échec se trace,
+  // il ne se propage jamais jusqu'au prospect — la demande est déjà en sécurité.
+  const notif = buildContactNotification(
+    data.kind === "contact"
+      ? { kind: "contact", name: data.name, email: data.email, company: data.company, phone: data.phone, subject: data.subject, message: data.message }
+      : { kind: "evaluation", name: data.name, email: data.email, company: data.company, phone: data.phone, contactRole: data.contactRole, siren: data.siren, sector: data.sector, employees: data.employees, evaluationType: data.evaluationType, sites: data.sites, details: data.details },
+  );
+  const sent = await sendTransactionalEmail({
+    to: process.env.CONTACT_NOTIFICATION_TO ?? "",
+    subject: notif.subject,
+    htmlContent: notif.htmlContent,
+    replyTo: { email: data.email, name: data.name },
+  });
+  await supabase
+    .from("contact_requests")
+    .update(sent.ok ? { email_sent: true } : { email_error: sent.error.slice(0, 2000) })
+    .eq("id", inserted.id);
 
   return { ok: true };
 }

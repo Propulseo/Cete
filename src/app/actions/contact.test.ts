@@ -6,7 +6,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
  * qui serait écrit via le spy d'insert.
  */
 
-const { insertMock } = vi.hoisted(() => ({ insertMock: vi.fn() }));
+const { insertMock, updateMock, sendEmailMock } = vi.hoisted(() => ({
+  insertMock: vi.fn(),
+  updateMock: vi.fn(),
+  sendEmailMock: vi.fn(),
+}));
 
 vi.mock("next/headers", () => ({
   headers: vi.fn(async () => new Headers({ "x-forwarded-for": "203.0.113.7" })),
@@ -21,8 +25,13 @@ vi.mock("@/lib/supabase/admin", () => ({
         }),
       }),
       insert: insertMock,
+      update: updateMock,
     }),
   }),
+}));
+
+vi.mock("@/lib/email/brevo", () => ({
+  sendTransactionalEmail: sendEmailMock,
 }));
 
 import { submitContactRequestAction, type ContactSubmission } from "./contact";
@@ -51,7 +60,15 @@ const validEvaluation: ContactSubmission = {
 
 beforeEach(() => {
   insertMock.mockReset();
-  insertMock.mockResolvedValue({ error: null });
+  updateMock.mockReset();
+  sendEmailMock.mockReset();
+  insertMock.mockReturnValue({
+    select: () => ({
+      single: async () => ({ data: { id: "generated-id" }, error: null }),
+    }),
+  });
+  updateMock.mockReturnValue({ eq: async () => ({ error: null }) });
+  sendEmailMock.mockResolvedValue({ ok: true });
 });
 
 describe("submitContactRequestAction", () => {
@@ -112,8 +129,32 @@ describe("submitContactRequestAction", () => {
   });
 
   it("signale une perte d'écriture au lieu de mentir", async () => {
-    insertMock.mockResolvedValue({ error: { message: "connection refused" } });
+    insertMock.mockReturnValue({
+      select: () => ({
+        single: async () => ({ data: null, error: { message: "connection refused" } }),
+      }),
+    });
     const result = await submitContactRequestAction(validContact);
     expect(result).toEqual({ ok: false, reason: "storage" });
+    expect(sendEmailMock).not.toHaveBeenCalled();
+  });
+
+  it("notifie par email et marque la ligne comme envoyée", async () => {
+    const result = await submitContactRequestAction(validContact);
+    expect(result).toEqual({ ok: true });
+    expect(sendEmailMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        subject: expect.stringContaining("ACME Industrie"),
+        replyTo: { email: "jean.martin@acme.fr", name: "Jean Martin" },
+      })
+    );
+    expect(updateMock).toHaveBeenCalledWith({ email_sent: true });
+  });
+
+  it("trace l'échec d'envoi sans faire échouer la demande déjà enregistrée", async () => {
+    sendEmailMock.mockResolvedValue({ ok: false, error: "HTTP 401 clé invalide" });
+    const result = await submitContactRequestAction(validContact);
+    expect(result).toEqual({ ok: true });
+    expect(updateMock).toHaveBeenCalledWith({ email_error: "HTTP 401 clé invalide" });
   });
 });

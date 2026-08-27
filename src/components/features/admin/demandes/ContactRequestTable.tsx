@@ -11,6 +11,7 @@ import {
   DataTd,
 } from "@/components/shared/data-table";
 import { StatusBadge, type StatusTone } from "@/components/shared/status-badge";
+import { MailWarning } from "lucide-react";
 import type { ContactRequest, ContactRequestStatus } from "@/types/contact-request";
 
 const KIND_LABEL: Record<ContactRequest["kind"], string> = {
@@ -72,7 +73,14 @@ export function ContactRequestTable({ requests, onSelect }: ContactRequestTableP
               <span className="block text-xs text-muted-foreground">{r.email}</span>
             </DataTd>
             <DataTd className="whitespace-nowrap">
-              <StatusBadge tone={STATUS_TONE[r.status]}>{STATUS_LABEL[r.status]}</StatusBadge>
+              <span className="inline-flex items-center gap-1.5">
+                <StatusBadge tone={STATUS_TONE[r.status]}>{STATUS_LABEL[r.status]}</StatusBadge>
+                {!r.emailSent && r.emailError && (
+                  <span title={`Notification email non envoyée : ${r.emailError}`}>
+                    <MailWarning className="size-4 text-admin-urgent" aria-hidden />
+                  </span>
+                )}
+              </span>
             </DataTd>
           </DataTr>
         ))}
