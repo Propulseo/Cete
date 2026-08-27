@@ -5,8 +5,12 @@ import { routing, type Locale } from "@/i18n/routing";
 // Base URL publique du site. NEXT_PUBLIC_* est inliné AU BUILD : tout changement
 // de domaine (preview ↔ prod) exige un rebuild complet, pas seulement une mise à
 // jour de la variable d'environnement (cf. docs/seo-geo-audit-2026-07-29.md, B2).
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://cete-notation.fr";
+// Slash final retiré : getPathname retourne un chemin déjà préfixé (/fr/...),
+// une base terminée par "/" produirait des canonicals en "//fr" (même garde
+// que buildResetRedirect dans src/app/actions/auth.ts).
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://cete-notation.fr"
+).replace(/\/+$/, "");
 
 export type SeoHref = Parameters<typeof getPathname>[0]["href"];
 
