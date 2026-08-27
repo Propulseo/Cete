@@ -38,7 +38,7 @@ export default function PrivacyPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-hero-gradient">
-        <div className="container-reading pb-[clamp(36px,4vw,56px)] pt-[clamp(48px,6vw,84px)]">
+        <div className="container-reading pb-[clamp(36px,4vw,56px)] pt-[clamp(24px,2.5vw,40px)]">
           <h1 className="type-h1-page text-[#1A2940]">POLITIQUE DE CONFIDENTIALITÉ</h1>
         </div>
       </section>

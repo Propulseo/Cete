@@ -43,17 +43,17 @@ export function HomeHero() {
       <div className="glow-blob absolute bottom-20 right-[8%] h-[420px] w-[420px] bg-[#87C4E8]/15" />
       <div className="pointer-events-none absolute inset-0 bg-bubbles-pattern opacity-70" />
 
-      <div className="container-wide relative z-10 py-[clamp(48px,7vw,96px)] pb-[clamp(72px,8vw,120px)]">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(40px,5vw,72px)]">
+      <div className="container-wide relative z-10 pt-[clamp(16px,1.6vw,24px)] pb-[clamp(40px,4.5vw,72px)]">
+        <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-[clamp(40px,5vw,72px)]">
           <div>
-            <div className="type-kicker mb-[30px] inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
+            <div className="type-kicker mb-[12px] inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
               <span className="h-2 w-2 rounded-full bg-[#E8630A] shadow-[0_0_0_3px_rgba(232,99,10,0.18)]" />
               <span>
                 {t("badge")}
               </span>
             </div>
 
-            <h1 className="mb-6 opacity-0 animate-slide-up animation-delay-100">
+            <h1 className="mb-3 opacity-0 animate-slide-up animation-delay-100">
               <span className="type-h1-hero block text-[#1A2940]">
                 {t("titleLine1")}
               </span>
@@ -66,7 +66,7 @@ export function HomeHero() {
               </span>
             </h1>
 
-            <div className="mb-6 space-y-3 opacity-0 animate-slide-up animation-delay-150">
+            <div className="mb-3 space-y-2 opacity-0 animate-slide-up animation-delay-150">
               <p className="font-display text-[19px] italic text-[#1A2940]">
                 {t("baseline")}
               </p>
@@ -78,11 +78,11 @@ export function HomeHero() {
               </div>
             </div>
 
-            <p className="mb-9 max-w-[540px] text-[17px] leading-[1.7] text-[#4A6580] opacity-0 animate-slide-up animation-delay-200">
+            <p className="mb-4 max-w-[540px] text-[17px] leading-[1.7] text-[#4A6580] opacity-0 animate-slide-up animation-delay-200">
               {t("subtitle")}
             </p>
 
-            <div className="mb-11 flex flex-wrap gap-3.5 opacity-0 animate-slide-up animation-delay-300">
+            <div className="mb-7 flex flex-wrap gap-3.5 opacity-0 animate-slide-up animation-delay-300">
               <Button
                 asChild
                 size="lg"
@@ -105,7 +105,7 @@ export function HomeHero() {
               </Button>
             </div>
 
-            <div className="border-t border-subtle pt-5 opacity-0 animate-slide-up animation-delay-400">
+            <div className="border-t border-subtle pt-4 opacity-0 animate-slide-up animation-delay-400">
               <p className="mb-3 text-[13.5px] font-semibold text-[#1A2940]">
                 {t("trustIndicator")}
               </p>

@@ -11,7 +11,7 @@ import { CATEGORY_COLOR } from "./article-form";
 import type { Article } from "@/types/article";
 
 const CATEGORY_IMG_FALLBACK =
-  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=800&fit=crop";
+  "https://images.unsplash.com/photo-1758101755915-462eddc23f57?w=1200&h=800&fit=crop";
 
 function initials(name: string): string {
   return (

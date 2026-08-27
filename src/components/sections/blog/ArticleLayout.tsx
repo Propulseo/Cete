@@ -31,7 +31,7 @@ export function ArticleLayout({
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-[#1A2940] overflow-hidden">
+      <section className="relative pt-[clamp(24px,2.5vw,40px)] pb-20 md:pb-28 bg-[#1A2940] overflow-hidden">
         <div
           className="absolute inset-0"
           style={{

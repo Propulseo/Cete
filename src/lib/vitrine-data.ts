@@ -122,14 +122,29 @@ const CATEGORY_COLOR: Record<string, string> = {
   Engagement: "bg-[#16a34a]",
 };
 
-const CATEGORY_IMG: Record<string, string> = {
-  Expertise: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop",
-  Formation: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop",
-  Réglementation: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop",
-  Sécurité: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop",
-  Innovation: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-  Engagement: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop",
+const U = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=800&h=600&fit=crop`;
+
+/**
+ * Visuel de repli quand l'article n'a pas de couverture en base : deux photos
+ * par catégorie, choisies de façon déterministe sur le slug pour que deux
+ * articles de la même catégorie n'affichent pas la même image côte à côte.
+ */
+const CATEGORY_IMG: Record<string, string[]> = {
+  Expertise: [U("1758101755915-462eddc23f57"), U("1615774925655-a0e97fc85c14")],
+  Formation: [U("1621905251189-08b45d6a269e"), U("1660330589693-99889d60181e")],
+  Réglementation: [U("1603901622056-0a5bee231395"), U("1754780960162-839cda44d736")],
+  Sécurité: [U("1595831708961-1b13c0dd2422"), U("1597502310092-31cdaa35b46d")],
+  Innovation: [U("1509390221805-d1c887a72a00"), U("1509390673020-a5b2450e33f1")],
+  Engagement: [U("1643474003691-9dcaa22ae33c"), U("1784623305001-c7aebfc7f226")],
 };
+
+function fallbackImage(category: string, slug: string): string {
+  const pool = CATEGORY_IMG[category] ?? CATEGORY_IMG.Expertise;
+  let h = 0;
+  for (const c of slug) h = (h * 31 + c.charCodeAt(0)) % 9973;
+  return pool[h % pool.length];
+}
 
 /** Libellé de catégorie affiché sur la vitrine EN (la valeur stockée reste FR). */
 const CATEGORY_LABEL_EN: Record<string, string> = {
@@ -168,7 +183,7 @@ function articleToBlogPost(a: Article, locale: Locale = "fr"): BlogPost {
     readTime: a.readMinutes
       ? `${a.readMinutes} min`
       : estimateReadTime(content || excerpt),
-    imageUrl: a.coverImage || CATEGORY_IMG[a.category] || CATEGORY_IMG.Expertise,
+    imageUrl: a.coverImage || fallbackImage(a.category, a.slug || articleSlug(a.title)),
     imageAlt: (en && a.coverAltEn) || a.coverAlt,
     metaDescription: (en && (a.metaDescriptionEn || a.excerptEn)) || a.metaDescription,
     featured: a.featured,

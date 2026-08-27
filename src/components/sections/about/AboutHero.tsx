@@ -10,7 +10,7 @@ export function AboutHero() {
     <section className="relative overflow-hidden bg-hero-gradient">
       <div className="glow-blob absolute right-[8%] top-10 h-[360px] w-[360px]" />
 
-      <div className="container-reading relative z-10 py-[clamp(56px,7vw,104px)] pb-[clamp(56px,6vw,88px)] text-center">
+      <div className="container-reading relative z-10 pt-[clamp(24px,2.5vw,40px)] pb-[clamp(56px,6vw,88px)] text-center">
         <div className="mx-auto max-w-4xl">
           <div className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
             <Sparkles className="h-4 w-4 text-[#E8630A]" />

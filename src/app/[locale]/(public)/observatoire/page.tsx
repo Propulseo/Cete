@@ -88,7 +88,7 @@ export default async function ObservatoirePage({
       <JsonLd data={dataset} />
       <section className="relative overflow-hidden bg-hero-gradient">
         <div className="glow-blob absolute left-[8%] top-5 h-80 w-80" />
-        <div className="container-reading relative z-10 py-[clamp(52px,6.5vw,92px)] pb-[clamp(44px,5vw,72px)] text-center">
+        <div className="container-reading relative z-10 pt-[clamp(24px,2.5vw,40px)] pb-[clamp(44px,5vw,72px)] text-center">
           <p className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm">
             <BarChart3 className="h-[15px] w-[15px]" />
             {t("hero.badge")}
