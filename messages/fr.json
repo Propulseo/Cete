@@ -793,7 +793,20 @@
     "cta": {
       "heading": "RESTEZ INFORMÉ",
       "description": "Recevez nos analyses et décryptages directement dans votre boîte mail. Une veille experte sur le risque électrique.",
-      "subscribe": "S'inscrire à la newsletter"
+      "subscribe": "S'inscrire à la newsletter",
+      "emailPlaceholder": "Votre adresse email",
+      "consent": "J'accepte de recevoir la newsletter de CETé. Voir notre",
+      "privacyLink": "politique de confidentialité",
+      "validation": {
+        "emailInvalid": "Adresse email invalide",
+        "consentRequired": "Le consentement est requis pour s'inscrire"
+      },
+      "submit": "S'inscrire",
+      "sending": "Inscription...",
+      "successTitle": "Inscription confirmée !",
+      "successDesc": "Vous recevrez nos prochaines analyses par email.",
+      "errorTitle": "Inscription impossible",
+      "errorDesc": "Une erreur est survenue, réessayez dans un instant."
     },
     "article": {
       "back": "Retour au blog",

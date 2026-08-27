@@ -793,7 +793,20 @@
     "cta": {
       "heading": "STAY INFORMED",
       "description": "Get our analysis and insights delivered straight to your inbox. Expert monitoring of electrical risk.",
-      "subscribe": "Subscribe to the newsletter"
+      "subscribe": "Subscribe to the newsletter",
+      "emailPlaceholder": "Your email address",
+      "consent": "I agree to receive CETé's newsletter. See our",
+      "privacyLink": "privacy policy",
+      "validation": {
+        "emailInvalid": "Invalid email address",
+        "consentRequired": "Consent is required to subscribe"
+      },
+      "submit": "Subscribe",
+      "sending": "Subscribing...",
+      "successTitle": "Subscription confirmed!",
+      "successDesc": "You'll receive our next analyses by email.",
+      "errorTitle": "Subscription failed",
+      "errorDesc": "Something went wrong, please try again shortly."
     },
     "article": {
       "back": "Back to blog",

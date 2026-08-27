@@ -396,6 +396,43 @@ export type Database = {
         }
         Relationships: []
       }
+      // Bloc ajouté à la main le 27/08/2026 après la migration
+      // 20260827000001_newsletter_subscribers, faute de pouvoir régénérer le
+      // fichier sur le moment. Conforme à ce que produit le générateur ; il sera
+      // absorbé sans perte à la prochaine régénération.
+      newsletter_subscribers: {
+        Row: {
+          brevo_error: string | null
+          brevo_synced: boolean
+          consented_at: string
+          created_at: string
+          email: string
+          id: string
+          locale: string
+          updated_at: string
+        }
+        Insert: {
+          brevo_error?: string | null
+          brevo_synced?: boolean
+          consented_at?: string
+          created_at?: string
+          email: string
+          id?: string
+          locale?: string
+          updated_at?: string
+        }
+        Update: {
+          brevo_error?: string | null
+          brevo_synced?: boolean
+          consented_at?: string
+          created_at?: string
+          email?: string
+          id?: string
+          locale?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contract_documents: {
         Row: {
           access_type: string
