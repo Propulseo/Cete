@@ -845,15 +845,6 @@
       "loginInvalidDesc": "Vérifiez votre email et mot de passe",
       "loginError": "Erreur de connexion"
     },
-    "demo": {
-      "toggle": "Comptes de démonstration",
-      "regionAria": "Identifiants de démonstration",
-      "roleClient": "Client",
-      "roleAdmin": "Administrateur",
-      "fillClientAria": "Pré-remplir le compte client : client@cete.fr",
-      "fillAdminAria": "Pré-remplir le compte administrateur : admin@cete.fr",
-      "fill": "Remplir"
-    },
     "brand": {
       "panelAria": "Présentation du Consortium Experts Techniques Électricité",
       "eyebrow": "Organisme indépendant de notation",

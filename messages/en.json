@@ -845,15 +845,6 @@
       "loginInvalidDesc": "Check your email and password",
       "loginError": "Sign-in error"
     },
-    "demo": {
-      "toggle": "Demo accounts",
-      "regionAria": "Demo credentials",
-      "roleClient": "Client",
-      "roleAdmin": "Administrator",
-      "fillClientAria": "Pre-fill the client account: client@cete.fr",
-      "fillAdminAria": "Pre-fill the administrator account: admin@cete.fr",
-      "fill": "Fill"
-    },
     "brand": {
       "panelAria": "Presentation of the Consortium Experts Techniques Électricité",
       "eyebrow": "Independent rating body",
