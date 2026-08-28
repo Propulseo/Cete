@@ -21,14 +21,14 @@ export function HomeCTA() {
           <h2 className="mb-5 font-display text-[clamp(30px,4.4vw,54px)] font-black leading-[1.1] text-white">
             {t("heading")}
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+          <p className="mx-auto mb-10 max-w-xl text-lead leading-[1.7] text-[#8AA5BE]">
             {t("description")}
           </p>
           <div className="flex flex-col justify-center gap-3.5 sm:flex-row">
             <Button
               asChild
               size="lg"
-              className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-8 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+              className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-8 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
             >
               <Link href="/contact">
                 {t("requestEvaluation")}
@@ -38,7 +38,7 @@ export function HomeCTA() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-8 text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#87C4E8]/60 hover:bg-white/[0.14]"
+              className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-8 text-body font-semibold text-white backdrop-blur-sm transition-all hover:border-[#87C4E8]/60 hover:bg-white/[0.14]"
             >
               <Link href="/connexion">
                 {t("clientArea")}

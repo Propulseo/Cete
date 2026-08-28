@@ -32,10 +32,10 @@ export function AboutStats() {
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#4DA6D9]/[0.12] text-[#0D5A8A] transition-colors group-hover:bg-[#E8630A]/[0.12] group-hover:text-[#B84D08]">
                   <Icon className="h-5 w-5" />
                 </div>
-                <div className="type-chiffre-cle text-[38px] text-[#1A2940]">
+                <div className="type-chiffre-cle text-[2.375rem] text-[#1A2940]">
                   {counter.count}{stat.suffix && <span className="text-[#E8630A]">{stat.suffix}</span>}
                 </div>
-                <p className="mt-2 text-[13.5px] text-[#4A6580]">{t(stat.labelKey)}</p>
+                <p className="mt-2 text-note text-[#4A6580]">{t(stat.labelKey)}</p>
               </div>
             );
           })}

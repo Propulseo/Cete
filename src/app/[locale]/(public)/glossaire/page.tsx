@@ -54,7 +54,7 @@ export default async function GlossairePage({
           <h1 className="mb-5 font-display text-[clamp(28px,4vw,52px)] font-black uppercase leading-[1.08] text-[#1A2940]">
             {t("hero.heading")}
           </h1>
-          <p className="mx-auto max-w-[660px] text-[16.5px] leading-[1.75] text-[#4A6580]">
+          <p className="mx-auto max-w-[660px] text-lead leading-[1.75] text-[#4A6580]">
             {t("hero.description")}
           </p>
         </div>
@@ -69,15 +69,15 @@ export default async function GlossairePage({
                 id={entry.id}
                 className="shadow-cete-sm scroll-mt-28 rounded-[18px] border border-subtle bg-white px-6 py-[26px] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong hover:shadow-cete-lg"
               >
-                <dt className="mb-3 flex flex-wrap items-baseline gap-2.5 font-display text-[19px] font-black text-[#1A2940]">
+                <dt className="mb-3 flex flex-wrap items-baseline gap-2.5 font-display text-[1.1875rem] font-black text-[#1A2940]">
                   {entry.term}
                   {entry.expansion && (
-                    <span className="font-sans text-[13.5px] font-medium text-[#4A6580]">
+                    <span className="font-sans text-note font-medium text-[#4A6580]">
                       — {entry.expansion}
                     </span>
                   )}
                 </dt>
-                <dd className="text-[14.5px] leading-[1.7] text-[#4A6580]">
+                <dd className="text-body-sm leading-[1.7] text-[#4A6580]">
                   {entry.definition}
                 </dd>
               </div>

@@ -34,7 +34,7 @@ export function AboutHero() {
             })}
           </p>
 
-          <p className="mx-auto max-w-[700px] text-[16.5px] leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-300">
+          <p className="mx-auto max-w-[700px] text-lead leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-300">
             {brandify(t("description"))}
           </p>
         </div>

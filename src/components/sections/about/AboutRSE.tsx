@@ -78,7 +78,7 @@ export function AboutRSE() {
                 <Button
                   asChild
                   variant="outline"
-                  className="group h-11 rounded-xl border-[#1A2940] text-[15px] font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white"
+                  className="group h-11 rounded-xl border-[#1A2940] text-body font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white"
                 >
                   <a
                     href="https://www.electriciens-sans-frontieres.org/"

@@ -37,16 +37,16 @@ export function BlogCard({ post }: { post: BlogPost }) {
       </div>
 
       <article className="flex flex-1 flex-col px-[22px] py-6">
-        <span className="mb-3.5 inline-flex self-start rounded-full bg-[#4DA6D9]/14 px-3 py-1.5 text-[11px] font-bold tracking-[0.06em] text-[#0D5A8A]">
+        <span className="mb-3.5 inline-flex self-start rounded-full bg-[#4DA6D9]/14 px-3 py-1.5 text-label font-bold tracking-[0.06em] text-[#0D5A8A]">
           {post.category}
         </span>
-        <h3 className="mb-3 font-display text-[17px] font-bold leading-[1.35] text-[#1A2940] transition-colors group-hover:text-[#E8630A]">
+        <h3 className="mb-3 font-display text-[1.0625rem] font-bold leading-[1.35] text-[#1A2940] transition-colors group-hover:text-[#E8630A]">
           {post.title}
         </h3>
-        <p className="line-clamp-3 flex-1 text-[13.5px] leading-[1.65] text-[#4A6580]">
+        <p className="line-clamp-3 flex-1 text-note leading-[1.65] text-[#4A6580]">
           {brandify(post.excerpt)}
         </p>
-        <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#DAEEF8] pt-4 text-[12.5px] text-[#8AA5BE]">
+        <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#DAEEF8] pt-4 text-caption text-[#8AA5BE]">
           <span>{formatDate(post.publishedDate, locale)}</span>
           <span className="inline-flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5" />

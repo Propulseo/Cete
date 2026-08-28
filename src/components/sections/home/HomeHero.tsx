@@ -67,18 +67,18 @@ export function HomeHero() {
             </h1>
 
             <div className="mb-3 space-y-2 opacity-0 animate-slide-up animation-delay-150">
-              <p className="font-display text-[19px] italic text-[#1A2940]">
+              <p className="font-display text-[1.1875rem] italic text-[#1A2940]">
                 {t("baseline")}
               </p>
               <div className="flex items-center gap-3">
                 <span className="h-0.5 w-[34px] rounded-full bg-[#E8630A]" />
-                <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#E8630A]">
+                <span className="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-[#E8630A]">
                   {t("slogan")}
                 </span>
               </div>
             </div>
 
-            <p className="mb-4 max-w-[540px] text-[17px] leading-[1.7] text-[#4A6580] opacity-0 animate-slide-up animation-delay-200">
+            <p className="mb-4 max-w-[540px] text-[1.0625rem] leading-[1.7] text-[#4A6580] opacity-0 animate-slide-up animation-delay-200">
               {t("subtitle")}
             </p>
 
@@ -86,7 +86,7 @@ export function HomeHero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-grad-blue shadow-cete-sm h-12 rounded-xl px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
+                className="bg-grad-blue shadow-cete-sm h-12 rounded-xl px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
               >
                 <Link href="/expertise">
                   {t("discoverRating")}
@@ -96,7 +96,7 @@ export function HomeHero() {
               <Button
                 asChild
                 size="lg"
-                className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+                className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
               >
                 <Link href="/contact">
                   <Phone className="mr-2 h-5 w-5" />
@@ -106,14 +106,14 @@ export function HomeHero() {
             </div>
 
             <div className="border-t border-subtle pt-4 opacity-0 animate-slide-up animation-delay-400">
-              <p className="mb-3 text-[13.5px] font-semibold text-[#1A2940]">
+              <p className="mb-3 text-note font-semibold text-[#1A2940]">
                 {t("trustIndicator")}
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                 {trustedBy.map((company) => (
                   <span
                     key={company}
-                    className="cursor-default text-[12.5px] font-semibold uppercase tracking-[0.05em] text-[#8AA5BE] transition-colors hover:text-[#4A6580]"
+                    className="cursor-default text-caption font-semibold uppercase tracking-[0.05em] text-[#8AA5BE] transition-colors hover:text-[#4A6580]"
                   >
                     {company}
                   </span>
@@ -128,13 +128,13 @@ export function HomeHero() {
             <div className="absolute inset-[22%] rounded-full border border-[#4DA6D9]/25" />
 
             <div className="absolute inset-0 m-auto flex h-[52%] w-[52%] flex-col items-center justify-center rounded-full bg-gradient-to-br from-[#5FB3E3] to-[#1A7AB5] text-center text-white shadow-[0_24px_60px_-18px_rgba(13,90,138,0.5),inset_0_2px_14px_rgba(255,255,255,0.35)]">
-              <span className="mb-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white/85">
+              <span className="mb-1 text-label font-bold uppercase tracking-[0.16em] text-white/85">
                 {t("vigiScore")}
               </span>
               <span className="font-display text-[clamp(44px,4.6vw,62px)] font-black leading-none text-white drop-shadow-sm">
                 AAA
               </span>
-              <span className="mt-1 text-[11.5px] font-medium text-white/90">
+              <span className="mt-1 text-[0.71875rem] font-medium text-white/90">
                 {t("tripleA")}
               </span>
             </div>
@@ -142,7 +142,7 @@ export function HomeHero() {
             {ratingBadges.map((badge) => (
               <span
                 key={badge.key}
-                className={`absolute rounded-xl border px-[18px] py-[9px] text-[13.5px] font-bold shadow-cete-sm backdrop-blur-sm animate-float ${badge.className} ${badge.delayClass}`}
+                className={`absolute rounded-xl border px-[18px] py-[9px] text-note font-bold shadow-cete-sm backdrop-blur-sm animate-float ${badge.className} ${badge.delayClass}`}
               >
                 {t(badge.key)}
               </span>

@@ -82,17 +82,17 @@ export function ExpertiseTertiles() {
                   <span className={`inline-flex h-11 w-11 items-center justify-center rounded-[13px] ${tert.styles.icon}`}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className={`rounded-full px-3 py-1.5 text-[11.5px] font-semibold ${tert.styles.badge}`}>
+                  <span className={`rounded-full px-3 py-1.5 text-[0.71875rem] font-semibold ${tert.styles.badge}`}>
                     {t(`${tert.key}.subtitle`)}
                   </span>
                 </div>
 
                 <h3 className="type-h3-card mb-3 text-[#1A2940]">{t(`${tert.key}.name`)}</h3>
-                <blockquote className={`mb-[18px] border-l-[3px] pl-3.5 font-display text-[15px] italic leading-[1.55] text-[#4A6580] ${tert.styles.quote}`}>
+                <blockquote className={`mb-[18px] border-l-[3px] pl-3.5 font-display text-body italic leading-[1.55] text-[#4A6580] ${tert.styles.quote}`}>
                   &laquo; {t(`${tert.key}.quote`)} &raquo;
                 </blockquote>
 
-                <ul className="mb-[18px] grid gap-[9px] text-[13.5px] leading-[1.55] text-[#4A6580]">
+                <ul className="mb-[18px] grid gap-[9px] text-note leading-[1.55] text-[#4A6580]">
                   {Array.from({ length: tert.traitsCount }, (_, index) => (
                     <li key={index} className="flex gap-2.5">
                       <span className={`font-bold ${tert.styles.bullet}`}>•</span>
@@ -109,7 +109,7 @@ export function ExpertiseTertiles() {
           })}
         </div>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-[13.5px] leading-[1.65] text-[#15803D]">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-note leading-[1.65] text-[#15803D]">
           {t("note")}
         </p>
       </div>

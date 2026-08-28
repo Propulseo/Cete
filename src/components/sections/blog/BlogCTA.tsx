@@ -56,7 +56,7 @@ export function BlogCTA() {
         <h2 className="mb-[18px] font-display text-[clamp(26px,3.6vw,44px)] font-black uppercase leading-[1.1] text-white">
           {t("heading")}
         </h2>
-        <p className="mx-auto mb-9 max-w-[560px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+        <p className="mx-auto mb-9 max-w-[560px] text-lead leading-[1.7] text-[#8AA5BE]">
           {t("description")}
         </p>
 
@@ -87,18 +87,18 @@ export function BlogCTA() {
                       <Input
                         type="email"
                         placeholder={t("emailPlaceholder")}
-                        className="h-12 rounded-xl border-white/20 bg-white/10 px-4 text-[15px] text-white shadow-none placeholder:text-[#8AA5BE] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.25)]"
+                        className="h-12 rounded-xl border-white/20 bg-white/10 px-4 text-body text-white shadow-none placeholder:text-[#8AA5BE] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.25)]"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-[12.5px] text-[#F59542]" />
+                    <FormMessage className="text-caption text-[#F59542]" />
                   </FormItem>
                 )}
               />
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="shadow-cta h-12 shrink-0 rounded-xl bg-[#E8630A] px-[26px] text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+                className="shadow-cta h-12 shrink-0 rounded-xl bg-[#E8630A] px-[26px] text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
               >
                 {isSubmitting ? (
                   t("sending")
@@ -125,14 +125,14 @@ export function BlogCTA() {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-snug">
-                    <label className="text-[13px] font-normal text-[#8AA5BE]">
+                    <label className="text-[0.8125rem] font-normal text-[#8AA5BE]">
                       {t("consent")}{" "}
                       <Link href="/privacy" className="underline hover:text-white">
                         {t("privacyLink")}
                       </Link>
                       .
                     </label>
-                    <FormMessage className="text-[12.5px] text-[#F59542]" />
+                    <FormMessage className="text-caption text-[#F59542]" />
                   </div>
                 </FormItem>
               )}

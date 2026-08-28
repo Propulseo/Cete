@@ -175,7 +175,7 @@ export default function ClientDocumentsPage() {
                         <p className="font-medium text-foreground line-clamp-1">{d.title}</p>
                         {d.notes && <p className="text-xs text-muted-foreground line-clamp-1">{d.notes}</p>}
                         {!canDownload(d) && (
-                          <span className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-admin-urgent">
+                          <span className="mt-0.5 inline-flex items-center gap-1 text-label font-medium text-admin-urgent">
                             <Lock className="size-3" strokeWidth={1.75} />
                             {t("viewOnly")}
                           </span>
@@ -217,7 +217,7 @@ export default function ClientDocumentsPage() {
                   <>
                     <Badge variant="outline">{t(`types.${d.type}`)}</Badge>
                     {!canDownload(d) && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-admin-urgent">
+                      <span className="inline-flex items-center gap-1 text-label font-medium text-admin-urgent">
                         <Lock className="size-3" strokeWidth={1.75} />
                         {t("viewOnly")}
                       </span>

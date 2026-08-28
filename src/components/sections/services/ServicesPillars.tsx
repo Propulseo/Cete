@@ -72,18 +72,18 @@ function PillarGroup({
               href="/contact"
               className={`group flex flex-col rounded-[20px] border px-7 py-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-cete-lg ${serviceStyle.border}`}
             >
-              <span className={`mb-[18px] inline-flex self-start rounded-full px-[13px] py-1.5 text-[11.5px] font-bold tracking-[0.08em] ${serviceStyle.badge}`}>
+              <span className={`mb-[18px] inline-flex self-start rounded-full px-[13px] py-1.5 text-[0.71875rem] font-bold tracking-[0.08em] ${serviceStyle.badge}`}>
                 {service.category}
               </span>
 
-              <h4 className="mb-3 text-[19px] font-bold leading-[1.3] text-[#1A2940]">
+              <h4 className="mb-3 text-[1.1875rem] font-bold leading-[1.3] text-[#1A2940]">
                 {service.title}
               </h4>
-              <p className="mb-[22px] text-[14.5px] leading-[1.7] text-[#4A6580]">
+              <p className="mb-[22px] text-body-sm leading-[1.7] text-[#4A6580]">
                 {service.description}
               </p>
 
-              <ul className={`mb-[22px] grid gap-2.5 border-t pt-[18px] text-[13.5px] leading-[1.55] text-[#4A6580] ${serviceStyle.separator}`}>
+              <ul className={`mb-[22px] grid gap-2.5 border-t pt-[18px] text-note leading-[1.55] text-[#4A6580] ${serviceStyle.separator}`}>
                 {service.features.map((feature) => (
                   <li key={feature} className="flex gap-2.5">
                     <span className={`font-bold ${serviceStyle.bullet}`}>›</span>
@@ -92,7 +92,7 @@ function PillarGroup({
                 ))}
               </ul>
 
-              <span className="mt-auto inline-flex items-center gap-2 text-[14.5px] font-semibold text-[#E8630A]">
+              <span className="mt-auto inline-flex items-center gap-2 text-body-sm font-semibold text-[#E8630A]">
                 {contactLabel}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>

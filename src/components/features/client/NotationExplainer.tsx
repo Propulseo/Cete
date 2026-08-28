@@ -30,7 +30,7 @@ export function NotationExplainer() {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Vigi-Score scale */}
           <div className="space-y-3">
-            <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+            <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
               {t("scaleTitle")}
             </p>
             <ul className="space-y-2.5">
@@ -45,7 +45,7 @@ export function NotationExplainer() {
 
           {/* The 3C rule */}
           <div className="space-y-3">
-            <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+            <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
               {t("criteriaTitle")}
             </p>
             <ul className="space-y-2.5">

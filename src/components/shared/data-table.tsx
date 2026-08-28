@@ -21,7 +21,7 @@ export function DataTh({ className, ...props }: React.ComponentProps<"th">) {
   return (
     <th
       className={cn(
-        "px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-wide text-muted-foreground",
+        "px-4 py-2.5 text-left text-label font-medium uppercase tracking-wide text-muted-foreground",
         className,
       )}
       {...props}

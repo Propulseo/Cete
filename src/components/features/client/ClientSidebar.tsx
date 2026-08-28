@@ -132,7 +132,7 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
       <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-2">
         {navGroups.map((group) => (
           <div key={group.titleKey} className="mb-1">
-            <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
+            <p className="px-3 pb-1 pt-4 text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
               {t(group.titleKey)}
             </p>
             <div className="space-y-0.5">
@@ -148,7 +148,7 @@ export function ClientSidebar({ user, onLogout, onNavigate }: ClientSidebarProps
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       // 48px au doigt, densité desktop d'origine à partir de lg.
-                      "group relative flex min-h-12 items-center gap-3 rounded-md px-3 text-[15px] transition-colors lg:min-h-0 lg:py-2 lg:text-sm",
+                      "group relative flex min-h-12 items-center gap-3 rounded-md px-3 text-body transition-colors lg:min-h-0 lg:py-2 lg:text-sm",
                       isActive
                         ? "bg-primary/[0.07] font-medium text-foreground"
                         : "text-muted-foreground hover:bg-accent hover:text-foreground active:bg-accent",

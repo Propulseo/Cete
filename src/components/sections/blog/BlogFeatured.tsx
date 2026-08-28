@@ -41,17 +41,17 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
 
           <article className="flex flex-col p-[clamp(26px,3.5vw,40px)]">
             <div className="mb-[18px] flex items-center gap-3">
-              <span className="rounded-full bg-[#22C55E]/12 px-[13px] py-1.5 text-[11.5px] font-bold tracking-[0.06em] text-[#15803D]">
+              <span className="rounded-full bg-[#22C55E]/12 px-[13px] py-1.5 text-[0.71875rem] font-bold tracking-[0.06em] text-[#15803D]">
                 {post.category}
               </span>
-              <span className="text-[12.5px] text-[#8AA5BE]">{post.readTime}</span>
+              <span className="text-caption text-[#8AA5BE]">{post.readTime}</span>
             </div>
 
             <p className="type-kicker mb-3 text-[#E8630A]">{t("label")}</p>
             <h2 className="mb-3.5 font-display text-[clamp(19px,2.2vw,26px)] font-black leading-[1.28] text-[#1A2940] transition-colors group-hover:text-[#E8630A]">
               {post.title}
             </h2>
-            <p className="mb-6 text-[14.5px] leading-[1.7] text-[#4A6580]">
+            <p className="mb-6 text-body-sm leading-[1.7] text-[#4A6580]">
               {brandify(post.excerpt)}
             </p>
 
@@ -61,10 +61,10 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
                   {post.author.split(" ").map((name) => name[0]).join("")}
                 </span>
                 <span>
-                  <span className="block text-[13.5px] font-semibold text-[#1A2940]">
+                  <span className="block text-note font-semibold text-[#1A2940]">
                     {post.author}
                   </span>
-                  <span className="block text-[12.5px] text-[#8AA5BE]">
+                  <span className="block text-caption text-[#8AA5BE]">
                     {formatDate(post.publishedDate, locale)}
                   </span>
                 </span>

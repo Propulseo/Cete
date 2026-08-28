@@ -65,7 +65,7 @@ export function ExpertiseVigilance() {
         </div>
 
         <div className="mx-auto mb-8 max-w-[820px]">
-          <div className="mb-2.5 flex justify-between text-[12.5px] font-bold uppercase tracking-[0.08em]">
+          <div className="mb-2.5 flex justify-between text-caption font-bold uppercase tracking-[0.08em]">
             <span className="text-[#15803D]">{t("gaugeVigilance")}</span>
             <span className="text-[#B91C1C]">{t("gaugeVulnerability")}</span>
           </div>
@@ -82,7 +82,7 @@ export function ExpertiseVigilance() {
               <ShieldCheck className="h-5 w-5" />
             </span>
             <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{t("vigilanceTitle")}</h3>
-            <p className="mb-[18px] text-[14.5px] leading-[1.7] text-[#4A6580]">
+            <p className="mb-[18px] text-body-sm leading-[1.7] text-[#4A6580]">
               {t("vigilanceDescription")}
             </p>
             <div className="flex gap-2">
@@ -100,7 +100,7 @@ export function ExpertiseVigilance() {
               <AlertTriangle className="h-5 w-5" />
             </span>
             <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{t("vulnerabilityTitle")}</h3>
-            <p className="mb-[18px] text-[14.5px] leading-[1.7] text-[#4A6580]">
+            <p className="mb-[18px] text-body-sm leading-[1.7] text-[#4A6580]">
               {t("vulnerabilityDescription")}
             </p>
             <div className="flex gap-2">
@@ -118,7 +118,7 @@ export function ExpertiseVigilance() {
           <h3 className="mb-2.5 font-display text-xl font-bold text-[#1A2940]">
             {t("ncHeading")} <span className="text-[#EF4444]">{t("ncHeadingHighlight")}</span>
           </h3>
-          <p className="mb-6 text-[15px] leading-[1.7] text-[#4A6580]">
+          <p className="mb-6 text-body leading-[1.7] text-[#4A6580]">
             {t("ncDescription")}
           </p>
           <div className="grid gap-3">

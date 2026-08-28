@@ -38,7 +38,7 @@ export function ServicesProcess() {
                 key={step.number}
                 className="shadow-cete-md relative flex min-h-[220px] flex-col rounded-[18px] border border-subtle bg-white px-[26px] py-[30px] transition-all duration-300 hover:-translate-y-1 hover:shadow-cete-lg"
               >
-                <span className="absolute right-[22px] top-5 font-display text-[38px] font-black leading-none text-[#4DA6D9]/18">
+                <span className="absolute right-[22px] top-5 font-display text-[2.375rem] font-black leading-none text-[#4DA6D9]/18">
                   {step.number}
                 </span>
                 <span className={`mb-[18px] inline-flex h-[46px] w-[46px] items-center justify-center rounded-[13px] text-white ${toneClass[step.tone]}`}>

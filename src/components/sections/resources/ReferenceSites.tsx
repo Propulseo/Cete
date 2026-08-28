@@ -35,7 +35,7 @@ export function ReferenceSites({ title, sites }: { title: string; sites: Resourc
                 <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">{site.description}</p>
               )}
               {site.source && (
-                <p className="mt-1 truncate text-[11px] text-muted-foreground/80">{site.source}</p>
+                <p className="mt-1 truncate text-label text-muted-foreground/80">{site.source}</p>
               )}
             </div>
           </a>

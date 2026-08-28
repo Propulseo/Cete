@@ -28,7 +28,7 @@ export function KpiTile({ label, value, trend, icon: Icon, className }: KpiTileP
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+        <span className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
           {label}
         </span>
         {Icon && <Icon className="size-4 shrink-0 text-muted-foreground" strokeWidth={1.75} />}

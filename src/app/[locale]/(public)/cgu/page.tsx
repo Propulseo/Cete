@@ -22,8 +22,8 @@ export async function generateMetadata({
 
 const h2Class =
   "mb-3.5 flex gap-3 font-display text-[clamp(18px,2vw,22px)] font-bold leading-[1.3] text-[#1A2940]";
-const markerClass = "font-body pt-1 text-[15px] font-bold text-[#E8630A]";
-const pClass = "mb-3.5 text-[15.5px] leading-[1.8] text-[#4A6580] last:mb-0";
+const markerClass = "font-body pt-1 text-body font-bold text-[#E8630A]";
+const pClass = "mb-3.5 text-[0.96875rem] leading-[1.8] text-[#4A6580] last:mb-0";
 const sectionClass = "border-t border-[#DAEEF8] py-7";
 
 export default function CGUPage() {
@@ -34,7 +34,7 @@ export default function CGUPage() {
           <h1 className="type-h1-page mb-3.5 text-[#1A2940]">
             CONDITIONS GÉNÉRALES D&apos;UTILISATION
           </h1>
-          <p className="text-[13.5px] font-semibold tracking-[0.04em] text-[#0D5A8A]">
+          <p className="text-note font-semibold tracking-[0.04em] text-[#0D5A8A]">
             Dernière mise à jour : 21 avril 2026
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function CGUPage() {
                 <span className={markerClass}>2.</span>
                 Éditeur du Site
               </h2>
-              <div className="rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-[15px] leading-[1.8] text-[#4A6580]">
+              <div className="rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-body leading-[1.8] text-[#4A6580]">
                 <p className="m-0">
                   <strong className="text-[#1A2940]">
                     <BrandName /> - Consortium Experts Techniques Électricité

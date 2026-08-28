@@ -39,7 +39,7 @@ export function AboutGouvernance() {
               <h3 className="type-h3-card mb-3 text-white">
                 {t(`items.${index}.title`)}
               </h3>
-              <p className="text-[14.5px] leading-[1.7] text-[#8AA5BE]">
+              <p className="text-body-sm leading-[1.7] text-[#8AA5BE]">
                 {brandify(t(`items.${index}.description`))}
               </p>
             </div>

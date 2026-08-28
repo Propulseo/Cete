@@ -22,7 +22,7 @@ export function ServicesHero() {
           {t("heading")}
         </h1>
 
-        <p className="mx-auto mb-3.5 max-w-[720px] text-[16.5px] leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-200">
+        <p className="mx-auto mb-3.5 max-w-[720px] text-lead leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-200">
           {t("description")}
         </p>
         <p className="mx-auto mb-9 max-w-[720px] font-display text-base italic leading-[1.6] text-[#0D5A8A] animate-slide-up animation-delay-300">
@@ -33,7 +33,7 @@ export function ServicesHero() {
           <Button
             asChild
             size="lg"
-            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
           >
             <Link href="/contact">
               {t("contactUs")}
@@ -44,7 +44,7 @@ export function ServicesHero() {
             asChild
             size="lg"
             variant="outline"
-            className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-[15px] font-semibold text-[#0D5A8A] transition-all hover:-translate-y-0.5 hover:border-[#E8630A] hover:bg-white"
+            className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-body font-semibold text-[#0D5A8A] transition-all hover:-translate-y-0.5 hover:border-[#E8630A] hover:bg-white"
           >
             <Link href="/expertise">{t("discoverRating")}</Link>
           </Button>

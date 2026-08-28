@@ -58,26 +58,26 @@ export function AboutOriginStory() {
               {/* Photo patchwork grid */}
               <div className="grid grid-cols-2 gap-5">
                 <div className="rounded-[14px] border border-on-dark bg-white/[0.07] p-5">
-                  <div className="type-chiffre-cle mb-1 text-[32px] text-white">
+                  <div className="type-chiffre-cle mb-1 text-[2rem] text-white">
                     20+
                   </div>
-                  <p className="text-[12.5px] text-[#8AA5BE]">{t("statsYears")}</p>
+                  <p className="text-caption text-[#8AA5BE]">{t("statsYears")}</p>
                 </div>
                 <div className="flex items-center gap-3 rounded-[14px] border border-on-dark bg-white/[0.07] p-5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#4DA6D9]/25 text-[#87C4E8]">
                     <Zap className="h-5 w-5" />
                   </div>
-                  <p className="text-[13.5px] font-semibold">{t("statsTerrain")}</p>
+                  <p className="text-note font-semibold">{t("statsTerrain")}</p>
                 </div>
                 <div className="flex items-center gap-3 rounded-[14px] border border-on-dark bg-white/[0.07] p-5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#E8630A]/20 text-[#E8630A]">
                     <Award className="h-5 w-5" />
                   </div>
-                  <p className="text-[13.5px] font-semibold">{t("statsNotation")}</p>
+                  <p className="text-note font-semibold">{t("statsNotation")}</p>
                 </div>
                 <div className="rounded-[14px] border border-on-dark bg-white/[0.07] p-5">
-                  <div className="type-chiffre-cle mb-1 text-[32px] text-white">200+</div>
-                  <p className="text-[12.5px] text-[#8AA5BE]">{t("statsOrgs")}</p>
+                  <div className="type-chiffre-cle mb-1 text-[2rem] text-white">200+</div>
+                  <p className="text-caption text-[#8AA5BE]">{t("statsOrgs")}</p>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@ export function AboutOriginStory() {
                 key={index}
                 className="grid gap-4 border-t border-[#DAEEF8] py-6 md:grid-cols-[132px_1fr] md:gap-8 last:border-b"
               >
-                <p className="text-[13.5px] font-bold tracking-[0.06em] text-[#E8630A]">
+                <p className="text-note font-bold tracking-[0.06em] text-[#E8630A]">
                   {t(`events.${index}.year`)}
                 </p>
                 <div className="flex gap-4">
@@ -98,7 +98,7 @@ export function AboutOriginStory() {
                     <h3 className="type-h3-card mb-2 text-[#1A2940]">
                       {brandify(t(`events.${index}.title`))}
                     </h3>
-                    <p className="text-[15px] leading-[1.7] text-[#4A6580]">
+                    <p className="text-body leading-[1.7] text-[#4A6580]">
                       {brandify(t(`events.${index}.description`))}
                     </p>
                   </div>

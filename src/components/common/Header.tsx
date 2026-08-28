@@ -32,7 +32,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#DAEEF8]/90 via-[#F4F9FD]/90 to-[#DAEEF8]/90 backdrop-blur-md border-b border-[#4DA6D9]/[0.18]">
-      <div className="max-w-[1400px] mx-auto flex h-[76px] items-center justify-between px-6">
+      <div className="container-wide flex h-[76px] items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label={t("logoAriaLabel")}>
           <Image
@@ -129,7 +129,7 @@ export function Header() {
                       href={item.href as "/"}
                       onClick={() => setIsOpen(false)}
                       aria-current={isActive ? "page" : undefined}
-                      className={`relative flex min-h-[52px] items-center rounded-lg px-4 text-[17px] transition-colors ${
+                      className={`relative flex min-h-[52px] items-center rounded-lg px-4 text-[1.0625rem] transition-colors ${
                         isActive
                           ? "bg-[#4DA6D9]/[0.10] font-semibold text-[#1A2940]"
                           : "font-medium text-[#4A6580] active:bg-[#4DA6D9]/[0.06]"

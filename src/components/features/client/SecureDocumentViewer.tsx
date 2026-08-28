@@ -191,7 +191,7 @@ export function SecureDocumentViewer({ title, bucket, path, src }: SecureDocumen
       <header className="flex items-center justify-between gap-4 bg-[#0D5A8A] px-4 py-2 text-white">
         <strong className="truncate text-sm font-semibold">{title}</strong>
         <div className="flex shrink-0 items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-[11px]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-label">
             <Lock className="size-3" strokeWidth={2} />
             {t("badge")}
           </span>
@@ -235,7 +235,7 @@ export function SecureDocumentViewer({ title, bucket, path, src }: SecureDocumen
         className={`flex-1 overflow-auto p-4 select-none ${status === "ready" ? "" : "hidden"}`}
       />
 
-      <footer className="bg-[#0D5A8A]/60 px-4 py-1.5 text-center text-[11px] text-white/70">
+      <footer className="bg-[#0D5A8A]/60 px-4 py-1.5 text-center text-label text-white/70">
         {t("notice")}
       </footer>
     </div>

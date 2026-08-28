@@ -81,7 +81,7 @@ function FounderCard({
             <h3 className="type-h3-card mb-1 text-[#1A2940]">
               {founder.name}
             </h3>
-              <p className="text-[13.5px] font-semibold text-[#0D5A8A]">
+              <p className="text-note font-semibold text-[#0D5A8A]">
                 Co-fondateur
               </p>
               {founder.formerOrg && (
@@ -97,7 +97,7 @@ function FounderCard({
           </div>
 
           {founder.bio && (
-            <p className="mt-auto text-[13px] leading-[1.6] text-[#4A6580]">
+            <p className="mt-auto text-[0.8125rem] leading-[1.6] text-[#4A6580]">
               {founder.bio}
             </p>
           )}

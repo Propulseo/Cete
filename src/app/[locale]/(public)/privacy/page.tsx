@@ -22,7 +22,7 @@ export async function generateMetadata({
 /** Valeur en attente du client : volontairement criarde, interdite en prod par lint-placeholders. */
 function TODO({ v }: { v: string }) {
   return (
-    <span className="inline-block rounded-[6px] border border-dashed border-[#E8630A]/45 bg-[#E8630A]/10 px-2 py-0.5 font-mono text-[12.5px] text-[#B84D08]">
+    <span className="inline-block rounded-[6px] border border-dashed border-[#E8630A]/45 bg-[#E8630A]/10 px-2 py-0.5 font-mono text-caption text-[#B84D08]">
       [[À FOURNIR : {v}]]
     </span>
   );
@@ -30,8 +30,8 @@ function TODO({ v }: { v: string }) {
 
 const h2Class =
   "mb-3.5 flex gap-3 font-display text-[clamp(18px,2vw,22px)] font-bold leading-[1.3] text-[#1A2940]";
-const markerClass = "font-body pt-1 text-[15px] font-bold text-[#E8630A]";
-const pClass = "mb-3.5 text-[15.5px] leading-[1.8] text-[#4A6580] last:mb-0";
+const markerClass = "font-body pt-1 text-body font-bold text-[#E8630A]";
+const pClass = "mb-3.5 text-[0.96875rem] leading-[1.8] text-[#4A6580] last:mb-0";
 const sectionClass = "border-t border-[#DAEEF8] py-7";
 
 export default function PrivacyPage() {
@@ -65,16 +65,16 @@ export default function PrivacyPage() {
               </h2>
               <p className={pClass}>Via le formulaire de contact et le formulaire de demande d&apos;évaluation :</p>
               <ul className="m-0 grid list-none gap-2.5 p-0">
-                <li className="flex gap-3 text-[15.5px] leading-[1.75] text-[#4A6580]">
+                <li className="flex gap-3 text-[0.96875rem] leading-[1.75] text-[#4A6580]">
                   <span className="font-bold text-[#4DA6D9]">›</span>
                   identité et coordonnées : nom, email, société, téléphone ;
                 </li>
-                <li className="flex gap-3 text-[15.5px] leading-[1.75] text-[#4A6580]">
+                <li className="flex gap-3 text-[0.96875rem] leading-[1.75] text-[#4A6580]">
                   <span className="font-bold text-[#4DA6D9]">›</span>
                   pour une demande d&apos;évaluation : fonction du contact, SIREN, secteur,
                   effectif, type d&apos;évaluation, sites concernés et précisions que vous saisissez ;
                 </li>
-                <li className="flex gap-3 text-[15.5px] leading-[1.75] text-[#4A6580]">
+                <li className="flex gap-3 text-[0.96875rem] leading-[1.75] text-[#4A6580]">
                   <span className="font-bold text-[#4DA6D9]">›</span>
                   données techniques : adresse IP et user-agent de votre navigateur.
                 </li>

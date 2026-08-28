@@ -116,7 +116,7 @@ export default function AdminUsersPage() {
           <AlertTriangle className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
           Non rattaché
         </span>
-        <span className="text-[11px] leading-snug text-muted-foreground lg:hidden">
+        <span className="text-label leading-snug text-muted-foreground lg:hidden">
           Ce compte ne verra ni document ni notation. Rattachez-le depuis la fiche client
           («&nbsp;Ouvrir un accès&nbsp;») ou en modifiant le compte.
         </span>

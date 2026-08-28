@@ -28,7 +28,7 @@ export function ExpertiseCTA() {
         <h2 className="mb-5 font-display text-[clamp(30px,4.4vw,54px)] font-black uppercase leading-[1.1] text-white">
           {t("heading")} <span className="text-[#E8630A]">AAA</span>
         </h2>
-        <p className="mx-auto mb-10 max-w-[560px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+        <p className="mx-auto mb-10 max-w-[560px] text-lead leading-[1.7] text-[#8AA5BE]">
           {t("description")}
         </p>
 
@@ -36,7 +36,7 @@ export function ExpertiseCTA() {
           <Button
             asChild
             size="lg"
-            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
           >
             <Link href="/contact">
               {t("cta1")}
@@ -46,7 +46,7 @@ export function ExpertiseCTA() {
           <Button
             asChild
             size="lg"
-            className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
+            className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-body font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
           >
             <Link href="/a-propos">
               {t("cta2")} <BrandName />

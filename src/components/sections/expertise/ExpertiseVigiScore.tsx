@@ -84,7 +84,7 @@ export function ExpertiseVigiScore() {
                 <h3 className="type-h3-card mb-2.5 text-[#1A2940]">
                   {t(`${vigi.id}.title`)}
                 </h3>
-                <p className="mb-5 text-[14.5px] leading-[1.65] text-[#4A6580]">
+                <p className="mb-5 text-body-sm leading-[1.65] text-[#4A6580]">
                   {t(`${vigi.id}.description`)}
                 </p>
 
@@ -114,11 +114,11 @@ export function ExpertiseVigiScore() {
             {vigiScoreKeys.map((vigi, index) => (
               <div key={vigi.id} className="flex items-center gap-3.5">
                 <span className="inline-flex flex-col items-center gap-1.5">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#87C4E8]">
+                  <span className="text-label font-semibold uppercase tracking-[0.14em] text-[#87C4E8]">
                     {vigi.id}
                   </span>
                   <span
-                    className={`inline-flex h-14 w-14 items-center justify-center rounded-[14px] font-display text-[22px] font-black ${
+                    className={`inline-flex h-14 w-14 items-center justify-center rounded-[14px] font-display text-[1.375rem] font-black ${
                       levels.find((level) => level.letter === vigi.example)?.active
                     }`}
                   >
@@ -126,7 +126,7 @@ export function ExpertiseVigiScore() {
                   </span>
                 </span>
                 {index < vigiScoreKeys.length - 1 && (
-                  <span className="text-[22px] text-[#87C4E8]">+</span>
+                  <span className="text-[1.375rem] text-[#87C4E8]">+</span>
                 )}
               </div>
             ))}
@@ -134,24 +134,24 @@ export function ExpertiseVigiScore() {
             <ArrowRight className="h-6 w-6 text-[#E8630A]" />
 
             <span className="inline-flex flex-col items-center gap-1.5">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#E8630A]">
+              <span className="text-label font-semibold uppercase tracking-[0.14em] text-[#E8630A]">
                 {t("resultLabel")}
               </span>
-              <span className="inline-flex h-14 min-w-[130px] items-center justify-center rounded-[14px] border border-[#E8630A]/50 bg-[#E8630A]/16 font-display text-[26px] font-black tracking-[0.06em] text-white">
+              <span className="inline-flex h-14 min-w-[130px] items-center justify-center rounded-[14px] border border-[#E8630A]/50 bg-[#E8630A]/16 font-display text-[1.625rem] font-black tracking-[0.06em] text-white">
                 ABA
               </span>
             </span>
           </div>
 
-          <p className="mb-[30px] text-[15px] leading-[1.7] text-[#8AA5BE]">
+          <p className="mb-[30px] text-body leading-[1.7] text-[#8AA5BE]">
             {t("resultDescription")}
           </p>
 
           <div className="border-t border-on-dark pt-[26px]">
-            <h4 className="mb-2 text-[15px] font-semibold text-white">
+            <h4 className="mb-2 text-body font-semibold text-white">
               {t("tendencyHeading")} <span className="text-[#E8630A]">+ / -</span>
             </h4>
-            <p className="mb-5 text-[14.5px] leading-[1.65] text-[#8AA5BE]">
+            <p className="mb-5 text-body-sm leading-[1.65] text-[#8AA5BE]">
               {t("tendencyDescription")}
             </p>
             <div className="flex flex-wrap gap-3.5">
@@ -161,10 +161,10 @@ export function ExpertiseVigiScore() {
                   className={`inline-flex items-center gap-2.5 rounded-xl border px-4 py-[11px] ${tendency.className}`}
                 >
                   <tendency.icon className="h-4 w-4 text-white" />
-                  <span className="font-display text-[17px] font-black text-white">
+                  <span className="font-display text-[1.0625rem] font-black text-white">
                     {tendency.symbol}
                   </span>
-                  <span className="text-[13px] text-[#8AA5BE]">
+                  <span className="text-[0.8125rem] text-[#8AA5BE]">
                     {t(`tendency.${tendency.key}`)}
                   </span>
                 </span>

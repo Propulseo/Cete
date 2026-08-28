@@ -47,7 +47,7 @@ export function ContactTrust() {
                   <item.icon className="h-5 w-5" />
                 </div>
                 <h3 className="type-h3-card mb-2 text-[#1A2940]">{item.title}</h3>
-                <p className="text-[14px] leading-[1.65] text-[#4A6580]">
+                <p className="text-[0.875rem] leading-[1.65] text-[#4A6580]">
                   {item.description}
                 </p>
               </div>

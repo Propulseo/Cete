@@ -38,7 +38,7 @@ export function ExpertiseCertificate() {
             <div className="relative flex aspect-[1/1.35] flex-col justify-between overflow-hidden rounded-xl border border-[#4DA6D9]/25 bg-[repeating-linear-gradient(45deg,#F4F9FD_0_10px,#EAF4FB_10px_11px)] p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#1A7AB5]">
+                  <p className="mb-2 text-label font-bold uppercase tracking-[0.14em] text-[#1A7AB5]">
                     Vigi-Score<span className="align-super text-[0.6em]">®</span>
                   </p>
                   <p className="font-display text-2xl font-black tracking-[0.08em] text-[#1A2940]">
@@ -52,7 +52,7 @@ export function ExpertiseCertificate() {
                 <div className="mb-4 grid grid-cols-3 gap-2">
                   {subCriteria.map((criterion) => (
                     <div key={criterion.label} className="rounded-xl border border-subtle bg-white p-3 text-center">
-                      <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#8AA5BE]">
+                      <p className="mb-1 text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#8AA5BE]">
                         {criterion.label}
                       </p>
                       <p className="font-display text-2xl font-black text-[#1A2940]">
@@ -64,7 +64,7 @@ export function ExpertiseCertificate() {
                 <div className="h-2 rounded-full bg-[linear-gradient(to_right,#22C55E,#A3E635,#F97316,#EF4444)]" />
               </div>
 
-              <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8AA5BE]">
+              <p className="text-center text-label font-semibold uppercase tracking-[0.18em] text-[#8AA5BE]">
                 <BrandName /> · ADN · AAA-DDD
               </p>
             </div>
@@ -74,13 +74,13 @@ export function ExpertiseCertificate() {
             <h3 className="mb-4 font-display text-[clamp(19px,2.2vw,26px)] font-bold leading-[1.3] text-[#1A2940]">
               {t("differenceHeading")}
             </h3>
-            <p className="mb-6 text-[15.5px] leading-[1.75] text-[#4A6580]">
+            <p className="mb-6 text-[0.96875rem] leading-[1.75] text-[#4A6580]">
               {t("differenceDescription")}
             </p>
 
             <ul className="mb-[30px] grid gap-[13px]">
               {Array.from({ length: 5 }, (_, index) => (
-                <li key={index} className="flex items-start gap-[13px] text-[15px] leading-[1.6] text-[#1A2940]">
+                <li key={index} className="flex items-start gap-[13px] text-body leading-[1.6] text-[#1A2940]">
                   <CheckCircle className="mt-0.5 h-[22px] w-[22px] flex-shrink-0 rounded-full bg-[#22C55E]/15 p-0.5 text-[#15803D]" />
                   {t(`features.${index}`)}
                 </li>
@@ -91,7 +91,7 @@ export function ExpertiseCertificate() {
               <Button
                 asChild
                 size="lg"
-                className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+                className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
               >
                 <Link href="/contact">
                   {t("cta1")}
@@ -102,7 +102,7 @@ export function ExpertiseCertificate() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-[15px] font-semibold text-[#0D5A8A] transition-all hover:border-[#E8630A] hover:bg-white"
+                className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-body font-semibold text-[#0D5A8A] transition-all hover:border-[#E8630A] hover:bg-white"
               >
                 <Link href="/services">{t("cta2")}</Link>
               </Button>

@@ -132,10 +132,10 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
                   <span className="text-xs font-bold text-[#E8630A]">
                     {step.number}
                   </span>
-                  <h4 className="text-[14.5px] font-semibold text-[#1A2940]">
+                  <h4 className="text-body-sm font-semibold text-[#1A2940]">
                     {step.title}
                   </h4>
-                  <p className="text-[13.5px] leading-[1.6] text-[#4A6580]">
+                  <p className="text-note leading-[1.6] text-[#4A6580]">
                     {step.description}
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export function ContactSidebar({ contact, t }: ContactSidebarProps) {
         {serviceChips.map((chip) => (
           <span
             key={chip}
-            className="rounded-full bg-[rgba(77,166,217,0.12)] px-4 py-1.5 text-[12.5px] font-bold uppercase tracking-[0.12em] text-[#1A2940]"
+            className="rounded-full bg-[rgba(77,166,217,0.12)] px-4 py-1.5 text-caption font-bold uppercase tracking-[0.12em] text-[#1A2940]"
           >
             {chip}
           </span>

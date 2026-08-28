@@ -43,7 +43,7 @@ export function ExpertiseComparison() {
             <tbody>
               {axisKeys.map((key, index) => (
                 <tr key={key} className={`${index % 2 === 1 ? "bg-[#FBFDFF]" : "bg-white"} border-b border-[#DAEEF8] last:border-b-0`}>
-                  <th className="px-[22px] py-[18px] text-left align-top text-[14.5px] font-semibold text-[#1A2940]" scope="row">
+                  <th className="px-[22px] py-[18px] text-left align-top text-body-sm font-semibold text-[#1A2940]" scope="row">
                     {t(`${key}.theme`)}
                   </th>
                   <td className="px-[22px] py-[18px] align-top text-sm leading-[1.6] text-[#4A6580]">
@@ -73,13 +73,13 @@ export function ExpertiseComparison() {
               key={gap.number}
               className="shadow-cete-md relative rounded-[18px] border border-subtle bg-white px-[26px] py-8"
             >
-              <span className="absolute right-[22px] top-5 font-display text-[40px] font-black leading-none text-[#E8630A]/18">
+              <span className="absolute right-[22px] top-5 font-display text-[2.5rem] font-black leading-none text-[#E8630A]/18">
                 {gap.number}
               </span>
               <h3 className="type-h3-card mb-3 max-w-[74%] text-[#1A2940]">
                 {t(`${gap.key}.title`)}
               </h3>
-              <p className="text-[14.5px] leading-[1.7] text-[#4A6580]">
+              <p className="text-body-sm leading-[1.7] text-[#4A6580]">
                 {t(`${gap.key}.description`)}
               </p>
             </article>

@@ -101,7 +101,7 @@ export function CertificateCard({ clientId, companyName, certificates: provided,
                   showGlyph
                 />
                 <div className="min-w-0">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+                  <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
                     {t("vigiScore")}
                   </p>
                   <p className="font-serif-display text-lg font-semibold leading-tight text-foreground">
@@ -116,7 +116,7 @@ export function CertificateCard({ clientId, companyName, certificates: provided,
 
               {/* Détail 3C en scorecard : un critère par ligne + sa pastille de note. */}
               <div>
-                <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+                <p className="mb-2 text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
                   Détail — règle des 3C
                 </p>
                 <div className="divide-y divide-[var(--admin-line)] overflow-hidden rounded-[10px] border border-[var(--admin-line)]">
@@ -183,7 +183,7 @@ export function CertificateCard({ clientId, companyName, certificates: provided,
 function Meta({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">{label}</dt>
+      <dt className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">{label}</dt>
       <dd className="mt-0.5 font-medium tabular-nums text-foreground">{children}</dd>
     </div>
   );

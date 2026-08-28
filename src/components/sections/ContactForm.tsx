@@ -79,7 +79,7 @@ export function ContactForm() {
       <h3 className="mb-[10px] font-display text-[clamp(20px,2.2vw,26px)] font-black text-[#1A2940]">
         {t("heading")}
       </h3>
-      <p className="mb-[28px] text-[14.5px] leading-[1.65] text-[#4A6580]">
+      <p className="mb-[28px] text-body-sm leading-[1.65] text-[#4A6580]">
         {t("requiredFields")}
       </p>
 

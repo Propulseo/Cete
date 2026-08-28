@@ -49,12 +49,12 @@ export function HomePillars() {
                     <h3 className="type-h3-card mb-3 text-[#1A2940]">
                       {pillar.title.toUpperCase()}
                     </h3>
-                    <p className="text-[14.5px] leading-[1.65] text-[#4A6580]">
+                    <p className="text-body-sm leading-[1.65] text-[#4A6580]">
                       {pillar.description}
                     </p>
                   </div>
 
-                  <div className="absolute right-6 top-5 font-display text-[44px] font-black leading-none text-[#4DA6D9]/20">
+                  <div className="absolute right-6 top-5 font-display text-[2.75rem] font-black leading-none text-[#4DA6D9]/20">
                     0{index + 1}
                   </div>
                 </div>

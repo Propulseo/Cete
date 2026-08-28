@@ -8,7 +8,7 @@ import { loadContactInfo } from "@/lib/vitrine-data";
 
 function FooterHeading({ children }: { children: ReactNode }) {
   return (
-    <h3 className="mb-5 font-sans text-[12px] font-bold uppercase tracking-[0.12em] text-white">
+    <h3 className="mb-5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-white">
       {children}
     </h3>
   );
@@ -17,7 +17,7 @@ function FooterHeading({ children }: { children: ReactNode }) {
 // min-h-11 (44px) = cible tactile mobile ; sm:min-h-0 + sm:py-1 restaure la
 // densité d'origine sur grand écran, où le pointeur est précis.
 const linkClass =
-  "inline-flex min-h-11 items-center py-2 text-[15px] leading-6 text-[#8AA5BE] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#87C4E8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A2940] sm:min-h-0 sm:py-1";
+  "inline-flex min-h-11 items-center py-2 text-body leading-6 text-[#8AA5BE] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#87C4E8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A2940] sm:min-h-0 sm:py-1";
 
 export async function Footer() {
   const t = await getTranslations("common.footer");
@@ -43,10 +43,10 @@ export async function Footer() {
                 className="h-16 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="max-w-[280px] text-[15px] leading-7 text-[#8AA5BE]">
+            <p className="max-w-[280px] text-body leading-7 text-[#8AA5BE]">
               {t("tagline")}
             </p>
-            <p className="text-[15px] font-semibold text-[#87C4E8]">{t("motto")}</p>
+            <p className="text-body font-semibold text-[#87C4E8]">{t("motto")}</p>
           </div>
 
           {/* Navigation */}

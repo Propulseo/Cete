@@ -49,7 +49,7 @@ const INK: Record<VigiGrade, string> = {
 };
 
 const SIZE = {
-  "inline-sm": "h-[22px] min-w-[22px] px-1 text-[11px] rounded-[5px]",
+  "inline-sm": "h-[22px] min-w-[22px] px-1 text-label rounded-[5px]",
   md: "h-7 min-w-7 px-1.5 text-sm rounded-md",
   lg: "h-10 min-w-10 px-2 text-lg rounded-lg",
   hero: "h-16 min-w-16 px-3 text-4xl rounded-xl",
@@ -182,7 +182,7 @@ export function CompositeRating({ value, labels = false, className }: CompositeR
             >
               {grade}
             </span>
-            <span className="max-w-[5.5rem] text-center text-[9px] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
+            <span className="max-w-[5.5rem] text-center text-[0.5625rem] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
               {THREE_C[i]}
             </span>
           </div>

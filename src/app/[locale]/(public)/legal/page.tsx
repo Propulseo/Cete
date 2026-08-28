@@ -23,7 +23,7 @@ export async function generateMetadata({
 /** Valeur en attente du client : volontairement criarde, interdite en prod par lint-placeholders. */
 function TODO({ v }: { v: string }) {
   return (
-    <span className="inline-block rounded-[6px] border border-dashed border-[#E8630A]/45 bg-[#E8630A]/10 px-2 py-0.5 font-mono text-[12.5px] text-[#B84D08]">
+    <span className="inline-block rounded-[6px] border border-dashed border-[#E8630A]/45 bg-[#E8630A]/10 px-2 py-0.5 font-mono text-caption text-[#B84D08]">
       [[À FOURNIR : {v}]]
     </span>
   );
@@ -31,8 +31,8 @@ function TODO({ v }: { v: string }) {
 
 const h2Class =
   "mb-3.5 flex gap-3 font-display text-[clamp(18px,2vw,22px)] font-bold leading-[1.3] text-[#1A2940]";
-const markerClass = "font-body pt-1 text-[15px] font-bold text-[#E8630A]";
-const pClass = "mb-3.5 text-[15.5px] leading-[1.8] text-[#4A6580] last:mb-0";
+const markerClass = "font-body pt-1 text-body font-bold text-[#E8630A]";
+const pClass = "mb-3.5 text-[0.96875rem] leading-[1.8] text-[#4A6580] last:mb-0";
 const sectionClass = "border-t border-[#DAEEF8] py-7";
 
 export default function LegalPage() {
@@ -56,7 +56,7 @@ export default function LegalPage() {
                 Le site www.cete-notation.fr (ci-après « le Site ») est édité par{" "}
                 <BrandName /> — Consortium Experts Techniques Électricité.
               </p>
-              <div className="grid gap-2.5 rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-[15px] leading-[1.7] text-[#4A6580]">
+              <div className="grid gap-2.5 rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-body leading-[1.7] text-[#4A6580]">
                 <p className="m-0">
                   Raison sociale : <TODO v="raison sociale" />
                 </p>

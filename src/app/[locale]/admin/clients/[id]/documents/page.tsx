@@ -92,11 +92,11 @@ export default function ClientDocumentsPage() {
       )}
       {isClientVisibleContractDocument(d) && (
         d.accessType === "view-only" ? (
-          <span className="inline-flex items-center gap-1 text-[11px] text-admin-urgent">
+          <span className="inline-flex items-center gap-1 text-label text-admin-urgent">
             <Lock className="h-3 w-3" strokeWidth={1.75} />Lecture seule
           </span>
         ) : (
-          <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1 text-label text-muted-foreground">
             <Download className="h-3 w-3" strokeWidth={1.75} />Téléchargeable
           </span>
         )

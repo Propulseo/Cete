@@ -110,7 +110,7 @@ export function EvaluationForm() {
   return (
     <div className="rounded-[22px] border border-subtle bg-white p-[clamp(24px,3vw,34px)] shadow-cete-xl">
       <h3 className="mb-[10px] font-display text-[clamp(20px,2.2vw,26px)] font-black text-[#1A2940]">{t("heading")}</h3>
-      <p className="mb-[28px] text-[14.5px] leading-[1.65] text-[#4A6580]">{t("description")}</p>
+      <p className="mb-[28px] text-body-sm leading-[1.65] text-[#4A6580]">{t("description")}</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-[18px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
@@ -141,7 +141,7 @@ export function EvaluationForm() {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel className="flex min-h-11 items-center text-sm font-normal text-[#4A6580] sm:min-h-0">{t("acceptCgu")} *</FormLabel>
-                <FormMessage className="text-[12.5px] text-[#B91C1C]" />
+                <FormMessage className="text-caption text-[#B91C1C]" />
               </div>
             </FormItem>
           )} />

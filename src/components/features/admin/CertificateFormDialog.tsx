@@ -255,7 +255,7 @@ export function CertificateFormDialog({
 
         {/* Aperçu client (lecture seule) — exactement la fiche « Ma notation ». */}
         <div className="space-y-2">
-          <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+          <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
             Aperçu côté client
           </p>
           <CertificateCard certificates={[draft]} preview />

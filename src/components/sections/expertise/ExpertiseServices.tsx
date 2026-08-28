@@ -40,21 +40,21 @@ export function ExpertiseServices() {
                 }`}
               >
                 <span
-                  className={`mb-5 inline-flex self-start rounded-full px-[13px] py-1.5 text-[11.5px] font-bold uppercase tracking-[0.08em] ${
+                  className={`mb-5 inline-flex self-start rounded-full px-[13px] py-1.5 text-[0.71875rem] font-bold uppercase tracking-[0.08em] ${
                     featured ? "bg-[#E8630A]/12 text-[#B84D08]" : "bg-[#4DA6D9]/14 text-[#0D5A8A]"
                   }`}
                 >
                   {serviceCode(service.title)}
                 </span>
 
-                <h3 className="mb-2.5 text-[17px] font-bold leading-[1.35] text-[#1A2940]">
+                <h3 className="mb-2.5 text-[1.0625rem] font-bold leading-[1.35] text-[#1A2940]">
                   {service.title}
                 </h3>
                 <p className="mb-5 text-sm leading-[1.65] text-[#4A6580]">
                   {service.shortDescription}
                 </p>
 
-                <ul className={`mb-5 grid gap-[9px] border-t pt-4 text-[13px] leading-[1.55] text-[#4A6580] ${featured ? "border-[#E8630A]/20" : "border-[#4DA6D9]/20"}`}>
+                <ul className={`mb-5 grid gap-[9px] border-t pt-4 text-[0.8125rem] leading-[1.55] text-[#4A6580] ${featured ? "border-[#E8630A]/20" : "border-[#4DA6D9]/20"}`}>
                   {service.features.slice(0, 4).map((feature) => (
                     <li key={feature} className="flex gap-2.5">
                       <span className={`font-bold ${featured ? "text-[#E8630A]" : "text-[#4DA6D9]"}`}>›</span>

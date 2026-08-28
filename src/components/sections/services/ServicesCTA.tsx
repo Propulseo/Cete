@@ -27,7 +27,7 @@ export function ServicesCTA() {
         <h2 className="mb-5 font-display text-[clamp(28px,4.2vw,52px)] font-black uppercase leading-[1.1] text-white">
           {t("heading")}
         </h2>
-        <p className="mx-auto mb-[34px] max-w-[580px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+        <p className="mx-auto mb-[34px] max-w-[580px] text-lead leading-[1.7] text-[#8AA5BE]">
           {t("description")}
         </p>
 
@@ -50,7 +50,7 @@ export function ServicesCTA() {
           <Button
             asChild
             size="lg"
-            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+            className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
           >
             <Link href="/contact">
               {t("requestEvaluation")}
@@ -60,7 +60,7 @@ export function ServicesCTA() {
           <Button
             asChild
             size="lg"
-            className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
+            className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-body font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
           >
             <Link href="/expertise">{t("ourRating")}</Link>
           </Button>

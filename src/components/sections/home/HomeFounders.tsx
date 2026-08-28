@@ -29,7 +29,7 @@ export function HomeFounders({ founders }: { founders: Founder[] }) {
             <h2 className="type-h2-section mb-5 text-[#1A2940]">
               {t("heading")}
             </h2>
-            <p className="mb-7 text-[16.5px] leading-[1.7] text-[#4A6580]">
+            <p className="mb-7 text-lead leading-[1.7] text-[#4A6580]">
               {t("description")}
             </p>
             <ul className="mb-8 grid gap-3.5">
@@ -43,7 +43,7 @@ export function HomeFounders({ founders }: { founders: Founder[] }) {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-xl bg-[#1A2940] px-7 text-[15px] font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:bg-[#0D5A8A]"
+              className="h-12 rounded-xl bg-[#1A2940] px-7 text-body font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:bg-[#0D5A8A]"
             >
               <Link href="/a-propos">
                 {t("cta")}

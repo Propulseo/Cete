@@ -46,8 +46,8 @@ export function HomeADN() {
                     <step.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="mb-1 text-[15px] font-semibold text-white">{t(`${step.key}Title`)}</h4>
-                    <p className="text-[13.5px] leading-[1.55] text-[#8AA5BE]">{t(`${step.key}Desc`)}</p>
+                    <h4 className="mb-1 text-body font-semibold text-white">{t(`${step.key}Title`)}</h4>
+                    <p className="text-note leading-[1.55] text-[#8AA5BE]">{t(`${step.key}Desc`)}</p>
                   </div>
                 </div>
               ))}
@@ -56,7 +56,7 @@ export function HomeADN() {
             <Button
               asChild
               size="lg"
-              className="bg-grad-blue h-12 rounded-xl px-7 text-[15px] font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
+              className="bg-grad-blue h-12 rounded-xl px-7 text-body font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
             >
               <Link href="/expertise">
                 {t("understandRating")}
@@ -72,7 +72,7 @@ export function HomeADN() {
               <div className="grid gap-5">
               {threeCriteria.map((criterion, ci) => (
                 <div key={ci}>
-                  <div className="mb-3 text-[13.5px] font-semibold text-white">
+                  <div className="mb-3 text-note font-semibold text-white">
                     {t(`${criterion.key}Title`)}
                   </div>
                   <div className="flex gap-3">

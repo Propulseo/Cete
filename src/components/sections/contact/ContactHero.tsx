@@ -19,7 +19,7 @@ export function ContactHero() {
           {t("heading")}
         </h1>
 
-        <p className="mx-auto max-w-[620px] text-[16.5px] leading-[1.75] text-[#4A6580]">
+        <p className="mx-auto max-w-[620px] text-lead leading-[1.75] text-[#4A6580]">
           {t("description")}
         </p>
       </div>

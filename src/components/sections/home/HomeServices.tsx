@@ -65,7 +65,7 @@ export function HomeServices() {
                       </p>
                       <ul className="mt-auto space-y-2 border-t border-[#4DA6D9]/20 pt-4">
                         {service.features.slice(0, 3).map((feature, i) => (
-                          <li key={i} className="flex gap-2 text-[13px] leading-[1.55] text-[#4A6580]">
+                          <li key={i} className="flex gap-2 text-[0.8125rem] leading-[1.55] text-[#4A6580]">
                             <span className="font-bold text-[#4DA6D9]">›</span>
                             {brandify(feature)}
                           </li>
@@ -84,7 +84,7 @@ export function HomeServices() {
             asChild
             size="lg"
             variant="outline"
-            className="h-12 max-w-full rounded-xl border-[#1A2940] px-6 text-[15px] font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white sm:px-8"
+            className="h-12 max-w-full rounded-xl border-[#1A2940] px-6 text-body font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white sm:px-8"
           >
             <Link href="/services">
               {t("viewAll")}

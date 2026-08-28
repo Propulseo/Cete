@@ -17,12 +17,12 @@ export function BlogHero({ count }: { count?: number }) {
         <h1 className="mb-5 font-display text-[clamp(30px,4.4vw,56px)] font-black uppercase leading-[1.06] text-[#1A2940] animate-slide-up animation-delay-100">
           {t("headingStart")} &amp; {t("headingEnd")}
         </h1>
-        <p className="mx-auto mb-[22px] max-w-[660px] text-[16.5px] leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-200">
+        <p className="mx-auto mb-[22px] max-w-[660px] text-lead leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-200">
           {t("description")}
         </p>
 
         {typeof count === "number" && count > 0 && (
-          <p className="inline-flex items-center gap-[9px] text-[13.5px] font-semibold text-[#0D5A8A] animate-slide-up animation-delay-300">
+          <p className="inline-flex items-center gap-[9px] text-note font-semibold text-[#0D5A8A] animate-slide-up animation-delay-300">
             <Newspaper className="h-4 w-4" />
             {t("count", { count })}
           </p>

@@ -55,7 +55,7 @@ export function ClientEvaluationsCard({ clientId }: { clientId: string }) {
             {ev.vigiScore ? (
               <RatingSeal value={ev.vigiScore} size="lg" />
             ) : (
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 text-[10px] text-muted-foreground">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 text-[0.625rem] text-muted-foreground">
                 N/A
               </div>
             )}

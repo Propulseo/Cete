@@ -36,9 +36,9 @@ interface ContactFormFieldsProps {
 // car Input est un composant shadcn générique partagé avec l'admin/le portail
 // client, qui ont leurs propres thèmes.
 const fieldClass =
-  "h-auto rounded-[11px] border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-[14.5px] text-[#1A2940] shadow-none placeholder:text-[#9DB2C6] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)]";
-const labelClass = "text-[13px] font-semibold text-[#1A2940]";
-const errorClass = "text-[12.5px] text-[#B91C1C]";
+  "h-auto rounded-[11px] border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-body-sm text-[#1A2940] shadow-none placeholder:text-[#9DB2C6] focus-visible:border-[#4DA6D9] focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)]";
+const labelClass = "text-[0.8125rem] font-semibold text-[#1A2940]";
+const errorClass = "text-caption text-[#B91C1C]";
 
 export function ContactFormFields({ form, t, subjectOptions }: ContactFormFieldsProps) {
   return (
@@ -120,7 +120,7 @@ export function ContactFormFields({ form, t, subjectOptions }: ContactFormFields
                 {...field}
                 // text-base sous md : en dessous de 16px, Safari iOS zoome à l'ouverture
                 // du picker et décale la page.
-                className="flex h-auto w-full min-w-0 rounded-[11px] border border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-base text-[#1A2940] transition-colors md:text-[14.5px] focus-visible:border-[#4DA6D9] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-auto w-full min-w-0 rounded-[11px] border border-[rgba(77,166,217,0.35)] bg-[#FBFDFF] px-[15px] py-[13px] text-base text-[#1A2940] transition-colors md:text-body-sm focus-visible:border-[#4DA6D9] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(77,166,217,0.18)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {subjectOptions.map((opt) => (
                   <option key={opt.value} value={opt.value} disabled={opt.value === ""}>

@@ -96,7 +96,7 @@ export default async function ObservatoirePage({
           <h1 className="mb-5 font-display text-[clamp(27px,3.8vw,50px)] font-black uppercase leading-[1.1] text-[#1A2940]">
             {t("hero.heading")}
           </h1>
-          <p className="mx-auto max-w-[660px] text-[16.5px] leading-[1.75] text-[#4A6580]">
+          <p className="mx-auto max-w-[660px] text-lead leading-[1.75] text-[#4A6580]">
             {t("hero.description")}
           </p>
         </div>
@@ -129,8 +129,8 @@ export default async function ObservatoirePage({
                     : "border-on-dark bg-white/[0.06]"
                 }`}
               >
-                <p className="type-chiffre-cle text-[40px] text-white">{stat.value}</p>
-                <p className={`mt-2.5 text-[13.5px] ${stat.highlight ? "text-[#FCD9BE]" : "text-[#8AA5BE]"}`}>
+                <p className="type-chiffre-cle text-[2.5rem] text-white">{stat.value}</p>
+                <p className={`mt-2.5 text-note ${stat.highlight ? "text-[#FCD9BE]" : "text-[#8AA5BE]"}`}>
                   {tStats(stat.key)}
                 </p>
               </article>
@@ -147,10 +147,10 @@ export default async function ObservatoirePage({
           <ol className="grid gap-[18px]">
             {methodKeys.map((key, index) => (
               <li key={key} className="flex gap-[18px] rounded-[18px] border border-[#4DA6D9]/22 bg-[#F4F9FD] px-[26px] py-6">
-                <span className={`inline-flex h-[38px] w-[38px] flex-shrink-0 items-center justify-center rounded-[11px] text-[13px] font-bold ${index === 2 ? "bg-[#E8630A] text-white" : "border border-[#4DA6D9]/30 bg-white text-[#0D5A8A]"}`}>
+                <span className={`inline-flex h-[38px] w-[38px] flex-shrink-0 items-center justify-center rounded-[11px] text-[0.8125rem] font-bold ${index === 2 ? "bg-[#E8630A] text-white" : "border border-[#4DA6D9]/30 bg-white text-[#0D5A8A]"}`}>
                   {index + 1}
                 </span>
-                <span className="text-[15.5px] leading-[1.75] text-[#4A6580]">
+                <span className="text-[0.96875rem] leading-[1.75] text-[#4A6580]">
                   {t(`method.${key}`)}
                 </span>
               </li>
@@ -179,21 +179,21 @@ export default async function ObservatoirePage({
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{tertile.name}</h3>
-                  <p className="text-[14.5px] leading-[1.7] text-[#4A6580]">{tertile.desc}</p>
+                  <p className="text-body-sm leading-[1.7] text-[#4A6580]">{tertile.desc}</p>
                 </article>
               );
             })}
           </div>
 
-          <p className="mx-auto mb-8 max-w-[640px] text-center text-[14.5px] leading-[1.7] text-[#8AA5BE]">
+          <p className="mx-auto mb-8 max-w-[640px] text-center text-body-sm leading-[1.7] text-[#8AA5BE]">
             {t("note")}
           </p>
           <div className="flex flex-col justify-center gap-3.5 sm:flex-row">
-            <Link href="/expertise" className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center justify-center gap-2.5 rounded-xl px-7 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white">
+            <Link href="/expertise" className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center justify-center gap-2.5 rounded-xl px-7 text-body font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white">
               {t("links.method")}
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/contact" className="shadow-cta inline-flex h-12 items-center justify-center rounded-xl bg-[#E8630A] px-7 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08] hover:text-white">
+            <Link href="/contact" className="shadow-cta inline-flex h-12 items-center justify-center rounded-xl bg-[#E8630A] px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08] hover:text-white">
               {t("links.contact")}
             </Link>
           </div>

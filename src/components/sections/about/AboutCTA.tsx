@@ -25,7 +25,7 @@ export function AboutCTA() {
             })}
           </h2>
 
-          <p className="mx-auto mb-10 max-w-[540px] text-[16.5px] leading-[1.7] text-[#8AA5BE]">
+          <p className="mx-auto mb-10 max-w-[540px] text-lead leading-[1.7] text-[#8AA5BE]">
             {t("description")}
           </p>
 
@@ -33,7 +33,7 @@ export function AboutCTA() {
             <Button
               asChild
               size="lg"
-              className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-8 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
+              className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-8 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
             >
               <Link href="/contact">
                 {t("primaryButton")}
@@ -43,7 +43,7 @@ export function AboutCTA() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-8 text-[15px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#87C4E8]/60 hover:bg-white/[0.14]"
+              className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-8 text-body font-semibold text-white backdrop-blur-sm transition-all hover:border-[#87C4E8]/60 hover:bg-white/[0.14]"
             >
               <Link href="/expertise">
                 {t("secondaryButton")}

@@ -63,7 +63,7 @@ export function ExpertiseOMT() {
         <div className="text-center">
           <Link
             href="/observatoire"
-            className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center gap-2.5 rounded-xl px-7 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white"
+            className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center gap-2.5 rounded-xl px-7 text-body font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white"
           >
             {t("cta")}
             <ArrowRight className="h-4 w-4" />

@@ -34,7 +34,7 @@ export async function FaqSection({ items }: { items: FaqItem[] }) {
                 </h3>
                 <ChevronDown className="h-5 w-5 flex-shrink-0 text-[#4DA6D9] transition-transform group-open:rotate-180" />
               </summary>
-              <p className="mt-4 text-[15px] leading-[1.75] text-[#4A6580]">{item.answer}</p>
+              <p className="mt-4 text-body leading-[1.75] text-[#4A6580]">{item.answer}</p>
             </details>
           ))}
         </div>

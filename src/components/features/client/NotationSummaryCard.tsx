@@ -66,13 +66,13 @@ export function NotationSummaryCard({ clientId }: NotationSummaryCardProps) {
           ) : cert ? (
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <div className="space-y-1">
-                <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+                <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
                   {t("certificate.rating")}
                 </p>
                 <CompositeRating value={cert.compositeRating} />
               </div>
               <div className="space-y-1">
-                <p className="text-[11px] font-medium uppercase tracking-[0.06em] text-muted-foreground">
+                <p className="text-label font-medium uppercase tracking-[0.06em] text-muted-foreground">
                   {t("certificate.vigiScore")}
                 </p>
                 <RatingSeal value={`${cert.vigiScore}${cert.vigiScoreTendance}`} size="lg" />
