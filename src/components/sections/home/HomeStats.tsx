@@ -27,16 +27,16 @@ export function HomeStats() {
           <p className="type-kicker mb-6 text-[#1A7AB5]">
             {t("title")}
           </p>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-6">
+          <div className="mx-auto grid max-w-[1100px] grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-6">
             {stats.map((stat, index) => {
               const counter = counters[index];
               return (
                 <div key={stat.key} ref={counter.ref} className="border-l-[3px] border-[#4DA6D9] pl-[18px]">
-                  <div className="type-chiffre-cle text-[38px] text-[#1A2940]">
+                  <div className="type-chiffre-cle text-[2.375rem] text-[#1A2940]">
                     {counter.count.toLocaleString("fr-FR")}
                     <span className="text-[#E8630A]">{stat.suffix}</span>
                   </div>
-                  <div className="mt-2 text-[13.5px] font-medium text-[#4A6580]">
+                  <div className="mt-2 text-note font-medium text-[#4A6580]">
                     {t(stat.key)}
                   </div>
                 </div>
