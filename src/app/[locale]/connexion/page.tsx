@@ -9,7 +9,6 @@ import { getUser } from "@/lib/auth";
 import { requestPasswordResetAction } from "@/app/actions/auth";
 import { LoginBrandPanel } from "@/components/sections/connexion/LoginBrandPanel";
 import { LoginMobileHead } from "@/components/sections/connexion/LoginMobileHead";
-import { DemoAccounts } from "@/components/sections/connexion/DemoAccounts";
 import "./connexion.css";
 
 const EYE = (
@@ -84,12 +83,6 @@ function PortailContent() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const fillDemo = (demoEmail: string, demoPassword: string) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-    emailRef.current?.focus();
   };
 
   return (
@@ -203,7 +196,6 @@ function PortailContent() {
               </button>
             </form>
 
-            <DemoAccounts onFill={fillDemo} />
 
             <p className="legal">
               {/* TODO: lier aux pages légales réelles quand elles existeront */}
