@@ -626,7 +626,7 @@
       "successTitle": "Message sent!",
       "successDesc": "We will get back to you as soon as possible.",
       "errorTitle": "Your message could not be sent",
-      "errorDesc": "A technical problem prevented us from saving it. Please try again shortly, or email us directly at contact@cete-notation.fr.",
+      "errorDesc": "A technical problem prevented us from saving it. Please try again shortly, or email us directly at contact@cet-notation.com.",
       "subjectOptions": {
         "dps": "Rating - Safety Performance Diagnosis (DPS)",
         "save": "Expertise - Event Analysis (SAVE)",
@@ -671,7 +671,7 @@
       "successTitle": "Assessment request sent!",
       "successDesc": "We will contact you shortly to schedule a meeting.",
       "errorTitle": "Your request could not be sent",
-      "errorDesc": "A technical problem prevented us from saving it. Please try again shortly, or email us directly at contact@cete-notation.fr.",
+      "errorDesc": "A technical problem prevented us from saving it. Please try again shortly, or email us directly at contact@cet-notation.com.",
       "sectorOptions": {
         "energy": "Energy & Utilities",
         "construction": "Construction & Electrical Engineering",

@@ -260,7 +260,7 @@ export async function generateCertificatePDF(
 
   // ── QR Code - bottom right ──
   // Préfixe de locale obligatoire : routing.ts déclare localePrefix "always".
-  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://cete-notation.fr";
+  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://cet-notation.com";
   const verifyUrl = `${base}/fr/verifier/${cert.id}`;
   try {
     const qrDataUrl = await QRCode.toDataURL(verifyUrl, {

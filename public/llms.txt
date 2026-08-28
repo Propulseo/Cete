@@ -11,14 +11,14 @@
 
 ## Pages principales
 
-- [Accueil](https://cete-notation.fr/fr) : présentation de la notation du risque électrique
-- [La méthode ADN](https://cete-notation.fr/fr/expertise) : Vigi-Score®, Règle des 3C, Vigilance/Vulnérabilité, Observatoire O-M-T
-- [Nos offres](https://cete-notation.fr/fr/services) : DPS (audit terrain du risque électrique), SAVE (analyse d'événements), Campus CPF (coaching et formation), PASS-Sérénité VIP
-- [À propos](https://cete-notation.fr/fr/a-propos) : origine SERECT, gouvernance, fondateurs
-- [Glossaire](https://cete-notation.fr/fr/glossaire) : définitions TST, BT, HTA, CET, NF C 18-510, habilitations, Vigi-Score®
-- [Observatoire O-M-T](https://cete-notation.fr/fr/observatoire) : les données terrain 2022-2025 de la maîtrise des TST en France (133 DPS, 43 entreprises, 3 profils d'organisations)
-- [Blog](https://cete-notation.fr/fr/blog) : réglementation TST, Fiches Techniques BT, prévention du risque électrique
-- [Contact](https://cete-notation.fr/fr/contact) : demande d'évaluation
+- [Accueil](https://cet-notation.com/fr) : présentation de la notation du risque électrique
+- [La méthode ADN](https://cet-notation.com/fr/expertise) : Vigi-Score®, Règle des 3C, Vigilance/Vulnérabilité, Observatoire O-M-T
+- [Nos offres](https://cet-notation.com/fr/services) : DPS (audit terrain du risque électrique), SAVE (analyse d'événements), Campus CPF (coaching et formation), PASS-Sérénité VIP
+- [À propos](https://cet-notation.com/fr/a-propos) : origine SERECT, gouvernance, fondateurs
+- [Glossaire](https://cet-notation.com/fr/glossaire) : définitions TST, BT, HTA, CET, NF C 18-510, habilitations, Vigi-Score®
+- [Observatoire O-M-T](https://cet-notation.com/fr/observatoire) : les données terrain 2022-2025 de la maîtrise des TST en France (133 DPS, 43 entreprises, 3 profils d'organisations)
+- [Blog](https://cet-notation.com/fr/blog) : réglementation TST, Fiches Techniques BT, prévention du risque électrique
+- [Contact](https://cet-notation.com/fr/contact) : demande d'évaluation
 
 ## Glossaire express
 
@@ -32,4 +32,4 @@
 
 ## Version anglaise
 
-- [English site](https://cete-notation.fr/en) — Independent Electrical Risk Rating Agency (Live Working / TST)
+- [English site](https://cet-notation.com/en) — Independent Electrical Risk Rating Agency (Live Working / TST)

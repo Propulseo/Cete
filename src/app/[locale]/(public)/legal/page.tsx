@@ -53,7 +53,7 @@ export default function LegalPage() {
                 Éditeur du site
               </h2>
               <p className={pClass}>
-                Le site www.cete-notation.fr (ci-après « le Site ») est édité par{" "}
+                Le site www.cet-notation.com (ci-après « le Site ») est édité par{" "}
                 <BrandName /> — Consortium Experts Techniques Électricité.
               </p>
               <div className="grid gap-2.5 rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-body leading-[1.7] text-[#4A6580]">
@@ -78,7 +78,7 @@ export default function LegalPage() {
                 <p className="m-0">
                   Téléphone : <TODO v="téléphone" />
                 </p>
-                <p className="m-0">Email : contact@cete-notation.fr</p>
+                <p className="m-0">Email : contact@cet-notation.com</p>
               </div>
             </section>
 

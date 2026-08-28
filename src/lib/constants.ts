@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
   "CETé - Agence de Notation indépendante du risque électrique. Expertise, conseil et formation en sécurité électrique et Travaux Sous Tension (TST).";
 
 // Contact
-export const CONTACT_EMAIL = "contact@cete-notation.fr";
+export const CONTACT_EMAIL = "contact@cet-notation.com";
 export const CONTACT_PHONE = "+33 (0)1 XX XX XX XX";
 export const CONTACT_ADDRESS = "SERCE - 9 rue de Berri, 75008 Paris";
 

@@ -140,7 +140,7 @@ export default function PrivacyPage() {
                 vos données personnelles.
               </p>
               <p className={pClass}>
-                Pour exercer ces droits, écrivez-nous à : contact@cete-notation.fr. Vous pouvez
+                Pour exercer ces droits, écrivez-nous à : contact@cet-notation.com. Vous pouvez
                 également introduire une réclamation auprès de la CNIL (www.cnil.fr).
               </p>
             </section>

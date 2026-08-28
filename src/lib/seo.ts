@@ -9,7 +9,7 @@ import { routing, type Locale } from "@/i18n/routing";
 // une base terminée par "/" produirait des canonicals en "//fr" (même garde
 // que buildResetRedirect dans src/app/actions/auth.ts).
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://cete-notation.fr"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://cet-notation.com"
 ).replace(/\/+$/, "");
 
 export type SeoHref = Parameters<typeof getPathname>[0]["href"];

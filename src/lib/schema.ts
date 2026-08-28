@@ -21,7 +21,7 @@ export function organizationJsonLd(locale: Locale): Record<string, unknown> {
     legalName: "Consortium Experts Techniques Électricité",
     url: localizedUrl(locale, "/"),
     logo: `${siteUrl}/assets/brand/logo-cete.png`,
-    email: "contact@cete-notation.fr",
+    email: "contact@cet-notation.com",
     description: isEn
       ? "Independent Electrical Risk Rating Agency. Expertise, consulting and training in electrical safety and Live Working (TST)."
       : "Agence de Notation indépendante du risque électrique. Expertise, conseil et formation en sécurité électrique et Travaux Sous Tension (TST).",

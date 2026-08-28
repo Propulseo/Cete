@@ -51,7 +51,7 @@ export default function CGUPage() {
               <p className={pClass}>
                 Les présentes Conditions Générales d&apos;Utilisation (CGU) définissent
                 les modalités d&apos;accès et d&apos;utilisation du site internet
-                www.cete-notation.fr (ci-après « le Site »), édité par <BrandName /> - Consortium
+                www.cet-notation.com (ci-après « le Site »), édité par <BrandName /> - Consortium
                 Experts Techniques Électricité.
               </p>
             </section>
@@ -69,7 +69,7 @@ export default function CGUPage() {
                   <br />
                   Agence de Notation indépendante du risque électrique
                   <br />
-                  Email : contact@cete-notation.fr
+                  Email : contact@cet-notation.com
                 </p>
               </div>
             </section>
@@ -122,7 +122,7 @@ export default function CGUPage() {
                 Conformément à la loi « Informatique et Libertés » et au RGPD, vous
                 disposez d&apos;un droit d&apos;accès, de rectification, de
                 suppression et d&apos;opposition sur vos données personnelles.
-                Pour exercer ces droits, contactez-nous à : contact@cete-notation.fr.
+                Pour exercer ces droits, contactez-nous à : contact@cet-notation.com.
               </p>
             </section>
 
@@ -183,7 +183,7 @@ export default function CGUPage() {
               </h2>
               <p className={pClass}>
                 Pour toute question relative aux présentes CGU, vous pouvez nous
-                contacter à l&apos;adresse : contact@cete-notation.fr.
+                contacter à l&apos;adresse : contact@cet-notation.com.
               </p>
             </section>
           </article>
