@@ -108,6 +108,34 @@ avant toute migration. Toute nouvelle migration s'écrit idempotente.
 - **TypeScript strict, aucun `any`.** Les types sont dans `src/types/` avec un barrel `index.ts`.
 - **Polices** : Inter (texte) et Merriweather (titres) via `next/font`.
 
+### Typographie — jamais de pixels
+
+Toute taille de texte est en `rem`. Les six tailles récurrentes ont un token dans
+`@theme` (`globals.css`) : `text-lead` (16.5px), `text-body` (15px), `text-body-sm`
+(14.5px), `text-note` (13.5px), `text-caption` (12.5px), `text-label` (11px). Les
+tailles ponctuelles passent en rem arbitraire (`text-[1.0625rem]`), **jamais**
+`text-[17px]`.
+
+Raison : une taille en pixels ignore le réglage de police du navigateur (WCAG 1.4.4)
+et le scaling Windows — le texte reste figé pour qui a besoin de l'agrandir. Les
+`clamp()` de l'échelle publique (`.type-h1-hero`, `.type-h2-section`…) ont leurs bornes
+en rem pour la même raison. Le `vw` est réservé aux grands titres : sur du texte
+courant, il annule exactement l'agrandissement demandé par le visiteur.
+
+### Largeurs de contenu — pleine largeur assumée
+
+`.container-page` et `.container-wide` sont en **pleine largeur**, avec une gouttière
+fluide `clamp(1.5rem, 3vw, 3rem)`. Les marges latérales restent donc constantes quelle
+que soit la taille de l'écran, au lieu d'un bloc centré qui laissait 340px de vide sur
+un 1920. Le header utilise `container-wide`, pas de largeur codée en dur.
+
+Ce choix ne tient que parce que **les blocs de texte gardent leurs propres bornes**
+(`max-w-2xl`, `max-w-[660px]`…) : ne jamais les retirer, sinon les paragraphes
+s'étalent et deviennent illisibles. `.container-reading` reste borné à 900px — les
+pages légales sont du texte long.
+
+Décidé le 2026-08-28 ; le skill global `responsive-consistency` porte la doctrine.
+
 ### Couleurs de marque (`globals.css`)
 
 - Primaire : `#4DA6D9` (bleu ciel), `#1A7AB5` (profond), `#0D5A8A` (ultra)
