@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const trustedBy = ["EDF", "Engie", "Vinci Énergies", "Bouygues", "Eiffage", "SPIE"];
 
@@ -34,8 +36,14 @@ const ratingBadges = [
   },
 ];
 
-export function HomeHero() {
+interface HomeHeroProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomeHero({ overrides, locale }: HomeHeroProps) {
   const t = useTranslations("home.hero");
+  const rt = (key: string) => resolveText(overrides, `hero.${key}`, t(key), locale);
 
   return (
     <section className="relative overflow-hidden bg-hero-gradient">
@@ -49,37 +57,37 @@ export function HomeHero() {
             <div className="type-kicker mb-[12px] inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
               <span className="h-2 w-2 rounded-full bg-[#E8630A] shadow-[0_0_0_3px_rgba(232,99,10,0.18)]" />
               <span>
-                {t("badge")}
+                {rt("badge")}
               </span>
             </div>
 
             <h1 className="mb-3 opacity-0 animate-slide-up animation-delay-100">
               <span className="type-h1-hero block text-[#1A2940]">
-                {t("titleLine1")}
+                {rt("titleLine1")}
               </span>
               <span className="type-h1-hero block">
-                <span className="text-[#1A2940]">{t("titleLine2")} </span>
-                <span className="text-[#E8630A]">{t("titleLine3")}</span>
+                <span className="text-[#1A2940]">{rt("titleLine2")} </span>
+                <span className="text-[#E8630A]">{rt("titleLine3")}</span>
               </span>
               <span className="type-h1-hero text-grad-title block">
-                {t("titleLine4")}
+                {rt("titleLine4")}
               </span>
             </h1>
 
             <div className="mb-3 space-y-2 opacity-0 animate-slide-up animation-delay-150">
               <p className="font-display text-[1.1875rem] italic text-[#1A2940]">
-                {t("baseline")}
+                {rt("baseline")}
               </p>
               <div className="flex items-center gap-3">
                 <span className="h-0.5 w-[34px] rounded-full bg-[#E8630A]" />
                 <span className="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-[#E8630A]">
-                  {t("slogan")}
+                  {rt("slogan")}
                 </span>
               </div>
             </div>
 
             <p className="mb-4 max-w-[540px] text-[1.0625rem] leading-[1.7] text-[#4A6580] opacity-0 animate-slide-up animation-delay-200">
-              {t("subtitle")}
+              {rt("subtitle")}
             </p>
 
             <div className="mb-7 flex flex-wrap gap-3.5 opacity-0 animate-slide-up animation-delay-300">
@@ -89,7 +97,7 @@ export function HomeHero() {
                 className="bg-grad-blue shadow-cete-sm h-12 rounded-xl px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
               >
                 <Link href="/expertise">
-                  {t("discoverRating")}
+                  {rt("discoverRating")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -100,14 +108,14 @@ export function HomeHero() {
               >
                 <Link href="/contact">
                   <Phone className="mr-2 h-5 w-5" />
-                  {t("requestEvaluation")}
+                  {rt("requestEvaluation")}
                 </Link>
               </Button>
             </div>
 
             <div className="border-t border-subtle pt-4 opacity-0 animate-slide-up animation-delay-400">
               <p className="mb-3 text-note font-semibold text-[#1A2940]">
-                {t("trustIndicator")}
+                {rt("trustIndicator")}
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                 {trustedBy.map((company) => (
@@ -144,7 +152,7 @@ export function HomeHero() {
                 key={badge.key}
                 className={`absolute rounded-xl border px-[18px] py-[9px] text-note font-bold shadow-cete-sm backdrop-blur-sm animate-float ${badge.className} ${badge.delayClass}`}
               >
-                {t(badge.key)}
+                {rt(badge.key)}
               </span>
             ))}
           </div>
