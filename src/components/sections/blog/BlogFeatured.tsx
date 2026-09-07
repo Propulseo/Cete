@@ -4,7 +4,8 @@ import { brandify } from "@/components/ui/brand-name";
 import { VideoEmbed } from "@/components/ui/video-embed";
 import { ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { type BlogPost } from "@/types";
+import { type BlogPost, type PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 function formatDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale === "en" ? "en-GB" : "fr-FR", {
@@ -14,9 +15,15 @@ function formatDate(date: string, locale: string) {
   });
 }
 
-export function BlogFeatured({ post }: { post: BlogPost }) {
+interface BlogFeaturedProps {
+  post: BlogPost;
+  overrides: PageOverridesMap;
+}
+
+export function BlogFeatured({ post, overrides }: BlogFeaturedProps) {
   const t = useTranslations("blog.featured");
   const locale = useLocale();
+  const rt = (key: string) => resolveText(overrides, `featured.${key}`, t(key), locale as "fr" | "en");
 
   return (
     <section className="bg-white pb-[clamp(48px,6vw,72px)] pt-0">
@@ -47,7 +54,7 @@ export function BlogFeatured({ post }: { post: BlogPost }) {
               <span className="text-caption text-[#8AA5BE]">{post.readTime}</span>
             </div>
 
-            <p className="type-kicker mb-3 text-[#E8630A]">{t("label")}</p>
+            <p className="type-kicker mb-3 text-[#E8630A]">{rt("label")}</p>
             <h2 className="mb-3.5 font-display text-[clamp(19px,2.2vw,26px)] font-black leading-[1.28] text-[#1A2940] transition-colors group-hover:text-[#E8630A]">
               {post.title}
             </h2>

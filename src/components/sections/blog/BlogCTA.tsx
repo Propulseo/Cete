@@ -12,10 +12,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { subscribeNewsletterAction } from "@/app/actions/newsletter";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function BlogCTA() {
+interface BlogCTAProps {
+  overrides?: PageOverridesMap;
+}
+
+export function BlogCTA({ overrides = {} }: BlogCTAProps) {
   const t = useTranslations("blog.cta");
   const locale = useLocale();
+  const rt = (key: string) => resolveText(overrides, `cta.${key}`, t(key), locale as "fr" | "en");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const newsletterSchema = z.object({
@@ -54,10 +61,10 @@ export function BlogCTA() {
           <Mail className="h-6 w-6" />
         </span>
         <h2 className="mb-[18px] font-display text-[clamp(26px,3.6vw,44px)] font-black uppercase leading-[1.1] text-white">
-          {t("heading")}
+          {rt("heading")}
         </h2>
         <p className="mx-auto mb-9 max-w-[560px] text-lead leading-[1.7] text-[#8AA5BE]">
-          {t("description")}
+          {rt("description")}
         </p>
 
         <Form {...form}>
