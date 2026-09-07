@@ -5,6 +5,8 @@ import { AlertTriangle, ArrowRight, BarChart3, Minus, Trophy } from "lucide-reac
 import { buildAlternates, buildOpenGraph, localizedUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ORGANIZATION_ID } from "@/lib/schema";
+import { loadPageOverrides } from "@/lib/page-content/server";
+import { resolveText } from "@/lib/page-content/resolve";
 import type { Locale } from "@/i18n/routing";
 
 const STATS = [
@@ -59,8 +61,12 @@ export default async function ObservatoirePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const loc = locale as "fr" | "en";
   const t = await getTranslations("observatory");
   const tStats = await getTranslations("expertise.omt");
+  const overrides = await loadPageOverrides("observatoire");
+  const rt = (key: string) => resolveText(overrides, `hero.${key}`, t(`hero.${key}`), loc);
+  const rp = (key: string) => resolveText(overrides, `page.${key}`, t(key), loc);
 
   const dataset = {
     "@context": "https://schema.org",
@@ -69,7 +75,7 @@ export default async function ObservatoirePage({
       locale === "en"
         ? "Live Working Mastery Observatory (O-M-T)"
         : "Observatoire de la Maîtrise des Travaux Sous Tension (O-M-T)",
-    description: t("intro"),
+    description: rp("intro"),
     url: localizedUrl(locale as Locale, "/observatoire"),
     temporalCoverage: "2022/2025",
     spatialCoverage: { "@type": "Country", name: "France" },
@@ -91,13 +97,13 @@ export default async function ObservatoirePage({
         <div className="container-reading relative z-10 pt-[clamp(24px,2.5vw,40px)] pb-[clamp(44px,5vw,72px)] text-center">
           <p className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm">
             <BarChart3 className="h-[15px] w-[15px]" />
-            {t("hero.badge")}
+            {rt("badge")}
           </p>
           <h1 className="mb-5 font-display text-[clamp(27px,3.8vw,50px)] font-black uppercase leading-[1.1] text-[#1A2940]">
-            {t("hero.heading")}
+            {rt("heading")}
           </h1>
           <p className="mx-auto max-w-[660px] text-lead leading-[1.75] text-[#4A6580]">
-            {t("hero.description")}
+            {rt("description")}
           </p>
         </div>
       </section>
@@ -105,7 +111,7 @@ export default async function ObservatoirePage({
       <section className="bg-white pb-[clamp(48px,6vw,72px)] pt-0">
         <div className="container-reading">
           <p className="rounded-[18px] border border-[#E8630A]/25 bg-[#F4F9FD] p-[clamp(26px,3.5vw,38px)] text-base leading-[1.8] text-[#4A6580]">
-            {t("intro")}
+            {rp("intro")}
           </p>
         </div>
       </section>
@@ -186,7 +192,7 @@ export default async function ObservatoirePage({
           </div>
 
           <p className="mx-auto mb-8 max-w-[640px] text-center text-body-sm leading-[1.7] text-[#8AA5BE]">
-            {t("note")}
+            {rp("note")}
           </p>
           <div className="flex flex-col justify-center gap-3.5 sm:flex-row">
             <Link href="/expertise" className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center justify-center gap-2.5 rounded-xl px-7 text-body font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white">

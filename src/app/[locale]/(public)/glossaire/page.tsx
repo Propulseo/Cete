@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getGlossary } from "@/data/glossary";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { loadPageOverrides } from "@/lib/page-content/server";
+import { resolveText } from "@/lib/page-content/resolve";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -27,8 +29,11 @@ export default async function GlossairePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const loc = locale as "fr" | "en";
   const t = await getTranslations({ locale, namespace: "glossary" });
   const entries = getGlossary(locale as Locale);
+  const overrides = await loadPageOverrides("glossaire");
+  const rt = (key: string) => resolveText(overrides, key, t(key), loc);
 
   const definedTermSet = {
     "@context": "https://schema.org",
@@ -49,13 +54,13 @@ export default async function GlossairePage({
         <div className="container-reading relative z-10 pt-[clamp(24px,2.5vw,40px)] pb-[clamp(44px,5vw,72px)] text-center">
           <p className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm">
             <span className="h-2 w-2 rounded-full bg-[#E8630A] shadow-[0_0_0_3px_rgba(232,99,10,0.18)]" />
-            {t("hero.badge")}
+            {rt("hero.badge")}
           </p>
           <h1 className="mb-5 font-display text-[clamp(28px,4vw,52px)] font-black uppercase leading-[1.08] text-[#1A2940]">
-            {t("hero.heading")}
+            {rt("hero.heading")}
           </h1>
           <p className="mx-auto max-w-[660px] text-lead leading-[1.75] text-[#4A6580]">
-            {t("hero.description")}
+            {rt("hero.description")}
           </p>
         </div>
       </section>
