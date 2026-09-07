@@ -7,6 +7,7 @@ import {
   ContactTrust,
 } from "@/components/sections/contact";
 import { loadContactInfo } from "@/lib/vitrine-data";
+import { loadPageOverrides } from "@/lib/page-content/server";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd } from "@/lib/schema";
@@ -36,18 +37,22 @@ export default async function ContactPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const contact = await loadContactInfo(locale as "fr" | "en");
+  const loc = locale as "fr" | "en";
+  const [contact, overrides] = await Promise.all([
+    loadContactInfo(loc),
+    loadPageOverrides("contact"),
+  ]);
   const faq = getFaq("contact", locale as Locale);
 
   return (
     <>
       <JsonLd data={faqJsonLd(faq)} />
-      <ContactHero />
+      <ContactHero overrides={overrides} locale={loc} />
       <Suspense>
-        <ContactMain contact={contact} />
+        <ContactMain contact={contact} overrides={overrides} locale={loc} />
       </Suspense>
       <FaqSection items={faq} />
-      <ContactTrust />
+      <ContactTrust overrides={overrides} locale={loc} />
     </>
   );
 }

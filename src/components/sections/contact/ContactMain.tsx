@@ -5,21 +5,40 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ClipboardList, MessageSquare } from "lucide-react";
 import type { ContactInfo } from "@/types/contact";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { EvaluationForm } from "@/components/sections/EvaluationForm";
 import { ContactSidebar } from "@/components/sections/contact/ContactSidebar";
 
 type TabId = "evaluation" | "contact";
 
-export function ContactMain({ contact }: { contact: ContactInfo }) {
+interface ContactMainProps {
+  contact: ContactInfo;
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ContactMain({ contact, overrides, locale }: ContactMainProps) {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("type") === "contact" ? "contact" : "evaluation";
 
-  return <ContactMainInner initialTab={initialTab} contact={contact} />;
+  return <ContactMainInner initialTab={initialTab} contact={contact} overrides={overrides} locale={locale} />;
 }
 
-function ContactMainInner({ initialTab, contact }: { initialTab: TabId; contact: ContactInfo }) {
+function ContactMainInner({
+  initialTab,
+  contact,
+  overrides,
+  locale,
+}: {
+  initialTab: TabId;
+  contact: ContactInfo;
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}) {
   const t = useTranslations("contact.main");
+  const rt = (key: string) => resolveText(overrides, `sidebar.${key}`, t(key), locale);
   const [activeTab, setActiveTab] = useState<TabId>(initialTab);
 
   const tabs = [
@@ -58,7 +77,7 @@ function ContactMainInner({ initialTab, contact }: { initialTab: TabId; contact:
             {activeTab === "evaluation" ? <EvaluationForm /> : <ContactForm />}
           </div>
 
-          <ContactSidebar contact={contact} t={t} />
+          <ContactSidebar contact={contact} t={rt} />
         </div>
       </div>
     </section>

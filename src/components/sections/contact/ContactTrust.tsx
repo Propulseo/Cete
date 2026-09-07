@@ -2,25 +2,33 @@
 
 import { useTranslations } from "next-intl";
 import { Shield, Lock, Clock } from "lucide-react";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function ContactTrust() {
+interface ContactTrustProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ContactTrust({ overrides, locale }: ContactTrustProps) {
   const t = useTranslations("contact.trust");
+  const rt = (key: string) => resolveText(overrides, `trust.${key}`, t(key), locale);
 
   const trustItems = [
     {
       icon: Shield,
-      title: t("item1Title"),
-      description: t("item1Desc"),
+      title: rt("item1Title"),
+      description: rt("item1Desc"),
     },
     {
       icon: Lock,
-      title: t("item2Title"),
-      description: t("item2Desc"),
+      title: rt("item2Title"),
+      description: rt("item2Desc"),
     },
     {
       icon: Clock,
-      title: t("item3Title"),
-      description: t("item3Desc"),
+      title: rt("item3Title"),
+      description: rt("item3Desc"),
     },
   ];
 

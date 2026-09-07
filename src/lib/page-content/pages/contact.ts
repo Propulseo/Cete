@@ -4,7 +4,6 @@ export const contactFields: PageContentField[] = [
   { key: "hero.badge", label: "Hero - badge", type: "text" },
   { key: "hero.heading", label: "Hero - titre", type: "text" },
   { key: "hero.description", label: "Hero - description", type: "textarea" },
-  { key: "map.heading", label: "Carte - titre", type: "text" },
   { key: "sidebar.howItWorks", label: "Sidebar - comment ça marche", type: "text" },
   { key: "sidebar.step1Title", label: "Sidebar - étape 1 titre", type: "text" },
   { key: "sidebar.step1Desc", label: "Sidebar - étape 1 description", type: "textarea" },
