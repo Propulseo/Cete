@@ -5,10 +5,12 @@ import {
   getOrganizations as getOrganizationsStatic,
   getValues as getValuesStatic,
   getPillars as getPillarsStatic,
+  getServices as getServicesStatic,
 } from "@/lib/data-loader";
 import type { Founder } from "@/types/founder";
 import type { Value } from "@/types/value";
 import type { Pillar } from "@/types/pillar";
+import type { Service } from "@/types/service";
 import type { ContactInfo, BusinessHours } from "@/types/contact";
 import type { Article } from "@/types/article";
 import type { BlogPost } from "@/types/blog";
@@ -322,4 +324,43 @@ export async function loadPillars(locale: Locale): Promise<Pillar[]> {
   } catch {
     return getPillarsStatic(locale);
   }
+}
+
+/** Catalogue de services (Expertise/Conseil), lu depuis la DB et traduit selon `locale`. */
+export async function loadServices(locale: Locale): Promise<Service[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("services")
+      .select("*")
+      .eq("visible", true)
+      .order("sort_order", { ascending: true });
+    if (error || !data || data.length === 0) return getServicesStatic(locale);
+    return data.map((r) => ({
+      id: r.id,
+      category: r.category as Service["category"],
+      type: r.type as Service["type"],
+      title: pick(r.title, locale, ""),
+      description: pick(r.description, locale, ""),
+      shortDescription: pick(r.short_description, locale, ""),
+      features: pick(r.features, locale, [] as string[]),
+      icon: r.icon,
+      imageUrl: r.image_url,
+      pillar: r.is_pillar,
+    }));
+  } catch {
+    return getServicesStatic(locale);
+  }
+}
+
+export async function loadExpertiseServices(locale: Locale): Promise<Service[]> {
+  return (await loadServices(locale)).filter((s) => s.category === "Expertise");
+}
+
+export async function loadConseilServices(locale: Locale): Promise<Service[]> {
+  return (await loadServices(locale)).filter((s) => s.category === "Conseil");
+}
+
+export async function loadPillarServices(locale: Locale): Promise<Service[]> {
+  return (await loadServices(locale)).filter((s) => s.pillar === true);
 }

@@ -801,6 +801,7 @@ export type Database = {
           image_url: string
           is_pillar: boolean
           short_description: Json
+          sort_order: number
           title: Json
           type: string
           updated_at: string
@@ -812,10 +813,11 @@ export type Database = {
           description: Json
           features?: Json
           icon: string
-          id?: string
+          id: string
           image_url?: string
           is_pillar?: boolean
           short_description: Json
+          sort_order?: number
           title: Json
           type: string
           updated_at?: string
@@ -831,6 +833,7 @@ export type Database = {
           image_url?: string
           is_pillar?: boolean
           short_description?: Json
+          sort_order?: number
           title?: Json
           type?: string
           updated_at?: string
