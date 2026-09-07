@@ -10,6 +10,8 @@ import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd, servicesJsonLd } from "@/lib/schema";
 import { getServices } from "@/lib/data-loader";
+import { loadPillarServices } from "@/lib/vitrine-data";
+import { loadPageOverrides } from "@/lib/page-content/server";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { getFaq } from "@/data/faq";
 import type { Locale } from "@/i18n/routing";
@@ -36,17 +38,22 @@ export default async function ServicesPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const loc = locale as "fr" | "en";
   const faq = getFaq("services", locale as Locale);
+  const [pillarServices, overrides] = await Promise.all([
+    loadPillarServices(loc),
+    loadPageOverrides("services"),
+  ]);
 
   return (
     <>
       <JsonLd data={servicesJsonLd(getServices(locale as Locale), locale as Locale)} />
       <JsonLd data={faqJsonLd(faq)} />
-      <ServicesHero />
-      <ServicesPillars />
-      <ServicesProcess />
+      <ServicesHero overrides={overrides} locale={loc} />
+      <ServicesPillars pillars={pillarServices} overrides={overrides} locale={loc} />
+      <ServicesProcess overrides={overrides} locale={loc} />
       <FaqSection items={faq} />
-      <ServicesCTA />
+      <ServicesCTA overrides={overrides} locale={loc} />
     </>
   );
 }

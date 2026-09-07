@@ -4,6 +4,8 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const progression = [
   { letter: "D", className: "border-[#EF4444]/35 bg-[#EF4444]/16" },
@@ -12,8 +14,14 @@ const progression = [
   { letter: "A", className: "border-[#22C55E]/45 bg-[#22C55E]/20" },
 ];
 
-export function ServicesCTA() {
+interface ServicesCTAProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ServicesCTA({ overrides, locale }: ServicesCTAProps) {
   const t = useTranslations("services.cta");
+  const rt = (key: string) => resolveText(overrides, `cta.${key}`, t(key), locale);
 
   return (
     <section className="bg-grad-ink relative overflow-hidden py-[clamp(64px,8vw,110px)]">
@@ -22,13 +30,13 @@ export function ServicesCTA() {
 
       <div className="container-reading relative z-10 text-center">
         <p className="type-kicker mb-[18px] inline-block rounded-full bg-[#87C4E8]/14 px-4 py-2 text-[#87C4E8]">
-          {t("badge")}
+          {rt("badge")}
         </p>
         <h2 className="mb-5 font-display text-[clamp(28px,4.2vw,52px)] font-black uppercase leading-[1.1] text-white">
-          {t("heading")}
+          {rt("heading")}
         </h2>
         <p className="mx-auto mb-[34px] max-w-[580px] text-lead leading-[1.7] text-[#8AA5BE]">
-          {t("description")}
+          {rt("description")}
         </p>
 
         <div className="mb-9 flex flex-wrap items-center justify-center gap-2.5">
@@ -53,7 +61,7 @@ export function ServicesCTA() {
             className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
           >
             <Link href="/contact">
-              {t("requestEvaluation")}
+              {rt("requestEvaluation")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -62,7 +70,7 @@ export function ServicesCTA() {
             size="lg"
             className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-body font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
           >
-            <Link href="/expertise">{t("ourRating")}</Link>
+            <Link href="/expertise">{rt("ourRating")}</Link>
           </Button>
         </div>
       </div>

@@ -1,9 +1,11 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { getPillarServices } from "@/lib/data-loader";
 import { ArrowRight } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import type { Service } from "@/types/service";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const categoryStyle = {
   Expertise: {
@@ -22,10 +24,15 @@ const categoryStyle = {
   },
 };
 
-export function ServicesPillars() {
+interface ServicesPillarsProps {
+  pillars: Service[];
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ServicesPillars({ pillars, overrides, locale }: ServicesPillarsProps) {
   const t = useTranslations("services.pillars");
-  const locale = useLocale() as "fr" | "en";
-  const pillars = getPillarServices(locale);
+  const rt = (key: string) => resolveText(overrides, `pillars.${key}`, t(key), locale);
   const expertise = pillars.filter((service) => service.category === "Expertise");
   const conseil = pillars.filter((service) => service.category === "Conseil");
 
@@ -33,8 +40,8 @@ export function ServicesPillars() {
     <section className="section-pad bg-white">
       <div className="container-page">
         <div className="mx-auto mb-[52px] max-w-[760px] text-center">
-          <h2 className="type-h2-section mb-4 text-[#1A2940]">{t("heading")}</h2>
-          <p className="text-base leading-[1.7] text-[#4A6580]">{t("description")}</p>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">{rt("heading")}</h2>
+          <p className="text-base leading-[1.7] text-[#4A6580]">{rt("description")}</p>
         </div>
 
         <PillarGroup label={t("expertise")} services={expertise} contactLabel={t("contactUs")} />
@@ -50,7 +57,7 @@ function PillarGroup({
   contactLabel,
 }: {
   label: string;
-  services: ReturnType<typeof getPillarServices>;
+  services: Service[];
   contactLabel: string;
 }) {
   const style = categoryStyle[services[0]?.category ?? "Expertise"];

@@ -2,6 +2,8 @@
 
 import { Pencil, Rocket, Search, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const processKeys = [
   { icon: Search, title: "step1Title", description: "step1Desc", number: "01", tone: "blue" },
@@ -16,8 +18,14 @@ const toneClass = {
   green: "bg-gradient-to-br from-[#22C55E] to-[#15803D] shadow-[0_8px_18px_-8px_rgba(34,197,94,0.5)]",
 };
 
-export function ServicesProcess() {
+interface ServicesProcessProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ServicesProcess({ overrides, locale }: ServicesProcessProps) {
   const t = useTranslations("services.process");
+  const rt = (key: string) => resolveText(overrides, `process.${key}`, t(key), locale);
 
   return (
     <section className="section-pad relative overflow-hidden bg-[#F4F9FD]">
@@ -25,8 +33,8 @@ export function ServicesProcess() {
 
       <div className="container-page relative z-10">
         <div className="mx-auto mb-[52px] max-w-[660px] text-center">
-          <h2 className="type-h2-section mb-4 text-[#1A2940]">{t("heading")}</h2>
-          <p className="text-base leading-[1.7] text-[#4A6580]">{t("description")}</p>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">{rt("heading")}</h2>
+          <p className="text-base leading-[1.7] text-[#4A6580]">{rt("description")}</p>
         </div>
 
         <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-4">

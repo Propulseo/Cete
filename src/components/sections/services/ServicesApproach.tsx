@@ -2,30 +2,38 @@
 
 import { useTranslations } from "next-intl";
 import { Brain, Heart, Target, ArrowUpRight } from "lucide-react";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function ServicesApproach() {
+interface ServicesApproachProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ServicesApproach({ overrides, locale }: ServicesApproachProps) {
   const t = useTranslations("services.approach");
+  const rt = (key: string) => resolveText(overrides, `approach.${key}`, t(key), locale);
 
   const approaches = [
     {
       icon: <Brain className="h-10 w-10" />,
-      title: t("anchor1Title"),
-      subtitle: t("anchor1Subtitle"),
-      description: t("anchor1Desc"),
+      title: rt("anchor1Title"),
+      subtitle: rt("anchor1Subtitle"),
+      description: rt("anchor1Desc"),
       number: "01",
     },
     {
       icon: <Heart className="h-10 w-10" />,
-      title: t("anchor2Title"),
-      subtitle: t("anchor2Subtitle"),
-      description: t("anchor2Desc"),
+      title: rt("anchor2Title"),
+      subtitle: rt("anchor2Subtitle"),
+      description: rt("anchor2Desc"),
       number: "02",
     },
     {
       icon: <Target className="h-10 w-10" />,
-      title: t("anchor3Title"),
-      subtitle: t("anchor3Subtitle"),
-      description: t("anchor3Desc"),
+      title: rt("anchor3Title"),
+      subtitle: rt("anchor3Subtitle"),
+      description: rt("anchor3Desc"),
       number: "03",
     },
   ];
@@ -33,14 +41,14 @@ export function ServicesApproach() {
   return (
     <section className="py-32 bg-white relative overflow-hidden">
       <div className="absolute top-1/2 left-0 -translate-y-1/2 font-display text-[15rem] text-[#DAEEF8] leading-none select-none whitespace-nowrap">
-        {t("watermark")}
+        {rt("watermark")}
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mb-20">
-          <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">{t("badge")}</span>
+          <span className="text-[#E8630A] font-bold text-sm tracking-widest uppercase">{rt("badge")}</span>
           <h2 className="font-display text-5xl md:text-6xl text-[#1A2940] tracking-wide mt-4">
-            {t("heading")}
+            {rt("heading")}
           </h2>
           <div className="w-24 h-1.5 bg-[#E8630A] mt-6" />
         </div>
@@ -70,7 +78,7 @@ export function ServicesApproach() {
                 </p>
 
                 <div className="mt-6 flex items-center gap-2 text-[#1A2940] group-hover:text-[#E8630A] transition-colors">
-                  <span className="text-sm font-semibold">{t("learnMore")}</span>
+                  <span className="text-sm font-semibold">{rt("learnMore")}</span>
                   <ArrowUpRight className="h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </div>
               </div>
