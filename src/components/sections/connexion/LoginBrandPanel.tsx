@@ -1,12 +1,20 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { VigiScale } from "./VigiScale";
 import { TrustChips } from "./login-trust";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
+
+interface LoginBrandPanelProps {
+  overrides: PageOverridesMap;
+}
 
 /** Panneau marque (colonne de gauche, desktop). Purement présentationnel. */
-export function LoginBrandPanel() {
+export function LoginBrandPanel({ overrides }: LoginBrandPanelProps) {
   const t = useTranslations("connexion.brand");
+  const locale = useLocale() as "fr" | "en";
+  const rt = (key: string) => resolveText(overrides, `brand.${key}`, t(key), locale);
   return (
     <section className="brand" aria-label={t("panelAria")}>
       {/* Trame réseau électrique en filigrane */}
@@ -57,21 +65,21 @@ export function LoginBrandPanel() {
       <div className="brand-body">
         <p className="eyebrow">
           <span className="dot" aria-hidden="true" />
-          {t("eyebrow")}
+          {rt("eyebrow")}
         </p>
         <p className="brand-title">
-          {t("titleLine1")}
+          {rt("titleLine1")}
           <br />
-          <em>{t("titleLine2")}</em>
+          <em>{rt("titleLine2")}</em>
         </p>
-        <p className="brand-sub">{t("sub")}</p>
+        <p className="brand-sub">{rt("sub")}</p>
 
         {/* Sceau Vigi-Score */}
         <div className="vigi" role="img" aria-label={t("vigiAria")}>
           <VigiScale className="vigi-scale" />
           <div className="vigi-caption">
-            <strong>{t("vigiTitle")}</strong>
-            {t("vigiCaption")}
+            <strong>{rt("vigiTitle")}</strong>
+            {rt("vigiCaption")}
           </div>
         </div>
       </div>
