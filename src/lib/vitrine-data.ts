@@ -4,9 +4,11 @@ import {
   getContactInfo as getContactInfoStatic,
   getOrganizations as getOrganizationsStatic,
   getValues as getValuesStatic,
+  getPillars as getPillarsStatic,
 } from "@/lib/data-loader";
 import type { Founder } from "@/types/founder";
 import type { Value } from "@/types/value";
+import type { Pillar } from "@/types/pillar";
 import type { ContactInfo, BusinessHours } from "@/types/contact";
 import type { Article } from "@/types/article";
 import type { BlogPost } from "@/types/blog";
@@ -297,5 +299,27 @@ export async function loadValues(locale: Locale): Promise<Value[]> {
     }));
   } catch {
     return getValuesStatic(locale);
+  }
+}
+
+/** Piliers de la méthode, lus depuis la DB et traduits selon `locale`. */
+export async function loadPillars(locale: Locale): Promise<Pillar[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("pillars")
+      .select("*")
+      .eq("visible", true)
+      .order("sort_order", { ascending: true });
+    if (error || !data || data.length === 0) return getPillarsStatic(locale);
+    return data.map((r) => ({
+      id: r.id,
+      title: pick(r.title, locale, ""),
+      description: pick(r.description, locale, ""),
+      icon: r.icon,
+      color: r.color as Pillar["color"],
+    }));
+  } catch {
+    return getPillarsStatic(locale);
   }
 }

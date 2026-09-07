@@ -3,7 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Zap, Star, Users } from "lucide-react";
-import { getPillars } from "@/lib/data-loader";
+import type { Pillar } from "@/types/pillar";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const icons = { zap: Zap, star: Star, users: Users };
 const colors = {
@@ -12,9 +14,15 @@ const colors = {
   green: "from-[#4DA6D9] to-[#0D5A8A]",
 };
 
-export function HomePillars() {
+interface HomePillarsProps {
+  pillars: Pillar[];
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomePillars({ pillars, overrides, locale }: HomePillarsProps) {
   const t = useTranslations("home.pillars");
-  const pillars = getPillars();
+  const rt = (key: string) => resolveText(overrides, `pillars.${key}`, t(key), locale);
 
   return (
     <section className="section-pad relative overflow-hidden bg-[#F4F9FD]">
@@ -24,13 +32,13 @@ export function HomePillars() {
       <div className="container-page relative z-10">
         <div className="mx-auto mb-14 max-w-[700px] text-center">
           <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")}
+            {rt("heading")}
           </h2>
           <p className="text-base leading-[1.65] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
