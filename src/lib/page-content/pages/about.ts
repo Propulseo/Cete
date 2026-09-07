@@ -1,0 +1,26 @@
+import type { PageContentField } from "@/types";
+
+export const aboutFields: PageContentField[] = [
+  { key: "hero.badge", label: "Hero - badge", type: "text" },
+  { key: "hero.description", label: "Hero - description", type: "textarea" },
+  { key: "originStory.badge", label: "Histoire - badge", type: "text" },
+  { key: "originStory.motto", label: "Histoire - devise", type: "text" },
+  { key: "governance.badge", label: "Gouvernance - badge", type: "text" },
+  { key: "governance.description", label: "Gouvernance - description", type: "textarea" },
+  { key: "rse.badge", label: "RSE - badge", type: "text" },
+  { key: "rse.subtitle", label: "RSE - sous-titre", type: "textarea" },
+  { key: "rse.logo", label: "RSE - logo partenaire", type: "image" },
+  { key: "rse.partnerTitle", label: "RSE - titre du partenaire", type: "text" },
+  { key: "rse.paragraph1", label: "RSE - paragraphe 1", type: "textarea" },
+  { key: "rse.paragraph2", label: "RSE - paragraphe 2", type: "textarea" },
+  { key: "values.badge", label: "Valeurs - badge", type: "text" },
+  { key: "values.heading", label: "Valeurs - titre", type: "text" },
+  { key: "values.description", label: "Valeurs - description", type: "textarea" },
+  { key: "worldMap.badge", label: "Carte - badge", type: "text" },
+  { key: "worldMap.heading", label: "Carte - titre", type: "text" },
+  { key: "worldMap.description", label: "Carte - description", type: "textarea" },
+  { key: "cta.badge", label: "CTA - badge", type: "text" },
+  { key: "cta.description", label: "CTA - description", type: "textarea" },
+  { key: "cta.primaryButton", label: "CTA - bouton principal", type: "text" },
+  { key: "cta.secondaryButton", label: "CTA - bouton secondaire", type: "text" },
+];
