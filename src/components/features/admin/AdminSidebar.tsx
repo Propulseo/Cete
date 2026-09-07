@@ -10,6 +10,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import {
   LayoutDashboard,
   FileText,
+  FileEdit,
   FolderOpen,
   Users,
   Settings,
@@ -21,6 +22,9 @@ import {
   ArrowLeft,
   Inbox,
   Bell,
+  Heart,
+  Zap,
+  Package,
   type LucideIcon,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -57,6 +61,10 @@ const navGroups: { title: string; items: NavItem[] }[] = [
       { label: "Blog", href: "/admin/blog", icon: FileText },
       { label: "Ressources", href: "/admin/ressources", icon: Library },
       { label: "Organisations", href: "/admin/organizations", icon: Building2 },
+      { label: "Valeurs", href: "/admin/settings/values", icon: Heart },
+      { label: "Piliers", href: "/admin/settings/pillars", icon: Zap },
+      { label: "Services", href: "/admin/settings/services", icon: Package },
+      { label: "Contenu des pages", href: "/admin/settings/pages", icon: FileEdit },
     ],
   },
   {

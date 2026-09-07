@@ -733,6 +733,144 @@ export type Database = {
         }
         Relationships: []
       }
+      page_content_overrides: {
+        Row: {
+          field_key: string
+          page_key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          field_key: string
+          page_key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          field_key?: string
+          page_key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      pillars: {
+        Row: {
+          color: string
+          created_at: string
+          description: Json
+          icon: string
+          id: string
+          sort_order: number
+          title: Json
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          description: Json
+          icon: string
+          id?: string
+          sort_order?: number
+          title: Json
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          description?: Json
+          icon?: string
+          id?: string
+          sort_order?: number
+          title?: Json
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string
+          created_at: string
+          description: Json
+          features: Json
+          icon: string
+          id: string
+          image_url: string
+          is_pillar: boolean
+          short_description: Json
+          title: Json
+          type: string
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: Json
+          features?: Json
+          icon: string
+          id?: string
+          image_url?: string
+          is_pillar?: boolean
+          short_description: Json
+          title: Json
+          type: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: Json
+          features?: Json
+          icon?: string
+          id?: string
+          image_url?: string
+          is_pillar?: boolean
+          short_description?: Json
+          title?: Json
+          type?: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
+      values: {
+        Row: {
+          created_at: string
+          description: Json
+          icon: string
+          id: string
+          sort_order: number
+          title: Json
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          created_at?: string
+          description: Json
+          icon: string
+          id?: string
+          sort_order?: number
+          title: Json
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          created_at?: string
+          description?: Json
+          icon?: string
+          id?: string
+          sort_order?: number
+          title?: Json
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           client_id: string | null
