@@ -5,6 +5,8 @@ import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, QrCode } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const subCriteria = [
   { label: "C1", score: "A" },
@@ -12,21 +14,27 @@ const subCriteria = [
   { label: "C3", score: "A" },
 ];
 
-export function ExpertiseCertificate() {
+interface ExpertiseCertificateProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseCertificate({ overrides, locale }: ExpertiseCertificateProps) {
   const t = useTranslations("expertise.certificate");
+  const rt = (key: string) => resolveText(overrides, `certificate.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-[#F4F9FD]">
       <div className="container-page">
         <div className="mx-auto mb-12 max-w-[720px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/12 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")} <BrandName /> ADN<span className="align-super text-[0.4em]">®</span>
+            {rt("heading")} <BrandName /> ADN<span className="align-super text-[0.4em]">®</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
@@ -72,10 +80,10 @@ export function ExpertiseCertificate() {
 
           <div>
             <h3 className="mb-4 font-display text-[clamp(19px,2.2vw,26px)] font-bold leading-[1.3] text-[#1A2940]">
-              {t("differenceHeading")}
+              {rt("differenceHeading")}
             </h3>
             <p className="mb-6 text-[0.96875rem] leading-[1.75] text-[#4A6580]">
-              {t("differenceDescription")}
+              {rt("differenceDescription")}
             </p>
 
             <ul className="mb-[30px] grid gap-[13px]">
@@ -94,7 +102,7 @@ export function ExpertiseCertificate() {
                 className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-7 text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
               >
                 <Link href="/contact">
-                  {t("cta1")}
+                  {rt("cta1")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -104,7 +112,7 @@ export function ExpertiseCertificate() {
                 variant="outline"
                 className="h-12 rounded-xl border border-[#4DA6D9]/40 bg-white px-7 text-body font-semibold text-[#0D5A8A] transition-all hover:border-[#E8630A] hover:bg-white"
               >
-                <Link href="/services">{t("cta2")}</Link>
+                <Link href="/services">{rt("cta2")}</Link>
               </Button>
             </div>
           </div>

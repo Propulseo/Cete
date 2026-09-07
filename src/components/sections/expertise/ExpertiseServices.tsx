@@ -1,28 +1,35 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { getExpertiseServices } from "@/lib/data-loader";
 import { ArrowRight } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import type { Service } from "@/types/service";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 function serviceCode(title: string) {
   return title.split(" - ")[0].toUpperCase();
 }
 
-export function ExpertiseServices() {
+interface ExpertiseServicesProps {
+  expertiseServices: Service[];
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseServices({ expertiseServices, overrides, locale }: ExpertiseServicesProps) {
   const t = useTranslations("expertise.services");
-  const locale = useLocale() as "fr" | "en";
-  const expertiseServices = getExpertiseServices(locale);
+  const rt = (key: string) => resolveText(overrides, `services.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-white">
       <div className="container-page">
         <div className="mx-auto mb-12 max-w-[660px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/12 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
-          <h2 className="type-h2-section mb-4 text-[#1A2940]">{t("heading")}</h2>
-          <p className="text-base leading-[1.7] text-[#4A6580]">{t("description")}</p>
+          <h2 className="type-h2-section mb-4 text-[#1A2940]">{rt("heading")}</h2>
+          <p className="text-base leading-[1.7] text-[#4A6580]">{rt("description")}</p>
         </div>
 
         <div className="grid gap-[22px] md:grid-cols-3">
@@ -64,7 +71,7 @@ export function ExpertiseServices() {
                 </ul>
 
                 <span className="mt-auto inline-flex items-center gap-2 pt-1 text-sm font-semibold text-[#E8630A]">
-                  {t("learnMore")}
+                  {rt("learnMore")}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>

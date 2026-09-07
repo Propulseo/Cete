@@ -10,6 +10,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const vigiScoreKeys = [
   { id: "C1", icon: CheckCircle, example: "A" },
@@ -46,22 +48,28 @@ const tendencyKeys = [
   { key: "down", symbol: "A-", icon: TrendingDown, className: "border-[#EF4444]/35 bg-[#EF4444]/13" },
 ];
 
-export function ExpertiseVigiScore() {
+interface ExpertiseVigiScoreProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseVigiScore({ overrides, locale }: ExpertiseVigiScoreProps) {
   const t = useTranslations("expertise.vigiScore");
+  const rt = (key: string) => resolveText(overrides, `vigiScore.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-white">
       <div className="container-page">
         <div className="mx-auto mb-[52px] max-w-[720px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/12 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("headingPrefix")} VIGI-SCORE
+            {rt("headingPrefix")} VIGI-SCORE
             <span className="align-super text-[0.4em]">®</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
@@ -107,7 +115,7 @@ export function ExpertiseVigiScore() {
 
         <div className="bg-grad-ink shadow-cete-xl rounded-[22px] p-[clamp(28px,4vw,40px)] text-white">
           <h3 className="mb-7 font-display text-[clamp(19px,2vw,24px)] font-bold">
-            {t("assemblyHeading")} <span className="text-[#E8630A]">{t("assemblyHighlight")}</span>
+            {rt("assemblyHeading")} <span className="text-[#E8630A]">{rt("assemblyHighlight")}</span>
           </h3>
 
           <div className="mb-6 flex flex-wrap items-center gap-3.5">
@@ -135,7 +143,7 @@ export function ExpertiseVigiScore() {
 
             <span className="inline-flex flex-col items-center gap-1.5">
               <span className="text-label font-semibold uppercase tracking-[0.14em] text-[#E8630A]">
-                {t("resultLabel")}
+                {rt("resultLabel")}
               </span>
               <span className="inline-flex h-14 min-w-[130px] items-center justify-center rounded-[14px] border border-[#E8630A]/50 bg-[#E8630A]/16 font-display text-[1.625rem] font-black tracking-[0.06em] text-white">
                 ABA
@@ -144,15 +152,15 @@ export function ExpertiseVigiScore() {
           </div>
 
           <p className="mb-[30px] text-body leading-[1.7] text-[#8AA5BE]">
-            {t("resultDescription")}
+            {rt("resultDescription")}
           </p>
 
           <div className="border-t border-on-dark pt-[26px]">
             <h4 className="mb-2 text-body font-semibold text-white">
-              {t("tendencyHeading")} <span className="text-[#E8630A]">+ / -</span>
+              {rt("tendencyHeading")} <span className="text-[#E8630A]">+ / -</span>
             </h4>
             <p className="mb-5 text-body-sm leading-[1.65] text-[#8AA5BE]">
-              {t("tendencyDescription")}
+              {rt("tendencyDescription")}
             </p>
             <div className="flex flex-wrap gap-3.5">
               {tendencyKeys.map((tendency) => (

@@ -5,6 +5,8 @@ import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const levels = [
   { letter: "A", className: "bg-[#22C55E] text-white" },
@@ -13,8 +15,14 @@ const levels = [
   { letter: "D", className: "bg-[#EF4444] text-white" },
 ];
 
-export function ExpertiseCTA() {
+interface ExpertiseCTAProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseCTA({ overrides, locale }: ExpertiseCTAProps) {
   const t = useTranslations("expertise.cta");
+  const rt = (key: string) => resolveText(overrides, `cta.${key}`, t(key), locale);
 
   return (
     <section className="bg-grad-ink relative overflow-hidden py-[clamp(64px,8vw,110px)]">
@@ -23,13 +31,13 @@ export function ExpertiseCTA() {
 
       <div className="container-reading relative z-10 text-center">
         <p className="type-kicker mb-5 inline-block rounded-full bg-white/[0.08] px-4 py-2 text-[#87C4E8]">
-          {t("badge")}
+          {rt("badge")}
         </p>
         <h2 className="mb-5 font-display text-[clamp(30px,4.4vw,54px)] font-black uppercase leading-[1.1] text-white">
-          {t("heading")} <span className="text-[#E8630A]">AAA</span>
+          {rt("heading")} <span className="text-[#E8630A]">AAA</span>
         </h2>
         <p className="mx-auto mb-10 max-w-[560px] text-lead leading-[1.7] text-[#8AA5BE]">
-          {t("description")}
+          {rt("description")}
         </p>
 
         <div className="flex flex-col justify-center gap-3.5 sm:flex-row">
@@ -39,7 +47,7 @@ export function ExpertiseCTA() {
             className="shadow-cta h-12 rounded-xl bg-[#E8630A] px-[30px] text-body font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#B84D08]"
           >
             <Link href="/contact">
-              {t("cta1")}
+              {rt("cta1")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -49,7 +57,7 @@ export function ExpertiseCTA() {
             className="h-12 rounded-xl border border-[#87C4E8]/35 bg-white/[0.08] px-[30px] text-body font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/[0.14] hover:text-white"
           >
             <Link href="/a-propos">
-              {t("cta2")} <BrandName />
+              {rt("cta2")} <BrandName />
             </Link>
           </Button>
         </div>

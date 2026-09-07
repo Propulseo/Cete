@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const axisKeys = ["axis0", "axis1", "axis2", "axis3"];
 
@@ -10,18 +12,24 @@ const gapKeys = [
   { number: "03", key: "gap2" },
 ];
 
-export function ExpertiseComparison() {
+interface ExpertiseComparisonProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseComparison({ overrides, locale }: ExpertiseComparisonProps) {
   const t = useTranslations("expertise.comparison");
+  const rt = (key: string) => resolveText(overrides, `comparison.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-[#F4F9FD]">
       <div className="container-page">
         <div className="mx-auto mb-11 max-w-[700px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/14 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="type-h2-section text-[#1A2940]">
-            {t("heading")} <span className="text-[#8AA5BE]">vs</span> {t("headingTalents")}
+            {rt("heading")} <span className="text-[#8AA5BE]">vs</span> {rt("headingTalents")}
           </h2>
         </div>
 
@@ -30,13 +38,13 @@ export function ExpertiseComparison() {
             <thead>
               <tr className="bg-[#1A2940]">
                 <th className="rounded-tl-[20px] px-[22px] py-4 text-left text-xs font-bold uppercase tracking-[0.12em] text-[#87C4E8]" scope="col">
-                  {t("columnTheme")}
+                  {rt("columnTheme")}
                 </th>
                 <th className="px-[22px] py-4 text-left text-xs font-bold uppercase tracking-[0.12em] text-red-300" scope="col">
-                  {t("columnVulnerables")}
+                  {rt("columnVulnerables")}
                 </th>
                 <th className="rounded-tr-[20px] px-[22px] py-4 text-left text-xs font-bold uppercase tracking-[0.12em] text-green-300" scope="col">
-                  {t("columnTalents")}
+                  {rt("columnTalents")}
                 </th>
               </tr>
             </thead>
@@ -60,10 +68,10 @@ export function ExpertiseComparison() {
 
         <div className="mx-auto mb-10 max-w-[640px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#E8630A]/10 px-4 py-2 text-[#B84D08]">
-            {t("gapBadge")}
+            {rt("gapBadge")}
           </p>
           <h2 className="font-display text-[clamp(26px,3.2vw,40px)] font-black uppercase leading-[1.1] text-[#1A2940]">
-            {t("gapHeading")} <span className="text-[#E8630A]">{t("gapHeadingHighlight")}</span>
+            {rt("gapHeading")} <span className="text-[#E8630A]">{rt("gapHeadingHighlight")}</span>
           </h2>
         </div>
 

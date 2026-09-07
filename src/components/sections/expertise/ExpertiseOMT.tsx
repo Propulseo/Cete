@@ -4,6 +4,8 @@ import { Link } from "@/i18n/navigation";
 import { useCountUp } from "@/lib/hooks/useCountUp";
 import { ArrowRight, BarChart3 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const omtStatKeys = [
   { value: 133, key: "stat1" },
@@ -12,8 +14,14 @@ const omtStatKeys = [
   { value: 11000, key: "stat4" },
 ];
 
-export function ExpertiseOMT() {
+interface ExpertiseOMTProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseOMT({ overrides, locale }: ExpertiseOMTProps) {
   const t = useTranslations("expertise.omt");
+  const rt = (key: string) => resolveText(overrides, `omt.${key}`, t(key), locale);
   const counters = [
     useCountUp(133, 2000),
     useCountUp(43, 1500),
@@ -29,13 +37,13 @@ export function ExpertiseOMT() {
         <div className="mx-auto mb-11 max-w-[780px] text-center">
           <p className="type-kicker mb-[18px] inline-flex items-center gap-2.5 rounded-full bg-[#87C4E8]/14 px-4 py-2 text-[#87C4E8]">
             <BarChart3 className="h-[15px] w-[15px]" />
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="mb-4 font-display text-[clamp(24px,3vw,38px)] font-black uppercase leading-[1.15] text-white">
-            {t("heading")} <span className="text-[#87C4E8]">{t("headingHighlight")}</span>
+            {rt("heading")} <span className="text-[#87C4E8]">{rt("headingHighlight")}</span>
           </h2>
           <p className="mx-auto max-w-3xl text-base leading-[1.7] text-[#8AA5BE]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
@@ -65,7 +73,7 @@ export function ExpertiseOMT() {
             href="/observatoire"
             className="bg-grad-blue shadow-cete-lg inline-flex h-12 items-center gap-2.5 rounded-xl px-7 text-body font-semibold text-white transition-transform hover:-translate-y-0.5 hover:text-white"
           >
-            {t("cta")}
+            {rt("cta")}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

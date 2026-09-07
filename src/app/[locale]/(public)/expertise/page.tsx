@@ -15,6 +15,8 @@ import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd, servicesJsonLd } from "@/lib/schema";
 import { getExpertiseServices } from "@/lib/data-loader";
+import { loadExpertiseServices } from "@/lib/vitrine-data";
+import { loadPageOverrides } from "@/lib/page-content/server";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { getFaq } from "@/data/faq";
 import type { Locale } from "@/i18n/routing";
@@ -41,7 +43,12 @@ export default async function ExpertisePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const loc = locale as "fr" | "en";
   const faq = getFaq("expertise", locale as Locale);
+  const [expertiseServices, overrides] = await Promise.all([
+    loadExpertiseServices(loc),
+    loadPageOverrides("expertise"),
+  ]);
 
   return (
     <>
@@ -49,16 +56,16 @@ export default async function ExpertisePage({
         data={servicesJsonLd(getExpertiseServices(locale as Locale), locale as Locale)}
       />
       <JsonLd data={faqJsonLd(faq)} />
-      <ExpertiseHero />
-      <ExpertiseVigiScore />
-      <ExpertiseVigilance />
-      <ExpertiseOMT />
-      <ExpertiseTertiles />
-      <ExpertiseComparison />
-      <ExpertiseServices />
-      <ExpertiseCertificate />
+      <ExpertiseHero overrides={overrides} locale={loc} />
+      <ExpertiseVigiScore overrides={overrides} locale={loc} />
+      <ExpertiseVigilance overrides={overrides} locale={loc} />
+      <ExpertiseOMT overrides={overrides} locale={loc} />
+      <ExpertiseTertiles overrides={overrides} locale={loc} />
+      <ExpertiseComparison overrides={overrides} locale={loc} />
+      <ExpertiseServices expertiseServices={expertiseServices} overrides={overrides} locale={loc} />
+      <ExpertiseCertificate overrides={overrides} locale={loc} />
       <FaqSection items={faq} />
-      <ExpertiseCTA />
+      <ExpertiseCTA overrides={overrides} locale={loc} />
     </>
   );
 }

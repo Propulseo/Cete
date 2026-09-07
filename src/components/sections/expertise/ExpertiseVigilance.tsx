@@ -3,6 +3,8 @@
 import { AlertOctagon, AlertTriangle, ChevronDown, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const ncKeys = [
   { key: "nc0", itemCount: 2, hasIntro: false },
@@ -46,33 +48,39 @@ function Accordion({ title, intro, items }: { title: string; intro?: string; ite
   );
 }
 
-export function ExpertiseVigilance() {
+interface ExpertiseVigilanceProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseVigilance({ overrides, locale }: ExpertiseVigilanceProps) {
   const t = useTranslations("expertise.vigilance");
+  const rt = (key: string) => resolveText(overrides, `vigilance.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-[#F4F9FD]">
       <div className="container-page">
         <div className="mx-auto mb-12 max-w-[720px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/14 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("headingVigilance")} <span className="text-[#E8630A]">↔</span> {t("headingVulnerability")}
+            {rt("headingVigilance")} <span className="text-[#E8630A]">↔</span> {rt("headingVulnerability")}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
         <div className="mx-auto mb-8 max-w-[820px]">
           <div className="mb-2.5 flex justify-between text-caption font-bold uppercase tracking-[0.08em]">
-            <span className="text-[#15803D]">{t("gaugeVigilance")}</span>
-            <span className="text-[#B91C1C]">{t("gaugeVulnerability")}</span>
+            <span className="text-[#15803D]">{rt("gaugeVigilance")}</span>
+            <span className="text-[#B91C1C]">{rt("gaugeVulnerability")}</span>
           </div>
           <div className="h-2.5 rounded-full bg-[linear-gradient(to_right,#22C55E,#A3E635,#F97316,#EF4444)]" />
           <div className="mt-2.5 flex justify-between text-xs text-[#4A6580]">
-            <span>{t("gaugeLow")}</span>
-            <span>{t("gaugeHigh")}</span>
+            <span>{rt("gaugeLow")}</span>
+            <span>{rt("gaugeHigh")}</span>
           </div>
         </div>
 
@@ -81,9 +89,9 @@ export function ExpertiseVigilance() {
             <span className="mb-[18px] inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#22C55E]/14 text-[#15803D]">
               <ShieldCheck className="h-5 w-5" />
             </span>
-            <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{t("vigilanceTitle")}</h3>
+            <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{rt("vigilanceTitle")}</h3>
             <p className="mb-[18px] text-body-sm leading-[1.7] text-[#4A6580]">
-              {t("vigilanceDescription")}
+              {rt("vigilanceDescription")}
             </p>
             <div className="flex gap-2">
               <span className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#22C55E] font-bold text-white">
@@ -99,9 +107,9 @@ export function ExpertiseVigilance() {
             <span className="mb-[18px] inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#EF4444]/12 text-[#B91C1C]">
               <AlertTriangle className="h-5 w-5" />
             </span>
-            <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{t("vulnerabilityTitle")}</h3>
+            <h3 className="type-h3-card mb-2.5 text-[#1A2940]">{rt("vulnerabilityTitle")}</h3>
             <p className="mb-[18px] text-body-sm leading-[1.7] text-[#4A6580]">
-              {t("vulnerabilityDescription")}
+              {rt("vulnerabilityDescription")}
             </p>
             <div className="flex gap-2">
               <span className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#F97316]/16 font-bold text-[#C2410C]">
@@ -116,10 +124,10 @@ export function ExpertiseVigilance() {
 
         <div className="shadow-cete-lg mx-auto max-w-[860px] rounded-[20px] border border-subtle bg-white p-[clamp(24px,3.5vw,36px)]">
           <h3 className="mb-2.5 font-display text-xl font-bold text-[#1A2940]">
-            {t("ncHeading")} <span className="text-[#EF4444]">{t("ncHeadingHighlight")}</span>
+            {rt("ncHeading")} <span className="text-[#EF4444]">{rt("ncHeadingHighlight")}</span>
           </h3>
           <p className="mb-6 text-body leading-[1.7] text-[#4A6580]">
-            {t("ncDescription")}
+            {rt("ncDescription")}
           </p>
           <div className="grid gap-3">
             {ncKeys.map((nc) => (

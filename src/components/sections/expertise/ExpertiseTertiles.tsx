@@ -2,6 +2,8 @@
 
 import { AlertTriangle, MinusCircle, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const tertileKeys = [
   {
@@ -51,21 +53,27 @@ const tertileKeys = [
   },
 ];
 
-export function ExpertiseTertiles() {
+interface ExpertiseTertilesProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function ExpertiseTertiles({ overrides, locale }: ExpertiseTertilesProps) {
   const t = useTranslations("expertise.tertiles");
+  const rt = (key: string) => resolveText(overrides, `tertiles.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-white">
       <div className="container-page">
         <div className="mx-auto mb-12 max-w-[740px] text-center">
           <p className="type-kicker mb-4 inline-block rounded-full bg-[#4DA6D9]/12 px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </p>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")} <span className="text-grad-title">{t("headingHighlight")}</span> ?
+            {rt("heading")} <span className="text-grad-title">{rt("headingHighlight")}</span> ?
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
@@ -110,7 +118,7 @@ export function ExpertiseTertiles() {
         </div>
 
         <p className="mx-auto mt-8 max-w-2xl text-center text-note leading-[1.65] text-[#15803D]">
-          {t("note")}
+          {rt("note")}
         </p>
       </div>
     </section>
