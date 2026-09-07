@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { CheckCircle, Shield, TrendingUp, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const threeCriteria = [
   { icon: CheckCircle, key: "criterion1" },
@@ -18,8 +20,14 @@ const levels = [
   { letter: "D", color: "bg-[#EF4444]", key: "levelD" },
 ];
 
-export function HomeADN() {
+interface HomeADNProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomeADN({ overrides, locale }: HomeADNProps) {
   const t = useTranslations("home.adn");
+  const rt = (key: string) => resolveText(overrides, `adn.${key}`, t(key), locale);
 
   return (
     <section className="section-pad bg-grad-ink relative overflow-hidden">
@@ -30,13 +38,13 @@ export function HomeADN() {
           <div>
             <span className="type-kicker mb-5 inline-flex items-center gap-2.5 text-[#87C4E8]">
               <span className="h-0.5 w-7 rounded-full bg-[#E8630A]" />
-              {t("badge")}
+              {rt("badge")}
             </span>
             <h2 className="type-h2-section mb-5 text-white">
-              {t("heading")}
+              {rt("heading")}
             </h2>
             <p className="mb-8 text-base leading-[1.65] text-[#8AA5BE]">
-              {t("description")}
+              {rt("description")}
             </p>
 
             <div className="mb-8 grid gap-4">
@@ -59,7 +67,7 @@ export function HomeADN() {
               className="bg-grad-blue h-12 rounded-xl px-7 text-body font-semibold text-white shadow-cete-md transition-all hover:-translate-y-0.5 hover:shadow-cete-lg"
             >
               <Link href="/expertise">
-                {t("understandRating")}
+                {rt("understandRating")}
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -68,7 +76,7 @@ export function HomeADN() {
           {/* 3×4 pastilles - un score par critère */}
           <div className="relative flex items-center justify-center py-6">
             <div className="w-full max-w-md rounded-[20px] border border-on-dark bg-white/[0.06] p-7 backdrop-blur-sm">
-              <p className="type-kicker mb-6 text-[#87C4E8]">{t("assemblyLabel")}</p>
+              <p className="type-kicker mb-6 text-[#87C4E8]">{rt("assemblyLabel")}</p>
               <div className="grid gap-5">
               {threeCriteria.map((criterion, ci) => (
                 <div key={ci}>

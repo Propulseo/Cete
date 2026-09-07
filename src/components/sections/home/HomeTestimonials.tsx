@@ -4,9 +4,17 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Play, Quote, Star, ChevronDown, ChevronUp } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function HomeTestimonials() {
+interface HomeTestimonialsProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomeTestimonials({ overrides, locale }: HomeTestimonialsProps) {
   const t = useTranslations("home.testimonials");
+  const rt = (key: string) => resolveText(overrides, `testimonials.${key}`, t(key), locale);
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -19,10 +27,10 @@ export function HomeTestimonials() {
         {/* Section header */}
         <div className="mx-auto mb-12 max-w-[660px] text-center">
           <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section text-[#1A2940]">
-            {t("heading")}
+            {rt("heading")}
           </h2>
         </div>
 
@@ -70,7 +78,7 @@ export function HomeTestimonials() {
                 <Quote className="mb-4 h-14 w-14 -scale-x-100 text-[#E8630A]/20" />
 
                 <blockquote className="mb-7 font-display text-xl italic leading-[1.45] text-[#1A2940] lg:text-[1.35rem]">
-                  {brandify(t("pullQuote"))}
+                  {brandify(rt("pullQuote"))}
                 </blockquote>
 
                 {/* Rating progress */}
@@ -98,7 +106,7 @@ export function HomeTestimonials() {
                     isExpanded ? "max-h-[800px]" : "max-h-[120px]"
                   }`}
                 >
-                  {[t("paragraph1"), t("paragraph2"), t("paragraph3"), t("paragraph4")].map((p, i) => (
+                  {[rt("paragraph1"), rt("paragraph2"), rt("paragraph3"), rt("paragraph4")].map((p, i) => (
                     <p
                       key={i}
                       className="mb-4 leading-[1.7] text-[#4A6580] last:mb-0"
@@ -136,17 +144,17 @@ export function HomeTestimonials() {
               <div className="mt-8 flex flex-col justify-between gap-6 border-t border-[#DAEEF8] pt-8 sm:flex-row sm:items-center">
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-grad-ink text-lg font-bold text-white shadow-cete-md">
-                    {t("authorName")
+                    {rt("authorName")
                       .split(" ")
                       .map((n: string) => n[0])
                       .join("")}
                   </div>
                   <div>
                     <div className="font-semibold text-[#1A2940] text-lg">
-                      {t("authorName")}
+                      {rt("authorName")}
                     </div>
                     <div className="text-[#4A6580]">
-                      {t("authorRole")} - {t("authorCompany")}
+                      {rt("authorRole")} - {rt("authorCompany")}
                     </div>
                   </div>
                 </div>

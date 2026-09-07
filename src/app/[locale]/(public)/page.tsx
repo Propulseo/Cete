@@ -11,7 +11,7 @@ import {
   HomeFounders,
   HomeCTA,
 } from "@/components/sections/home";
-import { loadFounders, loadOrganizations, loadPillars } from "@/lib/vitrine-data";
+import { loadFounders, loadOrganizations, loadPillars, loadPillarServices } from "@/lib/vitrine-data";
 import { loadPageOverrides } from "@/lib/page-content/server";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
@@ -40,10 +40,11 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const loc = locale as "fr" | "en";
-  const [founders, organizations, pillars, overrides] = await Promise.all([
+  const [founders, organizations, pillars, pillarServices, overrides] = await Promise.all([
     loadFounders(loc),
     loadOrganizations(),
     loadPillars(loc),
+    loadPillarServices(loc),
     loadPageOverrides("home"),
   ]);
 
@@ -52,12 +53,12 @@ export default async function HomePage({
       <HomeHero overrides={overrides} locale={loc} />
       <HomeStats />
       <HomeFounders founders={founders} />
-      <HomeServices />
+      <HomeServices services={pillarServices} overrides={overrides} locale={loc} />
       <HomePillars pillars={pillars} overrides={overrides} locale={loc} />
-      <HomeADN />
-      <HomeOrganizations organizations={organizations} />
-      <HomeTestimonials />
-      <HomeCTA />
+      <HomeADN overrides={overrides} locale={loc} />
+      <HomeOrganizations organizations={organizations} overrides={overrides} locale={loc} />
+      <HomeTestimonials overrides={overrides} locale={loc} />
+      <HomeCTA overrides={overrides} locale={loc} />
     </>
   );
 }

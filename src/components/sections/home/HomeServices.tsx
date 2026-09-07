@@ -1,11 +1,13 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Zap, CheckCircle, Star, Award, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { brandify } from "@/components/ui/brand-name";
-import { getPillarServices } from "@/lib/data-loader";
+import type { Service } from "@/types/service";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const icons: Record<string, typeof Zap> = {
   "clipboard-check": CheckCircle,
@@ -17,23 +19,28 @@ const icons: Record<string, typeof Zap> = {
   "bell": Shield,
 };
 
-export function HomeServices() {
+interface HomeServicesProps {
+  services: Service[];
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomeServices({ services, overrides, locale }: HomeServicesProps) {
   const t = useTranslations("home.services");
-  const locale = useLocale() as "fr" | "en";
-  const services = getPillarServices(locale);
+  const rt = (key: string) => resolveText(overrides, `services.${key}`, t(key), locale);
 
   return (
     <section className="section-pad relative bg-white">
       <div className="container-page">
         <div className="mx-auto mb-14 max-w-[660px] text-center">
           <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")}
+            {rt("heading")}
           </h2>
           <p className="text-base leading-[1.65] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
@@ -87,7 +94,7 @@ export function HomeServices() {
             className="h-12 max-w-full rounded-xl border-[#1A2940] px-6 text-body font-semibold text-[#1A2940] transition-all hover:-translate-y-0.5 hover:bg-[#1A2940] hover:text-white sm:px-8"
           >
             <Link href="/services">
-              {t("viewAll")}
+              {rt("viewAll")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

@@ -1,22 +1,31 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function HomeOrganizations({ organizations }: { organizations: string[] }) {
+interface HomeOrganizationsProps {
+  organizations: string[];
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function HomeOrganizations({ organizations, overrides, locale }: HomeOrganizationsProps) {
   const t = useTranslations("home.organizations");
+  const rt = (key: string) => resolveText(overrides, `organizations.${key}`, t(key), locale);
 
   return (
     <section className="section-pad relative overflow-hidden bg-white pb-0">
       <div className="container-page relative z-10">
         <div className="mx-auto mb-11 max-w-[640px] text-center">
           <span className="type-kicker mb-4 inline-flex text-[#1A7AB5]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")}
+            {rt("heading")}
           </h2>
           <p className="text-base leading-[1.65] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
       </div>
