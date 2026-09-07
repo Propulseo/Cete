@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { Shield, Lock, Heart, Target } from "lucide-react";
 import { getValues } from "@/lib/data-loader";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const iconMap: Record<string, React.ReactNode> = {
   shield: <Shield className="h-7 w-7" />,
@@ -11,8 +13,14 @@ const iconMap: Record<string, React.ReactNode> = {
   target: <Target className="h-7 w-7" />,
 };
 
-export function AboutValues() {
+interface AboutValuesProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function AboutValues({ overrides, locale }: AboutValuesProps) {
   const t = useTranslations("about.values");
+  const rt = (key: string) => resolveText(overrides, `values.${key}`, t(key), locale);
   const values = getValues();
 
   return (
@@ -26,13 +34,13 @@ export function AboutValues() {
       <div className="container-page relative z-10">
         <div className="mx-auto mb-12 max-w-[660px] text-center">
           <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
-            {t("heading")}
+            {rt("heading")}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 

@@ -3,9 +3,17 @@
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
-export function AboutHero() {
+interface AboutHeroProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function AboutHero({ overrides, locale }: AboutHeroProps) {
   const t = useTranslations("about.hero");
+  const rt = (key: string) => resolveText(overrides, `hero.${key}`, t(key), locale);
   return (
     <section className="relative overflow-hidden bg-hero-gradient">
       <div className="glow-blob absolute right-[8%] top-10 h-[360px] w-[360px]" />
@@ -14,7 +22,7 @@ export function AboutHero() {
         <div className="mx-auto max-w-4xl">
           <div className="type-kicker mb-6 inline-flex items-center gap-[9px] rounded-full border border-[#4DA6D9]/35 bg-white/65 px-[18px] py-[9px] text-[#1A7AB5] backdrop-blur-sm animate-slide-up">
             <Sparkles className="h-4 w-4 text-[#E8630A]" />
-            <span>{t("badge")}</span>
+            <span>{rt("badge")}</span>
           </div>
 
           <h1 className="type-h1-page mb-5 text-[#1A2940] animate-slide-up animation-delay-100">
@@ -35,7 +43,7 @@ export function AboutHero() {
           </p>
 
           <p className="mx-auto max-w-[700px] text-lead leading-[1.75] text-[#4A6580] animate-slide-up animation-delay-300">
-            {brandify(t("description"))}
+            {brandify(rt("description"))}
           </p>
         </div>
       </div>

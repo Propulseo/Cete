@@ -4,9 +4,18 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Heart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { PageOverridesMap } from "@/types";
+import { resolveText, resolveImage } from "@/lib/page-content/resolve";
 
-export function AboutRSE() {
+interface AboutRSEProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function AboutRSE({ overrides, locale }: AboutRSEProps) {
   const t = useTranslations("about.rse");
+  const rt = (key: string) => resolveText(overrides, `rse.${key}`, t(key), locale);
+  const logoSrc = resolveImage(overrides, "rse.logo", "/images/partners/esf-logo.png");
 
   return (
     <section className="section-pad relative overflow-hidden bg-gradient-to-b from-[#F4F9FD] to-white">
@@ -18,7 +27,7 @@ export function AboutRSE() {
         <div className="mx-auto mb-11 max-w-[700px] text-center">
           <span className="type-kicker mb-4 inline-flex items-center gap-2 rounded-full bg-[#22C55E]/[0.12] px-4 py-2 text-[#15803D]">
             <Heart className="h-3.5 w-3.5" />
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-[#1A2940]">
             {t.rich("heading", {
@@ -28,7 +37,7 @@ export function AboutRSE() {
             })}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#4A6580]">
-            {t("subtitle")}
+            {rt("subtitle")}
           </p>
         </div>
 
@@ -38,7 +47,7 @@ export function AboutRSE() {
               {/* Logo ESF */}
               <div className="flex min-h-[180px] items-center justify-center bg-[#F4F9FD] p-8 md:p-10">
                 <Image
-                  src="/images/partners/esf-logo.png"
+                  src={logoSrc}
                   alt={t("logoAlt")}
                   width={180}
                   height={180}
@@ -49,15 +58,15 @@ export function AboutRSE() {
               {/* Content */}
               <div className="p-8 md:p-10">
                 <h3 className="type-h3-card mb-4 text-[#1A2940] md:text-2xl">
-                  {t("partnerTitle")}
+                  {rt("partnerTitle")}
                 </h3>
 
                 <p className="mb-4 leading-[1.75] text-[#4A6580]">
-                  {t("paragraph1")}
+                  {rt("paragraph1")}
                 </p>
 
                 <p className="mb-6 leading-[1.75] text-[#4A6580]">
-                  {t("paragraph2")}
+                  {rt("paragraph2")}
                 </p>
 
                 {/* Values tags */}

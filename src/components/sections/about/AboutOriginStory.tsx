@@ -3,11 +3,19 @@
 import { useTranslations } from "next-intl";
 import { Zap, Award, Shield, Building2, GraduationCap } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const timelineIcons = [Building2, Award, GraduationCap, Shield, Zap];
 
-export function AboutOriginStory() {
+interface AboutOriginStoryProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function AboutOriginStory({ overrides, locale }: AboutOriginStoryProps) {
   const t = useTranslations("about.originStory");
+  const rt = (key: string) => resolveText(overrides, `originStory.${key}`, t(key), locale);
   return (
     <section className="section-pad relative overflow-hidden bg-white">
       <div className="glow-blob absolute -right-48 -top-48 h-96 w-96" />
@@ -16,7 +24,7 @@ export function AboutOriginStory() {
         <div>
           <div className="mb-14 text-center">
             <span className="type-kicker mb-4 inline-flex rounded-full bg-[#4DA6D9]/[0.12] px-4 py-2 text-[#1A2940]">
-              {t("badge")}
+              {rt("badge")}
             </span>
             <h2 className="type-h2-section mb-4 text-[#1A2940]">
               {t.rich("heading", {
@@ -48,13 +56,13 @@ export function AboutOriginStory() {
                   <Zap className="h-6 w-6 text-white" />
                 </div>
                 <p className="text-[#1A2940] font-semibold">
-                  {t("motto")}
+                  {rt("motto")}
                 </p>
               </div>
             </div>
 
             <div className="relative rounded-[22px] bg-grad-ink p-7 text-white shadow-cete-xl">
-              <p className="type-kicker mb-6 text-[#87C4E8]">{t("motto")}</p>
+              <p className="type-kicker mb-6 text-[#87C4E8]">{rt("motto")}</p>
               {/* Photo patchwork grid */}
               <div className="grid grid-cols-2 gap-5">
                 <div className="rounded-[14px] border border-on-dark bg-white/[0.07] p-5">

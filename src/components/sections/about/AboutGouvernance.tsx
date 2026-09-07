@@ -3,11 +3,19 @@
 import { useTranslations } from "next-intl";
 import { Users, Monitor, ShieldCheck } from "lucide-react";
 import { brandify } from "@/components/ui/brand-name";
+import type { PageOverridesMap } from "@/types";
+import { resolveText } from "@/lib/page-content/resolve";
 
 const itemIcons = [Users, Monitor, ShieldCheck];
 
-export function AboutGouvernance() {
+interface AboutGouvernanceProps {
+  overrides: PageOverridesMap;
+  locale: "fr" | "en";
+}
+
+export function AboutGouvernance({ overrides, locale }: AboutGouvernanceProps) {
   const t = useTranslations("about.governance");
+  const rt = (key: string) => resolveText(overrides, `governance.${key}`, t(key), locale);
   return (
     <section className="section-pad bg-grad-ink relative overflow-hidden">
       <div className="glow-blob absolute -bottom-24 -right-16 h-[380px] w-[380px]" />
@@ -15,7 +23,7 @@ export function AboutGouvernance() {
       <div className="container-page relative z-10">
         <div className="mx-auto mb-12 max-w-[720px] text-center">
           <span className="type-kicker mb-4 inline-flex rounded-full bg-[#87C4E8]/[0.14] px-4 py-2 text-[#87C4E8]">
-            {t("badge")}
+            {rt("badge")}
           </span>
           <h2 className="type-h2-section mb-4 text-white">
             {t.rich("heading", {
@@ -23,7 +31,7 @@ export function AboutGouvernance() {
             })}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-[1.7] text-[#8AA5BE]">
-            {t("description")}
+            {rt("description")}
           </p>
         </div>
 
