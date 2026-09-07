@@ -11,7 +11,7 @@ import {
   AboutRSE,
   AboutCTA,
 } from "@/components/sections/about";
-import { loadFounders } from "@/lib/vitrine-data";
+import { loadFounders, loadValues } from "@/lib/vitrine-data";
 import { loadPageOverrides } from "@/lib/page-content/server";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -41,8 +41,9 @@ export default async function AProposPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const loc = locale as "fr" | "en";
-  const [founders, overrides] = await Promise.all([
+  const [founders, values, overrides] = await Promise.all([
     loadFounders(loc),
+    loadValues(loc),
     loadPageOverrides("a-propos"),
   ]);
 
@@ -55,7 +56,7 @@ export default async function AProposPage({
       <AboutFounders founders={founders} />
       <AboutWorldMap overrides={overrides} locale={loc} />
       <AboutGouvernance overrides={overrides} locale={loc} />
-      <AboutValues overrides={overrides} locale={loc} />
+      <AboutValues values={values} overrides={overrides} locale={loc} />
       <AboutRSE overrides={overrides} locale={loc} />
       <AboutCTA overrides={overrides} locale={loc} />
     </>

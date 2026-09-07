@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Shield, Lock, Heart, Target } from "lucide-react";
-import { getValues } from "@/lib/data-loader";
+import type { Value } from "@/types/value";
 import type { PageOverridesMap } from "@/types";
 import { resolveText } from "@/lib/page-content/resolve";
 
@@ -14,14 +14,14 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 interface AboutValuesProps {
+  values: Value[];
   overrides: PageOverridesMap;
   locale: "fr" | "en";
 }
 
-export function AboutValues({ overrides, locale }: AboutValuesProps) {
+export function AboutValues({ values, overrides, locale }: AboutValuesProps) {
   const t = useTranslations("about.values");
   const rt = (key: string) => resolveText(overrides, `values.${key}`, t(key), locale);
-  const values = getValues();
 
   return (
     <section className="section-pad relative overflow-hidden bg-white">

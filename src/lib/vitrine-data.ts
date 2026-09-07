@@ -3,8 +3,10 @@ import {
   getFounders as getFoundersStatic,
   getContactInfo as getContactInfoStatic,
   getOrganizations as getOrganizationsStatic,
+  getValues as getValuesStatic,
 } from "@/lib/data-loader";
 import type { Founder } from "@/types/founder";
+import type { Value } from "@/types/value";
 import type { ContactInfo, BusinessHours } from "@/types/contact";
 import type { Article } from "@/types/article";
 import type { BlogPost } from "@/types/blog";
@@ -274,5 +276,26 @@ export async function loadArticleBySlug(
     return articleToBlogPost(rowToArticle(row), locale);
   } catch {
     return null;
+  }
+}
+
+/** Valeurs de l'agence, lues depuis la DB et traduites selon `locale`. */
+export async function loadValues(locale: Locale): Promise<Value[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("values")
+      .select("*")
+      .eq("visible", true)
+      .order("sort_order", { ascending: true });
+    if (error || !data || data.length === 0) return getValuesStatic(locale);
+    return data.map((r) => ({
+      id: r.id,
+      title: pick(r.title, locale, ""),
+      description: pick(r.description, locale, ""),
+      icon: r.icon,
+    }));
+  } catch {
+    return getValuesStatic(locale);
   }
 }
