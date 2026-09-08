@@ -81,3 +81,6 @@ next-env.d.ts
 # Brouillon du courrier client (passation) : nomme les contenus non sourcés
 # encore en ligne. Meme politique que le volet confidentiel.
 /docs/passation-email-client.md
+
+# Marqueur local du skill projetpropul (id projet CRM + dernier commit reporté)
+/.propulseo.json
