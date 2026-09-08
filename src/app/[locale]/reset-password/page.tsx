@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "@/i18n/navigation";
-import { Zap, KeyRound, Loader2 } from "lucide-react";
+import { Link, useRouter } from "@/i18n/navigation";
+import { ArrowLeft, Zap, KeyRound, Loader2 } from "lucide-react";
 import { BrandName } from "@/components/ui/brand-name";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,6 +72,14 @@ export default function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#1A2940] to-[#0D5A8A] px-4">
       <div className="w-full max-w-md">
+        <Link
+          href="/"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors hover:text-white"
+        >
+          <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
+          Retour au site
+        </Link>
+
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 backdrop-blur">
             <Zap className="h-8 w-8 text-[#E8630A]" />
