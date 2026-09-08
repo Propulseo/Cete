@@ -1,7 +1,11 @@
 import { Metadata } from "next";
 import { BrandName } from "@/components/ui/brand-name";
 import { buildAlternates, buildOpenGraph } from "@/lib/seo";
+import { loadPageOverrides } from "@/lib/page-content/server";
+import { resolveText } from "@/lib/page-content/resolve";
+import { legalFields } from "@/lib/page-content/pages/legal";
 import type { Locale } from "@/i18n/routing";
+import type { PageOverridesMap } from "@/types";
 
 export async function generateMetadata({
   params,
@@ -29,13 +33,28 @@ function TODO({ v }: { v: string }) {
   );
 }
 
+/** Affiche la valeur éditable si elle existe, sinon relève le manque comme avant. */
+function Value({ value, placeholder }: { value: string; placeholder: string }) {
+  return value ? <>{value}</> : <TODO v={placeholder} />;
+}
+
+function makeResolver(overrides: PageOverridesMap) {
+  return (key: string) => {
+    const defaultValue = legalFields.find((f) => f.key === key)?.defaultValue ?? "";
+    return resolveText(overrides, key, defaultValue);
+  };
+}
+
 const h2Class =
   "mb-3.5 flex gap-3 font-display text-[clamp(18px,2vw,22px)] font-bold leading-[1.3] text-[#1A2940]";
 const markerClass = "font-body pt-1 text-body font-bold text-[#E8630A]";
 const pClass = "mb-3.5 text-[0.96875rem] leading-[1.8] text-[#4A6580] last:mb-0";
 const sectionClass = "border-t border-[#DAEEF8] py-7";
 
-export default function LegalPage() {
+export default async function LegalPage() {
+  const overrides = await loadPageOverrides("legal");
+  const rt = makeResolver(overrides);
+
   return (
     <>
       <section className="relative overflow-hidden bg-hero-gradient">
@@ -58,25 +77,26 @@ export default function LegalPage() {
               </p>
               <div className="grid gap-2.5 rounded-[14px] border border-subtle bg-[#F4F9FD] px-[22px] py-5 text-body leading-[1.7] text-[#4A6580]">
                 <p className="m-0">
-                  Raison sociale : <TODO v="raison sociale" />
+                  Raison sociale : <Value value={rt("editor.companyName")} placeholder="raison sociale" />
                 </p>
                 <p className="m-0">
-                  Forme juridique : <TODO v="forme juridique" />
+                  Forme juridique : <Value value={rt("editor.legalForm")} placeholder="forme juridique" />
                 </p>
                 <p className="m-0">
-                  Capital social : <TODO v="capital social" />
+                  Capital social : <Value value={rt("editor.capital")} placeholder="capital social" />
                 </p>
                 <p className="m-0">
-                  SIREN : <TODO v="SIREN" /> — SIRET du siège : <TODO v="SIRET" />
+                  SIREN : <Value value={rt("editor.siren")} placeholder="SIREN" /> — SIRET du siège :{" "}
+                  <Value value={rt("editor.siret")} placeholder="SIRET" />
                 </p>
                 <p className="m-0">
-                  N° TVA intracommunautaire : <TODO v="numéro de TVA" />
+                  N° TVA intracommunautaire : <Value value={rt("editor.vat")} placeholder="numéro de TVA" />
                 </p>
                 <p className="m-0">
-                  Siège social : <TODO v="adresse du siège social" />
+                  Siège social : <Value value={rt("editor.address")} placeholder="adresse du siège social" />
                 </p>
                 <p className="m-0">
-                  Téléphone : <TODO v="téléphone" />
+                  Téléphone : <Value value={rt("editor.phone")} placeholder="téléphone" />
                 </p>
                 <p className="m-0">Email : contact@cet-notation.com</p>
               </div>
@@ -88,7 +108,10 @@ export default function LegalPage() {
                 Directeur de la publication
               </h2>
               <p className={pClass}>
-                <TODO v="nom et qualité du directeur de la publication" />
+                <Value
+                  value={rt("director.name")}
+                  placeholder="nom et qualité du directeur de la publication"
+                />
               </p>
             </section>
 
@@ -98,8 +121,9 @@ export default function LegalPage() {
                 Hébergement
               </h2>
               <p className={pClass}>
-                Le Site est hébergé par <TODO v="nom de l'hébergeur" />,{" "}
-                <TODO v="adresse de l'hébergeur" />, <TODO v="téléphone de l'hébergeur" />.
+                Le Site est hébergé par <Value value={rt("host.name")} placeholder="nom de l'hébergeur" />,{" "}
+                <Value value={rt("host.address")} placeholder="adresse de l'hébergeur" />,{" "}
+                <Value value={rt("host.phone")} placeholder="téléphone de l'hébergeur" />.
               </p>
             </section>
 

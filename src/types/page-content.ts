@@ -6,6 +6,8 @@ export interface PageContentField {
   /** Libellé affiché dans le formulaire admin. */
   label: string;
   type: PageContentFieldType;
+  /** Texte par défaut pour les pages sans namespace next-intl (ex: mentions légales). */
+  defaultValue?: string;
 }
 
 export interface PageOverrideValue {

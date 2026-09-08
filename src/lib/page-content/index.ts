@@ -8,6 +8,9 @@ import { blogFields } from "./pages/blog";
 import { glossaireFields } from "./pages/glossaire";
 import { observatoireFields } from "./pages/observatoire";
 import { connexionFields } from "./pages/connexion";
+import { legalFields } from "./pages/legal";
+
+export { getPageFieldDefault } from "./defaults";
 
 export const PAGE_CONTENT_SCHEMA: Record<string, PageContentField[]> = {
   home: homeFields,
@@ -19,6 +22,7 @@ export const PAGE_CONTENT_SCHEMA: Record<string, PageContentField[]> = {
   glossaire: glossaireFields,
   observatoire: observatoireFields,
   connexion: connexionFields,
+  legal: legalFields,
 };
 
 export const PAGE_LABELS: Record<string, string> = {
@@ -31,6 +35,7 @@ export const PAGE_LABELS: Record<string, string> = {
   glossaire: "Glossaire",
   observatoire: "Observatoire",
   connexion: "Connexion",
+  legal: "Mentions légales",
 };
 
 export const PAGE_KEYS = Object.keys(PAGE_CONTENT_SCHEMA);

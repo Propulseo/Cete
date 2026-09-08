@@ -14,7 +14,7 @@ import {
   clearPageOverride,
   uploadPageImage,
 } from "@/lib/repo/page-content.repo";
-import { getPageSchema } from "@/lib/page-content";
+import { getPageSchema, getPageFieldDefault } from "@/lib/page-content";
 import type { PageOverridesMap } from "@/types";
 
 export function PageContentForm({ pageKey }: { pageKey: string }) {
@@ -140,12 +140,14 @@ export function PageContentForm({ pageKey }: { pageKey: string }) {
             ) : field.type === "textarea" ? (
               <FieldTextarea
                 value={current}
+                placeholder={field.defaultValue ?? getPageFieldDefault(pageKey, field.key)}
                 onSave={(v) => handleSaveText(field.key, v)}
                 saving={saving === field.key}
               />
             ) : (
               <FieldInput
                 value={current}
+                placeholder={field.defaultValue ?? getPageFieldDefault(pageKey, field.key)}
                 onSave={(v) => handleSaveText(field.key, v)}
                 saving={saving === field.key}
               />
@@ -159,10 +161,12 @@ export function PageContentForm({ pageKey }: { pageKey: string }) {
 
 function FieldInput({
   value,
+  placeholder,
   onSave,
   saving,
 }: {
   value: string;
+  placeholder: string;
   onSave: (v: string) => void;
   saving: boolean;
 }) {
@@ -170,7 +174,11 @@ function FieldInput({
   useEffect(() => setDraft(value), [value]);
   return (
     <div className="flex gap-2">
-      <Input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Texte par défaut si vide" />
+      <Input
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        placeholder={placeholder || "Texte par défaut si vide"}
+      />
       <Button size="sm" onClick={() => onSave(draft)} disabled={saving || draft === value}>
         <Save className="h-4 w-4" strokeWidth={1.75} />
       </Button>
@@ -180,10 +188,12 @@ function FieldInput({
 
 function FieldTextarea({
   value,
+  placeholder,
   onSave,
   saving,
 }: {
   value: string;
+  placeholder: string;
   onSave: (v: string) => void;
   saving: boolean;
 }) {
@@ -191,7 +201,12 @@ function FieldTextarea({
   useEffect(() => setDraft(value), [value]);
   return (
     <div className="space-y-2">
-      <Textarea value={draft} onChange={(e) => setDraft(e.target.value)} rows={3} placeholder="Texte par défaut si vide" />
+      <Textarea
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        rows={3}
+        placeholder={placeholder || "Texte par défaut si vide"}
+      />
       <Button size="sm" onClick={() => onSave(draft)} disabled={saving || draft === value}>
         <Save className="mr-2 h-4 w-4" strokeWidth={1.75} />
         Enregistrer
