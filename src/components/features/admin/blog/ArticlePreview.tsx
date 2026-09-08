@@ -7,11 +7,9 @@ import { ArticleLayout, type ArticleMeta } from "@/components/sections/blog/Arti
 import { ArticleBody } from "@/components/sections/blog/ArticleBody";
 import { VideoEmbed } from "@/components/ui/video-embed";
 import { getArticle } from "@/lib/repo/articles.repo";
+import { fallbackImage } from "@/lib/blog-image-fallback";
 import { CATEGORY_COLOR } from "./article-form";
 import type { Article } from "@/types/article";
-
-const CATEGORY_IMG_FALLBACK =
-  "https://images.unsplash.com/photo-1758101755915-462eddc23f57?w=1200&h=800&fit=crop";
 
 function initials(name: string): string {
   return (
@@ -76,7 +74,7 @@ export function ArticlePreview({ articleId }: { articleId: string }) {
     categoryColor: CATEGORY_COLOR[article.category] ?? "bg-[#4DA6D9]",
     publishedDate: article.publishedDate || new Date().toISOString().split("T")[0],
     readTime,
-    imageUrl: article.coverImage || CATEGORY_IMG_FALLBACK,
+    imageUrl: article.coverImage || fallbackImage(article.category, article.slug),
     imageAlt: article.coverAlt || article.title,
   };
 
